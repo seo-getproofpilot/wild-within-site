@@ -165,9 +165,9 @@ nav.nav-mockup.scrolled {
 }
 /* Don't add tagline text when logo is an image */
 .nav-logo::after { display: none; }
-.nav-logo img { height: 48px; width: auto; transition: height 0.4s ease; }
+.nav-logo img { height: 64px; width: auto; transition: height 0.4s ease; }
 .site-header.scrolled .nav-logo img,
-nav.scrolled .nav-logo img { height: 38px; }
+nav.scrolled .nav-logo img { height: 48px; }
 
 .nav-links {
   display: flex;
