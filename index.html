@@ -18,22 +18,24 @@
     <div class="scroll-progress" id="scrollProgress"></div>
 
     <!-- ==================== NAV ==================== -->
-    <nav id="navbar">
-        <a href="index.html" class="nav-brand">
-            <img src="assets/img/logo-phoenix-text.png" alt="The Wild Within — Counseling & Holistic Therapy" class="nav-brand-logo" />
-        </a>
+    <header class="site-header" id="navbar">
+      <nav class="nav" aria-label="Primary">
+        <a class="nav-logo" href="index.html" style="display:flex;align-items:center;"><img src="assets/img/logo-phoenix-text.png" alt="The Wild Within" style="height:44px;width:auto;" /></a>
         <ul class="nav-links" id="navLinks">
-            <li><a href="about.html">About</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="#approach">Approach</a></li>
-            <li><a href="blog/">Blog</a></li>
-            <li><a href="faq.html">FAQ</a></li>
-            <li><a href="contact.html" class="nav-cta-btn">Schedule Free Consultation</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="areas-we-serve.html">Areas Served</a></li>
+          <li><a href="blog/">Blog</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
-        <button class="menu-toggle" id="menuToggle">
-            <span></span><span></span><span></span>
-        </button>
-    </nav>
+        <div class="nav-cta">
+          <a href="tel:+14804620909" class="nav-phone">(480) 462-0909</a>
+          <a href="contact.html" class="btn btn-plum">Schedule Free Consultation</a>
+        </div>
+        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+      </nav>
+    </header>
 
     <!-- ==================== HERO ==================== -->
     <section class="hero" id="hero">
@@ -398,121 +400,56 @@
     </section>
 
     <!-- ==================== FOOTER ==================== -->
-    <footer>
-        <div class="footer-top">
-            <div class="footer-brand">
-                <div class="footer-brand-name">The Wild Within</div>
-                <div class="footer-brand-sub">Counseling & Holistic Therapy</div>
-                <p>Healing that's wild, human, raw, real, and sacred. Licensed and practicing in Mesa, Arizona. Coaching available worldwide.</p>
-            </div>
-
-            <div class="footer-col">
-                <h4>Therapy</h4>
-                <ul>
-                    <li><a href="individual-therapy.html">Individual Therapy</a></li>
-                    <li><a href="couples-counseling.html">Couples Counseling</a></li>
-                    <li><a href="ketamine-assisted-therapy.html">Ketamine-Assisted</a></li>
-                    <li><a href="parenting-therapy.html">Parenting Therapy</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h4>Coaching</h4>
-                <ul>
-                    <li><a href="tantra-coaching.html">Tantra Coaching</a></li>
-                    <li><a href="coaching.html">Life Coaching</a></li>
-                    <li><a href="workshops.html">Workshops & Groups</a></li>
-                    <li><a href="chakra-healing.html">Chakra Healing</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h4>Connect</h4>
-                <ul>
-                    <li><a href="tel:+14804620909">(480) 462-0909</a></li>
-                    <li><a href="mailto:thewildwithin.therapy@gmail.com">Email Alicia</a></li>
-                    <li><a href="about.html">About Alicia</a></li>
-                    <li><a href="areas-we-serve.html">Areas We Serve</a></li>
-                    <li><a href="faq.html">FAQ</a></li>
-                    <li><a href="contact.html">Free Consultation</a></li>
-                </ul>
-            </div>
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div>
+            <a href="index.html"><img src="assets/img/logo-phoenix-text.png" alt="The Wild Within" style="height:50px;width:auto;margin-bottom:0.75rem;" /></a>
+            <p style="color:rgba(250,246,238,.78); font-size:.94rem;">Holistic therapy & coaching. A grounded place for the work that matters.</p>
+            <p style="color:rgba(250,246,238,.78); font-size:.9rem; margin-top:1rem;">2160 E Brown Rd, Suite 3<br/>Mesa, AZ 85213<br/><a href="tel:+14804620909">(480) 462-0909</a><br/><a href="mailto:thewildwithin.therapy@gmail.com">thewildwithin.therapy@gmail.com</a></p>
+          </div>
+          <div>
+            <h4>Services</h4>
+            <ul>
+              <li><a href="individual-therapy.html">Individual Therapy</a></li>
+              <li><a href="couples-counseling.html">Couples Counseling</a></li>
+              <li><a href="ketamine-assisted-therapy.html">Ketamine-Assisted Therapy</a></li>
+              <li><a href="parenting-therapy.html">Parenting Therapy</a></li>
+              <li><a href="coaching.html">Life Coaching</a></li>
+              <li><a href="workshops.html">Workshops & Groups</a></li>
+              <li><a href="tantra-coaching.html">Tantra Coaching</a></li>
+              <li><a href="chakra-healing.html">Chakra Healing</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Practice</h4>
+            <ul>
+              <li><a href="about.html">About Alicia</a></li>
+              <li><a href="areas-we-serve.html">Areas We Serve</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="blog/">Blog</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="privacy.html">Privacy & Disclaimers</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>In Crisis?</h4>
+            <p style="color:rgba(250,246,238,.85); font-size:.92rem;">If you are in crisis, please reach out for immediate support:</p>
+            <ul>
+              <li><a href="tel:988">988 Suicide & Crisis Lifeline</a></li>
+              <li>Text <strong>HOME</strong> to <strong>741741</strong></li>
+              <li><a href="tel:911">911 — Emergency</a></li>
+            </ul>
+          </div>
         </div>
-
         <div class="footer-bottom">
-            <p>&copy; 2026 The Wild Within Counseling & Holistic Therapy. All rights reserved.</p>
-            <div class="footer-social">
-                <a href="https://instagram.com/thewildwithintherapy" aria-label="Instagram" target="_blank" rel="noopener">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-                </a>
-            </div>
+          <span>&copy; <span id="year">2026</span> The Wild Within Therapy & Coaching · Alicia Wright, LCSW · Licensed in Arizona</span>
+          <span>Site by <a href="https://getproofpilot.com">ProofPilot</a></span>
         </div>
+      </div>
     </footer>
-
-    <!-- ==================== SCRIPTS ==================== -->
-    <script>
-        // Scroll progress
-        window.addEventListener('scroll', () => {
-            const sp = document.getElementById('scrollProgress');
-            const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-            sp.style.width = pct + '%';
-        });
-
-        // Navbar scroll state
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            navbar.classList.toggle('scrolled', window.scrollY > 50);
-        });
-
-        // Mobile menu
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
-        menuToggle.addEventListener('click', () => {
-            menuToggle.querySelector('span:nth-child(1)').style.transform = navLinks.classList.contains('open') ? '' : 'rotate(45deg) translate(4px, 4px)';
-            menuToggle.querySelector('span:nth-child(2)').style.opacity = navLinks.classList.contains('open') ? '' : '0';
-            menuToggle.querySelector('span:nth-child(3)').style.transform = navLinks.classList.contains('open') ? '' : 'rotate(-45deg) translate(4px, -4px)';
-            navLinks.classList.toggle('open');
-        });
-        navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-            navLinks.classList.remove('open');
-            menuToggle.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
-        }));
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(a => {
-            a.addEventListener('click', function(e) {
-                e.preventDefault();
-                const t = document.querySelector(this.getAttribute('href'));
-                if (t) window.scrollTo({ top: t.offsetTop - 80, behavior: 'smooth' });
-            });
-        });
-
-        // Scroll reveal
-        const ro = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger').forEach(el => ro.observe(el));
-
-        // Testimonial carousel
-        const cards = document.querySelectorAll('.testimonial-card');
-        const dots = document.querySelectorAll('.testimonial-dot');
-        let curr = 0;
-
-        function showTestimonial(i) {
-            cards.forEach(c => c.classList.remove('active'));
-            dots.forEach(d => d.classList.remove('active'));
-            cards[i].classList.add('active');
-            dots[i].classList.add('active');
-            curr = i;
-        }
-
-        dots.forEach(d => d.addEventListener('click', () => {
-            clearInterval(tInterval);
-            showTestimonial(parseInt(d.dataset.i));
-            tInterval = setInterval(() => showTestimonial((curr + 1) % cards.length), 6000);
-        }));
-
-        let tInterval = setInterval(() => showTestimonial((curr + 1) % cards.length), 6000);
-    </script>
+    <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+    <script src="assets/js/main.js"></script>
+    <div class="mobile-cta-bar"><a href="contact.html">Schedule Free Consultation</a></div>
 </body>
 </html>
