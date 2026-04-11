@@ -1067,6 +1067,12 @@ footer {
   color: var(--ivory);
   margin-bottom: 0.2rem;
 }
+/* Make dark logo visible on dark footer */
+footer img[alt="The Wild Within"],
+.site-footer img[alt="The Wild Within"] {
+  filter: brightness(0) invert(1) opacity(0.85);
+  height: 60px !important;
+}
 .footer-brand-sub {
   font-size: 0.6rem;
   letter-spacing: 0.2em;
