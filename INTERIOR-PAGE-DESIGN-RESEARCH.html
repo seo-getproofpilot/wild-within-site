@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interior Page Design Research — The Wild Within</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1.5rem; color: #2B2724; line-height: 1.7; }
+  h1 { font-size: 2rem; border-bottom: 2px solid #8A9A7B; padding-bottom: 0.5rem; }
+  h2 { font-size: 1.5rem; color: #6B7E5C; margin-top: 3rem; border-bottom: 1px solid #EDE6DA; padding-bottom: 0.5rem; }
+  h3 { font-size: 1.2rem; color: #A6725A; margin-top: 2rem; }
+  code { background: #F5F0E8; padding: 0.15em 0.4em; border-radius: 3px; font-size: 0.9em; }
+  pre { background: #2B2724; color: #FAF7F2; padding: 1.5rem; border-radius: 12px; overflow-x: auto; line-height: 1.5; font-size: 0.85rem; }
+  .site-tag { display: inline-block; background: #8A9A7B; color: white; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.8rem; margin-right: 0.5rem; }
+  .pattern-box { border: 1px solid #EDE6DA; border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; background: #FDFBF8; }
+  .takeaway { background: #F5F0E8; border-left: 4px solid #BFA96F; padding: 1rem 1.5rem; margin: 1rem 0; border-radius: 0 8px 8px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+  th, td { text-align: left; padding: 0.75rem; border-bottom: 1px solid #EDE6DA; }
+  th { background: #F5F0E8; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<h1>Interior Page Design Research for The Wild Within</h1>
+<p>Research from 5 therapy/wellness sites, distilled into code patterns you can apply directly to Wild Within service pages.</p>
+
+<hr>
+
+<h2>Sites Researched</h2>
+<table>
+<tr><th>Site</th><th>Platform</th><th>Why It Matters</th></tr>
+<tr><td>storiescounseling.com</td><td>Squarespace</td><td>Alicia's former practice. She loved this site's aesthetic.</td></tr>
+<tr><td>randigraycounseling.com</td><td>Wix</td><td>Top Mesa competitor for couples counseling</td></tr>
+<tr><td>meaningfulconnectioncounseling.com</td><td>WordPress</td><td>Strong service page strategy, Mesa competitor</td></tr>
+<tr><td>therapyden.com</td><td>Custom (Ruby)</td><td>High-end therapy directory, excellent card patterns</td></tr>
+<tr><td>sondermind.com</td><td>Custom (Next.js)</td><td>$300M+ funded therapy platform, premium design system</td></tr>
+</table>
+
+<hr>
+
+<!-- ============================================================ -->
+<h2>1. Interior Page Headers</h2>
+<p>The biggest gap in most therapy sites (and what will make Wild Within stand out).</p>
+
+<h3>What the competitors do</h3>
+<ul>
+<li><strong>Meaningful Connection:</strong> Plain H1 + H2 question. No background image, no visual treatment. Just green serif text on white. Boring.</li>
+<li><strong>SonderMind:</strong> Large serif heading with staggered fade-in animations. Background uses CSS gradient (<code>linear-gradient(70deg, #045 50%, #41bac6)</code>). Most elevated of the group.</li>
+<li><strong>Grow Therapy:</strong> Full-viewport hero with background image, centered heading at 3.5rem bold.</li>
+<li><strong>TherapyDen:</strong> Hero gradient from teal to light teal (<code>linear-gradient(to bottom, #21ada1 10%, #80e7de 100%)</code>). Clean and impactful.</li>
+</ul>
+
+<div class="takeaway">
+<strong>What Wild Within already has:</strong> The page-header with floating blurred orbs is already more sophisticated than 4 out of 5 competitors. The orb approach (blurred circles with animation) is unique in this space.
+</div>
+
+<h3>Upgrade: Add a subtle background texture + gradient overlay to page headers</h3>
+<p>Steal from SonderMind's approach but keep Wild Within's earthy palette:</p>
+
+<pre>
+/* UPGRADE: Enhanced page header with gradient + texture */
+.page-header {
+  background: var(--ivory);
+  color: var(--charcoal);
+  padding: 10rem 4rem 5.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  /* NEW: subtle radial gradient for depth */
+  background: radial-gradient(
+    ellipse at 30% 20%,
+    rgba(138, 154, 123, 0.08) 0%,
+    transparent 50%
+  ),
+  radial-gradient(
+    ellipse at 70% 80%,
+    rgba(232, 213, 204, 0.12) 0%,
+    transparent 50%
+  ),
+  var(--ivory);
+}
+
+/* NEW: Add a decorative line below the H1 */
+.page-header h1::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--sage), var(--terracotta));
+  margin: 1.25rem auto 0;
+  border-radius: 2px;
+}
+</pre>
+
+<h3>Upgrade: Service-specific accent colors in headers</h3>
+<p>SonderMind uses different border-radius treatments per card type. Apply a similar concept to page headers so each service feels distinct:</p>
+
+<pre>
+/* Service-specific page header accents */
+.page-header[data-service="individual"] .eyebrow { color: var(--sage-deep); }
+.page-header[data-service="individual"]::before { background: var(--sage-muted); }
+
+.page-header[data-service="couples"] .eyebrow { color: var(--terracotta); }
+.page-header[data-service="couples"]::before { background: var(--rose-dust); }
+
+.page-header[data-service="ketamine"] .eyebrow { color: var(--gold-muted); }
+.page-header[data-service="ketamine"]::before { background: var(--gold-muted); }
+
+.page-header[data-service="tantra"] .eyebrow { color: var(--terracotta-deep); }
+.page-header[data-service="tantra"]::before { background: var(--blush); }
+</pre>
+
+<!-- ============================================================ -->
+<h2>2. Service Page Content Layout Patterns</h2>
+
+<h3>Pattern A: Alternating Image + Text (SonderMind / Grow)</h3>
+<p>SonderMind uses a two-column layout that flips every other section. This is the most "premium" pattern found:</p>
+
+<pre>
+/* Alternating two-column sections (stolen from SonderMind) */
+.content-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  padding: 5rem 0;
+}
+
+/* Every other section flips the image/text order */
+.content-split.reverse {
+  direction: rtl;
+}
+.content-split.reverse > * {
+  direction: ltr;
+}
+
+.content-split-image {
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(43, 39, 36, 0.06);
+}
+
+.content-split-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 4/3;
+  transition: transform 0.6s ease;
+}
+
+.content-split:hover .content-split-image img {
+  transform: scale(1.03);
+}
+
+.content-split-text h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+  color: var(--charcoal);
+}
+
+.content-split-text p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--warm-gray);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 860px) {
+  .content-split {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 3rem 0;
+  }
+  .content-split.reverse { direction: ltr; }
+}
+</pre>
+
+<h3>HTML structure for alternating sections:</h3>
+<pre>
+&lt;section class="section bg-cream"&gt;
+  &lt;div class="wrap content-split"&gt;
+    &lt;div class="content-split-image"&gt;
+      &lt;img src="assets/img/therapy-session.jpg"
+           alt="Individual therapy session at The Wild Within in Mesa, AZ" /&gt;
+    &lt;/div&gt;
+    &lt;div class="content-split-text"&gt;
+      &lt;h2&gt;Therapy that meets you where you are&lt;/h2&gt;
+      &lt;p&gt;Content here...&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section class="section"&gt;
+  &lt;div class="wrap content-split reverse"&gt;
+    &lt;div class="content-split-image"&gt;
+      &lt;img src="assets/img/couples-session.jpg"
+           alt="Couples counseling at The Wild Within" /&gt;
+    &lt;/div&gt;
+    &lt;div class="content-split-text"&gt;
+      &lt;h2&gt;How I work with you&lt;/h2&gt;
+      &lt;p&gt;Content here...&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+</pre>
+
+<h3>Pattern B: Prose + Sidebar Callout (Meaningful Connection)</h3>
+<p>Meaningful Connection uses a sidebar with related posts/resources. Adapted for Wild Within:</p>
+
+<pre>
+/* Content + sidebar callout layout */
+.content-with-sidebar {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 4rem;
+  align-items: start;
+}
+
+.content-sidebar {
+  position: sticky;
+  top: 120px;
+}
+
+.sidebar-card {
+  background: var(--warm-white);
+  border: 1px solid var(--linen);
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.sidebar-card h3 {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--charcoal);
+  margin-bottom: 1rem;
+}
+
+.sidebar-card .sidebar-link {
+  display: block;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--linen);
+  color: var(--warm-gray);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s, padding-left 0.3s;
+}
+
+.sidebar-card .sidebar-link:hover {
+  color: var(--terracotta);
+  padding-left: 0.5rem;
+}
+
+.sidebar-card .sidebar-link:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 980px) {
+  .content-with-sidebar {
+    grid-template-columns: 1fr;
+  }
+  .content-sidebar { position: static; }
+}
+</pre>
+
+<h3>Pattern C: Service Cards Grid (Meaningful Connection + TherapyDen)</h3>
+<p>TherapyDen's card pattern with the image popping above the card is the most eye-catching. Adapted:</p>
+
+<pre>
+/* Elevated service cards (TherapyDen + Wild Within hybrid) */
+.service-card-elevated {
+  position: relative;
+  background: var(--warm-white);
+  border: 1px solid var(--linen);
+  border-radius: 20px;
+  padding: 2.5rem 2rem 2rem;
+  text-align: center;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  margin-top: 60px; /* space for floating image */
+}
+
+.service-card-elevated:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(43, 39, 36, 0.08);
+}
+
+.service-card-elevated .card-image {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--warm-white);
+  box-shadow: 0 8px 20px rgba(43, 39, 36, 0.1);
+}
+
+.service-card-elevated h3 {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--charcoal);
+  margin-bottom: 0.75rem;
+  margin-top: 2rem;
+}
+
+.service-card-elevated p {
+  font-size: 0.95rem;
+  color: var(--warm-gray);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.service-card-elevated .card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--terracotta);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition: gap 0.3s ease;
+}
+
+.service-card-elevated .card-link:hover {
+  gap: 0.75rem;
+}
+
+.service-card-elevated .card-link::after {
+  content: '\2192'; /* right arrow */
+  transition: transform 0.3s ease;
+}
+</pre>
+
+<!-- ============================================================ -->
+<h2>3. CTA Patterns on Service Pages</h2>
+
+<h3>What competitors do</h3>
+<table>
+<tr><th>Site</th><th>CTA Style</th><th>Placement</th></tr>
+<tr><td>Meaningful Connection</td><td>Pill buttons (#9cbe9c green, white text, border-radius: 9999px)</td><td>After intro, after major sections, footer</td></tr>
+<tr><td>SonderMind</td><td>Pill buttons with hover lift (border-radius: 80px, 44px height)</td><td>Hero, mid-page, sticky on mobile</td></tr>
+<tr><td>Grow Therapy</td><td>Rounded rect (8px radius), hover translateY(-2px) + shadow</td><td>Hero search, after every section</td></tr>
+<tr><td>TherapyDen</td><td>Uppercase bold pill, secondary uses outline/hollow style</td><td>Hero, card footers</td></tr>
+</table>
+
+<div class="takeaway">
+<strong>Key pattern:</strong> Every successful site places CTAs after each major content section, not just at the top and bottom. Wild Within should add mid-page CTAs between the prose sections.
+</div>
+
+<h3>Inline CTA Banner (between content sections)</h3>
+<p>None of the competitors do this well. This will differentiate Wild Within:</p>
+
+<pre>
+/* Mid-page CTA banner — appears between content sections */
+.inline-cta {
+  background: var(--charcoal);
+  color: var(--ivory);
+  padding: 3.5rem 4rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative orb on dark background */
+.inline-cta::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 250px; height: 250px;
+  border-radius: 50%;
+  background: var(--sage-deep);
+  opacity: 0.15;
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.inline-cta h3 {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 400;
+  color: var(--ivory);
+  margin-bottom: 0.75rem;
+}
+
+.inline-cta p {
+  font-size: 1rem;
+  color: var(--sand);
+  max-width: 500px;
+  margin: 0 auto 1.75rem;
+}
+
+.inline-cta .btn {
+  background: var(--terracotta);
+  color: var(--ivory);
+  border: none;
+}
+
+.inline-cta .btn:hover {
+  background: var(--terracotta-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(166, 114, 90, 0.3);
+}
+</pre>
+
+<h3>HTML for inline CTA:</h3>
+<pre>
+&lt;section class="inline-cta"&gt;
+  &lt;h3&gt;Ready to begin?&lt;/h3&gt;
+  &lt;p&gt;A free 15-minute consultation. No pressure, no commitment.&lt;/p&gt;
+  &lt;a href="contact.html" class="btn btn-primary"&gt;Book Your Free Consultation&lt;/a&gt;
+&lt;/section&gt;
+</pre>
+
+<h3>Floating/Sticky CTA (SonderMind mobile pattern)</h3>
+<pre>
+/* Sticky CTA bar on mobile — appears after scrolling past the header */
+.sticky-cta-bar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sticky-cta-bar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(250, 247, 242, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 0.75rem 1.25rem;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+    z-index: 999;
+    justify-content: space-between;
+    align-items: center;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+  }
+
+  .sticky-cta-bar.visible {
+    transform: translateY(0);
+  }
+
+  .sticky-cta-bar .phone-link {
+    font-weight: 600;
+    color: var(--charcoal);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+
+  .sticky-cta-bar .btn {
+    padding: 0.65rem 1.4rem;
+    font-size: 0.75rem;
+  }
+}
+</pre>
+
+<!-- ============================================================ -->
+<h2>4. Typography Hierarchy Comparison</h2>
+
+<table>
+<tr><th>Element</th><th>Meaningful Connection</th><th>SonderMind</th><th>Wild Within (current)</th><th>Recommended Upgrade</th></tr>
+<tr><td>H1</td><td>1.9em Marcellus (serif)</td><td>5.625rem kepler-std (serif)</td><td>clamp(2.4rem, 4.5vw, 3.8rem) Cormorant Garamond</td><td>Keep. Already best in class.</td></tr>
+<tr><td>H2</td><td>Marcellus bold, green</td><td>kepler-std 700</td><td>Cormorant Garamond</td><td>Add decorative underline (see below)</td></tr>
+<tr><td>Body</td><td>18px Nunito Sans</td><td>16px proxima-nova</td><td>Inter 1rem</td><td>Bump to 1.05rem on service pages</td></tr>
+<tr><td>Accent</td><td>None</td><td>"PP Editorial New" italic</td><td>Yellowtail script</td><td>Use more — it's a differentiator</td></tr>
+</table>
+
+<h3>H2 decorative underline treatment</h3>
+<p>SonderMind uses decorative quote marks. Meaningful Connection uses green headings. Wild Within can do better with a subtle gradient underline:</p>
+
+<pre>
+/* Decorative H2 treatment for service pages */
+.prose h2,
+.content-split-text h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--charcoal);
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.prose h2::after,
+.content-split-text h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--terracotta), var(--gold-muted));
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+/* Center the underline on centered text */
+.page-header h2::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Expand underline on hover/visible */
+.prose h2:hover::after,
+.content-split-text h2:hover::after {
+  width: 80px;
+}
+</pre>
+
+<h3>Script accent usage (Wild Within's secret weapon)</h3>
+<p>No competitor uses a script font. Wild Within has Yellowtail. Use it more intentionally:</p>
+
+<pre>
+/* Script accent — use sparingly for emotional emphasis */
+.accent-script {
+  font-family: var(--script);
+  font-weight: 400;
+  color: var(--terracotta);
+  font-size: 0.85em;
+  font-style: normal;
+  display: inline-block;
+}
+
+/* Example usage in H2s */
+/* "Therapy that feels like &lt;span class="accent-script"&gt;coming home&lt;/span&gt;" */
+/* "The work of &lt;span class="accent-script"&gt;real&lt;/span&gt; connection" */
+</pre>
+
+<!-- ============================================================ -->
+<h2>5. Decorative Elements Worth Stealing</h2>
+
+<h3>A. SonderMind: Staggered Fade-In Animations</h3>
+<p>This is the single highest-impact upgrade. SonderMind sections fade in as you scroll, with staggered timing:</p>
+
+<pre>
+/* Scroll-triggered reveal animations (SonderMind pattern) */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger children within a section */
+.reveal-group .reveal:nth-child(1) { transition-delay: 0s; }
+.reveal-group .reveal:nth-child(2) { transition-delay: 0.15s; }
+.reveal-group .reveal:nth-child(3) { transition-delay: 0.3s; }
+.reveal-group .reveal:nth-child(4) { transition-delay: 0.45s; }
+</pre>
+
+<pre>
+/* JavaScript for Intersection Observer */
+&lt;script&gt;
+document.addEventListener('DOMContentLoaded', () => {
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+});
+&lt;/script&gt;
+</pre>
+
+<h3>B. SonderMind: Asymmetric Border Radius on Cards</h3>
+<p>Instead of uniform border-radius, one corner is dramatically larger. Feels organic:</p>
+
+<pre>
+/* Asymmetric border radius — organic, botanical feel */
+.card-organic-tl { border-radius: 60px 16px 16px 16px; }
+.card-organic-tr { border-radius: 16px 60px 16px 16px; }
+.card-organic-bl { border-radius: 16px 16px 16px 60px; }
+.card-organic-br { border-radius: 16px 16px 60px 16px; }
+
+/* Apply to alternating cards */
+.service-card-elevated:nth-child(4n+1) { border-radius: 60px 16px 16px 16px; }
+.service-card-elevated:nth-child(4n+2) { border-radius: 16px 60px 16px 16px; }
+.service-card-elevated:nth-child(4n+3) { border-radius: 16px 16px 16px 60px; }
+.service-card-elevated:nth-child(4n+4) { border-radius: 16px 16px 60px 16px; }
+</pre>
+
+<h3>C. Grow Therapy: Card Hover with Lift + Shadow</h3>
+<pre>
+/* Premium card hover (Grow Therapy pattern) */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(43, 39, 36, 0.1);
+}
+</pre>
+
+<h3>D. TherapyDen: Decorative Divider Between Sections</h3>
+<p>Instead of flat color changes, add a subtle wave or organic shape between sections:</p>
+
+<pre>
+/* Organic section divider */
+.section-divider-wave {
+  height: 80px;
+  background: var(--ivory);
+  position: relative;
+  overflow: hidden;
+}
+
+.section-divider-wave::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -5%;
+  width: 110%;
+  height: 80px;
+  background: var(--cream);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+
+/* Dark-to-light transition */
+.section-divider-wave.dark-to-light {
+  background: var(--charcoal);
+}
+.section-divider-wave.dark-to-light::after {
+  background: var(--ivory);
+}
+</pre>
+
+<h3>E. SonderMind: Blockquote/Testimonial with Large Decorative Quote</h3>
+<pre>
+/* Elevated blockquote — testimonials on service pages */
+.testimonial-elevated {
+  background: var(--charcoal);
+  border-radius: 20px;
+  padding: 3rem 3.5rem;
+  color: var(--ivory);
+  position: relative;
+  margin: 3rem 0;
+}
+
+.testimonial-elevated::before {
+  content: '\201C'; /* left double quotation mark */
+  font-family: var(--serif);
+  font-size: 6rem;
+  color: var(--gold-muted);
+  opacity: 0.4;
+  position: absolute;
+  top: 0.5rem;
+  left: 1.5rem;
+  line-height: 1;
+}
+
+.testimonial-elevated p {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.8;
+  color: var(--sand);
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial-elevated cite {
+  display: block;
+  margin-top: 1.5rem;
+  font-style: normal;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--warm-gray-light);
+}
+</pre>
+
+<h3>F. Decorative Botanical/Organic Line Accents</h3>
+<p>No competitor does this. Unique to the "wild" brand:</p>
+
+<pre>
+/* Decorative line accent — pair of parallel lines */
+.deco-lines {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 2rem 0;
+}
+
+.deco-lines::before,
+.deco-lines::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--linen) 20%,
+    var(--linen) 80%,
+    transparent
+  );
+}
+
+/* Eyebrow with lines */
+.eyebrow-lined {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.eyebrow-lined::before,
+.eyebrow-lined::after {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: var(--terracotta);
+  opacity: 0.5;
+}
+</pre>
+
+<!-- ============================================================ -->
+<h2>6. FAQ Section Patterns</h2>
+
+<h3>What competitors do</h3>
+<ul>
+<li><strong>Meaningful Connection:</strong> Static text (no accordion). All content visible. Works but takes up too much space.</li>
+<li><strong>Grow Therapy:</strong> Accordion with border-bottom dividers between items. Clean.</li>
+<li><strong>SonderMind:</strong> No FAQ on service pages (they have separate FAQ pages).</li>
+</ul>
+
+<h3>Elevated FAQ accordion for Wild Within:</h3>
+<pre>
+/* FAQ accordion — clean, animated */
+.faq-list {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--linen);
+  padding: 0;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 0;
+  cursor: pointer;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--charcoal);
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  transition: color 0.3s;
+}
+
+.faq-question:hover {
+  color: var(--terracotta);
+}
+
+.faq-question::after {
+  content: '+';
+  font-size: 1.4rem;
+  color: var(--sage);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 1rem;
+}
+
+.faq-item.open .faq-question::after {
+  transform: rotate(45deg);
+  color: var(--terracotta);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  padding: 0 0 0 0;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 500px;
+  padding: 0 0 1.5rem 0;
+}
+
+.faq-answer p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--warm-gray);
+}
+</pre>
+
+<pre>
+/* FAQ JavaScript */
+&lt;script&gt;
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const wasOpen = item.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.faq-item.open').forEach(i =>
+      i.classList.remove('open')
+    );
+
+    // Toggle clicked
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+&lt;/script&gt;
+</pre>
+
+<!-- ============================================================ -->
+<h2>7. Footer Patterns</h2>
+
+<h3>What competitors do</h3>
+<ul>
+<li><strong>Meaningful Connection:</strong> 3-column footer (Location, Contact, Hours). Basic WordPress.</li>
+<li><strong>Grow Therapy:</strong> Dark footer (#353535), multi-column grid, links at 70% white opacity, hover to full white. Border-top separator.</li>
+<li><strong>SonderMind:</strong> Teal-to-gradient footer, interactive state map (SVG), multi-section layout.</li>
+</ul>
+
+<div class="takeaway">
+<strong>Wild Within's footer is already more sophisticated than all competitors.</strong> The dark charcoal background with gold accents and the grid layout is premium. No changes needed.
+</div>
+
+<!-- ============================================================ -->
+<h2>8. Complete Checklist Styling (Meaningful Connection pattern, upgraded)</h2>
+<p>Meaningful Connection uses basic bullet lists. Wild Within can elevate with custom check marks:</p>
+
+<pre>
+/* Enhanced checklist — better than any competitor */
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.checklist li {
+  position: relative;
+  padding: 0.75rem 0 0.75rem 2.25rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--charcoal-soft);
+  border-bottom: 1px solid rgba(237, 230, 218, 0.5);
+}
+
+.checklist li:last-child {
+  border-bottom: none;
+}
+
+.checklist li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1rem;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--sage-muted);
+  opacity: 0.3;
+}
+
+.checklist li::after {
+  content: '\2713'; /* checkmark */
+  position: absolute;
+  left: 3px;
+  top: 0.85rem;
+  font-size: 0.7rem;
+  color: var(--sage-deep);
+  font-weight: 700;
+}
+</pre>
+
+<!-- ============================================================ -->
+<h2>9. Full Service Page Template (Recommended Structure)</h2>
+<p>Based on what works across all 5 competitor sites, here is the ideal section order for a Wild Within service page:</p>
+
+<pre>
+1. Page Header (eyebrow + H1 + subtitle + orbs)          [HAVE]
+2. Empathy Prose Section (bg-cream, emotional opening)    [HAVE]
+3. "Is this you?" Checklist                               [HAVE]
+4. Inline CTA Banner (dark bg, "Ready to begin?")        [NEW - ADD]
+5. Alternating Image + Text (how I work / approach)       [NEW - ADD]
+6. Testimonial Block (dark card with decorative quote)    [NEW - ADD]
+7. What to Expect (numbered steps or timeline)            [HAVE]
+8. FAQ Accordion                                          [UPGRADE]
+9. Final CTA Section (existing cta-section)               [HAVE]
+10. Sticky Mobile CTA Bar                                 [NEW - ADD]
+</pre>
+
+<!-- ============================================================ -->
+<h2>10. Summary: What Separates Wild Within From Competitors</h2>
+
+<table>
+<tr><th>Feature</th><th>Competitors</th><th>Wild Within (current)</th><th>Wild Within (with upgrades)</th></tr>
+<tr><td>Page header</td><td>Plain text on white</td><td>Floating orbs, gradient</td><td>Orbs + radial gradient + line accent</td></tr>
+<tr><td>Typography</td><td>1 serif OR 1 sans-serif</td><td>Serif + sans + script</td><td>Same — use script more</td></tr>
+<tr><td>Content layout</td><td>Long prose or basic cards</td><td>Prose with checklists</td><td>Alternating image/text + prose + callouts</td></tr>
+<tr><td>CTAs</td><td>Top + bottom only</td><td>Top + bottom</td><td>Every 2-3 sections + sticky mobile</td></tr>
+<tr><td>Animations</td><td>None (MC) to basic fades (SM)</td><td>Hero fade-in only</td><td>Scroll-reveal on all sections</td></tr>
+<tr><td>Testimonials</td><td>Basic blockquote</td><td>Basic</td><td>Dark card with gold quote mark</td></tr>
+<tr><td>FAQ</td><td>Static text or basic accordion</td><td>Static text</td><td>Animated accordion with serif headings</td></tr>
+<tr><td>Brand personality</td><td>Generic green/teal</td><td>Earthy, warm, unique</td><td>Same — it's already the best in the market</td></tr>
+</table>
+
+<div class="takeaway" style="margin-top: 2rem; font-size: 1.05rem;">
+<strong>Bottom line:</strong> Wild Within's design system is already more refined than any of these competitors. The earthy palette, three-font system, and floating orbs put it in a different league. The main upgrades needed are structural: break up long prose with alternating image/text sections, add mid-page CTAs, implement scroll animations, and upgrade the FAQ to an accordion. These are all additive — nothing needs to be torn down.
+</div>
+
+</body>
+</html>
+</pre>
