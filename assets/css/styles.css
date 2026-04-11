@@ -1231,14 +1231,27 @@ footer {
 .bg-green .card p, .bg-green-deep .card p { color: var(--warm-gray-light); }
 
 /* Page header for interior pages */
-/* Interior page header — mini-hero with animated orbs */
+/* Interior page header — mini-hero with animated orbs + gradient depth */
 .page-header {
-  background: var(--ivory);
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(138, 154, 123, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(232, 213, 204, 0.12) 0%, transparent 50%),
+    var(--ivory);
   color: var(--charcoal);
   padding: 10rem 4rem 5.5rem;
   text-align: center;
   position: relative;
   overflow: hidden;
+}
+/* Decorative gradient line below H1 */
+.page-header h1::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--sage), var(--terracotta));
+  margin: 1.25rem auto 0;
+  border-radius: 2px;
 }
 .page-header::before {
   content: '';
@@ -1475,6 +1488,127 @@ form.contact-form {
 .bg-green .prose h2, .bg-green-deep .prose h2 { color: var(--ivory); }
 .bg-green .prose h3, .bg-green-deep .prose h3 { color: var(--sage-muted); }
 .bg-green .prose p, .bg-green-deep .prose p { color: var(--warm-gray-light); }
+
+/* ===== MID-PAGE INLINE CTA (differentiator from research) ===== */
+.inline-cta {
+  background: var(--charcoal);
+  color: var(--ivory);
+  padding: 3.5rem 4rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.inline-cta::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 250px; height: 250px;
+  border-radius: 50%;
+  background: var(--sage-deep);
+  opacity: 0.15;
+  filter: blur(60px);
+  pointer-events: none;
+}
+.inline-cta h3 {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 400;
+  color: var(--ivory);
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+.inline-cta p {
+  font-size: 1rem;
+  color: var(--sand);
+  max-width: 500px;
+  margin: 0 auto 1.75rem;
+  position: relative;
+}
+.inline-cta .btn-primary,
+.inline-cta .btn {
+  background: var(--ivory);
+  color: var(--charcoal);
+  border-color: var(--ivory);
+}
+.inline-cta .btn-primary:hover,
+.inline-cta .btn:hover {
+  background: var(--terracotta);
+  color: var(--ivory);
+  border-color: var(--terracotta);
+}
+
+/* ===== ALTERNATING CONTENT-SPLIT LAYOUT ===== */
+.content-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  padding: 5rem 0;
+}
+.content-split.reverse { direction: rtl; }
+.content-split.reverse > * { direction: ltr; }
+.content-split-image {
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(43, 39, 36, 0.06);
+}
+.content-split-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 4/3;
+  transition: transform 0.6s ease;
+}
+.content-split:hover .content-split-image img { transform: scale(1.03); }
+.content-split-text h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+  color: var(--charcoal);
+}
+.content-split-text p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--warm-gray);
+  margin-bottom: 1rem;
+}
+@media (max-width: 860px) {
+  .content-split { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 0; }
+  .content-split.reverse { direction: ltr; }
+}
+
+/* ===== STICKY MOBILE CTA BAR ===== */
+.mobile-cta-bar {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 900;
+  background: var(--charcoal);
+  padding: 0.85rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 -4px 20px rgba(43,39,36,0.15);
+}
+.mobile-cta-bar a {
+  display: block;
+  background: var(--terracotta);
+  color: var(--ivory);
+  padding: 0.85rem;
+  border-radius: 50px;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.mobile-cta-bar a:hover { background: var(--terracotta-deep); }
+@media (max-width: 768px) {
+  .mobile-cta-bar { display: block; }
+  footer, footer.site-footer { padding-bottom: 5rem; }
+}
 
 .skip-link {
   position: absolute;
