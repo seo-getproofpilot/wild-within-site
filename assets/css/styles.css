@@ -1,54 +1,74 @@
 /* The Wild Within — Brand Stylesheet
-   Faithful port of the original mockup design Alicia approved.
-   Adds utility classes used by interior pages so they inherit the same system.
+   Built from Alicia's Canva brand materials + questionnaire.
+   Fonts: Ibarra Real Nova (serif), Cardo (body serif), Great Vibes (script).
+   Palette: Cream/ivory base, plum + gold primary, pink/blush + sage accents.
 */
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
+  /* Base */
   --ivory: #FAF7F2;
   --ivory-warm: #F5F0E8;
   --linen: #EDE6DA;
+  --warm-white: #FDFBF8;
+
+  /* Earthy neutrals */
   --sand: #D4C5AD;
   --sand-warm: #C4B496;
   --clay: #B89F7E;
-  --terracotta: #C08B6E;
-  --terracotta-deep: #A6725A;
+  --earth: #7D756D;
+  --earth-warm: #988D82;
+
+  /* Plum — Alicia's primary dark (questionnaire: "deep reds and purples, plum!") */
+  --plum: #4A2840;
+  --plum-deep: #361B2E;
+  --plum-muted: #6B3554;
+  --plum-light: #8B5A78;
+
+  /* Pink / blush — soft feminine layer */
+  --blush: #E8D5CC;
   --rose-dust: #C9A99A;
+  --pink-soft: #F0DDD6;
+  --mauve: #B8879B;
+
+  /* Gold — Alicia's accent (Canva designs use gold heavily) */
+  --gold: #C9A84C;
+  --gold-muted: #BFA96F;
+  --gold-deep: #A68B3C;
+
+  /* Sage — secondary accent (earthy, grounding) */
   --sage: #8A9A7B;
   --sage-muted: #9DAD8E;
   --sage-deep: #6B7E5C;
-  --earth: #7D756D;
-  --earth-warm: #988D82;
+
+  /* Terracotta — warm accent */
+  --terracotta: #C08B6E;
+  --terracotta-deep: #A6725A;
+
+  /* Dark tones */
   --charcoal: #2B2724;
   --charcoal-soft: #3D3935;
   --warm-gray: #6B6560;
   --warm-gray-light: #9B9590;
-  --warm-white: #FDFBF8;
-  --gold-muted: #BFA96F;
-  --blush: #E8D5CC;
 
-  /* Deep plum for speakeasy dark sections (Alicia: "deep reds and purples, plum!") */
-  --plum: #4A2840;
-  --plum-deep: #361B2E;
-  --plum-muted: #6B3554;
-
-  /* Aliases for interior page inline styles */
+  /* Aliases */
   --cream: #FAF7F2;
   --cream-warm: #FDFBF8;
-  --pink-soft: #E8D5CC;
   --green-dark: #6B7E5C;
   --green-deep: #2B2724;
-  --gold: #BFA96F;
-  --gold-deep: #A6725A;
   --ink: #2B2724;
   --ink-soft: #3D3935;
   --muted: #6B6560;
   --line: #EDE6DA;
 
-  --serif: 'Cormorant Garamond', Georgia, serif;
+  /* Fonts — matched to Alicia's Canva brand materials:
+     Amsterdam One → Great Vibes (closest Google Fonts match)
+     TAN Mon Cheri / Ibarra Real Nova → Ibarra Real Nova (exact match, on Google Fonts)
+     Cardo → Cardo (exact match, on Google Fonts) */
+  --serif: 'Ibarra Real Nova', 'Cardo', Georgia, serif;
   --sans:  'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --script:'Yellowtail', cursive;
+  --script:'Great Vibes', cursive;
 }
 
 html { scroll-behavior: smooth; font-size: 16px; }
@@ -71,7 +91,7 @@ img { max-width: 100%; height: auto; display: block; }
 .scroll-progress {
   position: fixed; top: 0; left: 0;
   height: 2px; width: 0;
-  background: linear-gradient(90deg, var(--sage), var(--terracotta), var(--gold-muted));
+  background: linear-gradient(90deg, var(--plum-muted), var(--gold), var(--rose-dust));
   z-index: 9999;
   transition: width 0.1s linear;
   pointer-events: none;
@@ -171,7 +191,7 @@ nav.scrolled .nav-logo img { height: 38px; }
   position: absolute;
   bottom: -2px; left: 0;
   width: 0; height: 1px;
-  background: var(--terracotta);
+  background: var(--gold);
   transition: width 0.4s ease;
 }
 .nav-links a:hover { color: var(--charcoal); }
@@ -193,7 +213,7 @@ nav.scrolled .nav-logo img { height: 38px; }
 .nav-phone:hover { color: var(--terracotta); }
 .nav-cta-btn,
 .site-header .nav-cta .btn {
-  background: var(--charcoal) !important;
+  background: var(--plum) !important;
   color: var(--ivory) !important;
   padding: 0.7rem 1.6rem !important;
   border-radius: 50px;
@@ -203,7 +223,7 @@ nav.scrolled .nav-logo img { height: 38px; }
   font-weight: 500;
   text-decoration: none;
   transition: all 0.3s ease !important;
-  border: 1.5px solid var(--charcoal);
+  border: 1.5px solid var(--plum);
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -211,8 +231,9 @@ nav.scrolled .nav-logo img { height: 38px; }
 .nav-cta-btn::after { display: none !important; }
 .nav-cta-btn:hover,
 .site-header .nav-cta .btn:hover {
-  background: var(--terracotta-deep) !important;
-  border-color: var(--terracotta-deep);
+  background: var(--gold) !important;
+  border-color: var(--gold);
+  color: var(--plum-deep) !important;
   transform: translateY(-1px);
 }
 
@@ -324,7 +345,7 @@ nav.scrolled .nav-logo img { height: 38px; }
 .accent-script {
   font-family: var(--script);
   font-weight: 400;
-  color: var(--terracotta);
+  color: var(--plum-muted);
   font-size: 0.85em;
   font-style: normal;
 }
@@ -352,7 +373,7 @@ nav.scrolled .nav-logo img { height: 38px; }
   animation: fadeUp 0.8s ease forwards 0.9s;
 }
 
-/* Buttons (mockup design) */
+/* Buttons — plum primary (Alicia's brand) */
 .btn-primary,
 .btn,
 .btn-plum,
@@ -360,7 +381,7 @@ nav.scrolled .nav-logo img { height: 38px; }
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
-  background: var(--charcoal);
+  background: var(--plum);
   color: var(--ivory);
   padding: 1rem 2rem;
   border-radius: 50px;
@@ -373,18 +394,18 @@ nav.scrolled .nav-logo img { height: 38px; }
   transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
-  border: 1.5px solid var(--charcoal);
+  border: 1.5px solid var(--plum);
   cursor: pointer;
 }
 .btn-primary:hover,
 .btn:hover,
 .btn-plum:hover,
 .btn-gold:hover {
-  background: var(--terracotta-deep);
-  border-color: var(--terracotta-deep);
-  color: var(--ivory);
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--plum-deep);
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(166,114,90,0.22);
+  box-shadow: 0 12px 28px rgba(74,40,64,0.25);
 }
 
 .btn-secondary,
@@ -548,17 +569,17 @@ section.full-bleed { padding: 0 !important; }
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--terracotta);
+  color: var(--plum-muted);
   margin-bottom: 1.15rem;
 }
 .section-tag-line {
   width: 25px; height: 1px;
-  background: var(--terracotta);
+  background: var(--plum-muted);
 }
 .eyebrow::before {
   content: '';
   width: 25px; height: 1px;
-  background: var(--terracotta);
+  background: var(--plum-muted);
 }
 
 .section-title {
@@ -591,11 +612,11 @@ h1 { font-size: clamp(2.4rem, 5vw, 4.2rem); }
 h2 { font-size: clamp(1.9rem, 3.2vw, 2.75rem); }
 h3 { font-size: 1.3rem; font-weight: 500; }
 h4 { font-size: 1.05rem; font-weight: 500; }
-h1 em, h2 em, h3 em { font-style: italic; color: var(--sage-deep); }
+h1 em, h2 em, h3 em { font-style: italic; color: var(--plum-muted); }
 p { margin: 0 0 1.15em; }
 p:last-child { margin-bottom: 0; }
-a { color: var(--terracotta-deep); text-decoration: none; transition: color 0.3s; }
-a:hover { color: var(--charcoal); }
+a { color: var(--plum-muted); text-decoration: none; transition: color 0.3s; }
+a:hover { color: var(--plum); }
 
 /* ===== WELCOME ===== */
 .welcome {
@@ -704,7 +725,7 @@ a:hover { color: var(--charcoal); }
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--sage), var(--terracotta));
+  background: linear-gradient(90deg, var(--plum-muted), var(--gold));
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.5s ease;
@@ -762,7 +783,7 @@ a:hover { color: var(--charcoal); }
   font-size: 0.74rem;
   font-weight: 500;
   letter-spacing: 0.08em;
-  color: var(--terracotta);
+  color: var(--plum-muted);
   text-decoration: none;
   text-transform: uppercase;
   transition: gap 0.3s, color 0.3s;
@@ -770,11 +791,11 @@ a:hover { color: var(--charcoal); }
 .service-link::after,
 .card-link::after { content: '→'; transition: transform 0.3s; }
 .service-link:hover,
-.card-link:hover { gap: 0.7rem; color: var(--terracotta-deep); }
+.card-link:hover { gap: 0.7rem; color: var(--plum); }
 
 /* ===== PROCESS ===== */
 .process {
-  background: var(--charcoal);
+  background: var(--plum-deep);
   color: var(--ivory);
   position: relative;
   overflow: hidden;
@@ -809,15 +830,15 @@ a:hover { color: var(--charcoal); }
 .process-step-num {
   width: 56px; height: 56px;
   border-radius: 50%;
-  border: 1px solid var(--charcoal-soft);
+  border: 1px solid var(--plum-muted);
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 1.25rem;
   font-family: var(--serif);
   font-size: 1.2rem;
-  color: var(--gold-muted);
-  background: var(--charcoal);
+  color: var(--gold);
+  background: var(--plum-deep);
   transition: all 0.4s ease;
 }
 .process-step:hover .process-step-num {
@@ -965,7 +986,7 @@ a:hover { color: var(--charcoal); }
 
 /* ===== CTA ===== */
 .cta-section {
-  background: linear-gradient(160deg, var(--linen), var(--blush) 40%, var(--ivory-warm));
+  background: linear-gradient(160deg, var(--blush), var(--pink-soft) 40%, var(--ivory-warm));
   text-align: center;
   padding: 6rem 4rem;
   position: relative;
@@ -1025,7 +1046,7 @@ a:hover { color: var(--charcoal); }
 /* ===== FOOTER ===== */
 footer.site-footer,
 footer {
-  background: var(--charcoal);
+  background: var(--plum-deep);
   color: var(--ivory);
   padding: 4.5rem 4rem 1.75rem;
 }
@@ -1288,7 +1309,7 @@ footer {
   display: block;
   width: 60px;
   height: 2px;
-  background: linear-gradient(90deg, var(--sage), var(--terracotta));
+  background: linear-gradient(90deg, var(--plum-muted), var(--gold));
   margin: 1.25rem auto 0;
   border-radius: 2px;
 }
@@ -1528,9 +1549,9 @@ form.contact-form {
 .bg-green .prose h3, .bg-green-deep .prose h3 { color: var(--sage-muted); }
 .bg-green .prose p, .bg-green-deep .prose p { color: var(--warm-gray-light); }
 
-/* ===== MID-PAGE INLINE CTA (differentiator from research) ===== */
+/* ===== MID-PAGE INLINE CTA ===== */
 .inline-cta {
-  background: var(--charcoal);
+  background: var(--plum);
   color: var(--ivory);
   padding: 3.5rem 4rem;
   text-align: center;
@@ -1631,7 +1652,7 @@ form.contact-form {
 }
 .mobile-cta-bar a {
   display: block;
-  background: var(--terracotta);
+  background: var(--plum);
   color: var(--ivory);
   padding: 0.85rem;
   border-radius: 50px;
@@ -1643,7 +1664,7 @@ form.contact-form {
   text-decoration: none;
   transition: background 0.3s;
 }
-.mobile-cta-bar a:hover { background: var(--terracotta-deep); }
+.mobile-cta-bar a:hover { background: var(--plum-deep); }
 @media (max-width: 768px) {
   .mobile-cta-bar { display: block; }
   footer, footer.site-footer { padding-bottom: 5rem; }
