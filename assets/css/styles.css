@@ -130,9 +130,7 @@ nav.nav-mockup.scrolled {
   font-weight: 500;
 }
 .nav-logo span { color: var(--terracotta); font-style: italic; font-weight: 500; }
-.nav-brand-sub,
-.nav-logo::after {
-  content: 'Counseling & Holistic Therapy';
+.nav-brand-sub {
   font-family: var(--sans);
   font-size: 0.58rem;
   font-weight: 400;
@@ -142,7 +140,11 @@ nav.nav-mockup.scrolled {
   margin-top: 1px;
   display: block;
 }
-.nav-brand-sub { content: none; }
+/* Don't add tagline text when logo is an image */
+.nav-logo::after { display: none; }
+.nav-logo img { height: 48px; width: auto; transition: height 0.4s ease; }
+.site-header.scrolled .nav-logo img,
+nav.scrolled .nav-logo img { height: 38px; }
 
 .nav-links {
   display: flex;
@@ -524,6 +526,7 @@ nav.nav-mockup.scrolled {
 
 /* ===== SECTIONS ===== */
 section { padding: 6.5rem 4rem; }
+section.full-bleed { padding: 0 !important; }
 .section { padding: 6.5rem 4rem; }
 .section-tight { padding: 4rem 4rem; }
 
@@ -722,7 +725,8 @@ a:hover { color: var(--charcoal); }
   transition: transform 0.3s ease;
 }
 .service-card:hover .service-icon { transform: scale(1.08) rotate(-3deg); }
-.service-icon svg { width: 26px; height: 26px; }
+.service-icon svg { width: 26px; height: 26px; color: #fff; }
+.service-icon svg * { stroke: #fff; }
 .si-sage  { background: linear-gradient(135deg, var(--sage-muted), var(--sage)); }
 .si-terra { background: linear-gradient(135deg, var(--rose-dust), var(--terracotta)); }
 .si-sand  { background: linear-gradient(135deg, var(--sand), var(--clay)); }
