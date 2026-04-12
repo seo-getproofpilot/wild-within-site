@@ -1296,61 +1296,59 @@ footer img[alt="The Wild Within"],
 .bg-green .card h3, .bg-green-deep .card h3 { color: var(--ivory); }
 .bg-green .card p, .bg-green-deep .card p { color: var(--warm-gray-light); }
 
-/* Page header for interior pages */
-/* Interior page header — mini-hero with animated orbs + gradient depth */
+/* Page header for interior pages — photo hero with dark overlay */
 .page-header {
-  background:
-    radial-gradient(ellipse at 30% 20%, rgba(138, 154, 123, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 80%, rgba(232, 213, 204, 0.12) 0%, transparent 50%),
-    var(--ivory);
-  color: var(--charcoal);
-  padding: 10rem 4rem 5.5rem;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+  padding: 12rem 4rem 6rem;
   text-align: center;
   position: relative;
   overflow: hidden;
 }
-/* Decorative gradient line below H1 */
-.page-header h1::after {
-  content: '';
-  display: block;
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--plum-muted), var(--gold));
-  margin: 1.25rem auto 0;
-  border-radius: 2px;
-}
+/* Dark plum overlay for readability */
 .page-header::before {
   content: '';
   position: absolute;
-  top: -150px; right: -100px;
-  width: 500px; height: 500px;
-  border-radius: 50%;
-  background: var(--sage-muted);
-  opacity: 0.22;
-  filter: blur(90px);
-  pointer-events: none;
-  animation: orbFloat 26s ease-in-out infinite;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(54, 27, 46, 0.82) 0%,
+    rgba(74, 40, 64, 0.72) 50%,
+    rgba(54, 27, 46, 0.88) 100%
+  );
+  z-index: 1;
 }
+/* Subtle floral texture overlay */
 .page-header::after {
   content: '';
   position: absolute;
-  bottom: -150px; left: -100px;
-  width: 420px; height: 420px;
-  border-radius: 50%;
-  background: var(--blush);
-  opacity: 0.35;
-  filter: blur(90px);
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5c2 4 6 8 6 14s-6 10-6 10-6-4-6-10 4-10 6-14z' fill='%23C9A84C' fill-opacity='0.04'/%3E%3Cpath d='M15 35c2 3 5 6 5 11s-5 8-5 8-5-3-5-8 3-8 5-11z' fill='%23C9A84C' fill-opacity='0.03'/%3E%3Cpath d='M45 35c2 3 5 6 5 11s-5 8-5 8-5-3-5-8 3-8 5-11z' fill='%23C9A84C' fill-opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.5;
+  z-index: 2;
   pointer-events: none;
-  animation: orbFloat 26s ease-in-out infinite 9s;
 }
-.page-header > .wrap { position: relative; z-index: 1; }
+/* Decorative gold line below H1 */
+.page-header h1::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 1.5rem auto 0;
+  border-radius: 2px;
+}
+.page-header > .wrap { position: relative; z-index: 3; }
 .page-header h1 {
-  color: var(--charcoal);
+  color: #fff;
   margin-bottom: 1rem;
   font-size: clamp(2.4rem, 4.5vw, 3.8rem);
   line-height: 1.15;
+  text-shadow: 0 2px 20px rgba(54, 27, 46, 0.4);
 }
-.page-header h1 em { font-style: italic; color: var(--sage-deep); }
+.page-header h1 em { font-style: italic; color: var(--gold); }
 .page-header p {
   font-family: var(--serif);
   font-size: 1.25rem;
@@ -1358,13 +1356,136 @@ footer img[alt="The Wild Within"],
   line-height: 1.7;
   max-width: 620px;
   margin: 0 auto;
-  color: var(--warm-gray);
+  color: rgba(250, 247, 242, 0.9);
 }
-.page-header .eyebrow { justify-content: center; }
+.page-header .eyebrow {
+  justify-content: center;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+}
+.page-header .eyebrow::before {
+  background: var(--gold);
+}
+
+/* Gold decorative flourish divider — use between sections */
+.flourish {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem 0;
+}
+.flourish::before, .flourish::after {
+  content: '';
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-muted), transparent);
+}
+.flourish-icon {
+  color: var(--gold);
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+/* Subtle linen texture for sections */
+.bg-textured {
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h1v1H0zM10 10h1v1h-1zM20 0h1v1h-1zM30 10h1v1h-1zM0 20h1v1H0zM10 30h1v1h-1zM20 20h1v1h-1zM30 30h1v1h-1z' fill='%23D4C5AD' fill-opacity='0.12'/%3E%3C/svg%3E");
+}
+
+/* Dark section with floral bg image */
+.section-dark-photo {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  padding: 6rem 4rem;
+}
+.section-dark-photo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(54, 27, 46, 0.85) 0%,
+    rgba(74, 40, 64, 0.78) 50%,
+    rgba(54, 27, 46, 0.9) 100%
+  );
+}
+.section-dark-photo > * { position: relative; z-index: 1; }
+.section-dark-photo h2, .section-dark-photo h3 { color: #fff; }
+.section-dark-photo p { color: rgba(250, 247, 242, 0.88); }
+.section-dark-photo em { color: var(--gold); }
+
+/* Featured testimonial — large format with decorative quotes */
+.testimonial-featured {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 3rem 2rem;
+}
+.testimonial-featured .quote-mark {
+  font-family: var(--script);
+  font-size: 5rem;
+  color: var(--gold);
+  opacity: 0.5;
+  line-height: 1;
+  margin-bottom: -1rem;
+}
+.testimonial-featured blockquote {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-style: italic;
+  line-height: 1.9;
+  color: var(--charcoal);
+  margin: 1rem 0 1.5rem;
+}
+.testimonial-featured .author {
+  font-family: var(--script);
+  font-size: 1.6rem;
+  color: var(--plum-muted);
+}
+
+/* Credential / certification badges */
+.credential-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem 0;
+}
+.credential-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 120px;
+}
+.credential-badge .badge-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--plum), var(--plum-muted));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 1.4rem;
+  box-shadow: 0 4px 16px rgba(74, 40, 64, 0.2);
+}
+.credential-badge span {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--warm-gray);
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
 /* Decorative bottom edge */
 .page-header + .section,
 .page-header + section {
-  border-top: 1px solid var(--linen);
+  border-top: none;
 }
 
 .grid { display: grid; gap: 2rem; }
@@ -1741,5 +1862,5 @@ main { padding-top: 0; }
   .wrap, .page-header { padding-left: 1.25rem; padding-right: 1.25rem; }
   .hero-visual { height: 300px; }
   .cta-section { padding: 4rem 1.25rem; }
-  .page-header { padding: 7rem 1.25rem 3rem; }
+  .page-header { padding: 9rem 1.25rem 4rem; }
 }
