@@ -13,18 +13,25 @@
   --linen: #EDE6DA;
   --warm-white: #FDFBF8;
 
-  /* Earthy neutrals */
+  /* Crystal neutrals — smoky quartz, milky opal */
   --sand: #D4C5AD;
   --sand-warm: #C4B496;
   --clay: #B89F7E;
   --earth: #7D756D;
   --earth-warm: #988D82;
+  --smoky: #6B5B4F;
+  --smoky-light: #8B7D6B;
+  --milky: #F0EBE3;
+  --opal: #E8E2D8;
 
-  /* Plum — Alicia's primary dark (questionnaire: "deep reds and purples, plum!") */
-  --plum: #4A2840;
-  --plum-deep: #361B2E;
-  --plum-muted: #6B3554;
-  --plum-light: #8B5A78;
+  /* Amethyst — upgraded plum toward crystal violet */
+  --plum: #4A2848;
+  --plum-deep: #2E1A2D;
+  --plum-muted: #6B3560;
+  --plum-light: #8B5A82;
+  --amethyst: #5B3A6B;
+  --amethyst-light: #7B5EA7;
+  --amethyst-glow: rgba(123, 94, 167, 0.15);
 
   /* Pink / blush — soft feminine layer */
   --blush: #E8D5CC;
@@ -32,21 +39,25 @@
   --pink-soft: #F0DDD6;
   --mauve: #B8879B;
 
-  /* Gold — Alicia's accent (Canva designs use gold heavily) */
+  /* Gold — Alicia's accent, polished crystal warmth */
   --gold: #C9A84C;
   --gold-muted: #BFA96F;
   --gold-deep: #A68B3C;
+  --gold-glow: rgba(201, 168, 76, 0.12);
 
-  /* Sage — secondary accent (earthy, grounding) */
+  /* Mossy agate — deep earthy green with organic warmth */
   --sage: #8A9A7B;
   --sage-muted: #9DAD8E;
-  --sage-deep: #6B7E5C;
+  --sage-deep: #4A5D3A;
+  --moss: #3D5C3A;
+  --moss-muted: #5A7350;
+  --moss-glow: rgba(61, 92, 58, 0.1);
 
   /* Terracotta — warm accent */
   --terracotta: #C08B6E;
   --terracotta-deep: #A6725A;
 
-  /* Dark tones */
+  /* Dark tones — smoky quartz depths */
   --charcoal: #2B2724;
   --charcoal-soft: #3D3935;
   --warm-gray: #6B6560;
@@ -97,48 +108,46 @@ img { max-width: 100%; height: auto; display: block; }
   pointer-events: none;
 }
 
-/* ===== NAVIGATION (mockup) ===== */
+/* ===== NAVIGATION — dark plum bar, consistent on all pages ===== */
 .site-header,
 nav.nav-mockup {
   position: fixed;
   top: 0; left: 0; right: 0;
   width: 100%;
   z-index: 1000;
-  padding: 1.5rem 4rem;
+  padding: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.5s ease;
-  background: transparent;
+  transition: all 0.4s ease;
+  background: var(--plum-deep);
+  box-shadow: 0 2px 20px rgba(54, 27, 46, 0.3);
 }
 .site-header.scrolled,
 nav.nav-mockup.scrolled {
-  background: rgba(250, 247, 242, 0.93);
+  background: rgba(54, 27, 46, 0.97);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  padding: 0.85rem 4rem;
-  box-shadow: 0 1px 20px rgba(0,0,0,0.04);
+  padding: 0;
+  box-shadow: 0 2px 24px rgba(54, 27, 46, 0.4);
 }
 
-/* Site header (interior pages keep .nav inner wrapper) */
-.site-header { padding: 0; }
-.site-header.scrolled { padding: 0; }
 .site-header .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem 4rem;
+  padding: 0.9rem 4rem;
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
-  transition: padding 0.5s ease;
+  transition: padding 0.4s ease;
 }
-.site-header.scrolled .nav { padding: 0.85rem 4rem; }
+.site-header.scrolled .nav { padding: 0.6rem 4rem; }
 
 .nav-brand,
 .nav-logo {
   text-decoration: none;
-  color: var(--charcoal);
+  color: #fff;
   font-family: var(--serif);
   font-size: 1.6rem;
   font-weight: 500;
@@ -152,33 +161,38 @@ nav.nav-mockup.scrolled {
   font-size: 1.6rem;
   font-weight: 500;
 }
-.nav-logo span { color: var(--terracotta); font-style: italic; font-weight: 500; }
+.nav-logo span { color: var(--gold); font-style: italic; font-weight: 500; }
 .nav-brand-sub {
   font-family: var(--sans);
   font-size: 0.58rem;
   font-weight: 400;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--earth-warm);
+  color: rgba(250, 247, 242, 0.6);
   margin-top: 1px;
   display: block;
 }
-/* Don't add tagline text when logo is an image */
 .nav-logo::after { display: none; }
-.nav-logo img { height: 64px; width: auto; transition: height 0.4s ease; }
+/* Invert logo to white on dark nav */
+.nav-logo img {
+  height: 52px;
+  width: auto;
+  transition: height 0.4s ease;
+  filter: brightness(0) invert(1);
+}
 .site-header.scrolled .nav-logo img,
-nav.scrolled .nav-logo img { height: 48px; }
+nav.scrolled .nav-logo img { height: 42px; }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 2.25rem;
+  gap: 2rem;
   list-style: none;
   margin: 0; padding: 0;
 }
 .nav-links a {
   text-decoration: none;
-  color: var(--warm-gray);
+  color: rgba(250, 247, 242, 0.8);
   font-size: 0.82rem;
   font-weight: 400;
   letter-spacing: 0.04em;
@@ -194,8 +208,63 @@ nav.scrolled .nav-logo img { height: 48px; }
   background: var(--gold);
   transition: width 0.4s ease;
 }
-.nav-links a:hover { color: var(--charcoal); }
+.nav-links a:hover { color: #fff; }
 .nav-links a:hover::after { width: 100%; }
+
+/* Services dropdown */
+.nav-links .has-dropdown {
+  position: relative;
+}
+.nav-links .has-dropdown > a::after {
+  content: '';
+  display: inline-block;
+  width: 5px; height: 5px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  margin-left: 6px;
+  position: static;
+  vertical-align: middle;
+  transition: transform 0.3s;
+}
+.nav-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  background: var(--plum-deep);
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  border-radius: 12px;
+  padding: 0.75rem 0;
+  min-width: 240px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  list-style: none;
+  z-index: 100;
+}
+.nav-links .has-dropdown:hover .nav-dropdown,
+.nav-links .has-dropdown:focus-within .nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.nav-dropdown li { padding: 0; }
+.nav-dropdown a {
+  display: block;
+  padding: 0.6rem 1.5rem !important;
+  font-size: 0.8rem !important;
+  color: rgba(250, 247, 242, 0.75) !important;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav-dropdown a::after { display: none !important; }
+.nav-dropdown a:hover {
+  color: #fff !important;
+  background: rgba(201, 168, 76, 0.1);
+  padding-left: 1.75rem !important;
+}
 
 .nav-cta {
   display: flex;
@@ -205,7 +274,7 @@ nav.scrolled .nav-logo img { height: 48px; }
 .nav-phone {
   font-size: 0.82rem;
   font-weight: 500;
-  color: var(--charcoal);
+  color: rgba(250, 247, 242, 0.8);
   letter-spacing: 0.02em;
   text-decoration: none;
   transition: color 0.3s;
@@ -213,17 +282,17 @@ nav.scrolled .nav-logo img { height: 48px; }
 .nav-phone:hover { color: var(--gold); }
 .nav-cta-btn,
 .site-header .nav-cta .btn {
-  background: var(--plum) !important;
-  color: var(--ivory) !important;
-  padding: 0.7rem 1.6rem !important;
+  background: var(--gold) !important;
+  color: var(--plum-deep) !important;
+  padding: 0.65rem 1.5rem !important;
   border-radius: 50px;
-  font-size: 0.74rem !important;
+  font-size: 0.72rem !important;
   letter-spacing: 0.08em !important;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
   text-decoration: none;
   transition: all 0.3s ease !important;
-  border: 1.5px solid var(--plum);
+  border: 1.5px solid var(--gold);
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -231,9 +300,9 @@ nav.scrolled .nav-logo img { height: 48px; }
 .nav-cta-btn::after { display: none !important; }
 .nav-cta-btn:hover,
 .site-header .nav-cta .btn:hover {
-  background: var(--gold) !important;
+  background: transparent !important;
   border-color: var(--gold);
-  color: var(--plum-deep) !important;
+  color: var(--gold) !important;
   transform: translateY(-1px);
 }
 
@@ -254,7 +323,7 @@ nav.scrolled .nav-logo img { height: 48px; }
 .nav-toggle::after {
   content: '';
   display: block; width: 26px; height: 1.5px;
-  background: var(--charcoal);
+  background: #fff;
   transition: all 0.4s ease;
 }
 
@@ -1195,8 +1264,21 @@ footer img[alt="The Wild Within"],
    ============================================================= */
 
 .wrap { max-width: 1200px; margin: 0 auto; padding: 0 4rem; }
-.bg-cream { background: var(--ivory); color: var(--charcoal); }
-.bg-warm  { background: var(--ivory-warm); color: var(--charcoal); }
+/* Crystal-textured section backgrounds */
+.bg-cream {
+  background:
+    radial-gradient(ellipse at 20% 50%, var(--amethyst-glow), transparent 60%),
+    radial-gradient(ellipse at 80% 20%, var(--gold-glow), transparent 50%),
+    var(--ivory);
+  color: var(--charcoal);
+}
+.bg-warm {
+  background:
+    radial-gradient(ellipse at 70% 70%, var(--moss-glow), transparent 50%),
+    radial-gradient(ellipse at 30% 30%, rgba(232, 213, 204, 0.2), transparent 50%),
+    var(--milky);
+  color: var(--charcoal);
+}
 .bg-pink  { background: linear-gradient(160deg, var(--linen), var(--blush) 40%, var(--ivory-warm)); color: var(--charcoal); }
 .bg-green, .bg-green-deep {
   background: var(--charcoal);
@@ -1839,16 +1921,32 @@ main { padding-top: 0; }
     top: 0; right: -100%;
     width: 80%; max-width: 340px;
     height: 100vh;
-    background: var(--warm-white);
+    background: var(--plum-deep);
     flex-direction: column;
     justify-content: center;
     padding: 2rem;
     gap: 1.75rem;
     transition: right 0.5s ease;
-    box-shadow: -15px 0 40px rgba(0,0,0,0.08);
+    box-shadow: -15px 0 40px rgba(0,0,0,0.3);
   }
+  .nav-links a { color: rgba(250, 247, 242, 0.85) !important; font-size: 1rem !important; }
+  .nav-links a:hover { color: var(--gold) !important; }
   .nav-links.open,
   .nav-open .nav-links { right: 0; display: flex; }
+  /* Dropdown in mobile — always visible, no hover needed */
+  .nav-dropdown {
+    position: static !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0.5rem 0 0 1rem !important;
+    min-width: auto !important;
+  }
+  .nav-dropdown a { font-size: 0.88rem !important; padding: 0.4rem 0 !important; }
+  .nav-dropdown a:hover { padding-left: 0 !important; }
   .services-grid { grid-template-columns: 1fr; }
   .process-steps { grid-template-columns: 1fr; }
   .approach-pillars { grid-template-columns: 1fr; }
