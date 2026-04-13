@@ -74,9 +74,11 @@
   --line: #EDE6DA;
 
   /* Fonts — matched to Alicia's Canva brand materials:
-     Amsterdam One → Great Vibes (closest Google Fonts match)
-     TAN Mon Cheri / Ibarra Real Nova → Ibarra Real Nova (exact match, on Google Fonts)
-     Cardo → Cardo (exact match, on Google Fonts) */
+     Amsterdam One → Great Vibes (closest Google Fonts match for script)
+     TAN Mon Cheri → Playfair Display (high-contrast decorative serif, closest GF match)
+     Ibarra Real Nova → secondary serif for body/subheadings
+     Cardo → body serif */
+  --display: 'Playfair Display', 'Ibarra Real Nova', Georgia, serif;
   --serif: 'Ibarra Real Nova', 'Cardo', Georgia, serif;
   --sans:  'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --script:'Great Vibes', cursive;
@@ -671,16 +673,16 @@ section.full-bleed { padding: 0 !important; }
 
 /* Generic headings */
 h1, h2, h3, h4 {
-  font-family: var(--serif);
-  font-weight: 400;
-  line-height: 1.22;
+  font-family: var(--display);
+  font-weight: 700;
+  line-height: 1.18;
   color: var(--charcoal);
-  letter-spacing: -0.005em;
+  letter-spacing: -0.01em;
 }
-h1 { font-size: clamp(2.4rem, 5vw, 4.2rem); }
-h2 { font-size: clamp(1.9rem, 3.2vw, 2.75rem); }
-h3 { font-size: 1.3rem; font-weight: 500; }
-h4 { font-size: 1.05rem; font-weight: 500; }
+h1 { font-size: clamp(2.4rem, 5vw, 4.2rem); font-weight: 800; }
+h2 { font-size: clamp(1.9rem, 3.2vw, 2.75rem); font-weight: 700; }
+h3 { font-size: 1.3rem; font-weight: 600; }
+h4 { font-size: 1.05rem; font-weight: 600; font-family: var(--serif); }
 h1 em, h2 em, h3 em { font-style: italic; color: var(--plum-muted); }
 p { margin: 0 0 1.15em; }
 p:last-child { margin-bottom: 0; }
