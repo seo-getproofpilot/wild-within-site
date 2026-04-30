@@ -2199,16 +2199,23 @@ body::after {
   color: var(--charcoal-soft);
   margin: 0 0 1.25rem;
 }
-.team-rate {
+.team-pricing-note {
+  text-align: center;
   font-family: var(--display);
   font-size: 1rem;
-  font-weight: 500;
   font-style: italic;
-  color: var(--gold-deep);
-  margin: 0;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(201, 168, 76, 0.25);
+  color: var(--charcoal-soft);
+  margin: 3rem auto 0;
+  max-width: 640px;
 }
+.team-pricing-note a {
+  color: var(--gold-deep);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(166, 139, 60, 0.4);
+  padding-bottom: 1px;
+  transition: border-color 0.3s;
+}
+.team-pricing-note a:hover { border-color: var(--gold-deep); }
 @media (max-width: 900px) {
   .team-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .team-card { padding: 2.5rem 1.5rem 2rem; }
