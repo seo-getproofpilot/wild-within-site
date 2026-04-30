@@ -852,7 +852,10 @@ a:hover { color: var(--plum); }
   text-transform: uppercase;
   transition: gap 0.3s, color 0.3s;
 }
-.service-link::after,
+.service-link svg,
+.card-link svg { transition: transform 0.3s; }
+.service-link:hover svg,
+.card-link:hover svg { transform: translateX(4px); }
 .card-link::after { content: '→'; transition: transform 0.3s; }
 .service-link:hover,
 .card-link:hover { gap: 0.7rem; color: var(--plum); }
