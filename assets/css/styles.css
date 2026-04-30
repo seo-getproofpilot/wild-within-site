@@ -177,13 +177,13 @@ nav.nav-mockup.scrolled {
 .nav-logo::after { display: none; }
 /* Invert logo to white on dark nav */
 .nav-logo img {
-  height: 52px;
+  height: 72px;
   width: auto;
   transition: height 0.4s ease;
   filter: brightness(0) invert(1);
 }
 .site-header.scrolled .nav-logo img,
-nav.scrolled .nav-logo img { height: 42px; }
+nav.scrolled .nav-logo img { height: 56px; }
 
 .nav-links {
   display: flex;
@@ -417,7 +417,8 @@ nav.scrolled .nav-logo img { height: 42px; }
   font-family: var(--script);
   font-weight: 400;
   color: var(--plum-muted);
-  font-size: 0.85em;
+  font-size: 1.4em;
+  line-height: 0.9;
   font-style: normal;
 }
 
