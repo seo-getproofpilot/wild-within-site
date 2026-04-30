@@ -1531,40 +1531,33 @@ footer img[alt="The Wild Within"],
   color: var(--plum-muted);
 }
 
-/* Credential / certification badges */
+/* Credential / certification strip — typographic with gold flourishes */
 .credential-strip {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem;
-  padding: 2rem 0;
-}
-.credential-badge {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  min-width: 120px;
+  gap: 1.1rem 1.5rem;
+  padding: 0.5rem 0;
 }
-.credential-badge .badge-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--plum), var(--plum-muted));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--gold);
-  font-size: 1.4rem;
-  box-shadow: 0 4px 16px rgba(74, 40, 64, 0.2);
-}
-.credential-badge span {
-  font-family: var(--sans);
-  font-size: 0.82rem;
+.credential-name {
+  font-family: var(--display);
+  font-size: 1.05rem;
   font-weight: 500;
-  color: var(--warm-gray);
-  text-align: center;
-  letter-spacing: 0.02em;
+  color: var(--plum);
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+}
+.credential-divider {
+  color: var(--gold);
+  font-size: 0.95rem;
+  opacity: 0.75;
+  line-height: 1;
+}
+@media (max-width: 720px) {
+  .credential-name { font-size: 0.98rem; white-space: normal; }
+  .credential-divider { display: none; }
+  .credential-strip { gap: 0.6rem 1.2rem; }
 }
 
 /* Decorative bottom edge */
