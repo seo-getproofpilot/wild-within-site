@@ -775,7 +775,7 @@ a:hover { color: var(--plum); }
   background: var(--gold);
   flex-shrink: 0;
 }
-.welcome-value-text { font-size: 0.9rem; color: var(--charcoal); }
+.welcome-value-text { font-size: 0.98rem; color: var(--charcoal); }
 
 /* ===== SERVICES ===== */
 .services { background: var(--ivory); }
@@ -834,7 +834,7 @@ a:hover { color: var(--plum); }
 }
 .service-card p,
 .card p {
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   line-height: 1.7;
   color: var(--warm-gray);
   margin-bottom: 1.25rem;
@@ -918,7 +918,7 @@ a:hover { color: var(--plum); }
   color: var(--ivory);
 }
 .process-step p {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   line-height: 1.7;
   color: var(--warm-gray-light);
 }
@@ -1015,7 +1015,7 @@ a:hover { color: var(--plum); }
   margin-bottom: 1.5rem;
 }
 .testimonial-author {
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   font-weight: 500;
   color: var(--charcoal);
 }
@@ -1100,7 +1100,7 @@ a:hover { color: var(--plum); }
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   font-weight: 500;
   color: var(--charcoal);
   text-decoration: none;
@@ -1145,7 +1145,7 @@ footer img[alt="The Wild Within"],
 }
 .footer-brand p,
 .footer-top > div p {
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   line-height: 1.7;
   color: var(--warm-gray-light);
   max-width: 280px;
@@ -1167,7 +1167,7 @@ footer img[alt="The Wild Within"],
 .footer-grid ul li { margin-bottom: 0.65rem; }
 .footer-col ul a,
 .footer-grid ul a {
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   color: var(--warm-gray-light);
   text-decoration: none;
   transition: color 0.3s;
@@ -1569,7 +1569,7 @@ footer img[alt="The Wild Within"],
 }
 @media (max-width: 1180px) {
   .credentials-row { gap: 0.85rem 1.6rem; }
-  .cred-item { font-size: 0.92rem; }
+  .cred-item { font-size: 0.98rem; }
   .cred-item svg { width: 18px; height: 18px; flex: 0 0 18px; }
 }
 @media (max-width: 720px) {
@@ -1684,7 +1684,7 @@ footer img[alt="The Wild Within"],
 .faq details p {
   padding-top: 0.85rem;
   color: var(--warm-gray);
-  font-size: 0.92rem;
+  font-size: 0.98rem;
   line-height: 1.75;
 }
 
@@ -1720,7 +1720,7 @@ form.contact-form {
   border-color: var(--plum-muted);
   box-shadow: 0 0 0 3px rgba(74,40,64,0.12);
 }
-.contact-form .note { font-size: 0.78rem; color: var(--warm-gray-light); line-height: 1.6; }
+.contact-form .note { font-size: 0.85rem; color: var(--warm-gray-light); line-height: 1.6; }
 
 /* Editorial prose — service pages, blog posts */
 .prose { max-width: 760px; margin: 0 auto; }
