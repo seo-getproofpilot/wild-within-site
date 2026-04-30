@@ -2158,10 +2158,11 @@ body::after {
 }
 .team-avatar span {
   font-family: var(--display);
-  font-size: 2rem;
+  font-size: 1.45rem;
   font-weight: 500;
   color: var(--gold);
   font-style: italic;
+  letter-spacing: 0.02em;
 }
 .team-name {
   font-family: var(--display);
