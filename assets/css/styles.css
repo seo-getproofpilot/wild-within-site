@@ -78,8 +78,9 @@
      TAN Mon Cheri → Playfair Display (high-contrast decorative serif, closest GF match)
      Ibarra Real Nova → secondary serif for body/subheadings
      Cardo → body serif */
-  --display: 'Playfair Display', 'Ibarra Real Nova', Georgia, serif;
-  --serif: 'Ibarra Real Nova', 'Cardo', Georgia, serif;
+  --display: 'Playfair Display', 'Cardo', Georgia, serif;
+  --serif: 'Cardo', 'Ibarra Real Nova', Georgia, serif;
+  --serif-alt: 'Ibarra Real Nova', 'Cardo', Georgia, serif;
   --sans:  'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --script:'Great Vibes', cursive;
 }
@@ -2439,4 +2440,51 @@ body::after {
 }
 @media (max-width: 900px) {
   .intro-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+/* ===================================================================== */
+/* ACCENT FONT UTILITIES                                                  */
+/* ===================================================================== */
+
+/* Inline italic Playfair accent — for emphasized words inside body copy */
+.accent-italic {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--plum-muted);
+}
+
+/* Script accent — small Great Vibes flourish for eyebrows and signoffs */
+.accent-script-mini {
+  font-family: var(--script);
+  font-size: 1.4em;
+  font-weight: 400;
+  color: var(--gold-deep);
+  letter-spacing: 0;
+  text-transform: none;
+  margin-right: 0.25em;
+  position: relative;
+  top: 0.05em;
+}
+
+/* Eyebrow with script flourish prefix */
+.intro-eyebrow .accent-script-mini,
+.eyebrow .accent-script-mini {
+  font-size: 1.6em;
+  margin-right: 0.4em;
+}
+
+/* Body text rhythm — slight tracking + better leading on Cardo */
+.intro-lead p,
+.intro-list li,
+.welcome-text {
+  font-feature-settings: "liga" 1, "kern" 1;
+}
+
+/* Section-title em treatment — italic Playfair plum */
+.section-title em {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--plum-muted);
 }
