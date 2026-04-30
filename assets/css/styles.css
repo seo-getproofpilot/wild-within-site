@@ -1531,33 +1531,59 @@ footer img[alt="The Wild Within"],
   color: var(--plum-muted);
 }
 
-/* Credential / certification strip — typographic with gold flourishes */
-.credential-strip {
+/* Credentials band — refined trust strip with gold-line icons */
+.credentials-band {
+  background: linear-gradient(180deg, rgba(232, 226, 216, 0.55) 0%, rgba(240, 235, 227, 0.55) 100%);
+  border-top: 1px solid rgba(201, 168, 76, 0.22);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.22);
+  padding: 2.25rem 1.5rem;
+  margin: 0;
+}
+.credentials-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  text-align: center;
+}
+.credentials-inner .eyebrow {
+  margin-bottom: 1.4rem;
+}
+.credentials-row {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 1.1rem 1.5rem;
-  padding: 0.5rem 0;
+  gap: 1rem 2.4rem;
 }
-.credential-name {
+.cred-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
   font-family: var(--display);
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--plum);
   letter-spacing: 0.005em;
   white-space: nowrap;
 }
-.credential-divider {
-  color: var(--gold);
-  font-size: 0.95rem;
-  opacity: 0.75;
-  line-height: 1;
+.cred-item svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  stroke: var(--gold);
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+@media (max-width: 1180px) {
+  .credentials-row { gap: 0.85rem 1.6rem; }
+  .cred-item { font-size: 0.92rem; }
+  .cred-item svg { width: 18px; height: 18px; flex: 0 0 18px; }
 }
 @media (max-width: 720px) {
-  .credential-name { font-size: 0.98rem; white-space: normal; }
-  .credential-divider { display: none; }
-  .credential-strip { gap: 0.6rem 1.2rem; }
+  .credentials-band { padding: 1.75rem 1.25rem; }
+  .credentials-row { gap: 0.85rem 1.4rem; }
+  .cred-item { white-space: normal; }
 }
 
 /* Decorative bottom edge */
