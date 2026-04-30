@@ -1615,7 +1615,14 @@ footer img[alt="The Wild Within"],
 .two-col {
   display: grid;
   gap: 5rem;
-  align-items: center;
+  align-items: start;
+}
+.two-col > img {
+  position: sticky;
+  top: 110px;
+  width: 100%;
+  max-height: 560px;
+  object-fit: cover;
 }
 @media (min-width: 860px) { .two-col { grid-template-columns: 1fr 1fr; } }
 .two-col img,
@@ -1769,7 +1776,7 @@ form.contact-form {
   color: var(--charcoal-soft);
 }
 .prose p strong { color: var(--charcoal); font-weight: 500; }
-.prose p em { color: var(--plum-muted); }
+.prose p em { font-style: italic; }
 .prose blockquote {
   margin: 2rem 0;
   padding: 1.5rem 2rem;
