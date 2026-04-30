@@ -2215,7 +2215,6 @@ body::after {
 /* Page header — decorative gold underline below H1 */
 .page-header h1 {
   position: relative;
-  display: inline-block;
 }
 .page-header h1::after {
   content: '';
