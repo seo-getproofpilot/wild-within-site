@@ -788,32 +788,19 @@ a:hover { color: var(--plum); }
 .service-card,
 .card {
   background: var(--warm-white);
-  border-radius: 22px;
+  border-radius: 8px;
   padding: 2.5rem 2rem;
   position: relative;
   overflow: hidden;
-  transition: all 0.5s ease;
-  border: 1px solid transparent;
-}
-.service-card::before,
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--plum-muted), var(--gold));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease;
+  border: 1px solid rgba(201, 168, 76, 0.12);
 }
 .service-card:hover,
 .card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 25px 50px rgba(43,39,36,0.06);
-  border-color: var(--linen);
+  transform: translateY(-6px);
+  box-shadow: 0 30px 60px rgba(74, 40, 72, 0.08);
+  border-color: rgba(201, 168, 76, 0.4);
 }
-.service-card:hover::before,
-.card:hover::before { transform: scaleX(1); }
 
 .service-icon {
   width: 56px; height: 56px;
@@ -2219,4 +2206,128 @@ body::after {
 @media (max-width: 900px) {
   .team-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .team-card { padding: 2.5rem 1.5rem 2rem; }
+}
+
+/* ===================================================================== */
+/* SERVICE PAGE DECORATIVE LAYER                                         */
+/* ===================================================================== */
+
+/* Page header — decorative gold underline below H1 */
+.page-header h1 {
+  position: relative;
+  display: inline-block;
+}
+.page-header h1::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 1.25rem auto 0;
+}
+
+/* Improved flourish dividers — horizontal rules + gold sparkle */
+.flourish {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 2.5rem 1rem;
+}
+.flourish::before,
+.flourish::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.55), transparent);
+}
+.flourish-icon {
+  font-family: var(--display);
+  color: var(--gold);
+  opacity: 0.85;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* Decorative botanical pseudo-element — controlled via CSS, no SVG sizing risk */
+.with-botanical::before {
+  content: '';
+  position: absolute;
+  top: -1.5rem;
+  right: -1.5rem;
+  width: 110px;
+  height: 110px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 160'><g fill='none' stroke='%23A68B3C' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><path d='M60 152 Q62 100 60 50'/><path d='M60 110 Q35 102 22 78 Q44 92 60 110'/><path d='M60 88 Q86 80 100 56 Q78 72 60 88'/><path d='M60 50 Q48 32 60 16 Q72 32 60 50'/><circle cx='60' cy='14' r='2.6' fill='%23A68B3C'/></g></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+  pointer-events: none;
+  transform: rotate(-12deg);
+  z-index: 0;
+}
+.with-botanical-bl::before {
+  top: auto;
+  right: auto;
+  bottom: -1.5rem;
+  left: -1.5rem;
+  transform: rotate(168deg);
+}
+.with-botanical > * { position: relative; z-index: 1; }
+
+/* Editorial card-grid wrapper with gold corner brackets */
+.bracketed-grid {
+  position: relative;
+  padding: 3rem 2rem;
+}
+.bracketed-grid::before,
+.bracketed-grid::after {
+  content: '';
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid var(--gold);
+  opacity: 0.55;
+}
+.bracketed-grid::before {
+  top: 0; left: 0;
+  border-right: 0;
+  border-bottom: 0;
+}
+.bracketed-grid::after {
+  bottom: 0; right: 0;
+  border-left: 0;
+  border-top: 0;
+}
+
+/* Soft photo overlay for warm-grade unification */
+.photo-warm-grade {
+  position: relative;
+  overflow: hidden;
+}
+.photo-warm-grade::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(74, 40, 72, 0.12), rgba(201, 168, 76, 0.08));
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
+/* Drop-cap on first paragraph of long-form prose blocks */
+.prose-feature > p:first-of-type::first-letter {
+  font-family: var(--display);
+  font-size: 4.5rem;
+  font-weight: 500;
+  line-height: 0.85;
+  float: left;
+  margin: 0.35rem 0.75rem -0.25rem 0;
+  color: var(--plum);
+  font-style: italic;
+}
+@media (max-width: 720px) {
+  .prose-feature > p:first-of-type::first-letter {
+    font-size: 3.4rem;
+  }
 }
