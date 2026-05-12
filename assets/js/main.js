@@ -99,9 +99,9 @@ document.addEventListener("DOMContentLoaded", () => {
     dots.forEach(d => d.addEventListener("click", () => {
       clearInterval(tInterval);
       showTestimonial(parseInt(d.dataset.i));
-      tInterval = setInterval(() => showTestimonial((curr + 1) % cards.length), 6000);
+      tInterval = setInterval(() => showTestimonial((curr + 1) % cards.length), 14000);
     }));
-    let tInterval = setInterval(() => showTestimonial((curr + 1) % cards.length), 6000);
+    let tInterval = setInterval(() => showTestimonial((curr + 1) % cards.length), 14000);
   }
 
   // === CONTACT FORM preview-only ===

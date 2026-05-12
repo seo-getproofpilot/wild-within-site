@@ -927,7 +927,12 @@ a:hover { color: var(--plum); }
 }
 
 /* ===== APPROACH ===== */
-.approach { background: var(--warm-white); }
+.approach {
+  background:
+    radial-gradient(ellipse at 80% 10%, rgba(232, 213, 204, 0.28), transparent 55%),
+    radial-gradient(ellipse at 10% 90%, rgba(123, 94, 167, 0.12), transparent 55%),
+    var(--warm-white);
+}
 .approach-grid {
   max-width: 1100px;
   margin: 0 auto;
@@ -986,7 +991,10 @@ a:hover { color: var(--plum); }
 
 /* ===== TESTIMONIALS ===== */
 .testimonial-section {
-  background: var(--ivory);
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(232, 213, 204, 0.32), transparent 60%),
+    radial-gradient(ellipse at 80% 100%, rgba(123, 94, 167, 0.14), transparent 55%),
+    var(--ivory);
   text-align: center;
 }
 .testimonial-stage {
@@ -1279,15 +1287,17 @@ footer img[alt="The Wild Within"],
 /* Crystal-textured section backgrounds */
 .bg-cream {
   background:
-    radial-gradient(ellipse at 20% 50%, var(--amethyst-glow), transparent 60%),
-    radial-gradient(ellipse at 80% 20%, var(--gold-glow), transparent 50%),
+    radial-gradient(ellipse at 15% 0%, rgba(123, 94, 167, 0.18), transparent 55%),
+    radial-gradient(ellipse at 85% 15%, rgba(201, 168, 76, 0.16), transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(232, 213, 204, 0.22), transparent 65%),
     var(--ivory);
   color: var(--charcoal);
 }
 .bg-warm {
   background:
-    radial-gradient(ellipse at 70% 70%, var(--moss-glow), transparent 50%),
-    radial-gradient(ellipse at 30% 30%, rgba(232, 213, 204, 0.2), transparent 50%),
+    radial-gradient(ellipse at 70% 70%, rgba(61, 92, 58, 0.14), transparent 50%),
+    radial-gradient(ellipse at 25% 25%, rgba(232, 213, 204, 0.3), transparent 55%),
+    radial-gradient(ellipse at 90% 100%, rgba(201, 168, 76, 0.12), transparent 55%),
     var(--milky);
   color: var(--charcoal);
 }
