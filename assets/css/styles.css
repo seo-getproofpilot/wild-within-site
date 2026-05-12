@@ -78,8 +78,8 @@
      TAN Mon Cheri → Playfair Display (high-contrast decorative serif, closest GF match)
      Ibarra Real Nova → secondary serif for body/subheadings
      Cardo → body serif */
-  --display: 'Playfair Display', 'Cardo', Georgia, serif;
-  --serif: 'Cardo', 'Ibarra Real Nova', Georgia, serif;
+  --display: 'Playfair Display', 'Lora', Georgia, serif;
+  --serif: 'Lora', 'Cardo', Georgia, serif;
   --serif-alt: 'Ibarra Real Nova', 'Cardo', Georgia, serif;
   --sans:  'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --script:'Great Vibes', cursive;
