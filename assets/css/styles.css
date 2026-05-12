@@ -2038,17 +2038,19 @@ body::after {
   .sprig-tr { top: 1.5rem; right: 1rem; }
 }
 
-/* Off-canvas amethyst bloom behind testimonials */
+/* Subtle centered glow behind testimonials */
 .testimonial-section { position: relative; overflow: hidden; }
 .testimonial-section::before {
   content: "";
   position: absolute;
-  left: -280px;
-  top: 30%;
-  width: 780px;
-  height: 780px;
-  background: radial-gradient(circle, rgba(91, 58, 107, 0.22) 0%, rgba(91, 58, 107, 0) 65%);
-  filter: blur(20px);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  max-width: 90%;
+  height: 600px;
+  background: radial-gradient(ellipse, rgba(201, 168, 76, 0.08) 0%, rgba(201, 168, 76, 0) 70%);
+  filter: blur(30px);
   pointer-events: none;
   z-index: 0;
 }
