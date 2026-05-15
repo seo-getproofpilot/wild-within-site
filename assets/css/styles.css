@@ -2525,65 +2525,104 @@ body::after {
   color: var(--plum-muted);
 }
 
-/* ===== SERVICES PAGE — enhanced design pass ===== */
+/* ===== SERVICES PAGE — design pass ===== */
+/* Grid: 2 columns desktop, 1 column mobile */
 .services-page-enhanced .services-grid-2 {
   max-width: 1080px;
   margin: 0 auto;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.75rem;
+  gap: 1.5rem;
 }
 @media (max-width: 900px) {
-  .services-page-enhanced .services-grid-2 { grid-template-columns: 1fr; gap: 1.25rem; }
+  .services-page-enhanced .services-grid-2 { grid-template-columns: 1fr; gap: 1rem; }
 }
-.services-page-enhanced .service-card {
+
+/* Tighter section rhythm */
+.services-page-enhanced .section { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+.services-page-enhanced .flourish { display: none; }
+
+/* Photo-led service cards — image on top, text below, no SVG icons */
+.services-page-enhanced .service-card--photo {
+  background: var(--cream);
+  border: none;
   border-radius: 4px;
-  padding-top: 2.75rem;
-  border: 1px solid rgba(74, 40, 72, 0.08);
+  padding: 0;
+  box-shadow: 0 14px 36px rgba(74, 40, 72, 0.12);
   position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
-.services-page-enhanced .service-card::before {
+.services-page-enhanced .service-card--photo:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 60px rgba(74, 40, 72, 0.20);
+}
+.services-page-enhanced .service-photo {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  background: var(--plum-deep);
+}
+.services-page-enhanced .service-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+.services-page-enhanced .service-card--photo:hover .service-photo img {
+  transform: scale(1.04);
+}
+.services-page-enhanced .service-photo::after {
   content: "";
   position: absolute;
-  top: 0; left: 1.5rem; right: 1.5rem;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold-muted) 20%, var(--gold) 50%, var(--gold-muted) 80%, transparent);
-  opacity: 1;
-}
-.services-page-enhanced .service-card:hover {
-  border-color: rgba(201, 168, 76, 0.55);
-  box-shadow: 0 30px 60px rgba(74, 40, 72, 0.10);
-}
-.services-page-enhanced .service-card h3 em {
-  font-style: italic;
-  color: var(--plum-muted);
-  font-weight: 500;
-}
-.services-divider {
-  position: relative;
-}
-.services-divider::before,
-.services-divider::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0;
-  height: 90px;
+  inset: 0;
+  background: linear-gradient(to top, rgba(74, 40, 72, 0.22), transparent 50%);
   pointer-events: none;
-  z-index: 2;
 }
-.services-divider::before {
-  top: 0;
-  background: linear-gradient(to bottom, var(--plum-deep), transparent);
-  opacity: 0.85;
+.services-page-enhanced .service-body {
+  padding: 1.75rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
-.services-divider::after {
-  bottom: 0;
-  background: linear-gradient(to top, var(--ivory), transparent);
+.services-page-enhanced .service-body h3 {
+  font-family: var(--display);
+  font-size: 1.45rem;
+  font-weight: 500;
+  color: var(--plum-deep);
+  margin-bottom: 0.75rem;
 }
-.bg-sage-wash {
+.services-page-enhanced .service-body p {
+  color: var(--charcoal);
+  margin-bottom: 1.25rem;
+  flex: 1;
+}
+.services-page-enhanced .service-body .service-link {
+  color: var(--plum);
+  font-weight: 600;
+}
+.services-page-enhanced .service-body .service-link:hover {
+  color: var(--gold-deep);
+  gap: 0.7rem;
+}
+
+/* Section backgrounds — richer, deeper, not beige-on-beige */
+.services-page-enhanced section.bg-cream {
   background:
-    radial-gradient(ellipse at 20% 10%, rgba(138, 154, 123, 0.18), transparent 55%),
-    radial-gradient(ellipse at 85% 80%, rgba(91, 58, 107, 0.10), transparent 55%),
-    radial-gradient(ellipse at 50% 50%, rgba(201, 168, 76, 0.06), transparent 60%),
-    var(--milky);
+    radial-gradient(ellipse at 5% 0%, rgba(91, 58, 107, 0.22), transparent 55%),
+    radial-gradient(ellipse at 95% 100%, rgba(201, 168, 76, 0.16), transparent 55%),
+    radial-gradient(ellipse at 50% 60%, rgba(232, 213, 204, 0.18), transparent 65%),
+    linear-gradient(180deg, #ede0e3 0%, #e5d4d8 100%);
+  color: var(--charcoal);
+}
+.services-page-enhanced section.bg-sage-wash {
+  background:
+    radial-gradient(ellipse at 100% 5%, rgba(91, 58, 107, 0.20), transparent 55%),
+    radial-gradient(ellipse at 0% 100%, rgba(61, 92, 58, 0.20), transparent 55%),
+    radial-gradient(ellipse at 50% 50%, rgba(201, 168, 76, 0.08), transparent 60%),
+    linear-gradient(180deg, #d8dccd 0%, #c5d0b5 100%);
   color: var(--charcoal);
 }
