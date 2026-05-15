@@ -2524,3 +2524,66 @@ body::after {
   font-weight: 500;
   color: var(--plum-muted);
 }
+
+/* ===== SERVICES PAGE — enhanced design pass ===== */
+.services-page-enhanced .services-grid-2 {
+  max-width: 1080px;
+  margin: 0 auto;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.75rem;
+}
+@media (max-width: 900px) {
+  .services-page-enhanced .services-grid-2 { grid-template-columns: 1fr; gap: 1.25rem; }
+}
+.services-page-enhanced .service-card {
+  border-radius: 4px;
+  padding-top: 2.75rem;
+  border: 1px solid rgba(74, 40, 72, 0.08);
+  position: relative;
+}
+.services-page-enhanced .service-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 1.5rem; right: 1.5rem;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-muted) 20%, var(--gold) 50%, var(--gold-muted) 80%, transparent);
+  opacity: 1;
+}
+.services-page-enhanced .service-card:hover {
+  border-color: rgba(201, 168, 76, 0.55);
+  box-shadow: 0 30px 60px rgba(74, 40, 72, 0.10);
+}
+.services-page-enhanced .service-card h3 em {
+  font-style: italic;
+  color: var(--plum-muted);
+  font-weight: 500;
+}
+.services-divider {
+  position: relative;
+}
+.services-divider::before,
+.services-divider::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  height: 90px;
+  pointer-events: none;
+  z-index: 2;
+}
+.services-divider::before {
+  top: 0;
+  background: linear-gradient(to bottom, var(--plum-deep), transparent);
+  opacity: 0.85;
+}
+.services-divider::after {
+  bottom: 0;
+  background: linear-gradient(to top, var(--ivory), transparent);
+}
+.bg-sage-wash {
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(138, 154, 123, 0.18), transparent 55%),
+    radial-gradient(ellipse at 85% 80%, rgba(91, 58, 107, 0.10), transparent 55%),
+    radial-gradient(ellipse at 50% 50%, rgba(201, 168, 76, 0.06), transparent 60%),
+    var(--milky);
+  color: var(--charcoal);
+}
