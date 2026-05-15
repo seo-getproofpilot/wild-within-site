@@ -1,6 +1,6 @@
 /* The Wild Within — Brand Stylesheet
    Built from Alicia's Canva brand materials + questionnaire.
-   Fonts: Ibarra Real Nova (serif), Cardo (body serif), Great Vibes (script).
+   Fonts: Playfair Display (headings), Ibarra Real Nova (body serif), Inter (UI/subtext), Great Vibes (script accent).
    Palette: Cream/ivory base, plum + gold primary, pink/blush + sage accents.
 */
 
@@ -73,16 +73,16 @@
   --muted: #6B6560;
   --line: #EDE6DA;
 
-  /* Fonts — matched to Alicia's Canva brand materials:
-     Amsterdam One → Great Vibes (closest Google Fonts match for script)
-     TAN Mon Cheri → Playfair Display (high-contrast decorative serif, closest GF match)
-     Ibarra Real Nova → secondary serif for body/subheadings
-     Cardo → body serif */
-  --display: 'Playfair Display', 'Lora', Georgia, serif;
-  --serif: 'Lora', 'Cardo', Georgia, serif;
-  --serif-alt: 'Ibarra Real Nova', 'Cardo', Georgia, serif;
-  --sans:  'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --script:'Great Vibes', cursive;
+  /* Fonts — 4 families only, matched to brand spec:
+     Playfair Display → headings (h1, h2, h3, display)
+     Ibarra Real Nova → paragraph body serif, easily readable
+     Inter            → UI / subtext / eyebrows / buttons
+     Great Vibes      → decorative script accents */
+  --display: 'Playfair Display', Georgia, serif;
+  --serif:   'Ibarra Real Nova', Georgia, serif;
+  --serif-alt: 'Ibarra Real Nova', Georgia, serif;
+  --sans:    'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --script:  'Great Vibes', cursive;
 }
 
 html { scroll-behavior: smooth; font-size: 16px; }
