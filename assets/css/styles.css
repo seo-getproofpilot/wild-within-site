@@ -1490,6 +1490,14 @@ footer img[alt="The Wild Within"],
   text-shadow: 0 2px 20px rgba(54, 27, 46, 0.4);
 }
 .page-header h1 em { font-style: italic; color: var(--gold); }
+.page-header a {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  transition: color 0.3s;
+}
+.page-header a:hover { color: var(--ivory); }
 .page-header p {
   font-family: var(--serif);
   font-size: 1.25rem;
@@ -2987,4 +2995,138 @@ body::after {
 @media (max-width: 720px) {
   .approach-item { padding-left: 1.75rem; }
   .approach-item::before { left: -6px; width: 10px; height: 10px; }
+}
+
+/* ===== FAQ PAGE ===== */
+.faq-page .flourish { display: none; }
+.faq-page .section { padding-top: 4rem; padding-bottom: 4rem; }
+.faq-block {
+  max-width: 880px;
+  margin: 0 auto;
+}
+.faq-category-header {
+  margin-bottom: 2.25rem;
+  text-align: left;
+}
+.faq-category-header .eyebrow {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: 0.85rem;
+}
+.faq-category-header h2 {
+  font-family: var(--display);
+  font-size: clamp(2rem, 3.5vw, 2.6rem);
+  font-weight: 500;
+  color: var(--plum-deep);
+  line-height: 1.15;
+  margin: 0;
+}
+.faq-category-header h2 em {
+  font-style: italic;
+  color: var(--plum-muted);
+}
+.faq-page .bg-sage-wash .faq-category-header h2,
+.faq-page .bg-warm .faq-category-header h2 { color: var(--plum-deep); }
+
+/* Accordion details/summary polish */
+.faq-page details {
+  border-left: 2px solid rgba(201, 168, 76, 0.35);
+  padding: 1.1rem 1.25rem 1.1rem 1.5rem;
+  margin-bottom: 0.75rem;
+  background: rgba(250, 247, 242, 0.55);
+  transition: border-color 0.3s, background 0.3s;
+}
+.faq-page details[open] {
+  border-left-color: var(--gold);
+  background: rgba(250, 247, 242, 0.85);
+}
+.faq-page details summary {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--plum-deep);
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  padding-right: 2rem;
+  line-height: 1.4;
+}
+.faq-page details summary::-webkit-details-marker { display: none; }
+.faq-page details summary::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-family: var(--display);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--gold-deep);
+  transition: transform 0.3s, color 0.3s;
+}
+.faq-page details[open] summary::after { transform: rotate(45deg); color: var(--gold); }
+.faq-page details p {
+  font-family: var(--sans);
+  font-size: 0.98rem;
+  line-height: 1.75;
+  color: var(--charcoal);
+  margin-top: 0.85rem;
+  margin-bottom: 0;
+}
+.faq-page details p strong { color: var(--plum-deep); }
+
+/* FAQ photo band (nature scene with quote overlay) */
+.faq-band {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 1.5rem;
+  text-align: center;
+}
+.faq-band-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, rgba(46, 26, 45, 0.48), rgba(46, 26, 45, 0.82)),
+    linear-gradient(to bottom, rgba(46, 26, 45, 0.55), rgba(46, 26, 45, 0.78));
+  pointer-events: none;
+}
+.faq-band-content {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+}
+.faq-band-eyebrow {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 1.25rem;
+}
+.faq-band-line {
+  font-family: var(--display);
+  font-style: normal;
+  font-weight: 400;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.2;
+  color: var(--ivory);
+  margin: 0;
+}
+.faq-band-line .accent-script {
+  color: var(--gold);
+  font-size: 1.15em;
+  margin-left: 0.1em;
+}
+@media (max-width: 720px) {
+  .faq-band { min-height: 320px; padding: 3.5rem 1.25rem; }
 }
