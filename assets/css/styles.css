@@ -2572,14 +2572,14 @@ body::after {
 
 /* ===== SERVICES PAGE — design pass ===== */
 /* Grid: 2 columns desktop, 1 column mobile */
-.services-page-enhanced .services-grid-2 {
+.services-grid-2 {
   max-width: 1080px;
   margin: 0 auto;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
 }
 @media (max-width: 900px) {
-  .services-page-enhanced .services-grid-2 { grid-template-columns: 1fr; gap: 1rem; }
+  .services-grid-2 { grid-template-columns: 1fr; gap: 1rem; }
 }
 
 /* Tighter section rhythm */
@@ -2587,7 +2587,7 @@ body::after {
 .services-page-enhanced .flourish { display: none; }
 
 /* Photo-led service cards — image on top, text below, no SVG icons */
-.services-page-enhanced .service-card--photo {
+.service-card--photo {
   background: var(--cream);
   border: none;
   border-radius: 4px;
@@ -2599,57 +2599,57 @@ body::after {
   flex-direction: column;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
-.services-page-enhanced .service-card--photo:hover {
+.service-card--photo:hover {
   transform: translateY(-6px);
   box-shadow: 0 30px 60px rgba(74, 40, 72, 0.20);
 }
-.services-page-enhanced .service-photo {
+.service-photo {
   position: relative;
   width: 100%;
   height: 240px;
   overflow: hidden;
   background: var(--plum-deep);
 }
-.services-page-enhanced .service-photo img {
+.service-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
   transition: transform 0.6s ease;
 }
-.services-page-enhanced .service-card--photo:hover .service-photo img {
+.service-card--photo:hover .service-photo img {
   transform: scale(1.04);
 }
-.services-page-enhanced .service-photo::after {
+.service-photo::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(to top, rgba(74, 40, 72, 0.22), transparent 50%);
   pointer-events: none;
 }
-.services-page-enhanced .service-body {
+.service-body {
   padding: 1.75rem 2rem 2rem;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
-.services-page-enhanced .service-body h3 {
+.service-body h3 {
   font-family: var(--display);
   font-size: 1.45rem;
   font-weight: 500;
   color: var(--plum-deep);
   margin-bottom: 0.75rem;
 }
-.services-page-enhanced .service-body p {
+.service-body p {
   color: var(--charcoal);
   margin-bottom: 1.25rem;
   flex: 1;
 }
-.services-page-enhanced .service-body .service-link {
+.service-body .service-link {
   color: var(--plum);
   font-weight: 600;
 }
-.services-page-enhanced .service-body .service-link:hover {
+.service-body .service-link:hover {
   color: var(--gold-deep);
   gap: 0.7rem;
 }
@@ -3130,3 +3130,4 @@ body::after {
 @media (max-width: 720px) {
   .faq-band { min-height: 320px; padding: 3.5rem 1.25rem; }
 }
+
