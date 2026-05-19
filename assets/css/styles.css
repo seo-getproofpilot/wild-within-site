@@ -3613,3 +3613,19 @@ body::after {
   .faq-band { min-height: 320px; padding: 3.5rem 1.25rem; }
 }
 
+
+
+/* Event card tag — small uppercase label above event title */
+.event-tag {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: 0.85rem;
+  padding: 0.3rem 0.7rem;
+  background: var(--gold-glow);
+  border-radius: 2px;
+}
