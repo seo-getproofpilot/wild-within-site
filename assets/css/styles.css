@@ -661,14 +661,19 @@ section.full-bleed { padding: 0 !important; }
 }
 
 .section-title {
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: clamp(1.9rem, 3.2vw, 2.75rem);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.25;
   color: var(--charcoal);
   margin-bottom: 1rem;
 }
-.section-title em { font-style: italic; color: var(--plum-muted); }
+.section-title em {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--plum-muted);
+}
 
 .section-subtitle {
   font-family: var(--serif);
@@ -686,10 +691,10 @@ h1, h2, h3, h4 {
   color: var(--charcoal);
   letter-spacing: -0.01em;
 }
-h1 { font-size: clamp(2.4rem, 5vw, 4.2rem); font-weight: 800; }
-h2 { font-size: clamp(1.9rem, 3.2vw, 2.75rem); font-weight: 700; }
-h3 { font-size: 1.3rem; font-weight: 600; }
-h4 { font-size: 1.05rem; font-weight: 600; font-family: var(--serif); }
+h1 { font-size: clamp(2.4rem, 5vw, 4.2rem); font-weight: 600; }
+h2 { font-size: clamp(1.9rem, 3.2vw, 2.75rem); font-weight: 500; }
+h3 { font-size: 1.3rem; font-weight: 500; }
+h4 { font-size: 1.05rem; font-weight: 600; font-family: var(--display); }
 h1 em, h2 em, h3 em { font-style: italic; color: var(--plum-muted); }
 p { margin: 0 0 1.15em; }
 p:last-child { margin-bottom: 0; }
@@ -827,7 +832,7 @@ a:hover { color: var(--plum); }
 
 .service-card h3,
 .card h3 {
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: 1.3rem;
   font-weight: 500;
   color: var(--charcoal);
@@ -915,7 +920,7 @@ a:hover { color: var(--plum); }
   color: var(--ivory);
 }
 .process-step h4 {
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: 1.15rem;
   font-weight: 500;
   margin-bottom: 0.65rem;
@@ -966,7 +971,7 @@ a:hover { color: var(--plum); }
   box-shadow: 0 10px 30px rgba(43,39,36,0.05);
 }
 .approach-pillar h4 {
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: 1.05rem;
   font-weight: 500;
   color: var(--charcoal);
@@ -1100,9 +1105,9 @@ a:hover { color: var(--plum); }
   margin: 0 auto;
 }
 .cta-content h2 {
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: clamp(2rem, 3vw, 2.6rem);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.25;
   color: var(--charcoal);
   margin-bottom: 1rem;
@@ -1805,6 +1810,7 @@ form.contact-form {
 .prose { max-width: 760px; margin: 0 auto; }
 .prose h2 {
   margin-top: 3rem;
+  margin-bottom: 1.25rem;
   padding-top: 1.5rem;
   color: var(--charcoal);
   font-size: clamp(1.6rem, 2.8vw, 2.2rem);
@@ -1813,10 +1819,11 @@ form.contact-form {
 .prose h2:first-of-type { border-top: none; padding-top: 0; }
 .prose h3 {
   margin-top: 2.25rem;
+  margin-bottom: 0.85rem;
   color: var(--plum-muted);
   font-size: 1.25rem;
 }
-.prose ul { padding-left: 1.25rem; }
+.prose ul { padding-left: 1.25rem; margin-bottom: 1.25rem; }
 .prose ul li {
   margin-bottom: 0.65rem;
   line-height: 1.8;
@@ -1826,13 +1833,14 @@ form.contact-form {
   font-size: 1rem;
   line-height: 1.9;
   color: var(--warm-gray);
+  margin-bottom: 1.25rem;
 }
 .prose p:first-of-type {
-  font-family: var(--serif);
   font-size: 1.15rem;
-  line-height: 1.8;
+  line-height: 1.75;
   color: var(--charcoal-soft);
 }
+.prose p:last-child { margin-bottom: 0; }
 .prose p strong { color: var(--charcoal); font-weight: 500; }
 .prose p em { font-style: italic; }
 .prose blockquote {
@@ -1872,9 +1880,9 @@ form.contact-form {
   pointer-events: none;
 }
 .inline-cta h3 {
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: clamp(1.6rem, 3vw, 2.2rem);
-  font-weight: 400;
+  font-weight: 500;
   color: var(--ivory);
   margin-bottom: 0.75rem;
   position: relative;
@@ -1923,9 +1931,9 @@ form.contact-form {
 }
 .content-split:hover .content-split-image img { transform: scale(1.03); }
 .content-split-text h2 {
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: clamp(1.8rem, 3vw, 2.4rem);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.2;
   margin-bottom: 1.25rem;
   color: var(--charcoal);
@@ -2727,7 +2735,7 @@ body::after {
 
 /* ===== ABOUT PAGE — restructured story sections ===== */
 .about-story .two-col {
-  align-items: center;
+  align-items: start;
   gap: 3.5rem;
 }
 .about-story-img {
@@ -2736,6 +2744,12 @@ body::after {
   box-shadow: 0 25px 50px rgba(43, 39, 36, 0.12);
   aspect-ratio: 4 / 5;
   object-fit: cover;
+  position: sticky;
+  top: 110px;
+  max-height: calc(100vh - 140px);
+}
+@media (max-width: 860px) {
+  .about-story-img { position: static; max-height: none; aspect-ratio: 4 / 5; }
 }
 .about-story .two-col--reverse {
   direction: rtl;
@@ -2947,6 +2961,474 @@ body::after {
   line-height: 1.7;
   color: var(--charcoal);
   margin: 0 1.75rem 1.75rem;
+}
+
+/* Welcome intro — editorial two-col with sticky heading + body */
+.welcome-intro { padding-top: 6rem; padding-bottom: 6rem; }
+.welcome-intro-grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 4rem;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .welcome-intro-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+.welcome-intro-aside { padding-top: 0.5rem; }
+.welcome-intro-aside .eyebrow {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin: 0 0 1.25rem;
+}
+.welcome-intro-h2 {
+  font-family: var(--display);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--plum-deep);
+  margin: 0 0 1.5rem;
+}
+.welcome-intro-h2 em {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--plum-muted);
+}
+.welcome-intro-line {
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: var(--gold);
+}
+.welcome-intro-body p {
+  font-family: var(--sans);
+  font-size: 1.08rem;
+  line-height: 1.85;
+  color: var(--charcoal-soft);
+  margin: 0 0 1.5rem;
+}
+.welcome-intro-body p:last-child { margin-bottom: 0; }
+.welcome-intro-close {
+  font-family: var(--display) !important;
+  font-style: italic;
+  font-size: 1.4rem !important;
+  font-weight: 500;
+  line-height: 1.5 !important;
+  color: var(--plum-deep) !important;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(74, 40, 72, 0.12);
+}
+
+/* Detail cards — clean stat-style logistics blocks, no icons */
+.detail-grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+@media (max-width: 900px) {
+  .detail-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+}
+.detail-card {
+  background: var(--cream);
+  border: 1px solid rgba(74, 40, 72, 0.08);
+  border-radius: 4px;
+  padding: 2.25rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.detail-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 48px;
+  height: 3px;
+  background: var(--gold);
+}
+.detail-eyebrow {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin: 0 0 0.85rem;
+}
+.detail-title {
+  font-family: var(--display);
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--plum-deep);
+  margin: 0 0 1rem;
+  line-height: 1.15;
+}
+.detail-unit {
+  display: block;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--plum-muted);
+  font-weight: 400;
+  margin-top: 0.15rem;
+}
+.detail-body {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--charcoal);
+  margin: 0;
+}
+
+/* Signal list — "Is this you?" style with gold rule on left, no SaaS checkmarks */
+.signal-list {
+  max-width: 920px;
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem 2.25rem;
+}
+@media (max-width: 760px) {
+  .signal-list { grid-template-columns: 1fr; }
+}
+.signal-list li {
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--charcoal);
+  padding: 0.85rem 0 0.85rem 1.5rem;
+  border-left: 2px solid var(--gold);
+  position: relative;
+}
+.signal-list li::before {
+  content: "";
+  position: absolute;
+  left: -5px;
+  top: 1.3rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.signal-list-feature {
+  max-width: 920px;
+  margin: 2.5rem auto 0;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  color: var(--plum-deep);
+  background: rgba(201, 168, 76, 0.08);
+  border-top: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+}
+.signal-list-feature em {
+  font-family: var(--display);
+  font-style: italic;
+  color: var(--gold-deep);
+}
+
+/* Dark prose — body paragraphs on bg-plum-deep sections */
+.dark-prose {
+  max-width: 820px;
+  margin: 0 auto;
+}
+.dark-prose p {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: rgba(250, 247, 242, 0.88);
+  margin: 0 0 1.25rem;
+}
+.dark-prose p:last-child { margin-bottom: 0; }
+.dark-prose em { color: var(--gold); font-style: italic; }
+.dark-prose strong { color: var(--ivory); font-weight: 500; }
+.dark-prose-footer {
+  max-width: 820px;
+  margin: 2.5rem auto 0;
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  font-style: italic;
+  color: rgba(250, 247, 242, 0.72);
+}
+
+/* Pullquote card — designed pull-quote on cream background (mid-page) */
+.pullquote-card {
+  background: var(--cream);
+  border-top: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+  padding: 3rem 2.5rem;
+  text-align: center;
+}
+.pullquote-mark {
+  display: block;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 4rem;
+  line-height: 1;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.pullquote-body-text {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  line-height: 1.55;
+  color: var(--plum-deep);
+  margin: 0 0 1.5rem;
+  padding: 0;
+  border: none;
+  background: none;
+}
+.pullquote-attr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.pullquote-line {
+  display: inline-block;
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+}
+.pullquote-name {
+  font-family: var(--sans);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+/* Chakra grid — 7 cards arranged 4 + 3 on plum-deep */
+.chakra-grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+@media (max-width: 1080px) {
+  .chakra-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 760px) {
+  .chakra-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .chakra-grid { grid-template-columns: 1fr; }
+}
+.chakra-card {
+  padding: 1.5rem 1.4rem;
+  background: rgba(250, 247, 242, 0.05);
+  border: 1px solid rgba(201, 168, 76, 0.18);
+  border-radius: 4px;
+  text-align: center;
+  transition: background 0.3s, border-color 0.3s;
+}
+.chakra-card:hover {
+  background: rgba(250, 247, 242, 0.08);
+  border-color: rgba(201, 168, 76, 0.35);
+}
+.chakra-card h3 {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--ivory);
+  margin: 0 0 0.35rem;
+}
+.chakra-card .chakra-location {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 0.75rem;
+}
+.chakra-card p:last-child {
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: rgba(250, 247, 242, 0.82);
+  margin: 0;
+}
+
+/* Typography-led team bios (no photos) — for Alisha and Kyla on About */
+.team-bio-grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 900px) {
+  .team-bio-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+.team-bio {
+  background: var(--cream);
+  border: 1px solid rgba(74, 40, 72, 0.08);
+  border-top: 3px solid var(--gold);
+  border-radius: 4px;
+  padding: 2.25rem 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 14px 36px rgba(74, 40, 72, 0.06);
+}
+.team-bio-header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(74, 40, 72, 0.08);
+}
+.team-bio-monogram {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse at 30% 30%, rgba(201, 168, 76, 0.28), transparent 65%),
+    var(--plum-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 2rem;
+  color: var(--gold);
+  line-height: 1;
+}
+.team-bio-id { display: flex; flex-direction: column; gap: 0.2rem; }
+.team-bio-name {
+  font-family: var(--display);
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--plum-deep);
+  margin: 0;
+  line-height: 1.1;
+}
+.team-bio-credential {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--plum-muted);
+  margin: 0;
+}
+.team-bio-license {
+  display: inline-block;
+  margin-right: 0.5rem;
+  padding: 0.15rem 0.55rem;
+  background: var(--gold);
+  color: var(--ivory);
+  border-radius: 2px;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+}
+.team-bio-specialties {
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--charcoal);
+  margin: 0 0 1.5rem;
+  padding: 0.85rem 1.1rem;
+  background: rgba(201, 168, 76, 0.10);
+  border-left: 2px solid var(--gold);
+  border-radius: 0 2px 2px 0;
+}
+.team-bio-specialties-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: 0.25rem;
+}
+.team-bio-body { flex: 1; }
+.team-bio-body p {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--charcoal);
+  margin: 0 0 1rem;
+}
+.team-bio-body p:last-child { margin-bottom: 0; }
+.team-bio-availability {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--gold-deep);
+  margin: 1.5rem 0 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(74, 40, 72, 0.10);
+}
+
+/* About page closing quote — designed plum-deep card, not a floating cream block */
+.closing-quote-section { padding: 5.5rem 1.5rem; }
+.closing-quote {
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+.closing-quote-mark {
+  display: block;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 5rem;
+  line-height: 1;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.closing-quote-body {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  line-height: 1.55;
+  color: var(--ivory);
+  margin: 0 0 2rem;
+  padding: 0;
+  border: none;
+  background: none;
+}
+.closing-quote-attr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.closing-quote-line {
+  display: inline-block;
+  width: 48px;
+  height: 1px;
+  background: var(--gold);
+}
+.closing-quote-name {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
 }
 
 /* ===== ABOUT — Approach list (different visual from 01/02/03 editorial cards) ===== */
