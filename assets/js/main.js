@@ -104,9 +104,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let tInterval = setInterval(() => showTestimonial((curr + 1) % cards.length), 14000);
   }
 
-  // === CONTACT FORM preview-only ===
+  // === CONTACT FORM -> Google Apps Script ===
   const form = document.querySelector("form.contact-form");
   if (form) {
+    const ENDPOINT = "https://script.google.com/a/macros/getproofpilot.com/s/AKfycbxuHA6SitoHQjJkTgcd4QHADQOP4CGS4pEmMPEGbh6etjlU2hQaLc34V1IcGQsJKMutQQ/exec";
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       let note = form.querySelector(".form-status");
@@ -116,7 +117,21 @@ document.addEventListener("DOMContentLoaded", () => {
         note.style.cssText = "margin-top:1rem;padding:1rem 1.25rem;background:rgba(192,139,110,.12);border:1px solid rgba(192,139,110,.3);border-radius:14px;font-size:.92rem;color:#A6725A;";
         form.appendChild(note);
       }
-      note.textContent = "Thanks! This is a preview build. On the live site this message would reach Alicia directly.";
+      const btn = form.querySelector("button, [type=submit]");
+      if (btn) btn.disabled = true;
+      note.textContent = "Sending...";
+      const data = new URLSearchParams({
+        name: (form.querySelector("[name=name]") || {}).value || "",
+        email: (form.querySelector("[name=email]") || {}).value || "",
+        phone: (form.querySelector("[name=phone]") || {}).value || "",
+        message: (form.querySelector("[name=message]") || {}).value || ""
+      });
+      const done = () => {
+        note.textContent = "Thank you. Your message has been sent. Alicia will respond, usually within one business day.";
+        form.querySelectorAll("input, textarea").forEach((el) => { el.value = ""; });
+        if (btn) btn.disabled = false;
+      };
+      fetch(ENDPOINT, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: data }).then(done).catch(done);
     });
   }
 });
