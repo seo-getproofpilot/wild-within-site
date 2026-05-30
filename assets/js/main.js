@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // === CONTACT FORM -> Google Apps Script ===
   const form = document.querySelector("form.contact-form");
   if (form) {
-    const ENDPOINT = "https://script.google.com/a/macros/getproofpilot.com/s/AKfycbxuHA6SitoHQjJkTgcd4QHADQOP4CGS4pEmMPEGbh6etjlU2hQaLc34V1IcGQsJKMutQQ/exec";
+    const ENDPOINT = "https://script.google.com/macros/s/AKfycbx2cKt8JnbUHeYZi6omumowAuJqFSLZi4XPzVHGBo1wRYxEmHqS3I3qDmbxIZlt0uac_g/exec";
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       let note = form.querySelector(".form-status");
