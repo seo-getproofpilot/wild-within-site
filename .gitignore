@@ -1,0 +1,8 @@
+# OS junk
+.DS_Store
+**/.DS_Store
+
+# Internal docs — keep out of the public site
+*.pdf
+*.docx
+client-status-*.md
