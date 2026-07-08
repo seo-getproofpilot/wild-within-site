@@ -85,7 +85,7 @@
   --script:  'Great Vibes', cursive;
 }
 
-html { scroll-behavior: smooth; font-size: 16px; }
+html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
 body {
   font-family: var(--sans);
   color: var(--charcoal);
