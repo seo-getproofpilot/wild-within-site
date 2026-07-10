@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Wild Within | Find Your Fit</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Ibarra+Real+Nova:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Base warm neutrals */
+    --ivory:#FAF7F2; --ivory-warm:#FDFBF8; --linen:#EDE6DA; --milky:#F0EBE3; --opal:#E8E2D8; --sand:#D4C5AD;
+    /* Amethyst / plum */
+    --plum:#4A2848; --plum-deep:#2E1A2D; --plum-muted:#6B3560; --amethyst:#5B3A6B; --amethyst-light:#7B5EA7;
+    /* Gold — the single guidance accent */
+    --gold:#C9A84C; --gold-deep:#A68B3C; --gold-soft:#E2CF9F; --gold-glow:rgba(201,168,76,0.30);
+    /* Mossy agate + blush */
+    --sage:#8A9A7B; --sage-muted:#9DAD8E; --sage-deep:#5F6E52; --blush:#E8D5CC; --rose-dust:#C9A99A;
+    /* Ink / text */
+    --ink:#2B2724; --warm-gray:#524C46; --muted:#6B6560; --line:#EDE6DA;
+    /* Fonts */
+    --display:'Playfair Display',Georgia,serif;
+    --serif:'Ibarra Real Nova',Georgia,serif;
+    --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --script:'Great Vibes',cursive;
+    --radius:20px; --radius-card:24px;
+    --shadow-card:0 2px 6px rgba(46,26,45,.10), 0 30px 70px -24px rgba(46,26,45,.55);
+    --shadow-soft:0 1px 3px rgba(46,26,45,.06), 0 10px 28px -12px rgba(46,26,45,.22);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:var(--sans); color:var(--ink); min-height:100vh; line-height:1.6;
+    background:#2E1A2D; -webkit-font-smoothing:antialiased;
+  }
+  /* Atmospheric botanical stage */
+  body::before{
+    content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      linear-gradient(180deg, rgba(46,26,45,.72), rgba(46,26,45,.86) 55%, rgba(30,14,26,.94)),
+      url('../assets/img/dark-floral-purple.jpg') center/cover no-repeat;
+  }
+  body::after{
+    content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(120vw 80vh at 50% 40%, rgba(201,168,76,.12), transparent 45%),
+      radial-gradient(140vw 120vh at 50% 50%, transparent 40%, rgba(20,9,18,.55) 100%);
+  }
+
+  .demo-badge{
+    position:fixed; top:14px; right:14px; z-index:50;
+    font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--gold-soft); background:rgba(46,26,45,.55); border:1px solid rgba(226,207,159,.4);
+    border-radius:999px; padding:6px 12px; backdrop-filter:blur(6px);
+  }
+
+  /* Two-sided demo toggle (landing only) */
+  .toggle{ display:flex; justify-content:center; width:max-content; margin:0 auto 20px; background:rgba(253,251,248,.10); border:1px solid rgba(226,207,159,.35); border-radius:999px; padding:4px; backdrop-filter:blur(6px); }
+  .toggle a{ text-decoration:none; font-family:var(--sans); font-size:12.5px; font-weight:600; color:var(--gold-soft); padding:9px 16px; border-radius:999px; transition:.2s; white-space:nowrap; }
+  .toggle a.on{ background:var(--ivory-warm); color:var(--plum-deep); box-shadow:var(--shadow-soft); }
+  body.in-quiz .toggle{ display:none; }
+
+  .wrap{ position:relative; z-index:2; max-width:560px; margin:0 auto; padding:38px 20px 84px; }
+
+  /* Crowned logo */
+  .brand-crown{ text-align:center; margin:0 0 22px; }
+  .medallion{ display:inline-block; background:var(--ivory-warm); border-radius:28px; padding:20px 30px; box-shadow:var(--shadow-soft); transition:padding .4s ease; }
+  .brand-crown img{ height:112px; width:auto; display:block; transition:height .4s ease; }
+  .brand-tag{ margin-top:13px; font-family:var(--sans); font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--gold-soft); }
+  body.in-quiz .medallion{ padding:11px 20px; }
+  body.in-quiz .brand-crown img{ height:58px; }
+  body.in-quiz .brand-tag{ display:none; }
+
+  /* Progress (above the card, on the dark stage) */
+  .progress-wrap{ text-align:center; margin:2px auto 18px; max-width:440px; }
+  .progress-wrap.hidden{ display:none; }
+  .step-counter{ font-family:var(--sans); font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-soft); margin-bottom:8px; }
+  .progress{ height:6px; background:rgba(255,255,255,.14); border-radius:999px; overflow:hidden; }
+  .progress > i{ display:block; height:100%; width:0; background:linear-gradient(90deg,var(--gold),var(--gold-deep)); box-shadow:0 0 12px var(--gold-glow); transition:width .5s cubic-bezier(.4,0,.2,1); border-radius:999px; }
+  .encourage{ margin-top:9px; font-family:var(--serif); font-style:italic; font-size:14px; color:var(--gold-soft); opacity:.9; }
+
+  /* The glowing focal card */
+  .card{
+    background:
+      radial-gradient(130% 150px at 50% 0, rgba(255,255,255,.65), transparent 72%),
+      linear-gradient(180deg, var(--ivory-warm), var(--ivory));
+    border:1px solid rgba(226,207,159,.55); border-radius:var(--radius-card);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.9), var(--shadow-card); padding:44px 40px; position:relative; overflow:hidden;
+    min-height:520px; display:flex; flex-direction:column; justify-content:center;
+  }
+  .card::before{ content:""; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--plum),var(--gold),var(--sage)); z-index:2; }
+  /* Ghosted phoenix line-mark — brand DNA in the corner, barely there */
+  .card::after{ content:""; position:absolute; right:-42px; bottom:-48px; width:250px; height:250px;
+    background:url('../assets/img/logo-phoenix.png') center/contain no-repeat; opacity:.05; transform:rotate(6deg); pointer-events:none; z-index:0; }
+  .screen{ position:relative; z-index:1; }
+  .col{ max-width:440px; margin:0 auto; }
+  .col-wide{ max-width:520px; margin:0 auto; }
+
+  .screen{ display:none; animation:rise .5s cubic-bezier(.22,1,.36,1) both; }
+  .screen.active{ display:block; }
+  @keyframes rise{ from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none} }
+
+  .eyebrow{ font-family:var(--sans); font-size:12px; font-weight:600; letter-spacing:.24em; text-transform:uppercase; color:var(--gold-deep); margin:0 0 14px; }
+  h1{ font-family:var(--display); font-weight:600; font-size:clamp(32px,5.4vw,46px); line-height:1.1; color:var(--plum-deep); margin:0 0 16px; }
+  h2{ font-family:var(--display); font-weight:600; font-size:clamp(26px,4.4vw,34px); line-height:1.15; color:var(--plum-deep); margin:0 0 12px; }
+  h1 .script{ font-family:var(--script); font-weight:400; color:var(--gold-deep); font-size:1.28em; line-height:.9; }
+  h2 em, h1 em{ font-style:italic; color:var(--plum-muted); }
+  .lede{ font-family:var(--sans); font-size:17.5px; font-weight:400; line-height:1.65; color:var(--warm-gray); max-width:46ch; margin:0 0 24px; }
+
+  .hero{ border-radius:180px 180px 24px 24px; overflow:hidden; margin:8px 0 24px; aspect-ratio:16/10; background:linear-gradient(120deg,var(--plum),var(--sage)); box-shadow:0 30px 60px -30px rgba(46,26,45,.5); }
+  .hero img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  .center{ text-align:center; }
+  .reassure{ font-family:var(--sans); font-size:13.5px; color:var(--warm-gray); text-align:center; margin-top:12px; }
+
+  .btn{ appearance:none; cursor:pointer; font-family:var(--sans); border-radius:50px; border:1.5px solid transparent; transition:all .35s; font-weight:600; }
+  .btn-primary{ background:var(--plum); color:var(--ivory-warm); border-color:var(--plum); padding:15px 34px; font-size:13px; letter-spacing:.1em; text-transform:uppercase; }
+  .btn-primary:hover{ background:var(--gold); border-color:var(--gold); color:var(--plum-deep); transform:translateY(-2px); box-shadow:0 14px 30px rgba(74,40,64,.35); }
+  .btn-gold{ background:var(--gold); color:var(--plum-deep); border-color:var(--gold); padding:15px 34px; font-size:13px; letter-spacing:.1em; text-transform:uppercase; }
+  .btn-gold:hover{ background:var(--gold-deep); border-color:var(--gold-deep); transform:translateY(-2px); box-shadow:0 14px 30px rgba(74,40,64,.3); }
+  .btn-ghost{ background:transparent; color:var(--plum); border-color:var(--line); padding:13px 24px; font-size:13px; letter-spacing:.06em; }
+  .btn-ghost:hover{ border-color:var(--plum); background:#FBF5EC; }
+
+  .trust{ display:flex; flex-wrap:wrap; gap:10px 22px; justify-content:center; margin:22px 0 2px; }
+  .trust span{ font-size:13px; color:var(--muted); display:flex; align-items:center; gap:7px; }
+  .trust b{ color:var(--plum); font-weight:600; }
+  .dot{ width:6px; height:6px; border-radius:50%; background:var(--gold); }
+
+  /* Questions */
+  .q{ font-family:var(--display); font-weight:600; font-size:clamp(27px,4.6vw,38px); line-height:1.16; color:var(--plum-deep); margin:0 0 8px; }
+  .q em{ font-style:italic; color:var(--plum-muted); }
+  .q-sub{ font-family:var(--sans); font-size:16.5px; font-weight:400; color:var(--warm-gray); margin:0 0 26px; max-width:44ch; line-height:1.55; }
+  .options{ display:grid; gap:12px; }
+  .opt{
+    display:flex; align-items:center; gap:14px; width:100%; text-align:left;
+    background:var(--ivory-warm); border:2px solid var(--line); border-radius:16px; padding:19px 22px;
+    cursor:pointer; font-family:var(--sans); color:var(--ink); transition:border-color .18s, background .18s, transform .18s, box-shadow .18s;
+  }
+  .opt:hover{ border-color:var(--gold-soft); background:#FFFDF7; transform:translateY(-1px); }
+  .opt.sel{ border-color:var(--gold); background:rgba(201,168,76,.08); box-shadow:0 0 0 4px var(--gold-glow); }
+  .opt-txt{ display:flex; flex-direction:column; }
+  .opt-txt b{ font-weight:600; font-size:17.5px; color:var(--ink); }
+  .opt-txt small{ font-size:14px; color:var(--warm-gray); margin-top:3px; }
+  .opt .mk{ margin-left:auto; width:24px; height:24px; border-radius:50%; border:2px solid var(--gold-soft); flex:0 0 auto; display:grid; place-items:center; color:transparent; font-size:13px; transition:.18s; }
+  .opt.sel .mk{ background:var(--gold); border-color:var(--gold); color:var(--plum-deep); }
+
+  .nav{ display:flex; align-items:center; justify-content:space-between; margin-top:24px; }
+  .back{ background:none; border:none; color:var(--muted); font-family:var(--sans); font-size:14px; cursor:pointer; padding:8px 4px; }
+  .back:hover{ color:var(--plum); }
+
+  .field{ margin:0 0 14px; }
+  .field label{ display:block; font-family:var(--sans); font-size:12.5px; font-weight:600; letter-spacing:.04em; color:var(--plum); margin:0 0 6px; }
+  .field input,.field textarea{ width:100%; font-family:var(--sans); font-size:16px; color:var(--ink); background:var(--ivory-warm); border:1.5px solid var(--line); border-radius:12px; padding:14px 15px; }
+  .field input:focus,.field textarea:focus{ outline:none; border-color:var(--gold); box-shadow:0 0 0 4px var(--gold-glow); }
+  .disclaimer{ font-family:var(--sans); font-size:12.5px; color:var(--muted); background:var(--milky); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin:6px 0 18px; line-height:1.5; }
+
+  /* Result / match */
+  .result-card{ background:linear-gradient(160deg, #FBF3EA, var(--ivory-warm)); border:1px solid var(--gold-soft); border-radius:20px; padding:24px; margin:4px 0 18px; box-shadow:var(--shadow-soft); position:relative; }
+  .result-card::before{ content:""; position:absolute; top:0; left:24px; right:24px; height:2px; background:linear-gradient(90deg,var(--gold),transparent); }
+  .who{ display:flex; align-items:center; gap:14px; margin-bottom:12px; }
+  .avatar{ width:100px; height:100px; border-radius:50%; overflow:hidden; border:2px solid var(--gold-soft); box-shadow:var(--shadow-soft); background:var(--plum); color:#F5E9D6; display:grid; place-items:center; font-family:var(--display); font-size:38px; flex:0 0 auto; }
+  .avatar img{ width:100%; height:100%; object-fit:cover; }
+  .who-name{ font-family:var(--display); font-weight:600; font-size:18px; color:var(--plum-deep); }
+  .who-role{ font-size:14px; color:var(--warm-gray); margin-top:2px; }
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 2px; }
+  .chip{ font-size:12.5px; color:var(--plum); background:rgba(201,168,76,.10); border:1px solid var(--gold-soft); border-radius:999px; padding:6px 14px; opacity:0; animation:rise .45s ease both; }
+
+  /* Team strip */
+  .team-strip{ margin:18px 0 6px; }
+  .team-strip-label{ font-family:var(--sans); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-align:center; margin:0 0 12px; }
+  .team-mini{ display:flex; justify-content:center; gap:20px; }
+  .tm{ text-align:center; width:96px; opacity:.6; transition:.25s; cursor:pointer; }
+  .tm:hover{ opacity:.9; }
+  .match-tag{ display:inline-block; font-family:var(--sans); font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; border-radius:999px; padding:4px 12px; margin-bottom:12px; color:var(--muted); background:var(--milky); border:1px solid var(--line); }
+  .match-tag.on{ color:var(--gold-deep); background:rgba(201,168,76,.12); border-color:var(--gold-soft); }
+  .pa-row{ display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 2px; }
+  .pa{ font-family:var(--sans); font-size:12.5px; font-weight:500; border-radius:999px; padding:6px 13px; border:1px solid var(--line); background:var(--ivory-warm); color:var(--warm-gray); }
+  .pa-price{ color:var(--plum); border-color:var(--gold-soft); }
+  .pa-avail.open{ color:var(--sage-deep); background:rgba(138,154,123,.14); border-color:var(--sage-muted); font-weight:600; }
+  .mini-meta{ font-family:var(--sans); font-size:12px; color:var(--warm-gray); line-height:1.4; margin-top:4px; }
+  .mini-rec{ display:inline-block; margin-top:5px; font-size:9px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--gold-deep); background:rgba(201,168,76,.14); border:1px solid var(--gold-soft); border-radius:999px; padding:2px 7px; }
+  .next-steps{ margin-top:16px; text-align:left; display:none; background:var(--milky); border:1px solid var(--line); border-radius:14px; padding:18px 20px; }
+  .next-steps.show{ display:block; animation:rise .4s ease both; }
+  .next-steps h4{ font-family:var(--display); font-weight:600; font-size:15px; color:var(--plum-deep); margin:0 0 10px; }
+  .next-steps .step{ display:flex; gap:11px; align-items:flex-start; margin:8px 0; font-family:var(--sans); font-size:14px; color:var(--warm-gray); line-height:1.45; }
+  .next-steps .step b{ color:var(--gold-deep); font-weight:700; flex:0 0 auto; }
+  .cal-btn{ display:inline-block; margin-top:12px; text-decoration:none; }
+  .tm.on{ opacity:1; }
+  .tm .av{ width:52px; height:52px; border-radius:50%; margin:0 auto 7px; overflow:hidden; border:2px solid var(--line); background:var(--plum); color:#F5E9D6; display:grid; place-items:center; font-family:var(--display); font-size:20px; }
+  .tm.on .av{ border-color:var(--gold); box-shadow:0 0 0 4px var(--gold-glow); }
+  .tm .av img{ width:100%; height:100%; object-fit:cover; }
+  .tm .nm{ font-family:var(--sans); font-size:12px; color:var(--warm-gray); line-height:1.3; }
+  .tm.on .nm{ color:var(--plum-deep); font-weight:600; }
+
+  /* Trust sub-card */
+  .trust-card{ background:var(--ivory-warm); border:1px solid var(--gold-soft); border-radius:16px; padding:20px 22px; margin-top:18px; }
+  .trust-card h4{ font-family:var(--display); font-weight:600; font-size:16px; color:var(--plum-deep); margin:0 0 12px; }
+  .trust-card .row{ display:flex; gap:11px; align-items:flex-start; margin:9px 0; font-family:var(--sans); font-size:14.5px; color:var(--warm-gray); line-height:1.45; }
+  .trust-card .row i{ color:var(--gold); font-style:normal; font-weight:700; flex:0 0 auto; }
+
+  /* Scheduling */
+  .slot-head{ font-family:var(--sans); font-size:13px; font-weight:600; color:var(--plum); letter-spacing:.02em; margin-bottom:8px; }
+  .slots{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:8px 0 6px; }
+  .slot{ background:var(--ivory-warm); border:2px solid var(--line); border-radius:12px; padding:13px 6px; text-align:center; cursor:pointer; font-family:var(--sans); font-size:14px; transition:.15s; }
+  .slot:hover{ border-color:var(--gold-soft); background:#FFFDF7; }
+  .slot.sel{ border-color:var(--gold); background:var(--plum); color:var(--ivory-warm); }
+  .divider{ display:flex; align-items:center; gap:12px; color:var(--muted); font-size:13px; margin:20px 0; }
+  .divider::before,.divider::after{ content:""; height:1px; background:var(--line); flex:1; }
+  .guide{ display:flex; gap:14px; align-items:center; background:var(--milky); border:1px dashed var(--gold-soft); border-radius:14px; padding:14px 16px; margin-top:18px; }
+  .guide .ic{ font-size:26px; }
+  .confirm{ background:rgba(138,154,123,.14); border:1px solid var(--sage-muted); color:var(--sage-deep); border-radius:12px; padding:14px 16px; margin-top:14px; font-size:14.5px; display:none; }
+  .confirm.show{ display:block; animation:rise .4s ease both; }
+
+  .cta-row{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:10px; }
+
+  /* Footer legitimacy on dark stage */
+  .stage-foot{ text-align:center; margin-top:22px; font-family:var(--sans); font-size:11px; letter-spacing:.06em; color:var(--gold-soft); opacity:.75; }
+  .foot{ text-align:center; color:var(--muted); font-size:12px; margin-top:22px; line-height:1.6; }
+  .foot a{ color:var(--plum); text-decoration:none; }
+
+  /* ── Polish pass: photo rails, team on landing, craft, micro-interactions ── */
+  h2 .script{ font-family:var(--script); font-weight:400; color:var(--gold-deep); font-size:1.5em; line-height:.85; }
+
+  /* Meet the team on the landing screen */
+  .team-preview{ margin:24px 0 2px; }
+  .team-preview-label{ font-family:var(--serif); font-style:italic; font-size:14.5px; color:var(--muted); text-align:center; margin:0 0 14px; }
+  .team-preview-row{ display:flex; justify-content:center; gap:24px; }
+  .team-preview figure{ margin:0; text-align:center; width:84px; }
+  .tp-av{ width:68px; height:68px; border-radius:50%; object-fit:cover; margin:0 auto; display:block; border:2px solid var(--gold-soft); box-shadow:var(--shadow-soft); }
+  .tp-mono{ display:grid; place-items:center; background:var(--plum); color:#F5E9D6; font-family:var(--display); font-size:27px; }
+  .team-preview figcaption b{ display:block; font-family:var(--display); font-weight:600; font-size:13.5px; color:var(--plum-deep); margin-top:9px; }
+  .team-preview figcaption span{ font-size:11px; letter-spacing:.05em; color:var(--muted); }
+
+  /* Honest credential pills + founder note */
+  .creds{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:18px 0 0; }
+  .cred{ font-family:var(--sans); font-size:11.5px; font-weight:500; letter-spacing:.04em; color:var(--plum); background:rgba(201,168,76,.08); border:1px solid var(--gold-soft); border-radius:999px; padding:5px 13px; }
+  .founder-note{ margin:22px 0 0; padding:18px 22px; background:var(--milky); border:1px solid var(--line); border-left:3px solid var(--gold); border-radius:14px; text-align:left; }
+  .founder-note p{ font-family:var(--serif); font-style:italic; font-size:15.5px; line-height:1.6; color:var(--warm-gray); margin:0; }
+  .founder-note .sig{ display:block; margin-top:6px; font-family:var(--script); font-size:27px; color:var(--gold-deep); line-height:1; }
+  .sig-line{ margin-top:10px; font-family:var(--script); font-size:26px; color:var(--gold-deep); line-height:1; }
+
+  /* Micro-interactions */
+  .screen[data-screen="result"].active .avatar{ animation:avatarPop .7s cubic-bezier(.22,1,.36,1) both; }
+  @keyframes avatarPop{ 0%{transform:scale(.86); opacity:.35} 60%{transform:scale(1.05)} 100%{transform:scale(1); opacity:1} }
+  .opt.sel .mk{ animation:mkPop .3s cubic-bezier(.34,1.56,.64,1) both; }
+  @keyframes mkPop{ 0%{transform:scale(0)} 100%{transform:scale(1)} }
+  .hero img{ animation:kenburns 22s ease-in-out infinite alternate; }
+  @keyframes kenburns{ from{transform:scale(1)} to{transform:scale(1.06)} }
+
+  @media (max-width:560px){
+    .card{ padding:26px 20px; border-radius:20px; min-height:auto; }
+    .brand-crown img{ height:88px; }
+    body.in-quiz .brand-crown img{ height:54px; }
+    .slots{ grid-template-columns:repeat(2,1fr); }
+    .cta-row .btn{ width:100%; }
+    .team-mini{ gap:10px; }
+    .tm{ width:82px; }
+    .team-preview-row{ gap:14px; }
+    .team-preview figure{ width:74px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .screen,.chip{ animation:none; opacity:1; }
+    .opt:hover,.btn-primary:hover,.btn-gold:hover{ transform:none; }
+    .hero img,.opt.sel .mk,.screen[data-screen="result"].active .avatar{ animation:none; }
+  }
+</style>
+</head>
+<body>
+<div class="demo-badge">Demo preview</div>
+<div class="wrap">
+
+  <div class="toggle">
+    <a href="index.html" class="on">What clients see</a>
+    <a href="owner.html">What you get</a>
+  </div>
+
+  <div class="brand-crown">
+    <span class="medallion">
+      <img src="../assets/img/logo-phoenix-text.png" alt="The Wild Within"
+           onerror="this.src='../assets/img/logo-phoenix.png'">
+    </span>
+    <div class="brand-tag">Holistic Therapy &amp; Coaching &middot; Mesa, AZ</div>
+  </div>
+
+  <div id="progress-wrap" class="progress-wrap hidden">
+    <div class="step-counter" id="step-counter">Step 1 of 5</div>
+    <div class="progress"><i id="bar"></i></div>
+    <div class="encourage" id="encourage"></div>
+  </div>
+
+  <div class="card">
+
+    <!-- LANDING -->
+    <section class="screen active" data-screen="landing">
+      <div class="col-wide">
+        <p class="eyebrow">Find your fit &middot; 60 seconds</p>
+        <h1>The right therapist for the <span class="script">real you</span>.</h1>
+        <p class="lede">A few soft questions to point you toward the right starting place, then a free 15-minute consult with the Wild Within team. No pressure, no commitment.</p>
+        <div class="hero">
+          <img src="../assets/img/alicia-therapy-session-orange.jpg" alt="A warm therapy session at The Wild Within" onerror="this.closest('.hero').remove()">
+        </div>
+        <div class="center">
+          <button class="btn btn-primary" onclick="start()">Begin</button>
+          <p class="reassure">60 seconds &middot; no pressure, no commitment.</p>
+        </div>
+        <div class="trust">
+          <span><i class="dot"></i><b>3 therapists</b> on the team</span>
+          <span><i class="dot"></i>In person in Mesa</span>
+          <span><i class="dot"></i>Telehealth across Arizona</span>
+        </div>
+
+        <div class="team-preview">
+          <p class="team-preview-label">Meet the three people you might work with</p>
+          <div class="team-preview-row">
+            <figure>
+              <img class="tp-av" src="../assets/img/alicia-headshot.jpg" alt="Alicia Wright, LCSW" onerror="tpFallback(this,'A')">
+              <figcaption><b>Alicia</b><span>LCSW &middot; Founder</span></figcaption>
+            </figure>
+            <figure>
+              <img class="tp-av" src="../assets/img/alisha-headshot.jpg" alt="Alisha Anderson, LAC" onerror="tpFallback(this,'A')">
+              <figcaption><b>Alisha</b><span>LAC</span></figcaption>
+            </figure>
+            <figure>
+              <span class="tp-av tp-mono">K</span>
+              <figcaption><b>Kyla</b><span>Therapist</span></figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="creds">
+          <span class="cred">LCSW</span>
+          <span class="cred">LAC</span>
+          <span class="cred">Licensed in Arizona</span>
+          <span class="cred">Trauma-informed</span>
+        </div>
+
+        <p style="text-align:center;font-family:var(--serif);font-style:italic;color:var(--muted);font-size:14px;margin:16px 0 0">Warm, trauma-informed care in Mesa since 2023.</p>
+
+        <div class="founder-note">
+          <p>You do not need the right words yet. You only need to be willing to begin, and we will find the rest together.</p>
+          <span class="sig">Alicia</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Q1 -->
+    <section class="screen" data-screen="q1">
+      <div class="col">
+        <p class="q">What are you hoping for <em>more of?</em></p>
+        <p class="q-sub">There is no wrong answer. Pick what feels closest.</p>
+        <div class="options">
+          <button class="opt" onclick="pick('goal','Calm and steadiness',this)"><span class="opt-txt"><b>Calm and steadiness</b></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('goal','Connection and closeness',this)"><span class="opt-txt"><b>Connection and closeness</b></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('goal','Clarity and direction',this)"><span class="opt-txt"><b>Clarity and direction</b></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('goal','Healing after something hard',this)"><span class="opt-txt"><b>Healing after something hard</b></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('goal','I am not sure yet',this)"><span class="opt-txt"><b>I am not sure yet</b></span><span class="mk">&#10003;</span></button>
+        </div>
+        <div class="nav"><button class="back" onclick="go('landing')">&larr; Back</button></div>
+      </div>
+    </section>
+
+    <!-- Q2 -->
+    <section class="screen" data-screen="q2">
+      <div class="col">
+        <p class="q">What would you like to <em>work on?</em></p>
+        <p class="q-sub">This helps us match you to the right person across the practice.</p>
+        <div class="options">
+          <button class="opt" onclick="pick('area','Just me (individual therapy)',this)"><span class="opt-txt"><b>Just me</b><small>individual therapy</small></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('area','My relationship (couples)',this)"><span class="opt-txt"><b>My relationship</b><small>couples work</small></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('area','Parenting and family',this)"><span class="opt-txt"><b>Parenting and family</b><small>parenthood &amp; postpartum support</small></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('area','Growth and coaching',this)"><span class="opt-txt"><b>Personal growth</b><small>coaching</small></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('area','Deeper holistic work',this)"><span class="opt-txt"><b>Deeper, holistic work</b><small>somatic &amp; ketamine-assisted</small></span><span class="mk">&#10003;</span></button>
+        </div>
+        <div class="nav"><button class="back" onclick="go('q1')">&larr; Back</button></div>
+      </div>
+    </section>
+
+    <!-- Q3 -->
+    <section class="screen" data-screen="q3">
+      <div class="col">
+        <p class="q">How would you like to <em>meet?</em></p>
+        <p class="q-sub">The team sees clients in Mesa and across Arizona by telehealth.</p>
+        <div class="options">
+          <button class="opt" onclick="pick('mode','In person in Mesa',this)"><span class="opt-txt"><b>In person in Mesa</b></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('mode','Telehealth',this)"><span class="opt-txt"><b>Telehealth</b><small>anywhere in Arizona</small></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('mode','Either works',this)"><span class="opt-txt"><b>Either works for me</b></span><span class="mk">&#10003;</span></button>
+        </div>
+        <div class="nav"><button class="back" onclick="go('q2')">&larr; Back</button></div>
+      </div>
+    </section>
+
+    <!-- Q4 -->
+    <section class="screen" data-screen="q4">
+      <div class="col">
+        <p class="q">How soon do you want to <em>begin?</em></p>
+        <p class="q-sub">No pressure either way. This helps us hold the right time for you.</p>
+        <div class="options">
+          <button class="opt" onclick="pick('timing','This week',this)"><span class="opt-txt"><b>This week, I am ready</b></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('timing','This month',this)"><span class="opt-txt"><b>Sometime this month</b></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('timing','Exploring',this)"><span class="opt-txt"><b>Exploring for now</b></span><span class="mk">&#10003;</span></button>
+        </div>
+        <div class="nav"><button class="back" onclick="go('q3')">&larr; Back</button></div>
+      </div>
+    </section>
+
+    <!-- Q5 -->
+    <section class="screen" data-screen="q5">
+      <div class="col">
+        <p class="q">What feels right to <em>start?</em></p>
+        <p class="q-sub">Sessions range from $85 to $185 depending on the therapist. The consult is always free.</p>
+        <div class="options">
+          <button class="opt" onclick="pick('fit','Most accessible option',this)"><span class="opt-txt"><b>The most accessible option</b></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('fit','A balance',this)"><span class="opt-txt"><b>A balance of value and experience</b></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('fit','The right fit, whatever it costs',this)"><span class="opt-txt"><b>The right fit matters most to me</b></span><span class="mk">&#10003;</span></button>
+        </div>
+        <div class="nav"><button class="back" onclick="go('q4')">&larr; Back</button></div>
+      </div>
+    </section>
+
+    <!-- RESULT -->
+    <section class="screen" data-screen="result">
+      <div class="col">
+        <p class="eyebrow">Your fit</p>
+        <h2 id="result-head">We found your <em>best pick.</em></h2>
+        <div class="result-card">
+          <div class="match-tag on" id="match-tag"></div>
+          <div class="who">
+            <div class="avatar" id="result-avatar"></div>
+            <div>
+              <div class="who-name" id="result-name"></div>
+              <div class="who-role" id="result-role"></div>
+            </div>
+          </div>
+          <p id="result-copy" style="margin:0;color:var(--warm-gray);font-size:15.5px"></p>
+          <div class="pa-row" id="result-pa"></div>
+          <div class="chips" id="result-chips"></div>
+        </div>
+
+        <div class="team-strip">
+          <p class="team-strip-label">Your care team &middot; tap anyone to see their profile</p>
+          <div class="team-mini" id="team-mini"></div>
+        </div>
+
+        <p class="lede" style="margin:16px 0 18px">Your next step is a free 15-minute consult. A real conversation to feel whether this is right. Alicia meets you first, then helps you land with the best fit across the team.</p>
+        <div class="center">
+          <button class="btn btn-primary" onclick="go('capture')">Continue</button>
+          <p class="reassure">Your next step is a free 15-minute consult.</p>
+        </div>
+        <div class="nav"><button class="back" onclick="go('q5')">&larr; Back</button></div>
+      </div>
+    </section>
+
+    <!-- CAPTURE -->
+    <section class="screen" data-screen="capture">
+      <div class="col">
+        <p class="eyebrow">Almost there</p>
+        <h2>Where should we <em>reach you?</em></h2>
+        <p class="lede" style="margin-bottom:18px">Reaching out is the brave part. The rest, you figure out together.</p>
+        <div class="field"><label>Your name</label><input id="f-name" type="text" placeholder="First and last"></div>
+        <div class="field"><label>Email</label><input id="f-email" type="email" placeholder="you@email.com"></div>
+        <div class="field"><label>Phone</label><input id="f-phone" type="tel" placeholder="(480) 000-0000"></div>
+        <div class="field"><label>Anything you want us to know? (optional)</label><textarea id="f-note" rows="3" placeholder="A sentence or two is plenty."></textarea></div>
+        <div class="disclaimer">Please do not include sensitive health information here. This form is not HIPAA-secured. Detailed health information is collected through your secure client portal once you begin working together.</div>
+        <div class="center">
+          <button class="btn btn-primary" onclick="go('thankyou')">See my times</button>
+          <p class="reassure">After you send this, you'll pick a time and get a grounding guide in your inbox.</p>
+        </div>
+        <div class="trust-card">
+          <h4>Why clients start here</h4>
+          <div class="row"><i>&#10003;</i>A real 15-minute conversation, free, with no pressure to book.</div>
+          <div class="row"><i>&#10003;</i>Alicia meets you first, then matches you across the team.</div>
+          <div class="row"><i>&#10003;</i>In person in Mesa or telehealth anywhere in Arizona.</div>
+          <div class="row"><i>&#10003;</i>Warm, trauma-informed, and human.</div>
+        </div>
+        <div class="nav"><button class="back" onclick="go('result')">&larr; Back</button></div>
+      </div>
+    </section>
+
+    <!-- THANK YOU -->
+    <section class="screen" data-screen="thankyou">
+      <div class="col">
+        <p class="eyebrow">You are in good hands</p>
+        <h2 id="ty-head">Book your free <em>consult.</em></h2>
+        <p class="lede" style="margin-bottom:14px" id="ty-line">Pick a slot for your free 15-minute consult, or ask us to call you. Either way, you will hear back within one business day.</p>
+
+        <div class="slot-head">This week</div>
+        <div class="slots" id="slots">
+          <button class="slot" onclick="pickSlot(this)">Tue &middot; 10:00a</button>
+          <button class="slot" onclick="pickSlot(this)">Tue &middot; 2:30p</button>
+          <button class="slot" onclick="pickSlot(this)">Wed &middot; 12:00p</button>
+          <button class="slot" onclick="pickSlot(this)">Thu &middot; 9:30a</button>
+          <button class="slot" onclick="pickSlot(this)">Thu &middot; 4:00p</button>
+          <button class="slot" onclick="pickSlot(this)">Fri &middot; 11:00a</button>
+        </div>
+        <div class="center" style="margin-top:14px"><button class="btn btn-gold" onclick="confirmBooking()">Confirm my consult</button></div>
+        <div class="confirm" id="booked"></div>
+        <div class="next-steps" id="next-steps">
+          <h4>What happens next</h4>
+          <div class="step"><b>1.</b>We confirm your consult by email within the hour.</div>
+          <div class="step"><b>2.</b>You get a reminder and your grounding guide before you meet.</div>
+          <div class="step" id="step-follow"><b>3.</b>Your therapist follows up personally to book your first full session.</div>
+        </div>
+
+        <div class="divider">or</div>
+        <div class="center"><button class="btn btn-ghost" onclick="requestCallback()">Prefer a callback? Ask us to call you</button></div>
+        <div class="confirm" id="callback"></div>
+
+        <div class="guide">
+          <div class="ic">&#128220;</div>
+          <div>
+            <div style="font-weight:600;color:var(--plum-deep)">Your free grounding guide is on its way.</div>
+            <div style="font-size:13.5px;color:var(--muted)">A short nervous-system reset you can use tonight. Check your inbox in a few minutes.</div>
+          </div>
+        </div>
+
+        <div class="foot">
+          This is an interactive demo built by ProofPilot for The Wild Within. No data is collected or sent.<br>
+          Real build connects live scheduling, call tracking, and the team's inbox. &middot; <a href="owner.html">See the owner's view &rarr;</a> &middot; <a href="#" onclick="restart();return false;">Restart demo</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="stage-foot">The Wild Within &middot; Alicia Wright, LCSW &middot; Licensed in Arizona</div>
+</div>
+
+<script>
+  var answers = {};
+  var order = ['q1','q2','q3','q4','q5'];
+
+  function tpFallback(img, letter){
+    var s = document.createElement('span');
+    s.className = 'tp-av tp-mono';
+    s.textContent = letter;
+    img.replaceWith(s);
+  }
+  var encourage = ['A few soft questions to begin.','You are doing beautifully.','Halfway there.','Almost done.','Last one, promise.'];
+
+  var team = {
+    alicia:{ name:'Alicia Wright, LCSW', role:'Founder & Lead Therapist', img:'../assets/img/alicia-headshot.jpg', mono:'A', short:'Alicia', tag:'Founder', price:'$165–185', avail:'Next opening in about 2 weeks', availShort:'~2 wk wait', bio:'Founder of The Wild Within with 15+ years of experience. Alicia holds space for trauma, deep healing, couples, and holistic and ketamine-assisted work, warm and human, never clinical.' },
+    alisha:{ name:'Alisha Anderson, LAC', role:'Licensed Associate Counselor', img:'../assets/img/alisha-headshot.jpg', mono:'A', short:'Alisha', tag:'Individual & trauma', price:'$120–150', avail:'A few openings this month', availShort:'Limited spots', bio:'Alisha brings a holistic, person-centered approach to anxiety, depression, trauma, substance use, and postpartum support, drawing on 10 years of counseling and military service.' },
+    kyla:{ name:'Kyla Gordon', role:'Therapist, supervised by Alicia', img:'', mono:'K', short:'Kyla', tag:'Parenthood & transitions', price:'$85–110', avail:'Open this week', availShort:'Open this week', bio:'An Arizona native focused on parenthood, perinatal mental health, and life transitions. Trauma-informed and solution-focused, fully supported under Alicia\'s clinical supervision.' }
+  };
+  var suggestedKey = 'alicia';
+
+  function show(id){
+    document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+    var el = document.querySelector('[data-screen="'+id+'"]');
+    if(el) el.classList.add('active');
+    document.body.classList.toggle('in-quiz', id !== 'landing');
+    if(id==='thankyou'){ var tt=team[suggestedKey]||team.alicia; var l=document.getElementById('ty-line'); if(l) l.textContent='Pick a slot for your free 15-minute consult with '+tt.short+', or ask us to call you. You will hear back within one business day.'; }
+    window.scrollTo({top:0,behavior:'smooth'});
+    updateProgress(id);
+  }
+  function go(id){ show(id); }
+  function start(){ show('q1'); }
+
+  function updateProgress(id){
+    var w = document.getElementById('progress-wrap');
+    var idx = order.indexOf(id);
+    if(idx === -1){ w.classList.add('hidden'); return; }
+    w.classList.remove('hidden');
+    document.getElementById('bar').style.width = ((idx+1)/order.length*100)+'%';
+    document.getElementById('step-counter').textContent = 'Step '+(idx+1)+' of '+order.length;
+    document.getElementById('encourage').textContent = encourage[idx] || '';
+  }
+
+  function pick(key,val,btn){
+    answers[key] = val;
+    var group = btn.parentNode;
+    group.querySelectorAll('.opt').forEach(function(o){ o.classList.remove('sel'); });
+    btn.classList.add('sel');
+    var here = btn.closest('.screen').getAttribute('data-screen');
+    var next = order[order.indexOf(here)+1];
+    setTimeout(function(){ next ? show(next) : buildResult(); }, 300);
+  }
+
+  function matchTherapist(){
+    var area = answers.area || '';
+    var goal = answers.goal || '';
+    if(area === 'Parenting and family') return 'kyla';
+    if(area === 'Growth and coaching') return 'kyla';
+    if(area === 'My relationship (couples)') return 'alicia';
+    if(area === 'Deeper holistic work') return 'alicia';
+    if(area === 'Just me (individual therapy)'){
+      return goal === 'Healing after something hard' ? 'alicia' : 'alisha';
+    }
+    return 'kyla';
+  }
+
+  function avatarHTML(t){
+    if(t.img){ return '<img src="'+t.img+'" alt="'+t.name+'" onerror="this.parentNode.textContent=\''+t.mono+'\'">'; }
+    return t.mono;
+  }
+
+  function buildResult(){
+    suggestedKey = matchTherapist();
+    var area = answers.area || '';
+    var mode = answers.mode || 'Either works';
+
+    var areaText = {
+      'Just me (individual therapy)':'one-on-one therapy',
+      'My relationship (couples)':'couples work',
+      'Parenting and family':'parenting support',
+      'Growth and coaching':'coaching for growth',
+      'Deeper holistic work':'holistic, somatic work'
+    }[area] || 'the work that fits you';
+
+    var modeText = mode === 'In person in Mesa' ? 'in person in Mesa'
+                 : mode === 'Telehealth' ? 'by telehealth across Arizona'
+                 : 'in person or by telehealth';
+
+    document.getElementById('result-head').innerHTML = 'You and <span class="script">' + team[suggestedKey].short + '</span> look like a <em>good match.</em>';
+
+    var chips = [];
+    chips.push(areaText.replace(/^./,function(c){return c.toUpperCase();}));
+    chips.push(modeText.replace(/^./,function(c){return c.toUpperCase();}));
+    chips.push('Free 15-min consult');
+    document.getElementById('result-chips').innerHTML = chips.map(function(c,i){
+      return '<span class="chip" style="animation-delay:'+(i*70)+'ms">'+c+'</span>';
+    }).join('');
+
+    renderTeamMini();
+    viewTherapist(suggestedKey);
+    show('result');
+  }
+
+  function renderTeamMini(){
+    var mini = ['alicia','alisha','kyla'].map(function(k){
+      var m = team[k];
+      return '<div class="tm" id="tm-'+k+'" onclick="viewTherapist(\''+k+'\')">'+
+             '<div class="av">'+avatarHTML(m)+'</div>'+
+             '<div class="nm">'+m.short+'</div>'+
+             '<div class="mini-meta">'+m.availShort+'<br>'+m.price+'</div>'+
+             (k===suggestedKey?'<div class="mini-rec">Recommended</div>':'')+'</div>';
+    }).join('');
+    document.getElementById('team-mini').innerHTML = mini;
+  }
+
+  function viewTherapist(key){
+    var t = team[key];
+    document.getElementById('result-avatar').innerHTML = avatarHTML(t);
+    document.getElementById('result-name').textContent = t.name;
+    document.getElementById('result-role').textContent = t.role;
+    document.getElementById('result-pa').innerHTML =
+      '<span class="pa pa-price">'+t.price+' / session</span>'+
+      '<span class="pa pa-avail'+(t.availShort==='Open this week'?' open':'')+'">'+t.avail+'</span>';
+    var tag = document.getElementById('match-tag');
+    if(key === suggestedKey){
+      tag.textContent = 'Recommended for you';
+      tag.className = 'match-tag on';
+      document.getElementById('result-copy').textContent =
+        'From your answers, ' + t.short + ' looks like your best fit across the team. ' + t.bio;
+    } else {
+      tag.textContent = 'Also on your team';
+      tag.className = 'match-tag';
+      document.getElementById('result-copy').textContent =
+        t.bio + ' You are welcome to start with ' + t.short + ' too, just mention it on your consult.';
+    }
+    ['alicia','alisha','kyla'].forEach(function(k){
+      var el = document.getElementById('tm-'+k);
+      if(el) el.classList.toggle('on', k===key);
+    });
+  }
+
+  function pickSlot(btn){
+    document.querySelectorAll('.slot').forEach(function(s){ s.classList.remove('sel'); });
+    btn.classList.add('sel');
+    document.getElementById('booked').classList.remove('show');
+  }
+  function calLink(slot){
+    var t = team[suggestedKey] || team.alicia;
+    return 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+      + '&text=' + encodeURIComponent('Free consult with The Wild Within')
+      + '&details=' + encodeURIComponent('Your free 15-minute consult with ' + t.short + ' at The Wild Within. Suggested time: ' + slot + '. (Demo)')
+      + '&location=' + encodeURIComponent('Mesa, AZ or Telehealth');
+  }
+  function confirmBooking(){
+    var sel = document.querySelector('.slot.sel');
+    var name = (document.getElementById('f-name').value || 'there').split(' ')[0];
+    var t = team[suggestedKey] || team.alicia;
+    var box = document.getElementById('booked');
+    if(!sel){ box.textContent = 'Pick a time above and we will hold it for you.'; box.classList.add('show'); return; }
+    box.innerHTML = 'You are booked, ' + name + '. Your consult with <b>'+t.short+'</b> is held for <b>'+sel.textContent+'</b>.'+
+      '<div><a class="btn btn-ghost cal-btn" href="'+calLink(sel.textContent)+'" target="_blank" rel="noopener">Add to my calendar</a></div>'+
+      '<div class="sig-line">See you soon, ' + name + '</div>';
+    box.classList.add('show');
+    document.getElementById('step-follow').innerHTML = '<b>3.</b>' + t.short + ' follows up personally to book your first full session.';
+    document.getElementById('next-steps').classList.add('show');
+    document.getElementById('ty-head').innerHTML = 'See you soon, ' + name + '.';
+  }
+  function requestCallback(){
+    var name = (document.getElementById('f-name').value || 'there').split(' ')[0];
+    var box = document.getElementById('callback');
+    box.innerHTML = 'Done, ' + name + '. We will call you within one business day. No need to do anything else. (Demo only.)';
+    box.classList.add('show');
+  }
+
+  function restart(){
+    answers = {};
+    document.querySelectorAll('.opt.sel,.slot.sel').forEach(function(o){o.classList.remove('sel');});
+    document.getElementById('booked').classList.remove('show');
+    document.getElementById('callback').classList.remove('show');
+    show('landing');
+  }
+
+  show('landing');
+</script>
+</body>
+</html>
