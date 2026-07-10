@@ -75,6 +75,10 @@
   .head .eyebrow{ font-family:var(--sans); font-size:12px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--gold-deep); margin:0 0 8px; }
   .head h1{ font-family:var(--display); font-weight:600; font-size:clamp(26px,4vw,34px); line-height:1.12; color:var(--plum-deep); margin:0 0 8px; }
   .head p{ font-family:var(--sans); font-size:16px; color:var(--warm-gray); margin:0; max-width:60ch; }
+  .sub-head{ margin:40px 0 22px; padding-top:32px; border-top:1px solid var(--line); }
+  .sub-head .eyebrow{ font-family:var(--sans); font-size:12px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--gold-deep); margin:0 0 8px; }
+  .sub-head h2{ font-family:var(--display); font-weight:600; font-size:clamp(22px,3.2vw,28px); line-height:1.14; color:var(--plum-deep); margin:0 0 8px; }
+  .sub-head p{ font-family:var(--sans); font-size:15.5px; color:var(--warm-gray); margin:0; max-width:60ch; }
 
   /* Tabs */
   .tabs{ display:flex; gap:6px; border-bottom:1px solid var(--line); margin:22px 0 24px; }
@@ -219,13 +223,8 @@
       <p>When someone finishes your Find Your Fit quiz, they land here already matched to the right therapist, with their preferred time and what they are looking for. You follow up, or the automation does it for you.</p>
     </div>
 
-    <div class="tabs">
-      <button class="tab on" onclick="showTab('requests',this)">Consult requests</button>
-      <button class="tab" onclick="showTab('followup',this)">Follow-up on autopilot</button>
-    </div>
-
-    <!-- VIEW: REQUESTS -->
-    <div class="view on" id="view-requests">
+    <!-- SECTION: REQUESTS -->
+    <div id="view-requests">
 
       <div class="stats">
         <div class="stat gold"><div class="n">7</div><div class="l">New this week</div></div>
@@ -252,9 +251,13 @@
       </div>
     </div>
 
-    <!-- VIEW: FOLLOW-UP -->
-    <div class="view" id="view-followup">
-      <p class="seq-intro">The moment someone finishes the quiz, this runs on its own. No lead sits cold waiting for you to notice it, and no one falls through the cracks while you are in session.</p>
+    <!-- SECTION: FOLLOW-UP -->
+    <div class="sub-head">
+      <p class="eyebrow">Follow-up on autopilot</p>
+      <h2>Every lead gets nurtured, even while you are in session.</h2>
+    </div>
+    <div id="view-followup">
+      <p class="seq-intro">The moment someone finishes the quiz, this runs on its own. No lead sits cold waiting for you to notice it, and no one falls through the cracks while you are with a client.</p>
       <div class="seq">
         <div class="step">
           <div class="step-top"><span class="when">Right away</span><span class="chan email">Email</span></div>
@@ -392,13 +395,6 @@
             : 'You can hand '+l.name.split(' ')[0]+' to a different therapist here. (Demo)';
     var box = document.getElementById('done-'+i);
     box.textContent = msg; box.classList.add('show');
-  }
-
-  function showTab(id, btn){
-    document.querySelectorAll('.view').forEach(function(v){ v.classList.remove('on'); });
-    document.getElementById('view-'+id).classList.add('on');
-    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
-    btn.classList.add('on');
   }
 
   renderTeamLoad();
