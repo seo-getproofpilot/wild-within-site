@@ -34,6 +34,23 @@
   .demo-badge{ position:fixed; top:14px; right:14px; z-index:50; font-size:11px; letter-spacing:.14em; text-transform:uppercase;
     color:var(--gold-soft); background:rgba(46,26,45,.55); border:1px solid rgba(226,207,159,.4); border-radius:999px; padding:6px 12px; backdrop-filter:blur(6px); }
 
+  /* Private access gate */
+  .gate{ position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:24px;
+    background:linear-gradient(180deg, rgba(46,26,45,.93), rgba(30,14,26,.97)), url('../assets/img/dark-floral-purple.jpg') center/cover no-repeat; }
+  .gate.hide{ display:none; }
+  .gate-card{ background:linear-gradient(180deg, var(--ivory-warm), var(--ivory)); border:1px solid rgba(226,207,159,.55); border-radius:var(--radius-card); box-shadow:var(--shadow-card); padding:38px 34px; max-width:400px; width:100%; text-align:center; position:relative; overflow:hidden; }
+  .gate-card::before{ content:""; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--plum),var(--gold),var(--sage)); }
+  .gate-card .med{ display:inline-block; background:var(--ivory-warm); border-radius:16px; padding:10px 16px; box-shadow:var(--shadow-soft); margin-bottom:16px; }
+  .gate-card .med img{ height:46px; display:block; }
+  .gate-card .eyebrow{ font-family:var(--sans); font-size:12px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-deep); margin:0 0 8px; }
+  .gate-card h2{ font-family:var(--display); font-weight:600; font-size:23px; color:var(--plum-deep); margin:0 0 8px; }
+  .gate-card p{ font-family:var(--sans); font-size:14.5px; color:var(--warm-gray); margin:0 0 20px; line-height:1.55; }
+  .gate-card input{ width:100%; font-family:var(--sans); font-size:16px; text-align:center; letter-spacing:.06em; color:var(--ink); background:var(--ivory-warm); border:1.5px solid var(--line); border-radius:12px; padding:14px 15px; margin-bottom:12px; }
+  .gate-card input:focus{ outline:none; border-color:var(--gold); box-shadow:0 0 0 4px var(--gold-glow); }
+  .gate-card button{ width:100%; appearance:none; cursor:pointer; font-family:var(--sans); font-weight:600; font-size:13px; letter-spacing:.1em; text-transform:uppercase; background:var(--plum); color:var(--ivory-warm); border:1.5px solid var(--plum); border-radius:50px; padding:15px; transition:.3s; }
+  .gate-card button:hover{ background:var(--gold); border-color:var(--gold); color:var(--plum-deep); }
+  .gate-err{ font-family:var(--sans); font-size:13px; color:#B0453C; margin-top:12px; min-height:18px; }
+
   .wrap{ position:relative; z-index:2; max-width:940px; margin:0 auto; padding:30px 20px 80px; }
 
   /* Top bar */
@@ -165,6 +182,19 @@
 </style>
 </head>
 <body>
+
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <span class="med"><img src="../assets/img/logo-phoenix-text.png" alt="The Wild Within" onerror="this.src='../assets/img/logo-phoenix.png'"></span>
+    <p class="eyebrow">Private preview</p>
+    <h2>Your practice dashboard</h2>
+    <p>This view is just for you. Enter your access code to see what comes in from your funnel.</p>
+    <input id="gate-code" type="password" placeholder="Access code" autocomplete="off" onkeydown="if(event.key==='Enter'){unlock();}">
+    <button onclick="unlock()">View my dashboard</button>
+    <div class="gate-err" id="gate-err"></div>
+  </div>
+</div>
+
 <div class="demo-badge">Owner view &middot; demo</div>
 <div class="wrap">
 
@@ -270,6 +300,19 @@
 </div>
 
 <script>
+  // Access code you give Alicia. Change the value below to update it.
+  var ACCESS_CODE = 'wildwithin';
+  function unlock(){
+    var v = (document.getElementById('gate-code').value || '').trim().toLowerCase();
+    if(v === ACCESS_CODE){
+      try{ sessionStorage.setItem('ww_owner_ok','1'); }catch(e){}
+      document.getElementById('gate').classList.add('hide');
+    } else {
+      document.getElementById('gate-err').textContent = 'That code did not match. Try again.';
+    }
+  }
+  (function(){ try{ if(sessionStorage.getItem('ww_owner_ok')==='1'){ document.getElementById('gate').classList.add('hide'); } }catch(e){} })();
+
   var team = {
     alicia:{ short:'Alicia', role:'Founder & Lead Therapist', img:'../assets/img/alicia-headshot.jpg', mono:'A', price:'$165–185' },
     alisha:{ short:'Alisha', role:'Licensed Associate Counselor', img:'../assets/img/alisha-headshot.jpg', mono:'A', price:'$120–150' },
