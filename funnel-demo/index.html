@@ -581,10 +581,14 @@
   function matchTherapist(){
     var area = answers.area || '';
     var goal = answers.goal || '';
-    if(area === 'Parenting and family') return 'kyla';
-    if(area === 'Growth and coaching') return 'kyla';
+    var fit  = answers.fit || '';
+    // Couples and deeper holistic work are Alicia's specialties, no lower-cost equivalent
     if(area === 'My relationship (couples)') return 'alicia';
     if(area === 'Deeper holistic work') return 'alicia';
+    // When budget is the priority, lean to the most accessible fit on the team
+    if(fit === 'Most accessible option') return 'kyla';
+    if(area === 'Parenting and family') return 'kyla';
+    if(area === 'Growth and coaching') return 'kyla';
     if(area === 'Just me (individual therapy)'){
       return goal === 'Healing after something hard' ? 'alicia' : 'alisha';
     }
