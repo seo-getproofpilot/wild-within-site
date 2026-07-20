@@ -1062,21 +1062,36 @@ a:hover { color: var(--plum); }
 .testimonial-dots {
   display: flex;
   justify-content: center;
-  gap: 0.65rem;
+  gap: 0;
   margin-top: 1.25rem;
 }
+/* The visible dot stays a small 7px circle (drawn with ::before), but the
+   button itself is a 24px transparent tap target so it clears the ~44px-ish
+   touch guideline far better than the old 7px hit box. Design look unchanged;
+   only the invisible clickable area grew. */
 .testimonial-dot {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: var(--sand);
+  width: 24px; height: 24px;
+  background: transparent;
   border: none;
   padding: 0;
   cursor: pointer;
+  position: relative;
+  display: inline-flex;
   transition: all 0.3s;
 }
-.testimonial-dot.active {
+.testimonial-dot::before {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--sand);
+  transform: translate(-50%, -50%);
+  transition: all 0.3s;
+}
+.testimonial-dot.active::before {
   background: var(--terracotta);
-  transform: scale(1.3);
+  transform: translate(-50%, -50%) scale(1.3);
 }
 
 /* ===== CTA ===== */
