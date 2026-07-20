@@ -2054,6 +2054,18 @@ main { padding-top: 0; }
   .footer-top, .footer-grid { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; gap: 0.75rem; text-align: center; }
 }
+/* Phone-only grid collapse.
+   Several service pages hard-code grid columns as INLINE styles
+   (e.g. style="grid-template-columns:repeat(4,1fr)"), which outrank the
+   stylesheet's mobile rules above. On phones that left the 4th process step
+   off-screen and squeezed service cards into tiny 2-3 column strips.
+   !important here lets the stylesheet beat the inline styles at phone widths
+   only; tablets (601px+) keep their multi-column layouts. */
+@media (max-width: 600px) {
+  .services-grid,
+  .process-steps,
+  .approach-pillars { grid-template-columns: 1fr !important; }
+}
 @media (max-width: 480px) {
   nav.nav-mockup, .site-header { padding: 0.9rem 1.25rem; }
   .site-header .nav { padding: 0.9rem 1.25rem; }
