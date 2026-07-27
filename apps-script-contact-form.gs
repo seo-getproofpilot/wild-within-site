@@ -36,6 +36,16 @@ var SCORE_THRESHOLD = 0.5;
 
 var VERIFY_URL = 'https://www.google.com/recaptcha/api/siteverify';
 
+// The leads sheet already had columns A-G in use before reCAPTCHA existed:
+// A-E are the submission itself, F is Alicia's manual Status dropdown and
+// G is her Notes. Do NOT write into F or G - a score landing in her Status
+// column breaks the data validation and her triage workflow. The two new
+// columns go after hers. If the sheet layout ever changes, fix these two
+// numbers and nothing else.
+var SCORE_COL = 8;   // H
+var STATUS_COL = 9;  // I
+var LAST_LEAD_COL = 9;
+
 // Domains a token is allowed to have been solved on. Add localhost here
 // only while testing, and take it back out afterward.
 var ALLOWED_HOSTS = [
@@ -88,7 +98,10 @@ function doPost(e) {
   if (verdict.errored) {
     // Google's verification service did not answer. Fail OPEN on purpose,
     // so an outage on their end never costs Alicia a real inquiry.
-    writeLead(ss, ts, name, email, phone, message, '', 'UNVERIFIED');
+    // The reason rides along in the status cell. If EVERY row says this,
+    // it is not a Google outage, it is this script - check authorization.
+    writeLead(ss, ts, name, email, phone, message, '',
+      'UNVERIFIED: ' + (verdict.why || 'unknown'));
     sendNotification(name, email, phone, message,
       'reCAPTCHA could not be reached, so this one is unverified.');
     return ok();
@@ -144,7 +157,7 @@ function verifyRecaptcha(token) {
     });
 
     if (res.getResponseCode() !== 200) {
-      return { errored: true };
+      return { errored: true, why: 'HTTP ' + res.getResponseCode() };
     }
 
     var body = JSON.parse(res.getContentText());
@@ -157,18 +170,44 @@ function verifyRecaptcha(token) {
       errored: false
     };
   } catch (err) {
-    return { errored: true };
+    // Most likely cause the first time this runs: the script's saved OAuth
+    // grant has no external-request scope, because the project never called
+    // UrlFetchApp before. Open the editor, Run any function once, accept the
+    // prompt, then redeploy. The message is carried into the sheet rather
+    // than swallowed so a silent failure like that is visible, not guessed at.
+    return { errored: true, why: String(err).slice(0, 120) };
   }
 }
 
 /**
  * Appends to the leads sheet.
- * Columns A-E match the original layout so old rows still line up.
- * F and G are new: the reCAPTCHA score and the verdict.
+ * A-E are the submission. F and G are deliberately left blank because they
+ * belong to Alicia (Status dropdown and Notes). The score and verdict go
+ * in H and I. Headers are written once if they are not already there.
  */
 function writeLead(ss, ts, name, email, phone, message, score, status) {
   var sheet = ss.getSheetByName(SHEET_TAB);
-  sheet.appendRow([ts, name, email, phone, message, score, status]);
+
+  if (!sheet.getRange(1, SCORE_COL).getValue()) {
+    sheet.getRange(1, SCORE_COL).setValue('reCAPTCHA Score');
+  }
+  if (!sheet.getRange(1, STATUS_COL).getValue()) {
+    sheet.getRange(1, STATUS_COL).setValue('Spam Check');
+  }
+
+  var row = new Array(LAST_LEAD_COL);
+  for (var i = 0; i < LAST_LEAD_COL; i++) {
+    row[i] = '';
+  }
+  row[0] = ts;
+  row[1] = name;
+  row[2] = email;
+  row[3] = phone;
+  row[4] = message;
+  row[SCORE_COL - 1] = score;
+  row[STATUS_COL - 1] = status;
+
+  sheet.appendRow(row);
 }
 
 /**
