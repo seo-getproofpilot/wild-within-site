@@ -20,13 +20,19 @@ var BLOCKED_TAB = 'Blocked';
 var NOTIFY_TO = 'thewildwithin.therapy@gmail.com';
 var NOTIFY_CC = 'seo@getproofpilot.com';
 
-// The reCAPTCHA v3 SECRET key goes here, but ONLY in the live Apps Script
-// editor - never in this file. This repo is public on GitHub, so a secret
-// committed here is a secret published to the world. Leave the placeholder
-// in the repo copy and paste the real value straight into the script project.
-// If it ever does get committed, treat it as burned and roll it in the
+// The reCAPTCHA SECRET key is NOT in this file and never should be. This repo
+// is public on GitHub, so a secret committed here is published to the world.
+// It lives in the script's own Script Properties instead:
+//   Apps Script editor > Project Settings (gear) > Script Properties
+//   Property: RECAPTCHA_SECRET    Value: the secret key
+// That means this file is identical to what runs live, so updating the backend
+// is now a plain copy-paste of the whole file with nothing to re-substitute.
+// If the secret ever does get committed, treat it as burned and roll it in the
 // reCAPTCHA admin console.
-var RECAPTCHA_SECRET = 'PASTE_SECRET_KEY_HERE';
+function getSecret() {
+  var props = PropertiesService.getScriptProperties();
+  return props.getProperty('RECAPTCHA_SECRET') || '';
+}
 
 // Scores run 0.0 (almost certainly a bot) to 1.0 (almost certainly human).
 // At or above this, the lead emails Alicia normally.
@@ -150,9 +156,17 @@ function doPost(e) {
  */
 function verifyRecaptcha(token) {
   try {
+    // Missing secret must fail OPEN, not closed. If this returned a plain
+    // failure instead, Google would answer invalid-input-secret for every
+    // submission and the script would silently block every real inquiry.
+    var secret = getSecret();
+    if (!secret) {
+      return { errored: true, why: 'no RECAPTCHA_SECRET script property' };
+    }
+
     var res = UrlFetchApp.fetch(VERIFY_URL, {
       method: 'post',
-      payload: { secret: RECAPTCHA_SECRET, response: token },
+      payload: { secret: secret, response: token },
       muteHttpExceptions: true
     });
 
@@ -257,4 +271,37 @@ function ok() {
 
 function doGet() {
   return ContentService.createTextOutput('OK');
+}
+
+/**
+ * Health check. Run this from the editor any time the form seems off, then
+ * read the Execution log. It proves the three things that can silently break
+ * this backend, without needing a real form submission:
+ *   1. the secret is present (length only - never log the value itself)
+ *   2. UrlFetchApp can actually reach Google, which is what fails when the
+ *      script has not been authorized for external requests
+ *   3. the leads sheet still has the column layout this code writes into
+ * A deliberately invalid token is expected to come back success=false with
+ * invalid-input-response. That is the PASS case - it means the round trip
+ * worked. errored=true is the FAIL case.
+ */
+function checkSetup() {
+  var secret = getSecret();
+  Logger.log('secret present: ' + (secret ? 'yes, length ' + secret.length
+    : 'NO - set the RECAPTCHA_SECRET script property'));
+
+  var verdict = verifyRecaptcha('deliberately-invalid-token');
+  if (verdict.errored) {
+    Logger.log('FAIL - could not reach Google: ' + verdict.why);
+  } else {
+    Logger.log('PASS - reached Google. success=' + verdict.success
+      + ' errorCodes=' + verdict.errorCodes);
+  }
+
+  var sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_TAB);
+  var headers = sheet.getRange(1, 1, 1, LAST_LEAD_COL).getValues()[0];
+  Logger.log('headers: ' + headers.join(' | '));
+  Logger.log('score goes in col ' + SCORE_COL
+    + ', verdict in col ' + STATUS_COL
+    + ' (must not disturb Status and Notes)');
 }
