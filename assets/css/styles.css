@@ -1821,6 +1821,33 @@ form.contact-form {
 }
 .contact-form .note { font-size: 0.85rem; color: var(--warm-gray-light); line-height: 1.6; }
 
+/* Spam honeypot. Kept out of sight without display:none, since some bots
+   skip fields that are display:none but will still fill this one. */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* reCAPTCHA v3 drops a floating badge bottom-right that fights the design.
+   Google allows hiding it as long as the attribution text below stays on
+   the form. Do not remove .recaptcha-note from contact.html. */
+.grecaptcha-badge { visibility: hidden; }
+.contact-form .recaptcha-note {
+  margin-top: -0.35rem;
+  font-size: 0.76rem;
+  color: var(--warm-gray-light);
+  line-height: 1.5;
+}
+.contact-form .recaptcha-note a {
+  color: var(--warm-gray-light);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.contact-form .recaptcha-note a:hover { color: var(--plum-muted); }
+
 /* Editorial prose — service pages, blog posts */
 .prose { max-width: 760px; margin: 0 auto; }
 .prose h2 {
