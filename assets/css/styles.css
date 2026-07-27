@@ -1834,7 +1834,7 @@ form.contact-form {
 /* reCAPTCHA v3 drops a floating badge bottom-right that fights the design.
    Google allows hiding it as long as the attribution text below stays on
    the form. Do not remove .recaptcha-note from contact.html. */
-.grecaptcha-badge { visibility: hidden; }
+.grecaptcha-badge { visibility: hidden !important; }
 .contact-form .recaptcha-note {
   margin-top: -0.35rem;
   font-size: 0.76rem;
