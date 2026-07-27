@@ -20,8 +20,12 @@ var BLOCKED_TAB = 'Blocked';
 var NOTIFY_TO = 'thewildwithin.therapy@gmail.com';
 var NOTIFY_CC = 'seo@getproofpilot.com';
 
-// Paste the reCAPTCHA v3 SECRET key here (starts with 6L).
-// This is the secret half - it must never appear in the website code.
+// The reCAPTCHA v3 SECRET key goes here, but ONLY in the live Apps Script
+// editor - never in this file. This repo is public on GitHub, so a secret
+// committed here is a secret published to the world. Leave the placeholder
+// in the repo copy and paste the real value straight into the script project.
+// If it ever does get committed, treat it as burned and roll it in the
+// reCAPTCHA admin console.
 var RECAPTCHA_SECRET = 'PASTE_SECRET_KEY_HERE';
 
 // Scores run 0.0 (almost certainly a bot) to 1.0 (almost certainly human).

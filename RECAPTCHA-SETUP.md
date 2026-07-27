@@ -11,43 +11,41 @@ the visitor to do. That matters here — someone reaching out about therapy is
 often having a hard day, and making them solve a picture puzzle first is a
 good way to lose them.
 
-Google now pushes new signups toward **reCAPTCHA Enterprise**, which needs a
-Google Cloud project and a billing account attached. That's overhead nobody
-wants to own for a solo practice's contact form. Classic v3 is still free and
-still supported, so that's what this uses.
+Google has folded reCAPTCHA into Google Cloud, so creating a key now asks
+you to pick a Cloud project. That is expected and it is still free: **10,000
+assessments a month at no cost, no credit card.** This form will not come
+close to that ceiling. Keys created this way are still classic keys, so they
+work with the standard `siteverify` check the Apps Script uses. Verified end
+to end on 2026-07-27 against a live token.
 
-## Step 1 — create the keys
+## Step 1 — keys (DONE 2026-07-27)
 
-1. Go to https://www.google.com/recaptcha/admin/create
-2. Label: `Wild Within Therapy`
-3. reCAPTCHA type: **Score based (v3)**
-4. Domains, add both:
-   - `thewildwithintherapy.com`
-   - `www.thewildwithintherapy.com`
-5. Accept the terms, Submit.
+Created under the `ProofPilot Tools` Cloud project, label `Wild Within
+Therapy`, type Score based (v3), domain `thewildwithintherapy.com`.
+Registering the apex domain covers `www` and every other subdomain
+automatically, so one entry is enough.
 
-You get two keys. The **site key** is public and goes in the website. The
-**secret key** is private and only ever goes in the Apps Script. Never put
-the secret key in the repo — it's a public GitHub repo.
+The **site key** is public and lives in `contact.html`. Already wired in.
 
-**Decide whose Google account owns this.** Recommend `seo@getproofpilot.com`,
-same as the rest of the stack, since this is under Site Care. If it lives on
-Alicia's personal Gmail, we lose access the day that relationship changes.
+The **secret key** is private. It lives ONLY in the Apps Script project.
+It is deliberately NOT in this repo, because this repo is public on GitHub.
+Marcos has it. If it ever lands in a commit, roll it in the reCAPTCHA admin
+console and treat the old one as burned.
 
-## Step 2 — paste the keys in
+If keys ever need recreating, the console is at
+https://www.google.com/recaptcha/admin
 
-**Site key** goes in `contact.html`, near the bottom:
+**Ownership:** keep these on `seo@getproofpilot.com` with the rest of the
+stack, since this sits under Site Care. On Alicia's personal Gmail we lose
+access the day that relationship changes.
 
-```js
-window.WW_RECAPTCHA_SITE_KEY = "PASTE_SITE_KEY_HERE";
-```
+## Step 2 — the Apps Script
 
-**Secret key** goes in the Apps Script. Open the script project attached to
-the leads sheet, replace the whole file with `apps-script-contact-form.gs`
-from this repo, then set:
+Open the script project attached to the leads sheet, replace the whole file
+with `apps-script-contact-form.gs` from this repo, then set the secret:
 
 ```js
-var RECAPTCHA_SECRET = 'PASTE_SECRET_KEY_HERE';
+var RECAPTCHA_SECRET = 'the secret key, pasted here in the editor only';
 ```
 
 Then **Deploy → Manage deployments → edit the existing deployment → Version:
@@ -86,6 +84,11 @@ The cutoff is `SCORE_THRESHOLD = 0.5` in the Apps Script. Leave it alone for
 a week, then look at the Score column. If real inquiries are scoring 0.7+ and
 the junk is at 0.1, tighten it to 0.7. If anything real ever shows up under
 0.5, loosen it.
+
+One caveat on early numbers: a brand new key has no traffic history, so
+Google scores generously at first. A headless test browser scored 0.9 on
+setup day, which a seasoned key would likely have marked down. Give it a few
+weeks of real traffic before reading much into the distribution.
 
 The whole thing is built so nothing is ever silently lost. Low scores still
 land in the sheet, they just don't email. The only things dropped outright
