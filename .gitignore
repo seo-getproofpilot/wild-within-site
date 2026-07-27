@@ -6,3 +6,6 @@
 *.pdf
 *.docx
 client-status-*.md
+
+# Local QA screenshots
+.qa-recaptcha/

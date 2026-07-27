@@ -120,18 +120,53 @@ document.addEventListener("DOMContentLoaded", () => {
       const btn = form.querySelector("button, [type=submit]");
       if (btn) btn.disabled = true;
       note.textContent = "Sending...";
-      const data = new URLSearchParams({
-        name: (form.querySelector("[name=name]") || {}).value || "",
-        email: (form.querySelector("[name=email]") || {}).value || "",
-        phone: (form.querySelector("[name=phone]") || {}).value || "",
-        message: (form.querySelector("[name=message]") || {}).value || ""
-      });
+
       const done = () => {
         note.textContent = "Thank you. Your message has been sent. Alicia will respond, usually within one business day.";
         form.querySelectorAll("input, textarea").forEach((el) => { el.value = ""; });
         if (btn) btn.disabled = false;
       };
-      fetch(ENDPOINT, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: data }).then(done).catch(done);
+
+      const send = (token) => {
+        const data = new URLSearchParams({
+          name: (form.querySelector("[name=name]") || {}).value || "",
+          email: (form.querySelector("[name=email]") || {}).value || "",
+          phone: (form.querySelector("[name=phone]") || {}).value || "",
+          message: (form.querySelector("[name=message]") || {}).value || "",
+          website: (form.querySelector("[name=website]") || {}).value || "",
+          recaptchaToken: token
+        });
+        fetch(ENDPOINT, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: data }).then(done).catch(done);
+      };
+
+      // Get a reCAPTCHA v3 score token, then send.
+      // If reCAPTCHA is unavailable (key not set yet, Google blocked by a
+      // privacy extension, script slow to load) we still send, marked
+      // UNAVAILABLE. The backend lets those through but flags them. Losing a
+      // real inquiry from someone who blocks trackers is far worse than
+      // letting an unscored message reach the sheet.
+      const key = window.WW_RECAPTCHA_SITE_KEY;
+      const configured = key && key.indexOf("PASTE_") !== 0;
+
+      if (!configured || typeof grecaptcha === "undefined") {
+        send("UNAVAILABLE");
+        return;
+      }
+
+      let settled = false;
+      const once = (t) => { if (!settled) { settled = true; send(t); } };
+      // Never leave someone stuck on "Sending..." if Google hangs.
+      setTimeout(() => once("UNAVAILABLE"), 5000);
+
+      try {
+        grecaptcha.ready(() => {
+          grecaptcha.execute(key, { action: "contact" })
+            .then(once)
+            .catch(() => once("UNAVAILABLE"));
+        });
+      } catch (err) {
+        once("UNAVAILABLE");
+      }
     });
   }
 });
