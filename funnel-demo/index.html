@@ -314,10 +314,6 @@
               <figcaption><b>Alicia</b><span>LCSW &middot; Founder</span></figcaption>
             </figure>
             <figure>
-              <img class="tp-av" src="../assets/img/alisha-headshot.jpg" alt="Alisha Anderson, LAC" onerror="tpFallback(this,'A')">
-              <figcaption><b>Alisha</b><span>LAC</span></figcaption>
-            </figure>
-            <figure>
               <span class="tp-av tp-mono">K</span>
               <figcaption><b>Kyla</b><span>Therapist</span></figcaption>
             </figure>
@@ -536,7 +532,6 @@
 
   var team = {
     alicia:{ name:'Alicia Wright, LCSW', role:'Founder & Lead Therapist', img:'../assets/img/alicia-headshot.jpg', mono:'A', short:'Alicia', tag:'Founder', price:'$165–185', avail:'Next opening in about 2 weeks', availShort:'~2 wk wait', bio:'Founder of The Wild Within with 15+ years of experience. Alicia holds space for trauma, deep healing, couples, and holistic and ketamine-assisted work, warm and human, never clinical.' },
-    alisha:{ name:'Alisha Anderson, LAC', role:'Licensed Associate Counselor', img:'../assets/img/alisha-headshot.jpg', mono:'A', short:'Alisha', tag:'Individual & trauma', price:'$120–150', avail:'A few openings this month', availShort:'Limited spots', bio:'Alisha brings a holistic, person-centered approach to anxiety, depression, trauma, substance use, and postpartum support, drawing on 10 years of counseling and military service.' },
     kyla:{ name:'Kyla Gordon', role:'Therapist, supervised by Alicia', img:'', mono:'K', short:'Kyla', tag:'Parenthood & transitions', price:'$85–110', avail:'Open this week', availShort:'Open this week', bio:'An Arizona native focused on parenthood, perinatal mental health, and life transitions. Trauma-informed and solution-focused, fully supported under Alicia\'s clinical supervision.' }
   };
   var suggestedKey = 'alicia';
@@ -585,7 +580,7 @@
     if(area === 'Parenting and family') return 'kyla';
     if(area === 'Growth and coaching') return 'kyla';
     if(area === 'Just me (individual therapy)'){
-      return goal === 'Healing after something hard' ? 'alicia' : 'alisha';
+      return goal === 'Healing after something hard' ? 'alicia' : 'kyla';
     }
     return 'kyla';
   }
@@ -628,7 +623,7 @@
   }
 
   function renderTeamMini(){
-    var mini = ['alicia','alisha','kyla'].map(function(k){
+    var mini = ['alicia','kyla'].map(function(k){
       var m = team[k];
       return '<div class="tm" id="tm-'+k+'" onclick="viewTherapist(\''+k+'\')">'+
              '<div class="av">'+avatarHTML(m)+'</div>'+
@@ -659,7 +654,7 @@
       document.getElementById('result-copy').textContent =
         t.bio + ' You are welcome to start with ' + t.short + ' too, just mention it on your consult.';
     }
-    ['alicia','alisha','kyla'].forEach(function(k){
+    ['alicia','kyla'].forEach(function(k){
       var el = document.getElementById('tm-'+k);
       if(el) el.classList.toggle('on', k===key);
     });

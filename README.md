@@ -40,7 +40,7 @@ connect to Railway, set the start command to a static-server image, deploy.
 - **Real photos** — Currently Unsplash placeholders. Alicia is doing a photo shoot.
 - **Final logo** — Taylor is building it. Currently using text logo "The Wild Within."
 - **Kyla's headshot** — Kyla bio is in place on About page; needs photo.
-- **Alisha's full bio + photo** — Placeholder card on About page.
+- ~~Alisha's full bio + photo~~ — **Removed 2026-07-30.** Alicia is parting ways with Alisha Anderson; she is off the home page, About page, FAQ, and the funnel. Teen work is now credited to Alicia and Kyla, confirmed by Marcos.
 - **KAP and coaching pricing** — Currently "contact for pricing." Update when finalized.
 
 ## SEO baked in
