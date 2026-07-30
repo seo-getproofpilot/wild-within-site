@@ -41,6 +41,9 @@ connect to Railway, set the start command to a static-server image, deploy.
 - **Final logo** — Taylor is building it. Currently using text logo "The Wild Within."
 - **Kyla's headshot** — Kyla bio is in place on About page; needs photo.
 - ~~Alisha's full bio + photo~~ — **Removed 2026-07-30.** Alicia is parting ways with Alisha Anderson; she is off the home page, About page, FAQ, and the funnel. Teen work is now credited to Alicia and Kyla, confirmed by Marcos.
+  - Second pass the same day caught what the removal left behind: the home H2 still said "three voices," the About subtitle still said "a small team of practitioners," the funnel badge still said "3 therapists," and the funnel still listed an **LAC** credential nobody on the team holds. Those are removed too.
+  - **Rule for any future staff change: grep for the departing name, then also grep for the team COUNT and their CREDENTIALS.** Copy and credential badges outlive the person. `.team-grid` and `.team-bio-grid` are now `auto-fit` so the layout no longer has to be re-tuned when the team size changes — do not put a hard-coded column count back.
+- **`assets/img/alisha-headshot.jpg`** — orphaned since 2026-07-30. No page references it, but it is still publicly reachable at that URL. Pending Marcos's call on deleting it.
 - **KAP and coaching pricing** — Currently "contact for pricing." Update when finalized.
 
 ## SEO baked in

@@ -2258,9 +2258,12 @@ body::after {
   background: var(--ivory);
   text-align: center;
 }
+/* auto-fit + a capped card width so the row stays correct at any team size.
+   Never hard-code a column count here — the team changes. */
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
+  justify-content: center;
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
@@ -2949,7 +2952,9 @@ body::after {
   max-width: 1180px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  /* auto-fit, not a fixed count — see note on the earlier .team-grid rule */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
+  justify-content: center;
   gap: 1.75rem;
 }
 @media (max-width: 900px) {
@@ -3326,7 +3331,9 @@ body::after {
   max-width: 1180px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  /* auto-fit so one bio centers instead of sitting in an empty two-column row */
+  grid-template-columns: repeat(auto-fit, minmax(320px, 570px));
+  justify-content: center;
   gap: 2.5rem;
 }
 @media (max-width: 900px) {
