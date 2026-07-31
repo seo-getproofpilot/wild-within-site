@@ -3693,3 +3693,35 @@ body::after {
   background: var(--gold-glow);
   border-radius: 2px;
 }
+
+/* ---- Service card recognition lists (services hub) ----
+   Onyx's "what's included" pattern, adapted: on a therapy site people
+   self-select by recognising themselves, not by scanning features. Gold
+   check, plum text, sits between the card blurb and the Learn more link. */
+.service-checks{
+  list-style:none;
+  margin:0 0 1.35rem;
+  padding:0;
+  display:grid;
+  gap:.6rem;
+}
+.service-checks li{
+  position:relative;
+  padding-left:1.6rem;
+  font-family:'Inter',sans-serif;
+  font-size:.9rem;
+  line-height:1.5;
+  color:#5a4a56;
+}
+.service-checks li::before{
+  content:"";
+  position:absolute;
+  left:0; top:.42em;
+  width:.72rem; height:.4rem;
+  border-left:2px solid #c9a961;
+  border-bottom:2px solid #c9a961;
+  transform:rotate(-45deg);
+}
+@media (max-width:600px){
+  .service-checks li{font-size:.875rem;}
+}
