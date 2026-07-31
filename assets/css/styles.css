@@ -2051,7 +2051,10 @@ main { padding-top: 0; }
   .hero-actions { justify-content: center; }
   .hero-visual { height: 420px; max-width: 380px; margin: 0 auto; }
   .hero-badge { left: 0; }
-  .trust-strip { gap: 2rem; padding: 1.25rem 2rem; flex-wrap: wrap; }
+  /* Below 1024px the hero stacks, so the absolutely-pinned trust strip lands
+     ON TOP of the hero photo. Drop it back into normal flow underneath. */
+  .hero { flex-direction: column; justify-content: center; }
+  .trust-strip { position: static; width: 100%; margin-top: 2.5rem; gap: 2rem; padding: 1.25rem 2rem; flex-wrap: wrap; }
   .welcome-grid, .approach-grid, .two-col { grid-template-columns: 1fr; gap: 3rem; }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-top, .footer-grid { grid-template-columns: 1fr 1fr; }

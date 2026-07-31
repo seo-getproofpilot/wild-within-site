@@ -37,7 +37,11 @@ connect to Railway, set the start command to a static-server image, deploy.
 ## What still needs swapping in
 
 - **Real testimonials** — Alicia sent these via email. Currently using voice-matched placeholders. Search `TODO` in `index.html`.
-- **Real photos** — Currently Unsplash placeholders. Alicia is doing a photo shoot.
+- **Real photos** — The five service-card images and the decorative band images are still stock. Alicia's own shoot photos landed 2026-07-30 and are now in the three slots that matter most (see below).
+  - **Alicia's real photos, installed 2026-07-30:** `alicia-office-hero.jpg` (home hero), `alicia-hand-on-heart.jpg` (About story), `funnel-hero-conversation.jpg` (funnel landing), `og-alicia-office.jpg` (the social-share image on all 17 pages, replacing the dark `alicia-therapy-session-orange.jpg`). The og file is a true 1200×630, so the `og:image:width`/`height` tags are now honest — they were declaring 1200×630 against a 1600×1066 file.
+  - **Resolution is the constraint on this set.** The originals top out around 1100px wide. At 2× DPR that rules out the home welcome image, the tuning-fork slot, and the service cards — those slots need 1000–1120px of *rendered* width, so a 1100px source has nothing left. Don't force these files into a bigger slot; ask Alicia for the full-res originals first.
+  - **`alicia-headshot.jpg` was deliberately kept.** It is 1200×1600, tight, warm, direct eye contact. Nothing in the new set beats it for the team card or the funnel avatar. Swapping for the sake of swapping would have been a downgrade.
+  - `couples-counseling.html` still uses the old `alicia-therapy-session-orange.jpg` inline — left on purpose, it is a session photo on a session page. Blog pages still have no `og:image` at all.
 - **Final logo** — Taylor is building it. Currently using text logo "The Wild Within."
 - **Kyla's headshot** — Kyla bio is in place on About page; needs photo.
 - ~~Alisha's full bio + photo~~ — **Removed 2026-07-30.** Alicia is parting ways with Alisha Anderson; she is off the home page, About page, FAQ, and the funnel. Teen work is now credited to Alicia and Kyla, confirmed by Marcos.
