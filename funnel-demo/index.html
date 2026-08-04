@@ -341,8 +341,10 @@
         <p class="q">What are you hoping for <em>more of?</em></p>
         <p class="q-sub">There is no wrong answer. Pick what feels closest.</p>
         <div class="options">
-          <button class="opt" onclick="pick('goal','Calm and steadiness',this)"><span class="opt-txt"><b>Calm and steadiness</b></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('goal','Connection and closeness',this)"><span class="opt-txt"><b>Connection and closeness</b></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('goal','Calm, grounded, regulated',this)"><span class="opt-txt"><b>Calm, grounded, regulated</b></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('goal','Connection and intimacy',this)"><span class="opt-txt"><b>Connection and intimacy</b></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('goal','Healthier home life',this)"><span class="opt-txt"><b>Healthier home life</b></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('goal','Healthier relationship with sex',this)"><span class="opt-txt"><b>Healthier relationship with sex</b></span><span class="mk">&#10003;</span></button>
           <button class="opt" onclick="pick('goal','Clarity and direction',this)"><span class="opt-txt"><b>Clarity and direction</b></span><span class="mk">&#10003;</span></button>
           <button class="opt" onclick="pick('goal','Healing after something hard',this)"><span class="opt-txt"><b>Healing after something hard</b></span><span class="mk">&#10003;</span></button>
           <button class="opt" onclick="pick('goal','I am not sure yet',this)"><span class="opt-txt"><b>I am not sure yet</b></span><span class="mk">&#10003;</span></button>
@@ -357,9 +359,11 @@
         <p class="q">What would you like to <em>work on?</em></p>
         <p class="q-sub">This helps us match you to the right person across the practice.</p>
         <div class="options">
-          <button class="opt" onclick="pick('area','Just me (individual therapy)',this)"><span class="opt-txt"><b>Just me</b><small>individual therapy</small></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('area','My relationship (couples)',this)"><span class="opt-txt"><b>My relationship</b><small>couples work</small></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('area','Parenting and family',this)"><span class="opt-txt"><b>Parenting and family</b><small>parenthood &amp; postpartum support</small></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('area','Relationship with myself (individual therapy)',this)"><span class="opt-txt"><b>Relationship with myself</b><small>individual therapy</small></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('area','My marriage/partnership (couples)',this)"><span class="opt-txt"><b>My marriage/partnership</b><small>couples work</small></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('area','Parenting and family',this)"><span class="opt-txt"><b>Parenting and family</b><small>raising kids &amp; family dynamics</small></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('area','Teens and pre-teens',this)"><span class="opt-txt"><b>My teen or pre-teen</b><small>therapy for young people</small></span><span class="mk">&#10003;</span></button>
+          <button class="opt" onclick="pick('area','Postpartum and new parenthood',this)"><span class="opt-txt"><b>Postpartum and new parenthood</b><small>perinatal support</small></span><span class="mk">&#10003;</span></button>
           <button class="opt" onclick="pick('area','Growth and coaching',this)"><span class="opt-txt"><b>Personal growth</b><small>coaching</small></span><span class="mk">&#10003;</span></button>
           <button class="opt" onclick="pick('area','Deeper holistic work',this)"><span class="opt-txt"><b>Deeper, holistic work</b><small>somatic &amp; ketamine-assisted</small></span><span class="mk">&#10003;</span></button>
         </div>
@@ -433,10 +437,12 @@
           <div class="team-mini" id="team-mini"></div>
         </div>
 
-        <p class="lede" style="margin:16px 0 18px">Your next step is a free 15-minute consult. A real conversation to feel whether this is right. Alicia meets you first, then helps you land with the best fit across the team.</p>
+        <div class="disclaimer" id="intern-note" style="display:none">Kyla is a therapist in training, fully supervised by Alicia, which is why her rate is lower. Many clients love working with her. If you would rather see a fully licensed therapist, just say so on your consult and we will move you to Alicia.</div>
+
+        <p class="lede" style="margin:16px 0 18px" id="result-next">Your next step is a free 15-minute consult. A real conversation to feel whether this is right, with no pressure to book.</p>
         <div class="center">
           <button class="btn btn-primary" onclick="go('capture')">Continue</button>
-          <p class="reassure">Your next step is a free 15-minute consult.</p>
+          <p class="reassure">Free, and you can always reschedule.</p>
         </div>
         <div class="nav"><button class="back" onclick="go('q5')">&larr; Back</button></div>
       </div>
@@ -447,7 +453,7 @@
       <div class="col">
         <p class="eyebrow">Almost there</p>
         <h2>Where should we <em>reach you?</em></h2>
-        <p class="lede" style="margin-bottom:18px">Reaching out is the brave part. The rest, you figure out together.</p>
+        <p class="lede" style="margin-bottom:18px">Reaching out is the brave part. The rest we figure out together. It is such a powerful step in the next chapter of your journey, and you are ready.</p>
         <div class="field"><label>Your name</label><input id="f-name" type="text" placeholder="First and last"></div>
         <div class="field"><label>Email</label><input id="f-email" type="email" placeholder="you@email.com"></div>
         <div class="field"><label>Phone</label><input id="f-phone" type="tel" placeholder="(480) 000-0000"></div>
@@ -460,7 +466,7 @@
         <div class="trust-card">
           <h4>Why clients start here</h4>
           <div class="row"><i>&#10003;</i>A real 15-minute conversation, free, with no pressure to book.</div>
-          <div class="row"><i>&#10003;</i>Alicia meets you first, then matches you across the team.</div>
+          <div class="row"><i>&#10003;</i><span id="trust-consult">You meet the therapist matched to you, directly.</span></div>
           <div class="row"><i>&#10003;</i>In person in Mesa or telehealth anywhere in Arizona.</div>
           <div class="row"><i>&#10003;</i>Warm, trauma-informed, and human.</div>
         </div>
@@ -530,8 +536,8 @@
   var encourage = ['A few soft questions to begin.','You are doing beautifully.','Halfway there.','Almost done.','Last one, promise.'];
 
   var team = {
-    alicia:{ name:'Alicia Wright, LCSW', role:'Founder & Lead Therapist', img:'../assets/img/alicia-headshot.jpg', mono:'A', short:'Alicia', tag:'Founder', price:'$165–185', avail:'Next opening in about 2 weeks', availShort:'~2 wk wait', bio:'Founder of The Wild Within with 15+ years of experience. Alicia holds space for trauma, deep healing, couples, and holistic and ketamine-assisted work, warm and human, never clinical.' },
-    kyla:{ name:'Kyla Gordon', role:'Therapist, supervised by Alicia', img:'', mono:'K', short:'Kyla', tag:'Parenthood & transitions', price:'$85–110', avail:'Open this week', availShort:'Open this week', bio:'An Arizona native focused on parenthood, perinatal mental health, and life transitions. Trauma-informed and solution-focused, fully supported under Alicia\'s clinical supervision.' }
+    alicia:{ name:'Alicia Wright, LCSW', role:'Founder & Lead Therapist', img:'../assets/img/alicia-headshot.jpg', mono:'A', short:'Alicia', tag:'Founder', price:'$165–185', avail:'Next opening in about 2 weeks', availShort:'~2 wk wait', bio:'Founder of The Wild Within with 15+ years of experience. Alicia holds space for trauma, deep healing, couples, parenting and family work, coaching, and holistic and ketamine-assisted work, warm and human, never clinical.' },
+    kyla:{ name:'Kyla Gordon', role:'Therapist, supervised by Alicia', img:'', mono:'K', short:'Kyla', tag:'Teens, postpartum & individual therapy', price:'$85–110', avail:'Open this week', availShort:'Open this week', bio:'An Arizona native focused on individual therapy, teens and pre-teens, postpartum and perinatal mental health, and life transitions. Trauma-informed and solution-focused, fully supported under Alicia\'s clinical supervision.' }
   };
   var suggestedKey = 'alicia';
 
@@ -571,16 +577,24 @@
     var area = answers.area || '';
     var goal = answers.goal || '';
     var fit  = answers.fit || '';
-    // Couples and deeper holistic work are Alicia's specialties, no lower-cost equivalent
-    if(area === 'My relationship (couples)') return 'alicia';
-    if(area === 'Deeper holistic work') return 'alicia';
-    // When budget is the priority, lean to the most accessible fit on the team
-    if(fit === 'Most accessible option') return 'kyla';
-    if(area === 'Parenting and family') return 'kyla';
-    if(area === 'Growth and coaching') return 'kyla';
-    if(area === 'Just me (individual therapy)'){
+    // Intimacy and sexual health is Alicia's lane regardless of what else was picked.
+    // PENDING Alicia's written confirmation (Marcos 8/4).
+    if(goal === 'Healthier relationship with sex') return 'alicia';
+    // Kyla is supervised and cannot take couples, parenting, coaching, or ketamine-assisted
+    // work. These always go to Alicia, and this check runs FIRST so nothing downstream
+    // (including the budget answer) can route someone to a therapist who cannot serve them.
+    var aliciaOnly = ['My marriage/partnership (couples)','Parenting and family','Growth and coaching','Deeper holistic work'];
+    if(aliciaOnly.indexOf(area) !== -1) return 'alicia';
+    // Teens and pre-teens are Kyla's. PENDING Alicia's written confirmation (Marcos 8/4).
+    if(area === 'Teens and pre-teens') return 'kyla';
+    // Postpartum and perinatal support is Kyla's specialty.
+    if(area === 'Postpartum and new parenthood') return 'kyla';
+    // Individual work is Kyla's, unless they are coming in for trauma or deep healing.
+    if(area === 'Relationship with myself (individual therapy)'){
       return goal === 'Healing after something hard' ? 'alicia' : 'kyla';
     }
+    // Budget-led answers lean to the most accessible fit that is still in scope.
+    if(fit === 'Most accessible option') return 'kyla';
     return 'kyla';
   }
 
@@ -595,9 +609,11 @@
     var mode = answers.mode || 'Either works';
 
     var areaText = {
-      'Just me (individual therapy)':'one-on-one therapy',
-      'My relationship (couples)':'couples work',
+      'Relationship with myself (individual therapy)':'one-on-one therapy',
+      'My marriage/partnership (couples)':'couples work',
       'Parenting and family':'parenting support',
+      'Teens and pre-teens':'therapy for your teen',
+      'Postpartum and new parenthood':'postpartum support',
       'Growth and coaching':'coaching for growth',
       'Deeper holistic work':'holistic, somatic work'
     }[area] || 'the work that fits you';
@@ -615,6 +631,15 @@
     document.getElementById('result-chips').innerHTML = chips.map(function(c,i){
       return '<span class="chip" style="animation-delay:'+(i*70)+'ms">'+c+'</span>';
     }).join('');
+
+    // Name the matched therapist on both the result and contact screens. Alicia no longer
+    // meets everyone first, so a Kyla match books straight with Kyla.
+    var matched = team[suggestedKey];
+    document.getElementById('result-next').textContent =
+      'Your next step is a free 15-minute consult with ' + matched.short +
+      '. A real conversation to feel whether this is right, with no pressure to book.';
+    document.getElementById('trust-consult').textContent =
+      'You meet ' + matched.short + ' directly, the person matched to you.';
 
     renderTeamMini();
     viewTherapist(suggestedKey);
@@ -653,6 +678,10 @@
       document.getElementById('result-copy').textContent =
         t.bio + ' You are welcome to start with ' + t.short + ' too, just mention it on your consult.';
     }
+    // Kyla is supervised, so say so plainly whenever her profile is the one on screen.
+    // Disclosure sits here instead of as a sixth quiz step, so nobody drops off before the match.
+    var note = document.getElementById('intern-note');
+    if(note) note.style.display = (key === 'kyla') ? 'block' : 'none';
     ['alicia','kyla'].forEach(function(k){
       var el = document.getElementById('tm-'+k);
       if(el) el.classList.toggle('on', k===key);
