@@ -458,10 +458,13 @@
         <div class="field"><label>Email</label><input id="f-email" type="email" placeholder="you@email.com"></div>
         <div class="field"><label>Phone</label><input id="f-phone" type="tel" placeholder="(480) 000-0000"></div>
         <div class="field"><label>Anything you want us to know? (optional)</label><textarea id="f-note" rows="3" placeholder="A sentence or two is plenty."></textarea></div>
+        <!-- Honeypot. Hidden from real people, so anything in it is a bot that
+             filled every field it could find. The backend drops those silently. -->
+        <div style="position:absolute;left:-9999px;top:-9999px" aria-hidden="true"><label>Website</label><input id="f-website" type="text" tabindex="-1" autocomplete="off"></div>
         <div class="disclaimer">Please do not include sensitive health information here. This form is not HIPAA-secured. Detailed health information is collected through your secure client portal once you begin working together.</div>
         <div class="center">
-          <button class="btn btn-primary" onclick="go('thankyou')">See my times</button>
-          <p class="reassure">After you send this, you'll pick a time and get a grounding guide in your inbox.</p>
+          <button class="btn btn-primary" id="send-btn" onclick="submitLead()">See my times</button>
+          <p class="reassure" id="send-note">After you send this, you'll pick a time and get a grounding guide in your inbox.</p>
         </div>
         <div class="trust-card">
           <h4>Why clients start here</h4>
@@ -523,6 +526,21 @@
   <div class="stage-foot">The Wild Within &middot; Alicia Wright, LCSW &middot; Licensed in Arizona</div>
 </div>
 
+<!-- reCAPTCHA v3. Same site key as the rest of the site: it is public by
+     design and the secret key lives only in the Apps Script backend. The
+     funnel mints its token with action "funnel" so a token lifted from the
+     website contact form cannot be replayed against the funnel backend. -->
+<script>
+  window.WW_RECAPTCHA_SITE_KEY = "6LeSQGgtAAAAAD-Fpo3fvqXYqhFpCoUcQxfQpnKz";
+  (function () {
+    var k = window.WW_RECAPTCHA_SITE_KEY;
+    if (!k || k.indexOf("PASTE_") === 0) return; // not configured yet
+    var s = document.createElement("script");
+    s.src = "https://www.google.com/recaptcha/api.js?render=" + k;
+    s.async = true;
+    document.head.appendChild(s);
+  })();
+</script>
 <script>
   var answers = {};
   var order = ['q1','q2','q3','q4','q5'];
@@ -726,7 +744,119 @@
     document.querySelectorAll('.opt.sel,.slot.sel').forEach(function(o){o.classList.remove('sel');});
     document.getElementById('booked').classList.remove('show');
     document.getElementById('callback').classList.remove('show');
+    leadSent = false;
+    var sb = document.getElementById('send-btn');
+    if(sb) sb.disabled = false;
     show('landing');
+  }
+
+  /* ===================== LEAD CAPTURE =====================
+   * Paste the funnel Web app URL here after deploying apps-script-funnel.gs.
+   * It is a DIFFERENT deployment from the website contact form. Until this is
+   * set the funnel still works end to end, it just does not send anything, so
+   * the page stays safe to show Alicia at any point in between.
+   */
+  var FUNNEL_ENDPOINT = "PASTE_FUNNEL_WEB_APP_URL_HERE";
+
+  /* Where the lead came from.
+   * Read once on load and stashed, because a visitor who lands from an ad and
+   * then reloads or comes back through history would otherwise lose the tags
+   * and show up as direct traffic. Without these we are paying Meta with no
+   * way to prove which ad produced a paying client, which is the whole ROI
+   * loop Alicia is being asked to fund.
+   */
+  var SOURCE_KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+  var leadSource = (function(){
+    var saved = {};
+    try { saved = JSON.parse(sessionStorage.getItem('ww_src') || '{}'); } catch(e){ saved = {}; }
+    var qs = new URLSearchParams(window.location.search);
+    var out = {};
+    var sawFresh = false;
+    SOURCE_KEYS.forEach(function(k){
+      var v = qs.get(k) || '';
+      if(v) sawFresh = true;
+      out[k] = v || saved[k] || '';
+    });
+    // Meta sends fbclid, Google sends gclid. Either one proves it was a paid
+    // click even when the utm tags got stripped somewhere along the way.
+    out.click_id = qs.get('fbclid') || qs.get('gclid') || saved.click_id || '';
+    if(qs.get('fbclid') || qs.get('gclid')) sawFresh = true;
+    // Only overwrite the stored referrer on a genuinely new arrival, so an
+    // internal reload does not rewrite the original source as this page.
+    out.referrer = sawFresh ? (document.referrer || '') : (saved.referrer || document.referrer || '');
+    out.landing_page = saved.landing_page || window.location.href;
+    try { sessionStorage.setItem('ww_src', JSON.stringify(out)); } catch(e){}
+    return out;
+  })();
+
+  var leadSent = false;
+
+  function submitLead(){
+    var btn = document.getElementById('send-btn');
+    var note = document.getElementById('send-note');
+
+    // Someone double-tapping the button must not create two leads.
+    if(leadSent){ show('thankyou'); return; }
+    leadSent = true;
+    if(btn) btn.disabled = true;
+    if(note) note.textContent = 'Sending...';
+
+    var t = team[suggestedKey] || team.alicia;
+    var payload = {
+      name:  document.getElementById('f-name').value || '',
+      email: document.getElementById('f-email').value || '',
+      phone: document.getElementById('f-phone').value || '',
+      note:  document.getElementById('f-note').value || '',
+      website: (document.getElementById('f-website') || {}).value || '',
+      matched: t.short,
+      goal:   answers.goal   || '',
+      area:   answers.area   || '',
+      mode:   answers.mode   || '',
+      timing: answers.timing || '',
+      fit:    answers.fit    || '',
+      slot:   ''
+    };
+    SOURCE_KEYS.forEach(function(k){ payload[k] = leadSource[k] || ''; });
+    payload.click_id = leadSource.click_id || '';
+    payload.referrer = leadSource.referrer || '';
+    payload.landing_page = leadSource.landing_page || '';
+
+    // Whatever happens next, the visitor moves forward. Someone who just
+    // answered five questions about their marriage does not get an error
+    // screen because a Google service was slow.
+    var done = function(){
+      if(note) note.textContent = 'Sent. Pick a time below.';
+      show('thankyou');
+    };
+
+    var send = function(token){
+      if(!FUNNEL_ENDPOINT || FUNNEL_ENDPOINT.indexOf('PASTE_') === 0){ done(); return; }
+      payload.recaptchaToken = token;
+      fetch(FUNNEL_ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(payload)
+      }).then(done).catch(done);
+    };
+
+    // Same reasoning as the website contact form: if reCAPTCHA cannot run,
+    // send anyway marked UNAVAILABLE. The backend lets those through flagged.
+    // Losing a real inquiry from someone who blocks trackers costs far more
+    // than an unscored row in the sheet.
+    var key = window.WW_RECAPTCHA_SITE_KEY;
+    var configured = key && key.indexOf('PASTE_') !== 0;
+    if(!configured || typeof grecaptcha === 'undefined'){ send('UNAVAILABLE'); return; }
+
+    var settled = false;
+    var once = function(tk){ if(!settled){ settled = true; send(tk); } };
+    setTimeout(function(){ once('UNAVAILABLE'); }, 5000);
+    try {
+      grecaptcha.ready(function(){
+        grecaptcha.execute(key, { action: 'funnel' }).then(once)
+          .catch(function(){ once('UNAVAILABLE'); });
+      });
+    } catch(err){ once('UNAVAILABLE'); }
   }
 
   show('landing');
