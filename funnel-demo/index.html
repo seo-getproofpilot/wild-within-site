@@ -20,6 +20,8 @@
     --sage:#8A9A7B; --sage-muted:#9DAD8E; --sage-deep:#5F6E52; --blush:#E8D5CC; --rose-dust:#C9A99A;
     /* Ink / text */
     --ink:#2B2724; --warm-gray:#524C46; --muted:#6B6560; --line:#EDE6DA;
+    /* Validation — terracotta, warm enough to belong in this palette */
+    --alert:#B5674F; --alert-deep:#8C4835; --alert-soft:#FBF1ED; --alert-glow:rgba(181,103,79,0.22);
     /* Fonts */
     --display:'Playfair Display',Georgia,serif;
     --serif:'Ibarra Real Nova',Georgia,serif;
@@ -154,6 +156,12 @@
   .field label{ display:block; font-family:var(--sans); font-size:12.5px; font-weight:600; letter-spacing:.04em; color:var(--plum); margin:0 0 6px; }
   .field input,.field textarea{ width:100%; font-family:var(--sans); font-size:16px; color:var(--ink); background:var(--ivory-warm); border:1.5px solid var(--line); border-radius:12px; padding:14px 15px; }
   .field input:focus,.field textarea:focus{ outline:none; border-color:var(--gold); box-shadow:0 0 0 4px var(--gold-glow); }
+  /* Validation. Warm terracotta rather than a browser red, so a missed field
+     reads as a gentle nudge on a therapy funnel, not an error state. */
+  .field.invalid input,.field.invalid textarea{ border-color:var(--alert); background:var(--alert-soft); }
+  .field.invalid input:focus,.field.invalid textarea:focus{ border-color:var(--alert); box-shadow:0 0 0 4px var(--alert-glow); }
+  .form-error{ font-family:var(--sans); font-size:14px; line-height:1.5; color:var(--alert-deep); background:var(--alert-soft); border:1px solid var(--alert); border-radius:12px; padding:12px 14px; margin:0 0 14px; display:none; }
+  .form-error.show{ display:block; animation:rise .4s ease both; }
   .disclaimer{ font-family:var(--sans); font-size:12.5px; color:var(--muted); background:var(--milky); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin:6px 0 18px; line-height:1.5; }
 
   /* Result / match */
@@ -454,10 +462,18 @@
         <p class="eyebrow">Almost there</p>
         <h2>Where should we <em>reach you?</em></h2>
         <p class="lede" style="margin-bottom:18px">Reaching out is the brave part. The rest we figure out together. It is such a powerful step in the next chapter of your journey, and you are ready.</p>
-        <div class="field"><label>Your name</label><input id="f-name" type="text" placeholder="First and last"></div>
-        <div class="field"><label>Email</label><input id="f-email" type="email" placeholder="you@email.com"></div>
-        <div class="field"><label>Phone</label><input id="f-phone" type="tel" placeholder="(480) 000-0000"></div>
-        <div class="field"><label>Anything you want us to know? (optional)</label><textarea id="f-note" rows="3" placeholder="A sentence or two is plenty."></textarea></div>
+        <!-- Validation errors render here, directly above the fields they are
+             about. Never an alert() and never console only: on mobile an alert
+             is dismissed before it is read. -->
+        <div class="form-error" id="f-error" role="alert" aria-live="polite"></div>
+        <div class="field" id="fw-name"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" placeholder="First and last" required autocomplete="name" autocapitalize="words"></div>
+        <!-- Email and phone are required as a PAIR, not individually. Marking
+             both `required` would be a lie to a screen reader, so the pair is
+             described by #f-reach instead and enforced in submitLead(). -->
+        <div class="field" id="fw-email"><label for="f-email">Email</label><input id="f-email" name="email" type="email" placeholder="you@email.com" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-describedby="f-reach"></div>
+        <div class="field" id="fw-phone"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" placeholder="(480) 000-0000" inputmode="tel" autocomplete="tel" aria-describedby="f-reach"></div>
+        <p class="reassure" id="f-reach" style="text-align:left;margin:-6px 0 14px">Email or phone, whichever you would rather we use. One is enough.</p>
+        <div class="field"><label for="f-note">Anything you want us to know? (optional)</label><textarea id="f-note" name="note" rows="3" placeholder="A sentence or two is plenty."></textarea></div>
         <!-- Honeypot. Hidden from real people, so anything in it is a bot that
              filled every field it could find. The backend drops those silently. -->
         <div style="position:absolute;left:-9999px;top:-9999px" aria-hidden="true"><label>Website</label><input id="f-website" type="text" tabindex="-1" autocomplete="off"></div>
@@ -541,6 +557,86 @@
     document.head.appendChild(s);
   })();
 </script>
+
+<!-- ===================== MEASUREMENT =====================
+     Both IDs are PUBLIC by design, same as the reCAPTCHA site key above. The
+     Meta CAPI access token is NOT here and must never be: it belongs in Apps
+     Script Properties on the funnel backend.
+
+     Until the two IDs below are filled in, nothing loads and nothing fires.
+     That keeps the page safe to show Alicia mid-setup, and it means the funnel
+     is provably uninstrumented rather than half-instrumented.
+
+     DO NOT run Meta ads to this page while these still say PASTE_. Spend
+     against a pixel-less page teaches Meta's optimizer nothing and every
+     conversion lands as an unattributable row.
+-->
+<script>
+  window.WW_GA4_ID        = "PASTE_GA4_MEASUREMENT_ID";  // e.g. G-XXXXXXXXXX
+  window.WW_META_PIXEL_ID = "PASTE_META_PIXEL_ID";       // e.g. 1234567890123456
+
+  (function () {
+    function set(v){ return v && v.indexOf('PASTE_') !== 0; }
+
+    // ---- GA4 ----
+    if (set(window.WW_GA4_ID)) {
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function(){ window.dataLayer.push(arguments); };
+      gtag('js', new Date());
+      // The funnel lives at /funnel-demo/ today. If it is renamed (see the
+      // launch-gate decision on this path), nothing here needs to change.
+      gtag('config', window.WW_GA4_ID);
+      var g = document.createElement('script');
+      g.async = true;
+      g.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(window.WW_GA4_ID);
+      document.head.appendChild(g);
+    }
+
+    // ---- Meta Pixel ----
+    if (set(window.WW_META_PIXEL_ID)) {
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+      (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', window.WW_META_PIXEL_ID);
+      fbq('track', 'PageView');
+      // Someone opening the funnel has shown intent beyond a site visit. This
+      // is the top of the audience Meta optimises toward.
+      fbq('track', 'ViewContent', { content_name: 'Find Your Therapist funnel' });
+    }
+  })();
+
+  /* One call site for both platforms, so a future event can never end up in
+   * GA4 and missing from Meta. Safe to call before either script loads and
+   * safe to call when neither is configured.
+   */
+  function wwTrack(ga4Event, params, metaEvent, metaParams, metaOpts){
+    try { if (typeof gtag === 'function' && ga4Event) gtag('event', ga4Event, params || {}); } catch(e){}
+    try { if (typeof fbq === 'function' && metaEvent) fbq('track', metaEvent, metaParams || {}, metaOpts || {}); } catch(e){}
+  }
+
+  /* One ID per conversion, sent to the browser pixel AND to the Conversions
+   * API call the Apps Script backend makes. Meta collapses the pair into a
+   * single Lead. Skip it and every converted visitor whose pixel loaded gets
+   * counted twice, which halves the reported cost per lead.
+   */
+  function wwEventId(){
+    try { if (window.crypto && crypto.randomUUID) return crypto.randomUUID(); } catch(e){}
+    return 'ww-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
+  }
+
+  /* Meta's own browser cookie. Passing it to CAPI is the single biggest
+   * match-quality lift available without collecting more personal data. */
+  function wwFbp(){
+    var m = document.cookie.match(/(?:^|;\s*)_fbp=([^;]+)/);
+    return m ? decodeURIComponent(m[1]) : '';
+  }
+</script>
+<noscript><!-- Meta noscript pixel is deliberately omitted: the funnel is a
+  five-step JS quiz, so a no-JS visitor can never reach a conversion and the
+  extra image request would only inflate PageView against zero possible Leads.
+--></noscript>
 <script>
   var answers = {};
   var order = ['q1','q2','q3','q4','q5'];
@@ -567,6 +663,24 @@
     if(id==='thankyou'){ var tt=team[suggestedKey]||team.alicia; var l=document.getElementById('ty-line'); if(l) l.textContent='Pick a slot for your free 15-minute consult with '+tt.short+', or ask us to call you. You will hear back within one business day.'; }
     window.scrollTo({top:0,behavior:'smooth'});
     updateProgress(id);
+    trackStep(id);
+  }
+
+  /* Step events are the entire point of running a funnel: without them you can
+   * see leads but not where the other people left. Fired once per step per
+   * visit, so going Back and forward again does not invent extra progress.
+   */
+  var stepsSeen = {};
+  var STEP_INDEX = { landing:0, q1:1, q2:2, q3:3, q4:4, q5:5, result:6, capture:7, thankyou:8 };
+  function trackStep(id){
+    if(stepsSeen[id]) return;
+    if(!(id in STEP_INDEX)) return;
+    stepsSeen[id] = true;
+    wwTrack('funnel_step', {
+      funnel_name: 'find_your_therapist',
+      step_name: id,
+      step_number: STEP_INDEX[id]
+    });
   }
   function go(id){ show(id); }
   function start(){ show('q1'); }
@@ -747,8 +861,16 @@
     leadSent = false;
     var sb = document.getElementById('send-btn');
     if(sb) sb.disabled = false;
+    clearInlineError();
     show('landing');
   }
+
+  // Clear the nudge as soon as they start fixing it, so the error is never
+  // still on screen contradicting what they just typed.
+  ['f-name','f-email','f-phone'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.addEventListener('input', clearInlineError);
+  });
 
   /* ===================== LEAD CAPTURE =====================
    * Paste the funnel Web app URL here after deploying apps-script-funnel.gs.
@@ -791,22 +913,81 @@
 
   var leadSent = false;
 
+  /* ---------- Contact validation ----------
+   * On 2026-08-13 a real person finished all five steps and submitted with no
+   * name, email or phone. The button disabled on click, so she saw the
+   * thank-you screen and is still waiting for a call that cannot happen.
+   * Nothing here is cosmetic: this is the only thing standing between a
+   * completed quiz and an unreachable row in the sheet.
+   */
+  function val(id){ var el = document.getElementById(id); return ((el && el.value) || '').trim(); }
+
+  function markInvalid(wrapIds){
+    ['fw-name','fw-email','fw-phone'].forEach(function(w){
+      var el = document.getElementById(w);
+      if(el) el.classList.toggle('invalid', wrapIds.indexOf(w) !== -1);
+    });
+  }
+
+  function showInlineError(msg, wrapIds, focusId){
+    var box = document.getElementById('f-error');
+    if(box){ box.textContent = msg; box.classList.add('show'); }
+    markInvalid(wrapIds || []);
+    var f = document.getElementById(focusId);
+    if(f){ f.focus(); if(f.scrollIntoView) f.scrollIntoView({block:'center',behavior:'smooth'}); }
+  }
+
+  function clearInlineError(){
+    var box = document.getElementById('f-error');
+    if(box){ box.textContent = ''; box.classList.remove('show'); }
+    markInvalid([]);
+  }
+
   function submitLead(){
     var btn = document.getElementById('send-btn');
     var note = document.getElementById('send-note');
 
     // Someone double-tapping the button must not create two leads.
     if(leadSent){ show('thankyou'); return; }
+
+    // Validate BEFORE anything else. Ordering matters: the button must stay
+    // enabled and leadSent must stay false on a failure, or a corrected
+    // resubmit gets swallowed by the double-tap guard above.
+    var name  = val('f-name');
+    var email = val('f-email');
+    var phone = val('f-phone');
+
+    var missing = [], bad = [], focusId = '';
+    if(!name){ missing.push('your name'); bad.push('fw-name'); focusId = focusId || 'f-name'; }
+    if(!email && !phone){
+      // Either one is enough. Requiring both costs real inquiries here.
+      missing.push('an email or phone number');
+      bad.push('fw-email'); bad.push('fw-phone');
+      focusId = focusId || 'f-email';
+    } else if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){
+      missing.push('a valid email address');
+      bad.push('fw-email');
+      focusId = focusId || 'f-email';
+    }
+
+    if(missing.length){
+      showInlineError('Please add ' + missing.join(' and ') + ' so we can reach you.', bad, focusId);
+      return; // no leadSent, no button disable, no fetch, no thank-you screen
+    }
+
+    clearInlineError();
     leadSent = true;
     if(btn) btn.disabled = true;
     if(note) note.textContent = 'Sending...';
 
     var t = team[suggestedKey] || team.alicia;
     var payload = {
-      name:  document.getElementById('f-name').value || '',
-      email: document.getElementById('f-email').value || '',
-      phone: document.getElementById('f-phone').value || '',
-      note:  document.getElementById('f-note').value || '',
+      // Trimmed on the way out. An email with a trailing space from mobile
+      // autofill bounces exactly like a wrong one.
+      name:  name,
+      email: email,
+      phone: phone,
+      note:  val('f-note'),
       website: (document.getElementById('f-website') || {}).value || '',
       matched: t.short,
       goal:   answers.goal   || '',
@@ -824,12 +1005,49 @@
     // Whatever happens next, the visitor moves forward. Someone who just
     // answered five questions about their marriage does not get an error
     // screen because a Google service was slow.
+    // Match keys for the server-side Conversions API call. These ride in the
+    // POST body and are read by sendCapiLead() in apps-script-funnel.gs.
+    payload.event_id = wwEventId();
+    payload.fbp = wwFbp();
+    payload.client_user_agent = navigator.userAgent || '';
+
+    // Fired here rather than inside done(), because done() also runs on the
+    // catch path and on a no-cors response we cannot read. The lead is real
+    // and validated at this point either way.
+    wwTrack('generate_lead', {
+      funnel_name: 'find_your_therapist',
+      matched_therapist: t.short,
+      timing: answers.timing || '',
+      mode: answers.mode || ''
+    }, 'Lead', {
+      content_name: 'Find Your Therapist funnel',
+      content_category: answers.area || ''
+    }, { eventID: payload.event_id });
+
     var done = function(){
       if(note) note.textContent = 'Sent. Pick a time below.';
       show('thankyou');
     };
 
+    /* Local testing must never write to Alicia's live sheet.
+     *
+     * The reCAPTCHA site key is registered to thewildwithintherapy.com only,
+     * so on localhost the token comes back UNAVAILABLE. That path is
+     * fail-open by design: it writes the row AND emails Alicia. Every
+     * practice run through a local copy would land a fake lead in her inbox.
+     * Skip the POST off-domain and let the rest of the flow run exactly as it
+     * does in production, so what you are testing is still the real thing.
+     */
+    var LIVE_HOSTS = ['thewildwithintherapy.com', 'www.thewildwithintherapy.com'];
+    var isLive = LIVE_HOSTS.indexOf(location.hostname) !== -1;
+
     var send = function(token){
+      if(!isLive){
+        console.info('[funnel] ' + location.hostname + ' is not the live host. '
+          + 'Lead NOT sent. Payload that would have posted:', payload);
+        done();
+        return;
+      }
       if(!FUNNEL_ENDPOINT || FUNNEL_ENDPOINT.indexOf('PASTE_') === 0){ done(); return; }
       payload.recaptchaToken = token;
       fetch(FUNNEL_ENDPOINT, {
@@ -846,6 +1064,9 @@
     // than an unscored row in the sheet.
     var key = window.WW_RECAPTCHA_SITE_KEY;
     var configured = key && key.indexOf('PASTE_') !== 0;
+    // Off-domain there is nothing to send, so do not sit through reCAPTCHA's
+    // five-second fallback staring at a disabled "Sending..." button.
+    if(!isLive){ send('UNAVAILABLE'); return; }
     if(!configured || typeof grecaptcha === 'undefined'){ send('UNAVAILABLE'); return; }
 
     var settled = false;

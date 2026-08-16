@@ -42,17 +42,38 @@ access the day that relationship changes.
 ## Step 2 — the Apps Script
 
 Open the script project attached to the leads sheet, replace the whole file
-with `apps-script-contact-form.gs` from this repo, then set the secret:
+with `apps-script-contact-form.gs` from this repo, then set the secret.
 
-```js
-var RECAPTCHA_SECRET = 'the secret key, pasted here in the editor only';
-```
+The secret is **not** a variable in the file. Both scripts read it from Script
+Properties, so it never lands in this public repo:
+
+**Project Settings (gear) → Script Properties → Add script property**
+
+| Property | Value |
+|---|---|
+| `RECAPTCHA_SECRET` | the secret key from the reCAPTCHA admin console |
 
 Then **Deploy → Manage deployments → edit the existing deployment → Version:
 New version → Deploy.**
 
 Important: edit the *existing* deployment rather than creating a new one. A
 new deployment gets a new URL, and the website is pointed at the old one.
+
+### The funnel is a SECOND project and needs its own copy of the secret
+
+`apps-script-funnel.gs` is a deliberately separate Apps Script project with its
+own deployment URL, so a funnel bug can never take down the practice's main
+inquiry path. Separate project means separate Script Properties. One reCAPTCHA
+site, one secret value, entered by hand in **both** projects.
+
+Setting it on the contact form does nothing for the funnel. Missing it there is
+what makes every funnel lead arrive stamped "reCAPTCHA could not be reached" and
+land in the sheet as `UNVERIFIED`. The funnel project also needs
+`META_PIXEL_ID` and `META_CAPI_TOKEN` once ads run.
+
+Run `checkSetup()` in either project to prove it. `PASS` with
+`success=false errorCodes=invalid-input-response` is the healthy result: the
+round trip to Google worked.
 
 ## Step 3 — test it
 

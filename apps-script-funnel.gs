@@ -48,6 +48,17 @@ var SCORE_THRESHOLD = 0.5;
 
 var VERIFY_URL = 'https://www.google.com/recaptcha/api/siteverify';
 
+// ---- Meta Conversions API ----
+// Browser-only pixel under-reports a therapy audience badly: iOS blocks it,
+// privacy extensions block it, and this is exactly the audience that runs
+// both. CAPI fires the same Lead server side so Meta's optimizer actually
+// learns. Both values live in Script Properties, never in this file and never
+// in the repo - the repo is public.
+//   META_PIXEL_ID    same public ID as WW_META_PIXEL_ID in funnel-demo/index.html
+//   META_CAPI_TOKEN  SECRET. Events Manager > Settings > Conversions API
+// Leave either blank and CAPI simply does not fire. Nothing else breaks.
+var CAPI_VERSION = 'v21.0';
+
 // Domains a token is allowed to have been solved on. Add localhost here only
 // while testing, and take it back out afterward.
 var ALLOWED_HOSTS = [
@@ -229,6 +240,22 @@ function doPost(e) {
     return ok();
   }
 
+  // 2.5 No way to reach them is not a lead. This must sit ABOVE every branch
+  // that writes to Funnel Leads, including the two fail-open reCAPTCHA paths
+  // below. Otherwise an unreachable Google turns each contactless submission
+  // into an inbox notification Alicia cannot act on. Placed after the honeypot
+  // and no-token checks on purpose, so Funnel Blocked stays honest: bots still
+  // log as 'honeypot' and 'no token', and only genuine-looking submissions
+  // missing contact info get this reason.
+  //
+  // This is a backstop. The real fix is the client-side guard in
+  // funnel-demo/index.html, which stops the POST before it happens. If rows
+  // start appearing here, that guard has regressed.
+  if (!lead.email && !lead.phone) {
+    logBlocked(ss, ts, 'no contact info', lead);
+    return ok();
+  }
+
   // 3. The funnel sends this when reCAPTCHA could not run at all - usually a
   // privacy extension blocking Google, which is a real slice of a therapy
   // practice's audience. Let it through, flagged, rather than lose a real
@@ -251,7 +278,8 @@ function doPost(e) {
     writeLead(ss, ts, lead, '',
       'UNVERIFIED: ' + (verdict.why || 'unknown'));
     sendNotification(lead,
-      'reCAPTCHA could not be reached, so this one is unverified.');
+      'reCAPTCHA could not be reached (' + (verdict.why || 'unknown')
+      + '), so this one is unverified.');
     return ok();
   }
 
@@ -287,7 +315,98 @@ function doPost(e) {
   // 5. Looks like a real person.
   writeLead(ss, ts, lead, score, 'OK');
   sendNotification(lead, '');
+  sendCapiLead(lead, p, ts);
   return ok();
+}
+
+/**
+ * Mirrors the browser pixel's Lead event server side.
+ *
+ * Wrapped so a Meta outage can never cost a lead: the sheet row and Alicia's
+ * email are already written by the time this runs, and any failure here is
+ * logged and swallowed.
+ *
+ * Deduplication: the funnel sends the same event_id to both the browser pixel
+ * and here. Meta collapses the pair into one Lead. Without it every converted
+ * visitor with a working pixel counts twice and cost per lead reads half what
+ * it really is.
+ */
+function sendCapiLead(lead, p, ts) {
+  try {
+    var props = PropertiesService.getScriptProperties();
+    var pixelId = props.getProperty('META_PIXEL_ID') || '';
+    var token = props.getProperty('META_CAPI_TOKEN') || '';
+    if (!pixelId || !token) return;  // not configured yet
+
+    var user = {};
+    if (lead.email) user.em = [sha256(lead.email.toLowerCase())];
+    if (lead.phone) {
+      // Meta wants digits only, country code included. US numbers from this
+      // funnel arrive as (480) 555-0134, so prepend 1 when it is a bare 10.
+      var digits = lead.phone.replace(/\D/g, '');
+      if (digits.length === 10) digits = '1' + digits;
+      if (digits) user.ph = [sha256(digits)];
+    }
+    if (lead.name) {
+      var parts = lead.name.trim().split(/\s+/);
+      user.fn = [sha256(parts[0].toLowerCase())];
+      if (parts.length > 1) {
+        user.ln = [sha256(parts[parts.length - 1].toLowerCase())];
+      }
+    }
+    // fbc is what ties this Lead back to the specific ad click. Meta's format
+    // is fb.1.<click timestamp ms>.<fbclid>.
+    if (lead.click_id) {
+      user.fbc = 'fb.1.' + ts.getTime() + '.' + lead.click_id;
+    }
+    if (p.fbp) user.fbp = p.fbp;
+    if (p.client_user_agent) user.client_user_agent = p.client_user_agent;
+
+    var payload = {
+      data: [{
+        event_name: 'Lead',
+        event_time: Math.floor(ts.getTime() / 1000),
+        event_id: p.event_id || '',
+        event_source_url: lead.landing_page || '',
+        action_source: 'website',
+        user_data: user,
+        custom_data: {
+          content_name: 'Find Your Therapist funnel',
+          content_category: lead.area || '',
+          matched_therapist: lead.matched || ''
+        }
+      }]
+    };
+
+    var url = 'https://graph.facebook.com/' + CAPI_VERSION + '/'
+      + pixelId + '/events?access_token=' + encodeURIComponent(token);
+
+    var res = UrlFetchApp.fetch(url, {
+      method: 'post',
+      contentType: 'application/json',
+      payload: JSON.stringify(payload),
+      muteHttpExceptions: true
+    });
+    if (res.getResponseCode() !== 200) {
+      Logger.log('CAPI ' + res.getResponseCode() + ': '
+        + res.getContentText().slice(0, 300));
+    }
+  } catch (err) {
+    // Never let ad measurement break lead capture.
+    Logger.log('CAPI threw: ' + String(err).slice(0, 200));
+  }
+}
+
+/** Lowercase hex SHA-256, the only hash Meta accepts for user_data. */
+function sha256(str) {
+  var bytes = Utilities.computeDigest(
+    Utilities.DigestAlgorithm.SHA_256, str, Utilities.Charset.UTF_8);
+  var out = '';
+  for (var i = 0; i < bytes.length; i++) {
+    var b = (bytes[i] + 256) % 256;
+    out += (b < 16 ? '0' : '') + b.toString(16);
+  }
+  return out;
 }
 
 /**
