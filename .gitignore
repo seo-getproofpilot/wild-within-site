@@ -9,3 +9,9 @@ client-status-*.md
 
 # Local QA screenshots
 .qa-recaptcha/
+
+# Local Claude Code settings
+.claude/
+
+# Local QA scratch pages
+.qa/
