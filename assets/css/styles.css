@@ -3744,3 +3744,56 @@ body::after {
 @media (max-width:600px){
   .service-checks li{font-size:.875rem;}
 }
+
+/* ---------------------------------------------------------------
+   Editorial page pattern
+   Full-bleed photograph breaks. Used to interrupt runs of text so a
+   long service page reads as chapters instead of a wall of prose.
+   Height scales with viewport instead of a hardcoded band height.
+   --------------------------------------------------------------- */
+.full-bleed {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  line-height: 0;
+}
+.full-bleed img {
+  display: block;
+  width: 100%;
+  height: clamp(320px, 40vw, 560px);
+  object-fit: cover;
+  object-position: center;
+}
+/* Hairline gold rule top and bottom so the photo reads as a deliberate
+   break rather than two sections colliding. */
+.full-bleed::before,
+.full-bleed::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.55), transparent);
+  z-index: 2;
+}
+.full-bleed::before { top: 0; }
+.full-bleed::after { bottom: 0; }
+
+@media (max-width: 600px) {
+  .full-bleed img { height: clamp(240px, 58vw, 340px); }
+}
+
+/* Photo heroes carry a real photograph rather than a floral texture, so
+   they need a slightly lighter scrim than the texture heroes to let the
+   image read. Contrast on the headline is preserved by the darker stops
+   at the top and bottom of the gradient. */
+.page-header--photo::before {
+  background: linear-gradient(
+    180deg,
+    rgba(54, 27, 46, 0.78) 0%,
+    rgba(74, 40, 64, 0.58) 50%,
+    rgba(54, 27, 46, 0.84) 100%
+  );
+}
+.page-header--photo { background-position: center 28%; }
