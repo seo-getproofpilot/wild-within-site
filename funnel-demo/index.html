@@ -281,8 +281,8 @@
 
   <div class="brand-crown">
     <span class="medallion">
-      <img src="../assets/img/logo-phoenix-text.png" alt="The Wild Within"
-           onerror="this.src='../assets/img/logo-phoenix.png'">
+      <img width="900" height="563" src="../assets/img/logo-mark-plum.png" alt="The Wild Within"
+           onerror="this.src='../assets/img/logo-wild-within-plum.png'">
     </span>
     <div class="brand-tag">Holistic Therapy &amp; Coaching &middot; Mesa, AZ</div>
   </div>
@@ -300,7 +300,7 @@
       <div class="col-wide">
         <p class="eyebrow">Find your therapist &middot; 60 seconds</p>
         <h1>The right therapist for the <span class="script">real you</span>.</h1>
-        <p class="lede">A few soft questions to point you toward the right starting place, then a free 15-minute consult with the Wild Within team. No pressure, no commitment.</p>
+        <p class="lede">A few soft questions to point you toward the right starting place, then a free consult with the Wild Within team. No pressure, no commitment.</p>
         <div class="hero">
           <img src="../assets/img/funnel-hero-alicia-office.jpg" alt="Alicia Wright, LCSW, in the Mesa, Arizona office where The Wild Within holds sessions" onerror="this.closest('.hero').remove()">
         </div>
@@ -447,7 +447,7 @@
 
         <div class="disclaimer" id="intern-note" style="display:none">Kyla is a therapist in training, fully supervised by Alicia, which is why her rate is lower. Many clients love working with her. If you would rather see a fully licensed therapist, just say so on your consult and we will move you to Alicia.</div>
 
-        <p class="lede" style="margin:16px 0 18px" id="result-next">Your next step is a free 15-minute consult. A real conversation to feel whether this is right, with no pressure to book.</p>
+        <p class="lede" style="margin:16px 0 18px" id="result-next">Your next step is a free consult. A real conversation to feel whether this is right, with no pressure to book.</p>
         <div class="center">
           <button class="btn btn-primary" onclick="go('capture')">Continue</button>
           <p class="reassure">Free, and you can always reschedule.</p>
@@ -484,7 +484,7 @@
         </div>
         <div class="trust-card">
           <h4>Why clients start here</h4>
-          <div class="row"><i>&#10003;</i>A real 15-minute conversation, free, with no pressure to book.</div>
+          <div class="row"><i>&#10003;</i>A real conversation, free, with no pressure to book.</div>
           <div class="row"><i>&#10003;</i><span id="trust-consult">You meet the therapist matched to you, directly.</span></div>
           <div class="row"><i>&#10003;</i>In person in Mesa or telehealth anywhere in Arizona.</div>
           <div class="row"><i>&#10003;</i>Warm, trauma-informed, and human.</div>
@@ -498,7 +498,7 @@
       <div class="col">
         <p class="eyebrow">You are in good hands</p>
         <h2 id="ty-head">Book your free <em>consult.</em></h2>
-        <p class="lede" style="margin-bottom:14px" id="ty-line">Pick a slot for your free 15-minute consult, or ask us to call you. Either way, you will hear back within one business day.</p>
+        <p class="lede" style="margin-bottom:14px" id="ty-line">Pick a slot for your free consult, or ask us to call you. Either way, you will hear back within one business day.</p>
 
         <div class="slot-head">This week</div>
         <div class="slots" id="slots">
@@ -660,7 +660,7 @@
     var el = document.querySelector('[data-screen="'+id+'"]');
     if(el) el.classList.add('active');
     document.body.classList.toggle('in-quiz', id !== 'landing');
-    if(id==='thankyou'){ var tt=team[suggestedKey]||team.alicia; var l=document.getElementById('ty-line'); if(l) l.textContent='Pick a slot for your free 15-minute consult with '+tt.short+', or ask us to call you. You will hear back within one business day.'; }
+    if(id==='thankyou'){ var tt=team[suggestedKey]||team.alicia; var l=document.getElementById('ty-line'); if(l) l.textContent='Pick a slot for your free consult with '+tt.short+', or ask us to call you. You will hear back within one business day.'; }
     window.scrollTo({top:0,behavior:'smooth'});
     updateProgress(id);
     trackStep(id);
@@ -759,7 +759,7 @@
     var chips = [];
     chips.push(areaText.replace(/^./,function(c){return c.toUpperCase();}));
     chips.push(modeText.replace(/^./,function(c){return c.toUpperCase();}));
-    chips.push('Free 15-min consult');
+    chips.push('Free consult');
     document.getElementById('result-chips').innerHTML = chips.map(function(c,i){
       return '<span class="chip" style="animation-delay:'+(i*70)+'ms">'+c+'</span>';
     }).join('');
@@ -768,7 +768,7 @@
     // meets everyone first, so a Kyla match books straight with Kyla.
     var matched = team[suggestedKey];
     document.getElementById('result-next').textContent =
-      'Your next step is a free 15-minute consult with ' + matched.short +
+      'Your next step is a free consult with ' + matched.short +
       '. A real conversation to feel whether this is right, with no pressure to book.';
     document.getElementById('trust-consult').textContent =
       'You meet ' + matched.short + ' directly, the person matched to you.';
@@ -829,7 +829,7 @@
     var t = team[suggestedKey] || team.alicia;
     return 'https://calendar.google.com/calendar/render?action=TEMPLATE'
       + '&text=' + encodeURIComponent('Free consult with The Wild Within')
-      + '&details=' + encodeURIComponent('Your free 15-minute consult with ' + t.short + ' at The Wild Within. Suggested time: ' + slot + '. (Demo)')
+      + '&details=' + encodeURIComponent('Your free consult with ' + t.short + ' at The Wild Within. Suggested time: ' + slot + '. (Demo)')
       + '&location=' + encodeURIComponent('Mesa, AZ or Telehealth');
   }
   function confirmBooking(){
