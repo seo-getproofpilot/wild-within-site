@@ -563,16 +563,20 @@
      Meta CAPI access token is NOT here and must never be: it belongs in Apps
      Script Properties on the funnel backend.
 
-     Until the two IDs below are filled in, nothing loads and nothing fires.
-     That keeps the page safe to show Alicia mid-setup, and it means the funnel
-     is provably uninstrumented rather than half-instrumented.
+     Each ID is independently gated: an ID still reading PASTE_ loads nothing and
+     fires nothing, so the page is never half-instrumented in a way that reports
+     partial data as if it were whole.
 
-     DO NOT run Meta ads to this page while these still say PASTE_. Spend
-     against a pixel-less page teaches Meta's optimizer nothing and every
-     conversion lands as an unattributable row.
+     GA4 is live on G-ZNHN4MEPZ8, the same property as the main site, so funnel
+     sessions land in the same reports rather than a second island of data.
+
+     The Meta pixel waits on the ad account. DO NOT run Meta ads to this page
+     while WW_META_PIXEL_ID still says PASTE_. Spend against a pixel-less page
+     teaches Meta's optimizer nothing and every conversion lands as an
+     unattributable row.
 -->
 <script>
-  window.WW_GA4_ID        = "PASTE_GA4_MEASUREMENT_ID";  // e.g. G-XXXXXXXXXX
+  window.WW_GA4_ID        = "G-ZNHN4MEPZ8";              // same GA4 property as the main site
   window.WW_META_PIXEL_ID = "PASTE_META_PIXEL_ID";       // e.g. 1234567890123456
 
   (function () {

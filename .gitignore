@@ -15,3 +15,6 @@ client-status-*.md
 
 # Local QA scratch pages
 .qa/
+
+# Byte-identical duplicate of logo-phoenix-text.png, referenced by nothing
+assets/img/Wild Within logo v1.png
