@@ -178,14 +178,17 @@ nav.nav-mockup.scrolled {
 }
 .nav-logo::after { display: none; }
 /* Invert logo to white on dark nav */
+/* Full lockup, so the height floor is set by the "COUNSELING AND HOLISTIC THERAPY"
+   line and the phone number, not by the phoenix. Below about 84px those two lines
+   stop resolving and turn to grey mush. Do not shrink this past 84px. */
 .nav-logo img {
-  height: 72px;
+  height: 90px;
   width: auto;
   transition: height 0.4s ease;
   filter: brightness(0) invert(1);
 }
 .site-header.scrolled .nav-logo img,
-nav.scrolled .nav-logo img { height: 56px; }
+nav.scrolled .nav-logo img { height: 84px; }
 
 .nav-links {
   display: flex;
@@ -2111,6 +2114,15 @@ main { padding-top: 0; }
   .process-steps,
   .approach-pillars { grid-template-columns: 1fr !important; }
 }
+/* The full lockup needs 137px of width and cannot shrink below 84px without the
+   tagline and phone number turning to mush, so on a phone it collides with the
+   nav's BOOK A CALL button. That button is redundant on mobile anyway: the fixed
+   .mobile-cta-bar at the bottom of the viewport carries the same call to action
+   and is always visible. Hide the nav one and give the logo the room. */
+@media (max-width: 600px) {
+  .site-header .nav-cta { display: none; }
+}
+
 @media (max-width: 480px) {
   nav.nav-mockup, .site-header { padding: 0.9rem 1.25rem; }
   .site-header .nav { padding: 0.9rem 1.25rem; }
