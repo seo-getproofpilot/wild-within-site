@@ -721,7 +721,9 @@
     // (including the budget answer) can route someone to a therapist who cannot serve them.
     var aliciaOnly = ['My marriage/partnership (couples)','Parenting and family','Growth and coaching','Deeper holistic work'];
     if(aliciaOnly.indexOf(area) !== -1) return 'alicia';
-    // Teens and pre-teens are Kyla's. PENDING Alicia's written confirmation (Marcos 8/4).
+    // Teens and pre-teens are Kyla's. SETTLED by Marcos 2026-08-19, and it was never Alicia's
+    // call to make. The whole point of the funnel is filling Kyla's caseload, so route to her
+    // anywhere her scope allows. The aliciaOnly check above already caught what she cannot take.
     if(area === 'Teens and pre-teens') return 'kyla';
     // Postpartum and perinatal support is Kyla's specialty.
     if(area === 'Postpartum and new parenthood') return 'kyla';
