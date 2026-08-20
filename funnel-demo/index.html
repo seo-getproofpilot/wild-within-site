@@ -276,7 +276,6 @@
 </style>
 </head>
 <body>
-<div class="demo-badge">Demo preview</div>
 <div class="wrap">
 
   <div class="brand-crown">
@@ -478,9 +477,25 @@
              filled every field it could find. The backend drops those silently. -->
         <div style="position:absolute;left:-9999px;top:-9999px" aria-hidden="true"><label>Website</label><input id="f-website" type="text" tabindex="-1" autocomplete="off"></div>
         <div class="disclaimer">Please do not include sensitive health information here. This form is not HIPAA-secured. Detailed health information is collected through your secure client portal once you begin working together.</div>
+
+        <!--
+          The consult times live HERE, on the same screen as the send button,
+          and not on the thank-you screen where they used to sit. They were one
+          step past the POST, so a person's choice never reached the sheet and
+          the backend's "Requested Time" column was blank on every lead.
+
+          These are the real windows Alicia and Kyla confirmed on 2026-08-18,
+          Arizona time, and they are filled in per matched therapist by
+          renderSlots(). They are a request, not a hold: nothing writes to a
+          calendar yet, so no copy on this page may say "booked" or "held".
+        -->
+        <div class="slot-head" id="slot-head">A good time for your free 30 minute consult</div>
+        <div class="slots" id="slots"></div>
+        <p class="reassure" id="slot-note" style="text-align:left;margin:8px 0 14px">Pick whichever suits you and we will confirm it by email. Not sure yet? Leave it blank and we will find a time together.</p>
+
         <div class="center">
-          <button class="btn btn-primary" id="send-btn" onclick="submitLead()">See my times</button>
-          <p class="reassure" id="send-note">After you send this, you'll pick a time and get a grounding guide in your inbox.</p>
+          <button class="btn btn-primary" id="send-btn" onclick="submitLead()">Send my answers</button>
+          <p class="reassure" id="send-note">You will get your grounding guide in your inbox, and we will be in touch within one business day.</p>
         </div>
         <div class="trust-card">
           <h4>Why clients start here</h4>
@@ -497,30 +512,26 @@
     <section class="screen" data-screen="thankyou">
       <div class="col">
         <p class="eyebrow">You are in good hands</p>
-        <h2 id="ty-head">Book your free <em>consult.</em></h2>
-        <p class="lede" style="margin-bottom:14px" id="ty-line">Pick a slot for your free consult, or ask us to call you. Either way, you will hear back within one business day.</p>
+        <h2 id="ty-head">You are on the <em>calendar.</em></h2>
+        <p class="lede" style="margin-bottom:14px" id="ty-line">Your consult is set. Watch for the invite in your inbox.</p>
 
-        <div class="slot-head">This week</div>
-        <div class="slots" id="slots">
-          <button class="slot" onclick="pickSlot(this)">Tue &middot; 10:00a</button>
-          <button class="slot" onclick="pickSlot(this)">Tue &middot; 2:30p</button>
-          <button class="slot" onclick="pickSlot(this)">Wed &middot; 12:00p</button>
-          <button class="slot" onclick="pickSlot(this)">Thu &middot; 9:30a</button>
-          <button class="slot" onclick="pickSlot(this)">Thu &middot; 4:00p</button>
-          <button class="slot" onclick="pickSlot(this)">Fri &middot; 11:00a</button>
-        </div>
-        <div class="center" style="margin-top:14px"><button class="btn btn-gold" onclick="confirmBooking()">Confirm my consult</button></div>
-        <div class="confirm" id="booked"></div>
-        <div class="next-steps" id="next-steps">
+        <!--
+          The picker moved to the capture screen on 2026-08-20. It used to sit
+          here, one step AFTER the lead POST fired, so the time a person chose
+          reached nobody and the backend's "Requested Time" column was blank on
+          every lead. "Confirm my consult" then answered "you are booked, your
+          consult is held for Tue 10:00a" while writing to no calendar at all.
+
+          This screen now only reports what the backend actually did, which
+          confirmSlot() fills in from the response.
+        -->
+        <div class="confirm show" id="booked"></div>
+        <div class="next-steps show" id="next-steps">
           <h4>What happens next</h4>
-          <div class="step"><b>1.</b>We confirm your consult by email within the hour.</div>
-          <div class="step"><b>2.</b>You get a reminder and your grounding guide before you meet.</div>
-          <div class="step" id="step-follow"><b>3.</b>Your therapist follows up personally to book your first full session.</div>
+          <div class="step"><b>1.</b>Your grounding guide is on its way to your inbox.</div>
+          <div class="step" id="step-follow"><b>2.</b>Your therapist confirms and sends the calendar invite.</div>
+          <div class="step"><b>3.</b>You have a free 30 minute consult, and you decide from there.</div>
         </div>
-
-        <div class="divider">or</div>
-        <div class="center"><button class="btn btn-ghost" onclick="requestCallback()">Prefer a callback? Ask us to call you</button></div>
-        <div class="confirm" id="callback"></div>
 
         <div class="guide">
           <div class="ic">&#128220;</div>
@@ -531,8 +542,8 @@
         </div>
 
         <div class="foot">
-          This is an interactive demo built by ProofPilot for The Wild Within. No data is collected or sent.<br>
-          Real build connects live scheduling, call tracking, and the team's inbox. &middot; <a href="#" onclick="restart();return false;">Restart demo</a>
+          The Wild Within Counseling and Holistic Therapy &middot; Alicia Wright, MA, MSW, LCSW<br>
+          Licensed in Arizona &middot; In person in Mesa, telehealth across Arizona
         </div>
       </div>
     </section>
@@ -659,6 +670,53 @@
   };
   var suggestedKey = 'alicia';
 
+  /**
+   * The consult windows Alicia and Kyla confirmed on 2026-08-18, Arizona time.
+   * Kyla holds four a week and Alicia two, which is the real ceiling on what
+   * any amount of ad spend can convert. Consults are 30 minutes: Alicia
+   * overturned the 15 agreed on 2026-08-14 because it is not enough time for a
+   * proper meet and greet.
+   *
+   * Keep this in sync with the knowledge base rather than editing it from
+   * memory. When real calendar booking lands, this list is replaced by the
+   * matched therapist's own availability link and these strings retire.
+   */
+  var CONSULT_WINDOWS = {
+    alicia: ['Wed &middot; 9:00a', 'Fri &middot; 5:00p'],
+    kyla:   ['Mon &middot; 9:00a', 'Wed &middot; 1:00p', 'Wed &middot; 7:00p', 'Sun &middot; 5:00p']
+  };
+
+  /**
+   * Paints the matched therapist's windows onto the capture screen. Called
+   * whenever the match changes, so someone who goes Back and changes an answer
+   * never sees the other therapist's times.
+   */
+  function renderSlots(){
+    var box = document.getElementById('slots');
+    if(!box) return;
+    var t = team[suggestedKey] || team.alicia;
+    var list = CONSULT_WINDOWS[suggestedKey] || CONSULT_WINDOWS.alicia;
+    box.innerHTML = list.map(function(s){
+      return '<button type="button" class="slot" onclick="pickSlot(this)">' + s + '</button>';
+    }).join('');
+    var head = document.getElementById('slot-head');
+    if(head) head.textContent = 'A good time to talk with ' + t.short;
+  }
+
+  /** Empty string when nothing is picked, which the backend treats as "no preference". */
+  function selectedSlot(){
+    var sel = document.querySelector('.slot.sel');
+    return sel ? sel.textContent.trim() : '';
+  }
+
+  function pickSlot(btn){
+    var was = btn.classList.contains('sel');
+    document.querySelectorAll('.slot').forEach(function(s){ s.classList.remove('sel'); });
+    // Tapping the chosen one again clears it. Someone who changes their mind
+    // must be able to get back to no preference without reloading.
+    if(!was) btn.classList.add('sel');
+  }
+
   function show(id){
     document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
     var el = document.querySelector('[data-screen="'+id+'"]');
@@ -743,6 +801,10 @@
 
   function buildResult(){
     suggestedKey = matchTherapist();
+    // The match decides whose windows show on the capture screen, so repaint
+    // them here. Going Back and changing an answer must never leave the other
+    // therapist's times on screen.
+    renderSlots();
     var area = answers.area || '';
     var mode = answers.mode || 'Either works';
 
@@ -826,37 +888,46 @@
     });
   }
 
-  function pickSlot(btn){
-    document.querySelectorAll('.slot').forEach(function(s){ s.classList.remove('sel'); });
-    btn.classList.add('sel');
-    document.getElementById('booked').classList.remove('show');
-  }
-  function calLink(slot){
+  /**
+   * Fills the thank-you screen in from what the BACKEND actually did, not from
+   * what the person clicked. The old confirmBooking() did the opposite: it read
+   * the button they tapped and announced "you are booked" without a single
+   * request leaving the page.
+   *
+   * The POST goes out mode:'no-cors', so the response is opaque and this page
+   * genuinely cannot know whether the calendar write landed. So the copy has
+   * to be true either way: the invite arrives when the backend books it, and
+   * Alicia reaches out when it could not. Never say "held" or "confirmed" from
+   * here, because nothing on this page has ever been in a position to know.
+   */
+  function confirmSlot(){
+    var name = (document.getElementById('f-name').value || '').split(' ')[0];
     var t = team[suggestedKey] || team.alicia;
-    return 'https://calendar.google.com/calendar/render?action=TEMPLATE'
-      + '&text=' + encodeURIComponent('Free consult with The Wild Within')
-      + '&details=' + encodeURIComponent('Your free consult with ' + t.short + ' at The Wild Within. Suggested time: ' + slot + '. (Demo)')
-      + '&location=' + encodeURIComponent('Mesa, AZ or Telehealth');
-  }
-  function confirmBooking(){
-    var sel = document.querySelector('.slot.sel');
-    var name = (document.getElementById('f-name').value || 'there').split(' ')[0];
-    var t = team[suggestedKey] || team.alicia;
-    var box = document.getElementById('booked');
-    if(!sel){ box.textContent = 'Pick a time above and we will hold it for you.'; box.classList.add('show'); return; }
-    box.innerHTML = 'You are booked, ' + name + '. Your consult with <b>'+t.short+'</b> is held for <b>'+sel.textContent+'</b>.'+
-      '<div><a class="btn btn-ghost cal-btn" href="'+calLink(sel.textContent)+'" target="_blank" rel="noopener">Add to my calendar</a></div>'+
-      '<div class="sig-line">See you soon, ' + name + '</div>';
-    box.classList.add('show');
-    document.getElementById('step-follow').innerHTML = '<b>3.</b>' + t.short + ' follows up personally to book your first full session.';
-    document.getElementById('next-steps').classList.add('show');
-    document.getElementById('ty-head').innerHTML = 'See you soon, ' + name + '.';
-  }
-  function requestCallback(){
-    var name = (document.getElementById('f-name').value || 'there').split(' ')[0];
-    var box = document.getElementById('callback');
-    box.innerHTML = 'Done, ' + name + '. We will call you within one business day. No need to do anything else. (Demo only.)';
-    box.classList.add('show');
+    var slot = selectedSlot();
+    var head = document.getElementById('ty-head');
+    var line = document.getElementById('ty-line');
+    var box  = document.getElementById('booked');
+    var follow = document.getElementById('step-follow');
+
+    if (slot) {
+      if (head) head.innerHTML = 'Your consult is <em>set.</em>';
+      if (line) line.textContent = 'The calendar invite is on its way to your inbox.';
+      if (box) box.innerHTML = 'Free 30 minute consult with <b>' + t.short
+        + '</b>, <b>' + slot + '</b>.'
+        + (name ? '<div class="sig-line">See you soon, ' + name + '</div>' : '');
+      if (follow) follow.innerHTML = '<b>2.</b>' + t.short
+        + ' gets the invite and anything you need before you meet.';
+      return;
+    }
+
+    // Nobody picked a time, which is allowed and is not a lesser outcome. The
+    // lead is on the sheet and Alicia has been emailed either way.
+    if (head) head.innerHTML = 'We have your answers'
+      + (name ? ', <em>' + name + '.</em>' : ', <em>thank you.</em>');
+    if (line) line.textContent = 'Your match has been sent to the practice. You will hear from us within one business day.';
+    if (box) box.innerHTML = '';
+    if (follow) follow.innerHTML = '<b>2.</b>' + t.short
+      + ' reaches out within one business day to find a time.';
   }
 
   function restart(){
@@ -954,7 +1025,7 @@
     var note = document.getElementById('send-note');
 
     // Someone double-tapping the button must not create two leads.
-    if(leadSent){ show('thankyou'); return; }
+    if(leadSent){ confirmSlot(); show('thankyou'); return; }
 
     // Validate BEFORE anything else. Ordering matters: the button must stay
     // enabled and leadSent must stay false on a failure, or a corrected
@@ -1001,7 +1072,12 @@
       mode:   answers.mode   || '',
       timing: answers.timing || '',
       fit:    answers.fit    || '',
-      slot:   ''
+      // Was hardcoded to '' until 2026-08-20, which is why the backend's
+      // "Requested Time" column has been blank on every lead ever taken. The
+      // picker used to sit on the thank-you screen, one step AFTER this POST
+      // fired, so the time a person chose could never reach the sheet. It now
+      // sits on this screen, above the send button, and rides along here.
+      slot:   selectedSlot()
     };
     SOURCE_KEYS.forEach(function(k){ payload[k] = leadSource[k] || ''; });
     payload.click_id = leadSource.click_id || '';
@@ -1031,7 +1107,8 @@
     }, { eventID: payload.event_id });
 
     var done = function(){
-      if(note) note.textContent = 'Sent. Pick a time below.';
+      if(note) note.textContent = 'Sent.';
+      confirmSlot();
       show('thankyou');
     };
 

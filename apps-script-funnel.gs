@@ -39,6 +39,57 @@ var NOTIFY_CC = 'seo@getproofpilot.com';
 // from the site on purpose so it reads as something handed to them.
 var GUIDE_URL = 'https://thewildwithintherapy.com/grounding-guide';
 
+/**
+ * CONSULT BOOKING
+ *
+ * When a person picks one of the consult windows on the funnel, the backend
+ * puts a real 30 minute event on the matched therapist's own Google Calendar
+ * and invites them. That is the whole point: the consult exists before anyone
+ * on the practice side has lifted a finger.
+ *
+ * THIS REQUIRES ONE THING FROM EACH THERAPIST, ONCE.
+ * They each share their Google Calendar with the account that owns this
+ * script (seo@getproofpilot.com) at "Make changes to events":
+ *   Google Calendar > hover their calendar > Options > Settings and sharing
+ *   > Share with specific people > Add people > seo@getproofpilot.com
+ *   > Permissions: Make changes to events > Send
+ *
+ * Until they do, getCalendarById returns null, bookConsult_ logs it, and the
+ * lead notification tells Alicia in plain words that the calendar hold did NOT
+ * happen and she needs to reach out herself. Nothing is silently lost.
+ *
+ * Arizona does not observe daylight saving, so every time here is
+ * America/Phoenix year round and must never be computed from the server's
+ * default zone.
+ */
+var TZ = 'America/Phoenix';
+var CONSULT_MINUTES = 30;
+
+// Whose calendar each match writes to. Keys match the funnel's "matched"
+// value, lowercased.
+var THERAPIST_CALENDARS = {
+  alicia: 'thewildwithin.therapy@gmail.com',
+  kyla: 'Thewildwithin.therapy.Kyla@gmail.com'
+};
+
+/**
+ * The windows Alicia and Kyla confirmed on 2026-08-18. These MUST stay in sync
+ * with CONSULT_WINDOWS in funnel-demo/index.html, which is what a person sees.
+ * The funnel sends the label as text, so this map turns "Wed - 1:00p" back
+ * into a weekday and an hour.
+ *
+ * Kyla holds four a week and Alicia two. Twelve consults a week total is the
+ * hard ceiling on what any amount of Meta spend can convert.
+ */
+var SLOT_MAP = {
+  'Mon 9:00a':  { dow: 1, hour: 9,  min: 0 },
+  'Wed 9:00a':  { dow: 3, hour: 9,  min: 0 },
+  'Wed 1:00p':  { dow: 3, hour: 13, min: 0 },
+  'Wed 7:00p':  { dow: 3, hour: 19, min: 0 },
+  'Fri 5:00p':  { dow: 5, hour: 17, min: 0 },
+  'Sun 5:00p':  { dow: 0, hour: 17, min: 0 }
+};
+
 // The address the guide email must appear to come from. This is the practice,
 // never ProofPilot. A stranger who just answered five questions about their
 // inner life should not get mail from an agency they have never heard of.
@@ -185,7 +236,7 @@ function sendTestLead() {
     mode: 'Telehealth',
     timing: 'This week',
     fit: 'A balance',
-    slot: 'Thu 2:00 pm',
+    slot: 'Mon \u00b7 9:00a',   // a real Kyla window, so booking is exercised
     utm_source: 'test',
     utm_medium: 'test',
     utm_campaign: 'test',
@@ -196,7 +247,9 @@ function sendTestLead() {
     landing_page: 'sendTestLead()'
   };
   writeLead(ss, new Date(), fake, '', 'TEST');
-  sendNotification(fake, 'This is a TEST lead, not a real person.');
+  var booking = bookConsult_(fake, new Date());
+  sendNotification(fake, 'This is a TEST lead, not a real person.', booking);
+  Logger.log('booking result: ' + booking);
   Logger.log('Test row written and email sent. Delete the row when done.');
 }
 
@@ -333,8 +386,17 @@ function doPost(e) {
   }
 
   // 5. Looks like a real person.
+  //
+  // Book BEFORE notifying, so the outcome of the calendar write is in the
+  // email Alicia reads. If it is done afterwards she gets told about a lead,
+  // then separately has to work out whether the hold actually happened.
+  //
+  // Only this branch books. A submission that failed reCAPTCHA or scored as
+  // spam never reaches a therapist's calendar, which is the whole reason the
+  // score check sits above this line.
+  var booking = bookConsult_(lead, ts);
   writeLead(ss, ts, lead, score, 'OK');
-  sendNotification(lead, '');
+  sendNotification(lead, '', booking);
   sendCapiLead(lead, p, ts);
   return ok();
 }
@@ -554,7 +616,7 @@ function logBlocked(ss, ts, reason, lead) {
  * things that matter in the first three lines are who this is, who they
  * matched with, and how soon they want to start.
  */
-function sendNotification(lead, prefix) {
+function sendNotification(lead, prefix, booking) {
   var who = lead.name || 'Someone';
   var matched = lead.matched || 'the team';
 
@@ -565,6 +627,14 @@ function sendNotification(lead, prefix) {
 
   body += who + ' came through the Find Your Therapist funnel'
     + ' and matched with ' + matched + '.\n\n';
+
+  // The booking outcome goes at the very top, above everything else, because
+  // it is the only line that might need her to do something today. Anything
+  // other than a clean booking is written in plain words, not a code, so it
+  // reads correctly on a phone between sessions.
+  if (booking) {
+    body += booking + '\n\n';
+  }
 
   body += 'Wants to start: ' + (lead.timing || 'not said') + '\n';
   body += 'Email: ' + lead.email + '\n';
@@ -595,7 +665,13 @@ function sendNotification(lead, prefix) {
   MailApp.sendEmail({
     to: NOTIFY_TO,
     cc: NOTIFY_CC,
-    subject: 'New funnel lead: ' + who + ' matched with ' + matched,
+    // A failed hold is shouted in the subject. Alicia reads these on a phone
+    // between sessions, and a booking that did not happen is the one case
+    // where she has to act the same day.
+    subject: (booking && /NOT|ALREADY|COULD NOT|ERROR/.test(booking)
+        ? 'ACTION NEEDED, funnel lead: '
+        : 'New funnel lead: ')
+      + who + ' matched with ' + matched,
     body: body
   });
 
@@ -612,6 +688,123 @@ function sendNotification(lead, prefix) {
   } catch (err) {
     Logger.log('guide email failed: ' + String(err).slice(0, 200));
   }
+}
+
+/**
+ * Puts the consult on the matched therapist's calendar and invites the person.
+ *
+ * Returns a plain-language string describing what happened, which goes into
+ * Alicia's notification. She must never have to guess whether the hold is real.
+ *
+ * Deliberately conservative in three places:
+ *
+ *  1. If the therapist's calendar is not shared with this account yet,
+ *     getCalendarById returns null. Say so loudly rather than throwing.
+ *  2. If something already sits in that window, do NOT double book. Two
+ *     strangers arriving for the same 30 minutes is worse than a slot going
+ *     unbooked, so the event is skipped and Alicia is told to reach out.
+ *  3. Nothing about why they are coming goes in the event. Their answers are
+ *     mental health inquiry information and a calendar entry is visible to
+ *     anyone they share a screen with. Name and contact only.
+ */
+function bookConsult_(lead, ts) {
+  if (!lead.slot) {
+    return 'No time picked, so nothing was scheduled.';
+  }
+
+  var key = String(lead.matched || '').toLowerCase().trim();
+  var calId = THERAPIST_CALENDARS[key];
+  if (!calId) {
+    return 'CALENDAR NOT SET: no calendar mapped for "' + lead.matched + '".';
+  }
+
+  // The funnel sends the label with a middot between day and time. Normalize
+  // to the plain "Wed 1:00p" shape SLOT_MAP is keyed on.
+  var label = String(lead.slot).replace(/·|&middot;/g, ' ')
+    .replace(/\s+/g, ' ').trim();
+  var slot = SLOT_MAP[label];
+  if (!slot) {
+    return 'COULD NOT READ THE TIME "' + lead.slot + '". Please reach out directly.';
+  }
+
+  var cal;
+  try {
+    cal = CalendarApp.getCalendarById(calId);
+  } catch (err) {
+    return 'CALENDAR ERROR: ' + String(err).slice(0, 120);
+  }
+  if (!cal) {
+    return 'CALENDAR NOT SHARED YET: ' + calId + ' has not given this script '
+      + 'edit access, so NOTHING was scheduled. Please reach out to book this '
+      + 'one yourself.';
+  }
+
+  var start = nextOccurrence_(slot, ts);
+  var end = new Date(start.getTime() + CONSULT_MINUTES * 60 * 1000);
+  var pretty = Utilities.formatDate(start, TZ, "EEEE, MMMM d 'at' h:mm a");
+
+  // Never double book. A slot already taken means a human decides, not us.
+  var clash = cal.getEvents(start, end);
+  if (clash && clash.length) {
+    return 'ALREADY TAKEN: ' + pretty + ' was picked but something is already '
+      + 'on the calendar then, so NOTHING was scheduled. Please offer another '
+      + 'time.';
+  }
+
+  var first = (lead.name || 'Consult').split(' ')[0];
+  var options = {
+    description: 'Free 30 minute consult booked through the Find Your '
+      + 'Therapist funnel.\n\n'
+      + 'Name: ' + (lead.name || '') + '\n'
+      + 'Email: ' + (lead.email || '') + '\n'
+      + 'Phone: ' + (lead.phone || '') + '\n\n'
+      + 'What they are seeking is on the Funnel Leads tab. It is kept off this '
+      + 'invite on purpose.',
+    location: 'Telehealth or Mesa office'
+  };
+  if (lead.email) {
+    options.guests = lead.email;
+    options.sendInvites = true;
+  }
+
+  try {
+    cal.createEvent('Consult: ' + first + ' (The Wild Within)', start, end, options);
+  } catch (err) {
+    return 'COULD NOT CREATE THE EVENT for ' + pretty + ': '
+      + String(err).slice(0, 120) + '. Please reach out directly.';
+  }
+
+  return 'Booked ' + pretty + ' on ' + (lead.matched || '') + "'s calendar"
+    + (lead.email ? ', and the invite went to ' + lead.email + '.' : '.');
+}
+
+/**
+ * The next time this weekday and hour comes around in Arizona, always in the
+ * future. A window whose moment has already passed this week rolls to next
+ * week rather than booking something in the past.
+ *
+ * Built by formatting into America/Phoenix rather than by using the server's
+ * clock, because Apps Script runs wherever Google feels like and Arizona never
+ * shifts for daylight saving.
+ */
+function nextOccurrence_(slot, from) {
+  var cursor = new Date(from.getTime());
+  for (var i = 0; i < 15; i++) {
+    var dow = Number(Utilities.formatDate(cursor, TZ, 'u')) % 7; // 1=Mon..7=Sun -> 0=Sun
+    if (dow === slot.dow) {
+      var ymd = Utilities.formatDate(cursor, TZ, 'yyyy-MM-dd');
+      var hh = ('0' + slot.hour).slice(-2);
+      var mm = ('0' + slot.min).slice(-2);
+      // Arizona is UTC-7 all year. No DST, so the offset is safe to pin.
+      var candidate = new Date(ymd + 'T' + hh + ':' + mm + ':00-07:00');
+      if (candidate.getTime() > from.getTime() + 60 * 60 * 1000) {
+        return candidate;
+      }
+    }
+    cursor = new Date(cursor.getTime() + 24 * 60 * 60 * 1000);
+  }
+  // Unreachable in practice. Falls back to a week out rather than throwing.
+  return new Date(from.getTime() + 7 * 24 * 60 * 60 * 1000);
 }
 
 /**
