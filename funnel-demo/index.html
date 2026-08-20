@@ -276,6 +276,7 @@
 </style>
 </head>
 <body>
+<div class="demo-badge">Demo preview</div>
 <div class="wrap">
 
   <div class="brand-crown">
@@ -478,7 +479,7 @@
         <div style="position:absolute;left:-9999px;top:-9999px" aria-hidden="true"><label>Website</label><input id="f-website" type="text" tabindex="-1" autocomplete="off"></div>
         <div class="disclaimer">Please do not include sensitive health information here. This form is not HIPAA-secured. Detailed health information is collected through your secure client portal once you begin working together.</div>
         <div class="center">
-          <button class="btn btn-primary" id="send-btn" onclick="submitLead()">Send my answers</button>
+          <button class="btn btn-primary" id="send-btn" onclick="submitLead()">See my times</button>
           <p class="reassure" id="send-note">After you send this, you'll pick a time and get a grounding guide in your inbox.</p>
         </div>
         <div class="trust-card">
@@ -496,27 +497,30 @@
     <section class="screen" data-screen="thankyou">
       <div class="col">
         <p class="eyebrow">You are in good hands</p>
-        <h2 id="ty-head">We have your answers, <em>thank you.</em></h2>
-        <p class="lede" style="margin-bottom:14px" id="ty-line">Your match has been sent to the practice. You will hear from us within one business day to find a time that works.</p>
+        <h2 id="ty-head">Book your free <em>consult.</em></h2>
+        <p class="lede" style="margin-bottom:14px" id="ty-line">Pick a slot for your free consult, or ask us to call you. Either way, you will hear back within one business day.</p>
 
-        <!--
-          The six-slot picker that used to live here was removed 2026-08-20.
-          It was picked AFTER the lead POST fired, so the chosen time reached
-          nobody, and "Confirm my consult" then told the person "you are booked,
-          your consult is held for Tue 10:00a" while creating no calendar event
-          and notifying no one. None of the six times matched a window Alicia or
-          Kyla actually holds either.
-
-          A booking step goes back here the moment there is a real one to point
-          at, which means the matched therapist's own availability link. Until
-          then this screen says only what is true.
-        -->
-        <div class="next-steps show" id="next-steps">
-          <h4>What happens next</h4>
-          <div class="step"><b>1.</b>Your answers go straight to the practice, nobody else.</div>
-          <div class="step" id="step-follow"><b>2.</b>Your therapist reaches out within one business day to find a time.</div>
-          <div class="step"><b>3.</b>You have a free 30 minute consult, and you decide from there.</div>
+        <div class="slot-head">This week</div>
+        <div class="slots" id="slots">
+          <button class="slot" onclick="pickSlot(this)">Tue &middot; 10:00a</button>
+          <button class="slot" onclick="pickSlot(this)">Tue &middot; 2:30p</button>
+          <button class="slot" onclick="pickSlot(this)">Wed &middot; 12:00p</button>
+          <button class="slot" onclick="pickSlot(this)">Thu &middot; 9:30a</button>
+          <button class="slot" onclick="pickSlot(this)">Thu &middot; 4:00p</button>
+          <button class="slot" onclick="pickSlot(this)">Fri &middot; 11:00a</button>
         </div>
+        <div class="center" style="margin-top:14px"><button class="btn btn-gold" onclick="confirmBooking()">Confirm my consult</button></div>
+        <div class="confirm" id="booked"></div>
+        <div class="next-steps" id="next-steps">
+          <h4>What happens next</h4>
+          <div class="step"><b>1.</b>We confirm your consult by email within the hour.</div>
+          <div class="step"><b>2.</b>You get a reminder and your grounding guide before you meet.</div>
+          <div class="step" id="step-follow"><b>3.</b>Your therapist follows up personally to book your first full session.</div>
+        </div>
+
+        <div class="divider">or</div>
+        <div class="center"><button class="btn btn-ghost" onclick="requestCallback()">Prefer a callback? Ask us to call you</button></div>
+        <div class="confirm" id="callback"></div>
 
         <div class="guide">
           <div class="ic">&#128220;</div>
@@ -527,8 +531,8 @@
         </div>
 
         <div class="foot">
-          The Wild Within Counseling and Holistic Therapy &middot; Alicia Wright, MA, MSW, LCSW<br>
-          Licensed in Arizona &middot; In person in Mesa, telehealth across Arizona
+          This is an interactive demo built by ProofPilot for The Wild Within. No data is collected or sent.<br>
+          Real build connects live scheduling, call tracking, and the team's inbox. &middot; <a href="#" onclick="restart();return false;">Restart demo</a>
         </div>
       </div>
     </section>
@@ -822,25 +826,37 @@
     });
   }
 
-  /**
-   * pickSlot, calLink, confirmBooking and requestCallback were removed
-   * 2026-08-20 along with the slot grid they drove. confirmBooking told a
-   * person "you are booked" and only rewrote the screen. requestCallback said
-   * "(Demo only.)" out loud to a live visitor. calLink put the literal string
-   * "(Demo)" into a Google Calendar invite.
-   *
-   * Nothing calls them now. They are gone rather than commented out so a
-   * future edit cannot wire a false confirmation back up by accident.
-   */
-  function personalizeThankYou(){
-    var name = (document.getElementById('f-name').value || '').split(' ')[0];
+  function pickSlot(btn){
+    document.querySelectorAll('.slot').forEach(function(s){ s.classList.remove('sel'); });
+    btn.classList.add('sel');
+    document.getElementById('booked').classList.remove('show');
+  }
+  function calLink(slot){
     var t = team[suggestedKey] || team.alicia;
-    if (name) {
-      document.getElementById('ty-head').innerHTML =
-        'We have your answers, <em>' + name + '.</em>';
-    }
-    document.getElementById('step-follow').innerHTML =
-      '<b>2.</b>' + t.short + ' reaches out within one business day to find a time.';
+    return 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+      + '&text=' + encodeURIComponent('Free consult with The Wild Within')
+      + '&details=' + encodeURIComponent('Your free consult with ' + t.short + ' at The Wild Within. Suggested time: ' + slot + '. (Demo)')
+      + '&location=' + encodeURIComponent('Mesa, AZ or Telehealth');
+  }
+  function confirmBooking(){
+    var sel = document.querySelector('.slot.sel');
+    var name = (document.getElementById('f-name').value || 'there').split(' ')[0];
+    var t = team[suggestedKey] || team.alicia;
+    var box = document.getElementById('booked');
+    if(!sel){ box.textContent = 'Pick a time above and we will hold it for you.'; box.classList.add('show'); return; }
+    box.innerHTML = 'You are booked, ' + name + '. Your consult with <b>'+t.short+'</b> is held for <b>'+sel.textContent+'</b>.'+
+      '<div><a class="btn btn-ghost cal-btn" href="'+calLink(sel.textContent)+'" target="_blank" rel="noopener">Add to my calendar</a></div>'+
+      '<div class="sig-line">See you soon, ' + name + '</div>';
+    box.classList.add('show');
+    document.getElementById('step-follow').innerHTML = '<b>3.</b>' + t.short + ' follows up personally to book your first full session.';
+    document.getElementById('next-steps').classList.add('show');
+    document.getElementById('ty-head').innerHTML = 'See you soon, ' + name + '.';
+  }
+  function requestCallback(){
+    var name = (document.getElementById('f-name').value || 'there').split(' ')[0];
+    var box = document.getElementById('callback');
+    box.innerHTML = 'Done, ' + name + '. We will call you within one business day. No need to do anything else. (Demo only.)';
+    box.classList.add('show');
   }
 
   function restart(){
@@ -938,7 +954,7 @@
     var note = document.getElementById('send-note');
 
     // Someone double-tapping the button must not create two leads.
-    if(leadSent){ personalizeThankYou(); show('thankyou'); return; }
+    if(leadSent){ show('thankyou'); return; }
 
     // Validate BEFORE anything else. Ordering matters: the button must stay
     // enabled and leadSent must stay false on a failure, or a corrected
@@ -1015,8 +1031,7 @@
     }, { eventID: payload.event_id });
 
     var done = function(){
-      if(note) note.textContent = 'Sent.';
-      personalizeThankYou();
+      if(note) note.textContent = 'Sent. Pick a time below.';
       show('thankyou');
     };
 
