@@ -35,6 +35,26 @@ var BLOCKED_TAB = 'Funnel Blocked';
 var NOTIFY_TO = 'thewildwithin.therapy@gmail.com';
 var NOTIFY_CC = 'seo@getproofpilot.com';
 
+// The guide the funnel's last screen promises. Live, noindex, and unlinked
+// from the site on purpose so it reads as something handed to them.
+var GUIDE_URL = 'https://thewildwithintherapy.com/grounding-guide';
+
+// The address the guide email must appear to come from. This is the practice,
+// never ProofPilot. A stranger who just answered five questions about their
+// inner life should not get mail from an agency they have never heard of.
+//
+// This project is owned by a ProofPilot Google account, and Google will not
+// let a script send as an arbitrary address. It works ONLY after this address
+// is added as a verified send-as alias on the owning account:
+//   Gmail (owning account) > Settings > Accounts and Import
+//   > Send mail as > Add another email address
+//   > enter thewildwithin.therapy@gmail.com, uncheck "Treat as an alias"
+//   > Google mails a confirmation link to Alicia, she clicks it, done.
+// Until that link is clicked, sendGuideEmail_ falls back to sending from the
+// owning account with Reply-To set to her, so no lead is ever lost waiting on
+// a setup step. Check the execution log to see which path ran.
+var SEND_AS = 'thewildwithin.therapy@gmail.com';
+
 // The action name the funnel mints its reCAPTCHA token with. The website
 // contact form uses 'contact'. Keeping them different is what stops a token
 // lifted from one form being replayed against the other.
@@ -578,6 +598,142 @@ function sendNotification(lead, prefix) {
     subject: 'New funnel lead: ' + who + ' matched with ' + matched,
     body: body
   });
+
+  // Hooked in here rather than at the three places a lead is accepted, so a
+  // future edit to any one of those branches cannot silently stop the guide
+  // going out. Every path that tells Alicia about a person now also tells the
+  // person something.
+  //
+  // Wrapped because Alicia's notification has already left and the row is
+  // already on the sheet. A bad address or a quota ceiling must never take
+  // down the message that tells her someone is waiting.
+  try {
+    sendGuideEmail_(lead);
+  } catch (err) {
+    Logger.log('guide email failed: ' + String(err).slice(0, 200));
+  }
+}
+
+/**
+ * The first thing this backend has ever sent to the person who filled the
+ * funnel out. Until this existed, the final screen told them "your free
+ * grounding guide is on its way, check your inbox in a few minutes" and
+ * nothing was ever sent to anybody. That promise was broken for every lead.
+ *
+ * Deliberately does NOT say the consult is booked. The funnel's booking step
+ * is still cosmetic: it tells them they are booked while creating no calendar
+ * event and notifying no one. Repeating that claim in writing would put the
+ * same false confirmation in two places and make it harder to walk back. When
+ * real booking ships, this copy changes with it.
+ *
+ * Their quiz answers are NOT in this email. That is mental health inquiry
+ * information, and it does not belong in an inbox that might be shared or in
+ * a thread that gets forwarded. Alicia's notification carries the detail.
+ */
+function sendGuideEmail_(lead) {
+  // Email is optional on the funnel. Someone can leave a phone number
+  // instead, and that is a real lead, not an error. Nothing to send.
+  if (!lead.email) {
+    return;
+  }
+
+  var first = (lead.name || '').split(' ')[0] || 'there';
+  var matched = lead.matched || 'one of us';
+
+  var subject = 'Your grounding guide, and what happens next';
+
+  var body = 'Hi ' + first + ',\n\n'
+    + 'Thank you for taking the time with those questions. Based on what '
+    + 'you shared, ' + matched + ' is the better fit to start with, and she '
+    + 'will reach out within one business day to find a time.\n\n'
+    + 'While you wait, here is your grounding guide. Five things you can do '
+    + 'tonight with nothing but your own body and the room you are sitting '
+    + 'in. Take the one that sounds least annoying and leave the rest.\n\n'
+    + GUIDE_URL + '\n\n'
+    + 'If anything comes up before you hear from us, you can reach us at '
+    + '(480) 771-2181.\n\n'
+    + 'Warmly,\n'
+    + 'The Wild Within\n'
+    + 'Alicia Wright, MA, MSW, LCSW, Mesa, Arizona';
+
+  var html = ''
+    + '<div style="font-family:Georgia,serif;font-size:16px;line-height:1.7;'
+    + 'color:#2B2430;max-width:520px">'
+    + '<p>Hi ' + escapeHtml_(first) + ',</p>'
+    + '<p>Thank you for taking the time with those questions. Based on what '
+    + 'you shared, <strong>' + escapeHtml_(matched) + '</strong> is the '
+    + 'better fit to start with, and she will reach out within one business '
+    + 'day to find a time.</p>'
+    + '<p>While you wait, here is your grounding guide. Five things you can '
+    + 'do tonight with nothing but your own body and the room you are '
+    + 'sitting in. Take the one that sounds least annoying and leave the '
+    + 'rest.</p>'
+    + '<p style="margin:26px 0">'
+    + '<a href="' + GUIDE_URL + '" style="background:#4A2848;color:#FAF7F2;'
+    + 'font-family:Helvetica,Arial,sans-serif;font-size:13px;'
+    + 'letter-spacing:.12em;text-transform:uppercase;text-decoration:none;'
+    + 'padding:15px 30px;border-radius:999px;display:inline-block">'
+    + 'A place to land</a></p>'
+    + '<p>If anything comes up before you hear from us, you can reach us at '
+    + '<a href="tel:+14807712181" style="color:#6B3560">(480) 771-2181</a>.'
+    + '</p>'
+    + '<p style="margin-top:26px">Warmly,<br>The Wild Within<br>'
+    + '<span style="color:#6E6472;font-size:14px">Alicia Wright, MA, MSW, '
+    + 'LCSW, Mesa, Arizona</span></p>'
+    + '</div>';
+
+  // GmailApp, not MailApp, because only GmailApp accepts a from address, and
+  // this has to look like it came from the practice. Google rejects the from
+  // unless SEND_AS is a verified alias on the account that owns this project,
+  // so the failure is caught and the mail goes anyway from the owning account
+  // with Reply-To pointed at her. A lead never waits on a settings screen.
+  try {
+    GmailApp.sendEmail(lead.email, subject, body, {
+      from: SEND_AS,
+      name: 'The Wild Within',
+      replyTo: SEND_AS,
+      htmlBody: html
+    });
+  } catch (err) {
+    Logger.log('send-as alias not active yet, falling back. ' + err);
+    MailApp.sendEmail({
+      to: lead.email,
+      replyTo: SEND_AS,
+      name: 'The Wild Within',
+      subject: subject,
+      body: body,
+      htmlBody: html
+    });
+  }
+}
+
+/**
+ * Their name goes into an HTML email, so it gets escaped. A name carrying an
+ * apostrophe or a stray angle bracket must never break the markup, and pasted
+ * input must never be able to inject a tag.
+ */
+function escapeHtml_(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+/**
+ * Proves the from address is actually working. Run it, then look at the
+ * inbox it names. If the mail arrives showing The Wild Within, the alias is
+ * live. If it shows the ProofPilot account, the alias link has not been
+ * clicked yet and the fallback ran. The execution log says which.
+ */
+function testGuideEmail() {
+  sendGuideEmail_({
+    name: 'Test Person',
+    email: NOTIFY_CC,
+    matched: 'Kyla'
+  });
+  Logger.log('Guide email sent to ' + NOTIFY_CC
+    + '. Check who it says it is from.');
 }
 
 /**
