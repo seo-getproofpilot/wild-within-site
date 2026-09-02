@@ -1009,8 +1009,8 @@
     // person through the funnel starts on the last person's prefilled form.
     var bw = document.getElementById('book-widget');
     if(bw) bw.innerHTML = '';
-    document.getElementById('booked').classList.remove('show');
-    document.getElementById('callback').classList.remove('show');
+    var bk = document.getElementById('booked');
+    if(bk) bk.classList.remove('show');
     leadSent = false;
     var sb = document.getElementById('send-btn');
     if(sb) sb.disabled = false;
