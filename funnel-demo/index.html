@@ -209,11 +209,11 @@
   .trust-card .row i{ color:var(--gold); font-style:normal; font-weight:700; flex:0 0 auto; }
 
   /* Scheduling */
-  .slot-head{ font-family:var(--sans); font-size:13px; font-weight:600; color:var(--plum); letter-spacing:.02em; margin-bottom:8px; }
-  .slots{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:8px 0 6px; }
-  .slot{ background:var(--ivory-warm); border:2px solid var(--line); border-radius:12px; padding:13px 6px; text-align:center; cursor:pointer; font-family:var(--sans); font-size:14px; transition:.15s; }
-  .slot:hover{ border-color:var(--gold-soft); background:#FFFDF7; }
-  .slot.sel{ border-color:var(--gold); background:var(--plum); color:var(--ivory-warm); }
+  /* The booking widget is a GoHighLevel iframe, so nothing inside it can be
+     styled from here. The frame gets the same card treatment as the rest of
+     the funnel and the widget's own theme handles the interior. */
+  .book-widget{ background:#fff; border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+  .book-widget iframe{ display:block; }
   .divider{ display:flex; align-items:center; gap:12px; color:var(--muted); font-size:13px; margin:20px 0; }
   .divider::before,.divider::after{ content:""; height:1px; background:var(--line); flex:1; }
   .guide{ display:flex; gap:14px; align-items:center; background:var(--milky); border:1px dashed var(--gold-soft); border-radius:14px; padding:14px 16px; margin-top:18px; }
@@ -261,7 +261,6 @@
     .card{ padding:26px 20px; border-radius:20px; min-height:auto; }
     .brand-crown img{ height:88px; }
     body.in-quiz .brand-crown img{ height:54px; }
-    .slots{ grid-template-columns:repeat(2,1fr); }
     .cta-row .btn{ width:100%; }
     .team-mini{ gap:10px; }
     .tm{ width:82px; }
@@ -466,36 +465,24 @@
              is dismissed before it is read. -->
         <div class="form-error" id="f-error" role="alert" aria-live="polite"></div>
         <div class="field" id="fw-name"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" placeholder="First and last" required autocomplete="name" autocapitalize="words"></div>
-        <!-- Email and phone are required as a PAIR, not individually. Marking
-             both `required` would be a lie to a screen reader, so the pair is
-             described by #f-reach instead and enforced in submitLead(). -->
-        <div class="field" id="fw-email"><label for="f-email">Email</label><input id="f-email" name="email" type="email" placeholder="you@email.com" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-describedby="f-reach"></div>
-        <div class="field" id="fw-phone"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" placeholder="(480) 000-0000" inputmode="tel" autocomplete="tel" aria-describedby="f-reach"></div>
-        <p class="reassure" id="f-reach" style="text-align:left;margin:-6px 0 14px">Email or phone, whichever you would rather we use. One is enough.</p>
+        <!-- Both are required now, and the reason is on screen. The consult
+             is a phone call the therapist places, so a number is the thing
+             that makes it happen, and the grounding guide and the booking
+             confirmation both need an inbox. They are also the four fields
+             GoHighLevel marks required on the booking form one screen later,
+             so asking here means nobody types them twice. -->
+        <div class="field" id="fw-email"><label for="f-email">Email</label><input id="f-email" name="email" type="email" placeholder="you@email.com" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" required aria-describedby="f-reach"></div>
+        <div class="field" id="fw-phone"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" placeholder="(480) 000-0000" inputmode="tel" autocomplete="tel" required aria-describedby="f-reach"></div>
+        <p class="reassure" id="f-reach" style="text-align:left;margin:-6px 0 14px">Your consult is a phone call, so we need a number to reach you on. Your guide and your confirmation go to your email.</p>
         <div class="field"><label for="f-note">Anything you want us to know? (optional)</label><textarea id="f-note" name="note" rows="3" placeholder="A sentence or two is plenty."></textarea></div>
         <!-- Honeypot. Hidden from real people, so anything in it is a bot that
              filled every field it could find. The backend drops those silently. -->
         <div style="position:absolute;left:-9999px;top:-9999px" aria-hidden="true"><label>Website</label><input id="f-website" type="text" tabindex="-1" autocomplete="off"></div>
         <div class="disclaimer">Please do not include sensitive health information here. This form is not HIPAA-secured. Detailed health information is collected through your secure client portal once you begin working together.</div>
 
-        <!--
-          The consult times live HERE, on the same screen as the send button,
-          and not on the thank-you screen where they used to sit. They were one
-          step past the POST, so a person's choice never reached the sheet and
-          the backend's "Requested Time" column was blank on every lead.
-
-          These are the real windows Alicia and Kyla confirmed on 2026-08-18,
-          Arizona time, and they are filled in per matched therapist by
-          renderSlots(). They are a request, not a hold: nothing writes to a
-          calendar yet, so no copy on this page may say "booked" or "held".
-        -->
-        <div class="slot-head" id="slot-head">A good time for your free 30 minute consult</div>
-        <div class="slots" id="slots"></div>
-        <p class="reassure" id="slot-note" style="text-align:left;margin:8px 0 14px">Pick whichever suits you and we will confirm it by email. Not sure yet? Leave it blank and we will find a time together.</p>
-
         <div class="center">
-          <button class="btn btn-primary" id="send-btn" onclick="submitLead()">Send my answers</button>
-          <p class="reassure" id="send-note">You will get your grounding guide in your inbox, and we will be in touch within one business day.</p>
+          <button class="btn btn-primary" id="send-btn" onclick="submitLead()">See available times</button>
+          <p class="reassure" id="send-note">Next you pick a time for your free consult. Your grounding guide is on its way either way.</p>
         </div>
         <div class="trust-card">
           <h4>Why clients start here</h4>
@@ -508,28 +495,55 @@
       </div>
     </section>
 
+    <!-- BOOK
+         The last step, and the only one that is not ours. The widget is the
+         matched therapist's GoHighLevel calendar: it reads live availability,
+         writes the appointment, and emails the confirmation itself. That is
+         the whole reason it is here rather than a row of buttons. The old
+         buttons were a request that this page announced as a booking, and the
+         Apps Script behind them failed five different ways while the screen
+         still read "Your consult is set."
+
+         Availability is NOT this file's business any more. Change a callback
+         window on the calendar in GoHighLevel and this page follows.
+    -->
+    <section class="screen" data-screen="book">
+      <div class="col">
+        <p class="eyebrow">Last step</p>
+        <h2 id="book-head">Pick a time with <em>your therapist.</em></h2>
+        <p class="lede" style="margin-bottom:18px" id="book-lede">A free 30 minute call, shown in your own time zone.</p>
+
+        <div class="book-widget" id="book-widget"></div>
+
+        <p class="reassure" style="text-align:left;margin:14px 0 4px">Consults fill from a small number of callback times each week, so the list is short on purpose. Nothing here is a commitment: it is a conversation, and you decide from there.</p>
+
+        <div class="center">
+          <button class="btn btn-ghost" onclick="skipBooking()">I would rather you reach out to me</button>
+          <p class="reassure">Your answers are already with the practice either way, and your grounding guide is on its way to your inbox.</p>
+        </div>
+        <div class="nav"><button class="back" onclick="go('capture')">&larr; Back</button></div>
+      </div>
+    </section>
+
     <!-- THANK YOU -->
     <section class="screen" data-screen="thankyou">
       <div class="col">
         <p class="eyebrow">You are in good hands</p>
-        <h2 id="ty-head">You are on the <em>calendar.</em></h2>
-        <p class="lede" style="margin-bottom:14px" id="ty-line">Your consult is set. Watch for the invite in your inbox.</p>
+        <h2 id="ty-head">We have your <em>answers.</em></h2>
+        <p class="lede" style="margin-bottom:14px" id="ty-line">Your match has been sent to the practice. You will hear from us within one business day.</p>
 
         <!--
-          The picker moved to the capture screen on 2026-08-20. It used to sit
-          here, one step AFTER the lead POST fired, so the time a person chose
-          reached nobody and the backend's "Requested Time" column was blank on
-          every lead. "Confirm my consult" then answered "you are booked, your
-          consult is held for Tue 10:00a" while writing to no calendar at all.
-
-          This screen now only reports what the backend actually did, which
-          confirmSlot() fills in from the response.
+          Booking left this screen for good on 2026-09-02. It happens on the
+          book screen, inside GoHighLevel's widget, which confirms it there.
+          So the only person who ever reaches this screen is one who chose not
+          to pick a time, and every line on it says "we will reach out". No
+          copy here may say booked, held, set, or confirmed.
         -->
         <div class="confirm show" id="booked"></div>
         <div class="next-steps show" id="next-steps">
           <h4>What happens next</h4>
           <div class="step"><b>1.</b>Your grounding guide is on its way to your inbox.</div>
-          <div class="step" id="step-follow"><b>2.</b>Your therapist confirms and sends the calendar invite.</div>
+          <div class="step" id="step-follow"><b>2.</b>Your therapist reaches out within one business day to find a time.</div>
           <div class="step"><b>3.</b>You have a free 30 minute consult, and you decide from there.</div>
         </div>
 
@@ -671,50 +685,124 @@
   var suggestedKey = 'alicia';
 
   /**
-   * The consult windows Alicia and Kyla confirmed on 2026-08-18, Arizona time.
-   * Kyla holds four a week and Alicia two, which is the real ceiling on what
-   * any amount of ad spend can convert. Consults are 30 minutes: Alicia
-   * overturned the 15 agreed on 2026-08-14 because it is not enough time for a
-   * proper meet and greet.
+   * The booking calendars, one per therapist, in GoHighLevel.
    *
-   * Keep this in sync with the knowledge base rather than editing it from
-   * memory. When real calendar booking lands, this list is replaced by the
-   * matched therapist's own availability link and these strings retire.
+   * Availability lives in GoHighLevel now and not in this file. The six
+   * callback windows Alicia and Kyla confirmed on 2026-08-18 are configured on
+   * the calendars themselves, as 30 minute slots with a 12 hour minimum
+   * notice. That is why the old CONSULT_WINDOWS array is gone: it was a second
+   * copy of the truth, hand-synced with a third copy in the Apps Script, and
+   * it had already drifted to six bookable slots a week against the twelve
+   * that were agreed.
+   *
+   * The widget shows real remaining availability, takes the booking itself,
+   * and sends its own confirmation email, so this page never has to claim a
+   * booking it cannot see.
    */
-  var CONSULT_WINDOWS = {
-    alicia: ['Wed &middot; 9:00a', 'Fri &middot; 5:00p'],
-    kyla:   ['Mon &middot; 9:00a', 'Wed &middot; 1:00p', 'Wed &middot; 7:00p', 'Sun &middot; 5:00p']
+  var GHL_CALENDARS = {
+    alicia: 'EeKSRGW3RiiNtV6iYSLW',
+    kyla:   'HdKli23GkD95m7iL2ZA8'
   };
+  var GHL_WIDGET_BASE = 'https://api.leadconnectorhq.com/widget/booking/';
 
   /**
-   * Paints the matched therapist's windows onto the capture screen. Called
-   * whenever the match changes, so someone who goes Back and changes an answer
-   * never sees the other therapist's times.
+   * Splits "First Last" the way the GoHighLevel booking form expects. Anything
+   * after the first word is the last name, so two-part and hyphenated
+   * surnames survive intact.
    */
-  function renderSlots(){
-    var box = document.getElementById('slots');
-    if(!box) return;
+  function splitName(full){
+    var parts = (full || '').trim().split(/\s+/);
+    return { first: parts.shift() || '', last: parts.join(' ') };
+  }
+
+  /**
+   * Hands the widget a phone number in the shape it parses most reliably.
+   * A plain US ten digit number, however it was punctuated, becomes +1XXXXXXXXXX.
+   * Anything else is passed through untouched rather than mangled, because a
+   * number this does not recognise is far more likely to be a real one typed
+   * unusually than a mistake worth correcting.
+   */
+  function e164(phone){
+    var d = (phone || '').replace(/\D/g, '');
+    if (d.length === 10) return '+1' + d;
+    if (d.length === 11 && d.charAt(0) === '1') return '+' + d;
+    return phone || '';
+  }
+
+  /**
+   * Builds the matched therapist's booking widget on the book screen,
+   * prefilled from what they just typed.
+   *
+   * Prefill is not a nicety. GoHighLevel marks first name, last name, phone
+   * and email required on its own form, so without it someone who just filled
+   * our capture screen fills a near-identical one again, one step from
+   * converting.
+   *
+   * Rebuilt every time the screen is entered, because going Back and changing
+   * an answer can change the match, and the previous therapist's calendar must
+   * never be the one left on screen.
+   */
+  function renderBooking(){
+    var host = document.getElementById('book-widget');
+    if(!host) return;
     var t = team[suggestedKey] || team.alicia;
-    var list = CONSULT_WINDOWS[suggestedKey] || CONSULT_WINDOWS.alicia;
-    box.innerHTML = list.map(function(s){
-      return '<button type="button" class="slot" onclick="pickSlot(this)">' + s + '</button>';
-    }).join('');
-    var head = document.getElementById('slot-head');
-    if(head) head.textContent = 'A good time to talk with ' + t.short;
+    var calId = GHL_CALENDARS[suggestedKey] || GHL_CALENDARS.alicia;
+
+    var head = document.getElementById('book-head');
+    if(head) head.innerHTML = 'Pick a time with <em>' + t.short + '.</em>';
+    var lede = document.getElementById('book-lede');
+    if(lede) lede.textContent = 'A free 30 minute call, shown in your own time zone. '
+      + t.short + ' phones you at the time you pick, and your confirmation lands '
+      + 'in your inbox the moment you choose it.';
+
+    var n = splitName(val('f-name'));
+    var q = [
+      'first_name=' + encodeURIComponent(n.first),
+      'last_name='  + encodeURIComponent(n.last),
+      'phone='      + encodeURIComponent(e164(val('f-phone')))
+    ];
+
+    // GoHighLevel's widget decodes the query string twice, so a "+" in an
+    // address arrives as a space: "you%2Btherapy@gmail.com" prefills as
+    // "you therapy@gmail.com". Verified against the live widget 2026-09-02;
+    // double-encoding it as %252B is worse, it prefills the literal "%2B".
+    // A silently wrong address means the confirmation never arrives, so an
+    // address we cannot pass intact is not passed at all and they type it
+    // once. Every other address prefills normally.
+    var email = val('f-email');
+    if (email.indexOf('+') === -1) {
+      q.push('email=' + encodeURIComponent(email));
+    }
+    q = q.join('&');
+
+    // The iframe id has to begin with the calendar id or LeadConnector's
+    // resizer never finds the frame and the widget renders inside a stub box.
+    var frameId = calId + '_' + Date.now();
+    host.innerHTML = '<iframe id="' + frameId + '" src="' + GHL_WIDGET_BASE + calId + '?' + q
+      + '" title="Book a free consult with ' + t.short + '"'
+      // height, not min-height. LeadConnector's resizer writes an exact
+      // height onto this element once the widget measures itself, and a
+      // min-height taller than that leaves a dead band under the calendar.
+      + ' scrolling="no" style="width:100%;height:700px;border:none"></iframe>';
+
+    // Loaded once, lazily. It resizes the frame and forwards this page's query
+    // string into the widget, which is how utm_* and fbclid reach the booking.
+    if(!document.getElementById('ghl-embed-js')){
+      var s = document.createElement('script');
+      s.id = 'ghl-embed-js';
+      s.src = 'https://link.msgsndr.com/js/form_embed.js';
+      document.body.appendChild(s);
+    }
   }
 
-  /** Empty string when nothing is picked, which the backend treats as "no preference". */
-  function selectedSlot(){
-    var sel = document.querySelector('.slot.sel');
-    return sel ? sel.textContent.trim() : '';
-  }
-
-  function pickSlot(btn){
-    var was = btn.classList.contains('sel');
-    document.querySelectorAll('.slot').forEach(function(s){ s.classList.remove('sel'); });
-    // Tapping the chosen one again clears it. Someone who changes their mind
-    // must be able to get back to no preference without reloading.
-    if(!was) btn.classList.add('sel');
+  /**
+   * For someone who would rather be called than pick a time. The lead POST
+   * already fired on the capture screen, so there is nothing to submit here:
+   * this only moves them to the callback wording.
+   */
+  function skipBooking(){
+    wwTrack('funnel_booking_skipped', { funnel_name: 'find_your_therapist' });
+    show('thankyou');
   }
 
   function show(id){
@@ -722,7 +810,8 @@
     var el = document.querySelector('[data-screen="'+id+'"]');
     if(el) el.classList.add('active');
     document.body.classList.toggle('in-quiz', id !== 'landing');
-    if(id==='thankyou'){ var tt=team[suggestedKey]||team.alicia; var l=document.getElementById('ty-line'); if(l) l.textContent='Pick a slot for your free consult with '+tt.short+', or ask us to call you. You will hear back within one business day.'; }
+    if(id==='book'){ renderBooking(); }
+    if(id==='thankyou'){ fillThankYou(); }
     window.scrollTo({top:0,behavior:'smooth'});
     updateProgress(id);
     trackStep(id);
@@ -733,7 +822,7 @@
    * visit, so going Back and forward again does not invent extra progress.
    */
   var stepsSeen = {};
-  var STEP_INDEX = { landing:0, q1:1, q2:2, q3:3, q4:4, q5:5, result:6, capture:7, thankyou:8 };
+  var STEP_INDEX = { landing:0, q1:1, q2:2, q3:3, q4:4, q5:5, result:6, capture:7, book:8, thankyou:9 };
   function trackStep(id){
     if(stepsSeen[id]) return;
     if(!(id in STEP_INDEX)) return;
@@ -801,10 +890,6 @@
 
   function buildResult(){
     suggestedKey = matchTherapist();
-    // The match decides whose windows show on the capture screen, so repaint
-    // them here. Going Back and changing an answer must never leave the other
-    // therapist's times on screen.
-    renderSlots();
     var area = answers.area || '';
     var mode = answers.mode || 'Either works';
 
@@ -889,39 +974,26 @@
   }
 
   /**
-   * Fills the thank-you screen in from what the BACKEND actually did, not from
-   * what the person clicked. The old confirmBooking() did the opposite: it read
-   * the button they tapped and announced "you are booked" without a single
-   * request leaving the page.
+   * The thank-you screen is now only ever reached by someone who did NOT book
+   * a time. A booking finishes inside the GoHighLevel widget on the book
+   * screen and that widget shows its own confirmation, so this copy only ever
+   * has to promise a callback.
    *
-   * The POST goes out mode:'no-cors', so the response is opaque and this page
-   * genuinely cannot know whether the calendar write landed. So the copy has
-   * to be true either way: the invite arrives when the backend books it, and
-   * Alicia reaches out when it could not. Never say "held" or "confirmed" from
-   * here, because nothing on this page has ever been in a position to know.
+   * What used to live here announced "Your consult is set. The calendar
+   * invite is on its way to your inbox" off the back of which button was
+   * tapped, while the POST went out mode:'no-cors' and this page could not
+   * read one thing the backend did. Five separate backend failures all
+   * printed "set". The rule that replaced it: no copy on this page may assert
+   * an outcome this page cannot observe.
    */
-  function confirmSlot(){
+  function fillThankYou(){
     var name = (document.getElementById('f-name').value || '').split(' ')[0];
     var t = team[suggestedKey] || team.alicia;
-    var slot = selectedSlot();
     var head = document.getElementById('ty-head');
     var line = document.getElementById('ty-line');
     var box  = document.getElementById('booked');
     var follow = document.getElementById('step-follow');
 
-    if (slot) {
-      if (head) head.innerHTML = 'Your consult is <em>set.</em>';
-      if (line) line.textContent = 'The calendar invite is on its way to your inbox.';
-      if (box) box.innerHTML = 'Free 30 minute consult with <b>' + t.short
-        + '</b>, <b>' + slot + '</b>.'
-        + (name ? '<div class="sig-line">See you soon, ' + name + '</div>' : '');
-      if (follow) follow.innerHTML = '<b>2.</b>' + t.short
-        + ' gets the invite and anything you need before you meet.';
-      return;
-    }
-
-    // Nobody picked a time, which is allowed and is not a lesser outcome. The
-    // lead is on the sheet and Alicia has been emailed either way.
     if (head) head.innerHTML = 'We have your answers'
       + (name ? ', <em>' + name + '.</em>' : ', <em>thank you.</em>');
     if (line) line.textContent = 'Your match has been sent to the practice. You will hear from us within one business day.';
@@ -932,7 +1004,11 @@
 
   function restart(){
     answers = {};
-    document.querySelectorAll('.opt.sel,.slot.sel').forEach(function(o){o.classList.remove('sel');});
+    document.querySelectorAll('.opt.sel').forEach(function(o){o.classList.remove('sel');});
+    // Drop the previous booking iframe. Leaving it mounted means the next
+    // person through the funnel starts on the last person's prefilled form.
+    var bw = document.getElementById('book-widget');
+    if(bw) bw.innerHTML = '';
     document.getElementById('booked').classList.remove('show');
     document.getElementById('callback').classList.remove('show');
     leadSent = false;
@@ -1025,7 +1101,7 @@
     var note = document.getElementById('send-note');
 
     // Someone double-tapping the button must not create two leads.
-    if(leadSent){ confirmSlot(); show('thankyou'); return; }
+    if(leadSent){ show('book'); return; }
 
     // Validate BEFORE anything else. Ordering matters: the button must stay
     // enabled and leadSent must stay false on a failure, or a corrected
@@ -1036,19 +1112,34 @@
 
     var missing = [], bad = [], focusId = '';
     if(!name){ missing.push('your name'); bad.push('fw-name'); focusId = focusId || 'f-name'; }
-    if(!email && !phone){
-      // Either one is enough. Requiring both costs real inquiries here.
-      missing.push('an email or phone number');
-      bad.push('fw-email'); bad.push('fw-phone');
+    // Email and phone were an either/or until 2026-09-02, on the reasoning
+    // that requiring both costs inquiries. Booking changed the arithmetic:
+    // both are required on GoHighLevel's booking form one screen later, so an
+    // either/or here does not save the person a field, it just moves the field
+    // to the screen where they are one tap from converting.
+    if(!email){
+      missing.push('your email');
+      bad.push('fw-email');
       focusId = focusId || 'f-email';
-    } else if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){
+    } else if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){
       missing.push('a valid email address');
       bad.push('fw-email');
       focusId = focusId || 'f-email';
     }
+    // Ten digits, ignoring how they punctuated it. Anything shorter cannot be
+    // dialled, and a therapist finding that out at the callback is the one
+    // failure this whole funnel exists to prevent.
+    if(phone.replace(/\D/g, '').length < 10){
+      missing.push(phone ? 'a full 10 digit phone number' : 'a phone number');
+      bad.push('fw-phone');
+      focusId = focusId || 'f-phone';
+    }
 
     if(missing.length){
-      showInlineError('Please add ' + missing.join(' and ') + ' so we can reach you.', bad, focusId);
+      var list = missing.length > 1
+        ? missing.slice(0, -1).join(', ') + ' and ' + missing[missing.length - 1]
+        : missing[0];
+      showInlineError('Please add ' + list + ' so we can reach you.', bad, focusId);
       return; // no leadSent, no button disable, no fetch, no thank-you screen
     }
 
@@ -1072,12 +1163,10 @@
       mode:   answers.mode   || '',
       timing: answers.timing || '',
       fit:    answers.fit    || '',
-      // Was hardcoded to '' until 2026-08-20, which is why the backend's
-      // "Requested Time" column has been blank on every lead ever taken. The
-      // picker used to sit on the thank-you screen, one step AFTER this POST
-      // fired, so the time a person chose could never reach the sheet. It now
-      // sits on this screen, above the send button, and rides along here.
-      slot:   selectedSlot()
+      // No slot field any more. The time is chosen on the next screen, in
+      // GoHighLevel's own widget, which books it and confirms it directly.
+      // This POST is the lead record and the grounding guide, nothing else.
+      slot:   ''
     };
     SOURCE_KEYS.forEach(function(k){ payload[k] = leadSource[k] || ''; });
     payload.click_id = leadSource.click_id || '';
@@ -1102,14 +1191,21 @@
       timing: answers.timing || '',
       mode: answers.mode || ''
     }, 'Lead', {
-      content_name: 'Find Your Therapist funnel',
-      content_category: answers.area || ''
+      // content_category used to carry answers.area, which is the person's
+      // presenting concern: "Postpartum and new parenthood", "Teens and
+      // pre-teens". That is health information about an identified person,
+      // named directly in Meta's prohibited-information rules, and it was
+      // going out beside a hashed email and phone. Enforcement is at the
+      // domain level and ends with Lead blocked from optimization entirely,
+      // so nothing about why someone is reaching out goes to Meta. The same
+      // strip is applied to the Conversions API payload in
+      // apps-script-funnel.gs. Do not add it back in either place.
+      content_name: 'Find Your Therapist funnel'
     }, { eventID: payload.event_id });
 
     var done = function(){
       if(note) note.textContent = 'Sent.';
-      confirmSlot();
-      show('thankyou');
+      show('book');
     };
 
     /* Local testing must never write to Alicia's live sheet.
