@@ -73,6 +73,9 @@ var GUIDE_URL = 'https://thewildwithintherapy.com/grounding-guide';
 var GHL_LOCATION_ID = 'BauEG1SWoNvEIat6cR96';
 var GHL_API = 'https://services.leadconnectorhq.com';
 var GHL_VERSION = '2021-07-28';
+// Contact custom field "Matched Therapist", created 2026-09-02. The guide
+// email workflow merges it as {{contact.matched_therapist}}.
+var GHL_MATCHED_FIELD_ID = 'PfmqxFU5mBXBcCF787Fw';
 
 // The address the guide email must appear to come from. This is the practice,
 // never ProofPilot. A stranger who just answered five questions about their
@@ -744,7 +747,14 @@ function pushToGhl_(lead) {
       source: lead.utm_source
         ? ('Find Your Therapist funnel / ' + lead.utm_source)
         : 'Find Your Therapist funnel',
-      tags: ['funnel-lead', 'matched-' + String(lead.matched || 'unknown').toLowerCase()]
+      tags: ['funnel-lead', 'matched-' + String(lead.matched || 'unknown').toLowerCase()],
+      // The therapist's name as a field, not only as a tag, because the guide
+      // email is sent by a GoHighLevel workflow now and a workflow can merge a
+      // field but cannot read a tag. Also gives Alicia the routing on the
+      // contact record itself. Field key contact.matched_therapist.
+      customFields: [
+        { id: GHL_MATCHED_FIELD_ID, value: lead.matched || '' }
+      ]
     };
 
     // Ad metadata, not health data. It rides on the contact so a booking can
