@@ -454,36 +454,48 @@
       </div>
     </section>
 
-    <!-- CAPTURE -->
+    <!-- CAPTURE
+         The form itself is GoHighLevel's now: an inline embed of form
+         8s2oSCET1k8mR8jokO2D, prefilled with the quiz answers by
+         renderCaptureForm() (see the script below) every time this screen is
+         entered, so nobody answers the same question twice. It collects
+         name/email/phone/note and screens bots with its own Cloudflare
+         Turnstile, which is why the custom fields, the honeypot, and the
+         reCAPTCHA mint that used to guard the Apps Script POST are all gone.
+         The lead lands in GoHighLevel directly; this page has nothing left to
+         send anywhere.
+    -->
     <section class="screen" data-screen="capture">
       <div class="col">
         <p class="eyebrow">Almost there</p>
         <h2>Where should we <em>reach you?</em></h2>
         <p class="lede" style="margin-bottom:18px">Reaching out is the brave part. The rest we figure out together. It is such a powerful step in the next chapter of your journey, and you are ready.</p>
-        <!-- Validation errors render here, directly above the fields they are
-             about. Never an alert() and never console only: on mobile an alert
-             is dismissed before it is read. -->
-        <div class="form-error" id="f-error" role="alert" aria-live="polite"></div>
-        <div class="field" id="fw-name"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" placeholder="First and last" required autocomplete="name" autocapitalize="words"></div>
-        <!-- Both are required now, and the reason is on screen. The consult
-             is a phone call the therapist places, so a number is the thing
-             that makes it happen, and the grounding guide and the booking
-             confirmation both need an inbox. They are also the four fields
-             GoHighLevel marks required on the booking form one screen later,
-             so asking here means nobody types them twice. -->
-        <div class="field" id="fw-email"><label for="f-email">Email</label><input id="f-email" name="email" type="email" placeholder="you@email.com" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" required aria-describedby="f-reach"></div>
-        <div class="field" id="fw-phone"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" placeholder="(480) 000-0000" inputmode="tel" autocomplete="tel" required aria-describedby="f-reach"></div>
-        <p class="reassure" id="f-reach" style="text-align:left;margin:-6px 0 14px">Your consult is a phone call, so we need a number to reach you on. Your guide and your confirmation go to your email.</p>
-        <div class="field"><label for="f-note">Anything you want us to know? (optional)</label><textarea id="f-note" name="note" rows="3" placeholder="A sentence or two is plenty."></textarea></div>
-        <!-- Honeypot. Hidden from real people, so anything in it is a bot that
-             filled every field it could find. The backend drops those silently. -->
-        <div style="position:absolute;left:-9999px;top:-9999px" aria-hidden="true"><label>Website</label><input id="f-website" type="text" tabindex="-1" autocomplete="off"></div>
+        <p class="reassure" style="text-align:left;margin:-4px 0 14px">Your consult is a phone call, so we need a number to reach you on. Your guide and your confirmation go to your email.</p>
         <div class="disclaimer">Please do not include sensitive health information here. This form is not HIPAA-secured. Detailed health information is collected through your secure client portal once you begin working together.</div>
 
-        <div class="center">
-          <button class="btn btn-primary" id="send-btn" onclick="submitLead()">See available times</button>
-          <p class="reassure" id="send-note">Next you pick a time for your free consult. Your grounding guide is on its way either way.</p>
+        <div class="book-widget" id="ghl-capture-widget" style="min-height:600px;margin-top:14px;background:var(--ivory-warm)">
+          <iframe src="" style="width:100%;height:100%;border:none;border-radius:4px"
+            id="inline-8s2oSCET1k8mR8jokO2D"
+            data-layout='{"id":"INLINE"}'
+            data-trigger-type="alwaysShow"
+            data-activation-type="alwaysActivated"
+            data-deactivation-type="neverDeactivate"
+            data-form-name="Wild Within Funnel"
+            data-layout-iframe-id="inline-8s2oSCET1k8mR8jokO2D"
+            data-form-id="8s2oSCET1k8mR8jokO2D"
+            title="Wild Within Funnel"></iframe>
         </div>
+
+        <!-- Fallback only. go('book') normally fires itself the moment the
+             postMessage handler below recognizes a submission from the frame
+             above; this button appears a few seconds after arriving in case
+             that message never comes, so nobody is stranded on a form with no
+             way off the screen. -->
+        <div class="center" id="capture-continue-wrap" style="display:none;margin-top:16px">
+          <button class="btn btn-primary" onclick="go('book')">Continue to booking</button>
+          <p class="reassure">If you already submitted the form above, tap Continue.</p>
+        </div>
+
         <div class="trust-card">
           <h4>Why clients start here</h4>
           <div class="row"><i>&#10003;</i>A real conversation, free, with no pressure to book.</div>
@@ -567,21 +579,10 @@
   <div class="stage-foot">The Wild Within &middot; Alicia Wright, LCSW &middot; Licensed in Arizona</div>
 </div>
 
-<!-- reCAPTCHA v3. Same site key as the rest of the site: it is public by
-     design and the secret key lives only in the Apps Script backend. The
-     funnel mints its token with action "funnel" so a token lifted from the
-     website contact form cannot be replayed against the funnel backend. -->
-<script>
-  window.WW_RECAPTCHA_SITE_KEY = "6LeSQGgtAAAAAD-Fpo3fvqXYqhFpCoUcQxfQpnKz";
-  (function () {
-    var k = window.WW_RECAPTCHA_SITE_KEY;
-    if (!k || k.indexOf("PASTE_") === 0) return; // not configured yet
-    var s = document.createElement("script");
-    s.src = "https://www.google.com/recaptcha/api.js?render=" + k;
-    s.async = true;
-    document.head.appendChild(s);
-  })();
-</script>
+<!-- reCAPTCHA v3 is gone from this page. It existed only to mint a token for
+     the Apps Script POST the old capture form fired. The GoHighLevel form
+     embedded on the capture screen now has its own Cloudflare Turnstile, so
+     nothing on this page needs to solve a captcha of its own any more. -->
 
 <!-- ===================== MEASUREMENT =====================
      Both IDs are PUBLIC by design, same as the reCAPTCHA site key above. The
@@ -730,6 +731,170 @@
   }
 
   /**
+   * The lead-capture form now lives entirely in GoHighLevel: an inline embed
+   * of form 8s2oSCET1k8mR8jokO2D. It collects name/email/phone/note itself
+   * and screens bots with its own Cloudflare Turnstile, which is why the
+   * custom fields, the honeypot, and the reCAPTCHA mint that used to guard
+   * the Apps Script POST are gone (see submitLead's old home, deleted below).
+   * This funnel's only remaining job on this screen is handing the form the
+   * quiz answers as URL params before it loads.
+   */
+  var GHL_FORM_ID   = '8s2oSCET1k8mR8jokO2D';
+  var GHL_FORM_BASE = 'https://api.leadconnectorhq.com/widget/form/' + GHL_FORM_ID;
+
+  /**
+   * Appends key=value to a prefill query only when there is something to
+   * send. Skipping empty answers avoids handing GoHighLevel a blank value it
+   * would otherwise render into the field. And exactly like the booking
+   * widget's email prefill above, the widget double-decodes the query string
+   * so a "+" would arrive as a space: nothing in the quiz answers contains
+   * one today, but if that ever changes the safe move is to drop the param
+   * rather than send it wrong.
+   */
+  function ghlParam(list, key, rawValue){
+    if(!rawValue) return;
+    if(String(rawValue).indexOf('+') !== -1) return;
+    list.push(key + '=' + encodeURIComponent(rawValue));
+  }
+
+  /**
+   * Builds the capture form's src fresh every time the capture screen is
+   * entered (see show()), so an answer changed after going Back is always the
+   * one that rides along, never a stale one from an earlier pass through.
+   */
+  function buildGhlFormUrl(){
+    var t = team[suggestedKey] || team.alicia;
+    var params = [];
+    ghlParam(params, 'hoping_for',         answers.goal);
+    ghlParam(params, 'wants_to_work_on',   answers.area);
+    ghlParam(params, 'session_preference', answers.mode);
+    ghlParam(params, 'timing',             answers.timing);
+    ghlParam(params, 'what_matters_most',  answers.fit);
+    ghlParam(params, 'matched_therapist',  t.short);
+    ghlParam(params, 'ad_source',          leadSource.utm_source);
+    ghlParam(params, 'ad_campaign',        leadSource.utm_campaign);
+    ghlParam(params, 'ad_content',         leadSource.utm_content);
+    ghlParam(params, 'landing_page',       leadSource.landing_page);
+    ghlParam(params, 'click_id',           leadSource.click_id);
+    return GHL_FORM_BASE + (params.length ? '?' + params.join('&') : '');
+  }
+
+  function renderCaptureForm(){
+    var frame = document.getElementById('inline-8s2oSCET1k8mR8jokO2D');
+    if(frame) frame.src = buildGhlFormUrl();
+    // Re-hide the fallback button on every fresh visit to this screen, so a
+    // Back-and-forward doesn't leave it showing from a previous attempt.
+    var wrap = document.getElementById('capture-continue-wrap');
+    if(wrap) wrap.style.display = 'none';
+
+    // Same lazy loader the booking widget uses below, guarded by the same id
+    // so whichever screen a visitor reaches first is the one that fetches it.
+    if(!document.getElementById('ghl-embed-js')){
+      var s = document.createElement('script');
+      s.id = 'ghl-embed-js';
+      s.src = 'https://link.msgsndr.com/js/form_embed.js';
+      document.body.appendChild(s);
+    }
+  }
+
+  /**
+   * Moving off the capture screen used to be a button click this page
+   * controlled directly. Now the form is GoHighLevel's, so the signal that
+   * someone actually submitted it has to come from inside the iframe. That
+   * signal is booked.html (see /funnel-demo/booked.html): GoHighLevel's own
+   * "On Submit" action redirects the iframe to that page with the lead's
+   * details as query params, and booked.html hands them up to this page via
+   * postMessage. GoHighLevel does not publish a message contract for the
+   * embed itself, which is why the old loose listener is kept below, logging
+   * only, behind WW_FUNNEL_DEBUG.
+   */
+  var WW_FUNNEL_DEBUG = window.WW_FUNNEL_DEBUG || /[?&]ww_debug=1\b/.test(location.search);
+  var captureSubmitted = false;
+
+  /* Populated by the strict postMessage listener below, or by the step=book
+   * URL params read on page load for the unframed fallback (see the bottom
+   * of this script). renderBooking() and fillThankYou() read from here now
+   * instead of from f-name/f-phone/f-email page inputs — those fields no
+   * longer exist, the name/email/phone are typed into the GoHighLevel form
+   * now, not into this page. */
+  var leadDetails = { first:'', last:'', email:'', phone:'' };
+
+  function isGhlMessageOrigin(origin){
+    try {
+      var host = new URL(origin).hostname;
+      return /(^|\.)leadconnectorhq\.com$/.test(host) || /(^|\.)msgsndr\.com$/.test(host);
+    } catch(e){ return false; }
+  }
+
+  function looksLikeGhlSubmit(data){
+    try { return JSON.stringify(data).toLowerCase().indexOf('submit') !== -1; }
+    catch(e){ return false; }
+  }
+
+  /* DEBUG ONLY, no navigation. This used to be the entire trigger: any
+   * message from a leadconnectorhq.com or msgsndr.com frame whose payload
+   * mentioned "submit" anywhere was read as a submission — loose enough that
+   * the booking widget's own resize/availability messages on those same
+   * domains could have matched it too. Kept here so ?ww_debug=1 can still
+   * show what GoHighLevel itself posts, for whenever that needs checking. */
+  window.addEventListener('message', function(evt){
+    if(!WW_FUNNEL_DEBUG) return;
+    if(!isGhlMessageOrigin(evt.origin)) return;
+    console.log('[funnel] message from', evt.origin, evt.data, looksLikeGhlSubmit(evt.data) ? '(looks like submit)' : '');
+  });
+
+  /* The real handoff. booked.html loads inside the GoHighLevel iframe after
+   * GoHighLevel's "On Submit" redirect, strips any {{contact.*}} merge token
+   * GoHighLevel failed to substitute (UNVERIFIED whether it substitutes them
+   * at all — see booked.html), and posts this exact shape up to us. Both the
+   * origin and the message shape are checked, so nothing else running on
+   * GoHighLevel's domains can trigger navigation the way the old heuristic
+   * above could have.
+   */
+  window.addEventListener('message', function(evt){
+    var trustedOrigin = evt.origin === location.origin || evt.origin === 'https://thewildwithintherapy.com';
+    if(!trustedOrigin) return;
+    if(!evt.data || evt.data.source !== 'ww-funnel' || evt.data.type !== 'capture-complete') return;
+    if(captureSubmitted) return;
+    // The book screen's own calendar widget lives on GoHighLevel domains too
+    // and posts its own messages (resize, availability, and so on). Only
+    // acting on the handoff while the visitor is actually still on the
+    // capture screen keeps a stray message from being misread as a second lead.
+    var current = document.querySelector('.screen.active');
+    if(!current || current.getAttribute('data-screen') !== 'capture') return;
+    captureSubmitted = true;
+    var lead = evt.data.lead || {};
+    leadDetails.first = lead.first || '';
+    leadDetails.last  = lead.last  || '';
+    leadDetails.email = lead.email || '';
+    leadDetails.phone = lead.phone || '';
+    wwTrack('generate_lead', {
+      funnel_name: 'find_your_therapist',
+      matched_therapist: (team[suggestedKey] || team.alicia).short,
+      timing: answers.timing || '',
+      mode: answers.mode || ''
+    }, 'Lead', {
+      content_name: 'Find Your Therapist funnel'
+    }, { eventID: wwEventId() });
+    show('book');
+  });
+
+  // Fallback for the visitor whose submission the postMessage above never
+  // reaches this page for: a blocked third-party frame, a GoHighLevel embed
+  // change, anything. They must never be stuck on a form with no way off this
+  // screen, so a manual way forward appears a few seconds after arriving.
+  var CAPTURE_FALLBACK_DELAY_MS = 12000;
+  function armCaptureFallback(){
+    setTimeout(function(){
+      if(captureSubmitted) return;
+      var current = document.querySelector('.screen.active');
+      if(!current || current.getAttribute('data-screen') !== 'capture') return;
+      var wrap = document.getElementById('capture-continue-wrap');
+      if(wrap) wrap.style.display = '';
+    }, CAPTURE_FALLBACK_DELAY_MS);
+  }
+
+  /**
    * Builds the matched therapist's booking widget on the book screen,
    * prefilled from what they just typed.
    *
@@ -755,11 +920,10 @@
       + t.short + ' phones you at the time you pick, and your confirmation lands '
       + 'in your inbox the moment you choose it.';
 
-    var n = splitName(val('f-name'));
     var q = [
-      'first_name=' + encodeURIComponent(n.first),
-      'last_name='  + encodeURIComponent(n.last),
-      'phone='      + encodeURIComponent(e164(val('f-phone')))
+      'first_name=' + encodeURIComponent(leadDetails.first),
+      'last_name='  + encodeURIComponent(leadDetails.last),
+      'phone='      + encodeURIComponent(e164(leadDetails.phone))
     ];
 
     // GoHighLevel's widget decodes the query string twice, so a "+" in an
@@ -769,7 +933,7 @@
     // A silently wrong address means the confirmation never arrives, so an
     // address we cannot pass intact is not passed at all and they type it
     // once. Every other address prefills normally.
-    var email = val('f-email');
+    var email = leadDetails.email;
     if (email.indexOf('+') === -1) {
       q.push('email=' + encodeURIComponent(email));
     }
@@ -810,6 +974,7 @@
     var el = document.querySelector('[data-screen="'+id+'"]');
     if(el) el.classList.add('active');
     document.body.classList.toggle('in-quiz', id !== 'landing');
+    if(id==='capture'){ captureSubmitted = false; renderCaptureForm(); armCaptureFallback(); }
     if(id==='book'){ renderBooking(); }
     if(id==='thankyou'){ fillThankYou(); }
     window.scrollTo({top:0,behavior:'smooth'});
@@ -987,7 +1152,12 @@
    * an outcome this page cannot observe.
    */
   function fillThankYou(){
-    var name = (document.getElementById('f-name').value || '').split(' ')[0];
+    // leadDetails.first comes from booked.html's postMessage handoff (or the
+    // step=book URL fallback below), not from a page field: name is typed
+    // inside the GoHighLevel form now, not into anything this page can read
+    // directly. It is '' whenever that handoff never happened, and the
+    // headline below already has a generic fallback for that case.
+    var name = leadDetails.first;
     var t = team[suggestedKey] || team.alicia;
     var head = document.getElementById('ty-head');
     var line = document.getElementById('ty-line');
@@ -1018,20 +1188,13 @@
     show('landing');
   }
 
-  // Clear the nudge as soon as they start fixing it, so the error is never
-  // still on screen contradicting what they just typed.
-  ['f-name','f-email','f-phone'].forEach(function(id){
-    var el = document.getElementById(id);
-    if(el) el.addEventListener('input', clearInlineError);
-  });
-
   /* ===================== LEAD CAPTURE =====================
-   * Paste the funnel Web app URL here after deploying apps-script-funnel.gs.
-   * It is a DIFFERENT deployment from the website contact form. Until this is
-   * set the funnel still works end to end, it just does not send anything, so
-   * the page stays safe to show Alicia at any point in between.
+   * The Apps Script POST (FUNNEL_ENDPOINT) and the reCAPTCHA token mint that
+   * fed it are gone. The GoHighLevel form embedded on the capture screen
+   * (see renderCaptureForm()/buildGhlFormUrl() above) is the entire capture
+   * path now. leadSource below still matters: it feeds the form's
+   * ad_source/ad_campaign/ad_content/landing_page/click_id params.
    */
-  var FUNNEL_ENDPOINT = "https://script.google.com/macros/s/AKfycbzXuIqQzbDWmNs43DQux4Vhd_Oh33yMisoAVnjrZVxP9TK-RGS_YK-oD_Rstt2Ou8TEnQ/exec";
 
   /* Where the lead came from.
    * Read once on load and stashed, because a visitor who lands from an ad and
@@ -1082,184 +1245,52 @@
     });
   }
 
-  function showInlineError(msg, wrapIds, focusId){
-    var box = document.getElementById('f-error');
-    if(box){ box.textContent = msg; box.classList.add('show'); }
-    markInvalid(wrapIds || []);
-    var f = document.getElementById(focusId);
-    if(f){ f.focus(); if(f.scrollIntoView) f.scrollIntoView({block:'center',behavior:'smooth'}); }
-  }
-
   function clearInlineError(){
     var box = document.getElementById('f-error');
     if(box){ box.textContent = ''; box.classList.remove('show'); }
     markInvalid([]);
   }
 
-  function submitLead(){
-    var btn = document.getElementById('send-btn');
-    var note = document.getElementById('send-note');
+  /* submitLead() used to live here: validate the custom fields, mint a
+   * reCAPTCHA token, and POST to FUNNEL_ENDPOINT. All of it existed only to
+   * feed the Apps Script backend, which this page no longer talks to. The
+   * GoHighLevel form embedded on the capture screen collects the lead
+   * directly, and the postMessage handler near renderCaptureForm() (above,
+   * next to buildGhlFormUrl()) is what moves the visitor on to the book
+   * screen once that form is submitted.
+   */
 
-    // Someone double-tapping the button must not create two leads.
-    if(leadSent){ show('book'); return; }
+  /* Fallback path: this page only lands here directly, at ?step=book, when
+   * booked.html was NOT framed — the GoHighLevel embed broke, or someone
+   * hit booked.html's URL on its own, so GoHighLevel's redirect happened at
+   * the top level instead of inside our iframe. There is no parent page for
+   * booked.html to postMessage to in that case, so it forwards the visitor
+   * here instead, carrying the same lead fields as plain query params. Skip
+   * straight to the booking screen with those prefilled rather than making
+   * the visitor repeat the GoHighLevel form (or the whole quiz, which never
+   * ran for them either).
+   */
+  var bookedFallback = (function bootFromBookedFallback(){
+    var qs = new URLSearchParams(window.location.search);
+    if(qs.get('step') !== 'book') return false;
+    leadDetails.first = qs.get('first_name') || '';
+    leadDetails.last  = qs.get('last_name')  || '';
+    leadDetails.email = qs.get('email') || '';
+    leadDetails.phone = qs.get('phone') || '';
+    // booked.html forwards GoHighLevel's matched_therapist contact field as
+    // "Alicia" or "Kyla"; team's own keys are lowercase. Anything else
+    // (missing, unrecognised, still a {{merge}} token) leaves suggestedKey
+    // on its default so the booking screen never renders with no therapist.
+    var therapistParam = (qs.get('therapist') || '').toLowerCase();
+    if(therapistParam === 'alicia' || therapistParam === 'kyla') suggestedKey = therapistParam;
+    // This visitor never went through the capture screen's postMessage, so
+    // there is no submission for the strict listener above to guard against
+    // firing twice — set the guard directly so a stray message can't re-fire it.
+    captureSubmitted = true;
+    return true;
+  })();
 
-    // Validate BEFORE anything else. Ordering matters: the button must stay
-    // enabled and leadSent must stay false on a failure, or a corrected
-    // resubmit gets swallowed by the double-tap guard above.
-    var name  = val('f-name');
-    var email = val('f-email');
-    var phone = val('f-phone');
-
-    var missing = [], bad = [], focusId = '';
-    if(!name){ missing.push('your name'); bad.push('fw-name'); focusId = focusId || 'f-name'; }
-    // Email and phone were an either/or until 2026-09-02, on the reasoning
-    // that requiring both costs inquiries. Booking changed the arithmetic:
-    // both are required on GoHighLevel's booking form one screen later, so an
-    // either/or here does not save the person a field, it just moves the field
-    // to the screen where they are one tap from converting.
-    if(!email){
-      missing.push('your email');
-      bad.push('fw-email');
-      focusId = focusId || 'f-email';
-    } else if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){
-      missing.push('a valid email address');
-      bad.push('fw-email');
-      focusId = focusId || 'f-email';
-    }
-    // Ten digits, ignoring how they punctuated it. Anything shorter cannot be
-    // dialled, and a therapist finding that out at the callback is the one
-    // failure this whole funnel exists to prevent.
-    if(phone.replace(/\D/g, '').length < 10){
-      missing.push(phone ? 'a full 10 digit phone number' : 'a phone number');
-      bad.push('fw-phone');
-      focusId = focusId || 'f-phone';
-    }
-
-    if(missing.length){
-      var list = missing.length > 1
-        ? missing.slice(0, -1).join(', ') + ' and ' + missing[missing.length - 1]
-        : missing[0];
-      showInlineError('Please add ' + list + ' so we can reach you.', bad, focusId);
-      return; // no leadSent, no button disable, no fetch, no thank-you screen
-    }
-
-    clearInlineError();
-    leadSent = true;
-    if(btn) btn.disabled = true;
-    if(note) note.textContent = 'Sending...';
-
-    var t = team[suggestedKey] || team.alicia;
-    var payload = {
-      // Trimmed on the way out. An email with a trailing space from mobile
-      // autofill bounces exactly like a wrong one.
-      name:  name,
-      email: email,
-      phone: phone,
-      note:  val('f-note'),
-      website: (document.getElementById('f-website') || {}).value || '',
-      matched: t.short,
-      goal:   answers.goal   || '',
-      area:   answers.area   || '',
-      mode:   answers.mode   || '',
-      timing: answers.timing || '',
-      fit:    answers.fit    || '',
-      // No slot field any more. The time is chosen on the next screen, in
-      // GoHighLevel's own widget, which books it and confirms it directly.
-      // This POST is the lead record and the grounding guide, nothing else.
-      slot:   ''
-    };
-    SOURCE_KEYS.forEach(function(k){ payload[k] = leadSource[k] || ''; });
-    payload.click_id = leadSource.click_id || '';
-    payload.referrer = leadSource.referrer || '';
-    payload.landing_page = leadSource.landing_page || '';
-
-    // Whatever happens next, the visitor moves forward. Someone who just
-    // answered five questions about their marriage does not get an error
-    // screen because a Google service was slow.
-    // Match keys for the server-side Conversions API call. These ride in the
-    // POST body and are read by sendCapiLead() in apps-script-funnel.gs.
-    payload.event_id = wwEventId();
-    payload.fbp = wwFbp();
-    payload.client_user_agent = navigator.userAgent || '';
-
-    // Fired here rather than inside done(), because done() also runs on the
-    // catch path and on a no-cors response we cannot read. The lead is real
-    // and validated at this point either way.
-    wwTrack('generate_lead', {
-      funnel_name: 'find_your_therapist',
-      matched_therapist: t.short,
-      timing: answers.timing || '',
-      mode: answers.mode || ''
-    }, 'Lead', {
-      // content_category used to carry answers.area, which is the person's
-      // presenting concern: "Postpartum and new parenthood", "Teens and
-      // pre-teens". That is health information about an identified person,
-      // named directly in Meta's prohibited-information rules, and it was
-      // going out beside a hashed email and phone. Enforcement is at the
-      // domain level and ends with Lead blocked from optimization entirely,
-      // so nothing about why someone is reaching out goes to Meta. The same
-      // strip is applied to the Conversions API payload in
-      // apps-script-funnel.gs. Do not add it back in either place.
-      content_name: 'Find Your Therapist funnel'
-    }, { eventID: payload.event_id });
-
-    var done = function(){
-      if(note) note.textContent = 'Sent.';
-      show('book');
-    };
-
-    /* Local testing must never write to Alicia's live sheet.
-     *
-     * The reCAPTCHA site key is registered to thewildwithintherapy.com only,
-     * so on localhost the token comes back UNAVAILABLE. That path is
-     * fail-open by design: it writes the row AND emails Alicia. Every
-     * practice run through a local copy would land a fake lead in her inbox.
-     * Skip the POST off-domain and let the rest of the flow run exactly as it
-     * does in production, so what you are testing is still the real thing.
-     */
-    var LIVE_HOSTS = ['thewildwithintherapy.com', 'www.thewildwithintherapy.com'];
-    var isLive = LIVE_HOSTS.indexOf(location.hostname) !== -1;
-
-    var send = function(token){
-      if(!isLive){
-        console.info('[funnel] ' + location.hostname + ' is not the live host. '
-          + 'Lead NOT sent. Payload that would have posted:', payload);
-        done();
-        return;
-      }
-      if(!FUNNEL_ENDPOINT || FUNNEL_ENDPOINT.indexOf('PASTE_') === 0){ done(); return; }
-      payload.recaptchaToken = token;
-      fetch(FUNNEL_ENDPOINT, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(payload)
-      }).then(done).catch(done);
-    };
-
-    // Same reasoning as the website contact form: if reCAPTCHA cannot run,
-    // send anyway marked UNAVAILABLE. The backend lets those through flagged.
-    // Losing a real inquiry from someone who blocks trackers costs far more
-    // than an unscored row in the sheet.
-    var key = window.WW_RECAPTCHA_SITE_KEY;
-    var configured = key && key.indexOf('PASTE_') !== 0;
-    // Off-domain there is nothing to send, so do not sit through reCAPTCHA's
-    // five-second fallback staring at a disabled "Sending..." button.
-    if(!isLive){ send('UNAVAILABLE'); return; }
-    if(!configured || typeof grecaptcha === 'undefined'){ send('UNAVAILABLE'); return; }
-
-    var settled = false;
-    var once = function(tk){ if(!settled){ settled = true; send(tk); } };
-    setTimeout(function(){ once('UNAVAILABLE'); }, 5000);
-    try {
-      grecaptcha.ready(function(){
-        grecaptcha.execute(key, { action: 'funnel' }).then(once)
-          .catch(function(){ once('UNAVAILABLE'); });
-      });
-    } catch(err){ once('UNAVAILABLE'); }
-  }
-
-  show('landing');
+  show(bookedFallback ? 'book' : 'landing');
 </script>
 </body>
 </html>
