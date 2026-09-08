@@ -488,12 +488,16 @@
 
         <!-- Fallback only. go('book') normally fires itself the moment the
              postMessage handler below recognizes a submission from the frame
-             above; this button appears a few seconds after arriving in case
-             that message never comes, so nobody is stranded on a form with no
-             way off the screen. -->
+             above; this button appears well after arriving in case that
+             message never comes, so nobody is stranded on a form with no way
+             off the screen. It is deliberately a ghost button with a
+             different label: the form's own submit reads "Continue to
+             booking", and two identical primary buttons on one screen would
+             invite the visitor to skip the form entirely, which loses the
+             lead. -->
         <div class="center" id="capture-continue-wrap" style="display:none;margin-top:16px">
-          <button class="btn btn-primary" onclick="go('book')">Continue to booking</button>
-          <p class="reassure">If you already submitted the form above, tap Continue.</p>
+          <button class="btn btn-ghost" onclick="go('book')">I already submitted, take me to booking</button>
+          <p class="reassure">Only if the form above already thanked you and nothing happened.</p>
         </div>
 
         <div class="trust-card">
@@ -883,7 +887,7 @@
   // reaches this page for: a blocked third-party frame, a GoHighLevel embed
   // change, anything. They must never be stuck on a form with no way off this
   // screen, so a manual way forward appears a few seconds after arriving.
-  var CAPTURE_FALLBACK_DELAY_MS = 12000;
+  var CAPTURE_FALLBACK_DELAY_MS = 45000;
   function armCaptureFallback(){
     setTimeout(function(){
       if(captureSubmitted) return;
