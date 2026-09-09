@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>One moment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600&family=Ibarra+Real+Nova:ital,wght@0,400&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;padding:0}
+  body{
+    min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center;
+    background:#FAF7F2; color:#2B2724; font-family:'Ibarra Real Nova',Georgia,serif;
+    -webkit-font-smoothing:antialiased; padding:24px; box-sizing:border-box;
+  }
+  h1{ font-family:'Playfair Display',Georgia,serif; font-weight:600; font-size:1.3rem; margin:0 0 10px; color:#4A2848; }
+  p{ margin:0; font-size:1rem; color:#6B6560; }
+  .spinner{
+    width:26px; height:26px; margin:0 auto 16px; border-radius:50%;
+    border:3px solid #E8E2D8; border-top-color:#C9A84C;
+    animation:ww-spin .9s linear infinite;
+  }
+  @keyframes ww-spin{ to{ transform:rotate(360deg); } }
+</style>
+</head>
+<body>
+  <div>
+    <div class="spinner"></div>
+    <h1>One moment</h1>
+    <p>Taking you to the calendar&hellip;</p>
+  </div>
+<script>
+  // This page loads INSIDE the GoHighLevel capture form's iframe once
+  // GoHighLevel's own "On Submit" action redirects it here. Its only job is
+  // handing the lead's details up to the parent funnel page (index.html),
+  // which is waiting on a postMessage to advance to the booking calendar
+  // with those details already filled in — see index.html's strict
+  // 'ww-funnel' / 'capture-complete' listener, near the top of its script.
+
+  var PARENT_ORIGIN = 'https://thewildwithintherapy.com';
+
+  // GoHighLevel substitutes the {{contact.*}} merge fields on the "On Submit"
+  // redirect URL — verified live 2026-09-08 on a real submission. If one ever
+  // fails to substitute it arrives as the literal token, e.g.
+  // "{{contact.first_name}}", which would silently fill the booking calendar
+  // with a template string instead of a name, so anything that still looks
+  // like a merge token is treated as empty rather than trusted.
+  function clean(raw){
+    if(!raw) return '';
+    if(raw.indexOf('{{') !== -1 || raw.indexOf('}}') !== -1) return '';
+    return raw;
+  }
+
+  // GoHighLevel writes the merged values into the query string WITHOUT
+  // percent-encoding a "+", so it emits email=seo+e2eform@... and
+  // phone=+14805550137 verbatim. URLSearchParams follows the form-encoding
+  // rule and turns every "+" into a space, which silently corrupts both a
+  // plus-addressed email and an E.164 phone number. Read those two straight
+  // off the raw query string instead, and treat "+" as the character it is.
+  // Names still go through URLSearchParams, where "+" really does mean a
+  // space, e.g. last_name=Van+Dyke.
+  var qs = new URLSearchParams(window.location.search);
+  function rawParam(name){
+    var pairs = window.location.search.replace(/^\?/, '').split('&');
+    for (var i = 0; i < pairs.length; i++){
+      var eq = pairs[i].indexOf('=');
+      if (eq === -1) continue;
+      if (decodeURIComponent(pairs[i].slice(0, eq)) !== name) continue;
+      try { return decodeURIComponent(pairs[i].slice(eq + 1)); }
+      catch (e) { return pairs[i].slice(eq + 1); }
+    }
+    return '';
+  }
+
+  var lead = {
+    first:     clean(qs.get('first_name')),
+    last:      clean(qs.get('last_name')),
+    email:     clean(rawParam('email')),
+    phone:     clean(rawParam('phone')),
+    therapist: clean(qs.get('therapist'))
+  };
+
+  if (window.parent !== window) {
+    // Framed: the normal path. GoHighLevel's own confirmation screen never
+    // shows because this redirect fires in its place, so a visitor should
+    // only ever see the "One moment" state above for the instant it takes
+    // the parent page to receive this message and switch screens.
+    window.parent.postMessage({
+      source: 'ww-funnel',
+      type: 'capture-complete',
+      lead: lead
+    }, PARENT_ORIGIN);
+  } else {
+    // Not framed: either someone opened this URL directly, or the embed
+    // broke and GoHighLevel did a top-level redirect instead of an
+    // iframe-internal one. Either way there is no parent page listening for
+    // a postMessage, so the visitor must not be stranded here. Send them
+    // straight to the booking step, carrying the same values forward as
+    // plain query params so index.html's own step=book fallback (bottom of
+    // its script) can pick them straight back up.
+    var params = [
+      'first_name=' + encodeURIComponent(lead.first),
+      'last_name='  + encodeURIComponent(lead.last),
+      'email='      + encodeURIComponent(lead.email),
+      'phone='      + encodeURIComponent(lead.phone),
+      'therapist='  + encodeURIComponent(lead.therapist)
+    ].join('&');
+    window.location.replace('/find-your-therapist/?step=book&' + params);
+  }
+</script>
+</body>
+</html>
