@@ -121,7 +121,22 @@ document.addEventListener("DOMContentLoaded", () => {
       if (btn) btn.disabled = true;
       note.textContent = "Sending...";
 
+      // The form never navigates, so GA4 sees nothing unless we tell it. Without
+      // this every inquiry from the site is invisible in reporting and there is
+      // no way to say which page produced a lead.
+      const trackLead = () => {
+        try {
+          if (typeof gtag === "function") {
+            gtag("event", "generate_lead", {
+              form_location: "contact_form",
+              page_path: window.location.pathname
+            });
+          }
+        } catch (err) { /* tracking must never break the form */ }
+      };
+
       const done = () => {
+        trackLead();
         note.textContent = "Thank you. Your message has been sent. Alicia will respond, usually within one business day.";
         form.querySelectorAll("input, textarea").forEach((el) => { el.value = ""; });
         if (btn) btn.disabled = false;
