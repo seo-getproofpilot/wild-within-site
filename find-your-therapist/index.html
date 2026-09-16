@@ -593,14 +593,15 @@
      GA4 is live on G-ZNHN4MEPZ8, the same property as the main site, so funnel
      sessions land in the same reports rather than a second island of data.
 
-     The Meta pixel waits on the ad account. DO NOT run Meta ads to this page
-     while WW_META_PIXEL_ID still says PASTE_. Spend against a pixel-less page
-     teaches Meta's optimizer nothing and every conversion lands as an
-     unattributable row.
+     The Meta pixel is live on dataset 2614392979029565, "The Wild Within
+     Website", created 2026-09-15 and connected to ad account
+     1598015498381981. Never send quiz answers to Meta as event parameters.
+     They describe a named person's health and that violates Meta's Business
+     Tools Terms. Event name and content_name only.
 -->
 <script>
   window.WW_GA4_ID        = "G-ZNHN4MEPZ8";              // same GA4 property as the main site
-  window.WW_META_PIXEL_ID = "PASTE_META_PIXEL_ID";       // e.g. 1234567890123456
+  window.WW_META_PIXEL_ID = "2614392979029565";          // The Wild Within Website, created 2026-09-15
 
   (function () {
     function set(v){ return v && v.indexOf('PASTE_') !== 0; }
