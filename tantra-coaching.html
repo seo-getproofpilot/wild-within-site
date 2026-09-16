@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"><head>
+  <!-- canonical-url redirect: send /page.html to /page so GA4 and Google see one URL per page. Must stay above gtag so the pageview fires on the clean URL. -->
+  <script>(function(){var p=location.pathname;if(p.slice(-5)!==".html")return;var c=p.slice(0,-5);if(c.slice(-6)==="/index")c=c.slice(0,-5);location.replace(c+location.search+location.hash);})();</script>
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNHN4MEPZ8"></script>
   <script>
