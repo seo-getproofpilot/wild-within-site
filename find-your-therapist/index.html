@@ -639,9 +639,21 @@
    * GA4 and missing from Meta. Safe to call before either script loads and
    * safe to call when neither is configured.
    */
+  /* metaOpts.custom marks an event name Meta does not define itself, which has
+   * to go through trackCustom rather than track. Meta silently drops a made-up
+   * name sent via track, so the step events would look fine in the console and
+   * never arrive. eventID is passed through either way for Lead dedup.
+   */
   function wwTrack(ga4Event, params, metaEvent, metaParams, metaOpts){
     try { if (typeof gtag === 'function' && ga4Event) gtag('event', ga4Event, params || {}); } catch(e){}
-    try { if (typeof fbq === 'function' && metaEvent) fbq('track', metaEvent, metaParams || {}, metaOpts || {}); } catch(e){}
+    try {
+      if (typeof fbq === 'function' && metaEvent) {
+        var o = metaOpts || {};
+        var pass = {};
+        if (o.eventID) pass.eventID = o.eventID;
+        fbq(o.custom ? 'trackCustom' : 'track', metaEvent, metaParams || {}, pass);
+      }
+    } catch(e){}
   }
 
   /* One ID per conversion, sent to the browser pixel AND to the Conversions
@@ -990,11 +1002,17 @@
     if(stepsSeen[id]) return;
     if(!(id in STEP_INDEX)) return;
     stepsSeen[id] = true;
-    wwTrack('funnel_step', {
+    var stepParams = {
       funnel_name: 'find_your_therapist',
       step_name: id,
       step_number: STEP_INDEX[id]
-    });
+    };
+    /* The same step goes to Meta as a custom event. Without it the pixel sees a
+     * landing and then nothing until Lead, so every visitor who quits mid-quiz
+     * is invisible in Events Manager. Build custom conversions off step_number
+     * to read the dropoff per screen.
+     */
+    wwTrack('funnel_step', stepParams, 'FunnelStep', stepParams, { custom: true });
   }
   function go(id){ show(id); }
   function start(){ show('q1'); }
