@@ -795,6 +795,8 @@ a:hover { color: var(--plum); }
   grid-template-columns: repeat(3, 1fr);
   gap: 1.75rem;
 }
+/* Two-up variant (areas-we-serve city cards). Declared before the media queries so tablet and mobile still collapse. */
+.services-grid--2up { grid-template-columns: repeat(2, 1fr); max-width: 1000px; }
 .service-card,
 .card {
   background: var(--warm-white);
