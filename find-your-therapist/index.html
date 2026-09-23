@@ -939,6 +939,28 @@
     show('book');
   });
 
+  /* A booked call. call-booked.html loads inside the booking widget once
+   * GoHighLevel's "Redirect to URL" fires after a consult is booked, and
+   * posts this up. It is the only signal this page gets that a time was
+   * actually picked. The visitor stays on the book screen, where the widget
+   * now shows call-booked.html's confirmation. */
+  var bookingCounted = false;
+  window.addEventListener('message', function(evt){
+    var trustedOrigin = evt.origin === location.origin || evt.origin === 'https://thewildwithintherapy.com';
+    if(!trustedOrigin) return;
+    if(!evt.data || evt.data.source !== 'ww-funnel' || evt.data.type !== 'booking-complete') return;
+    if(bookingCounted) return;
+    bookingCounted = true;
+    var who = (team[suggestedKey] || team.alicia).short;
+    wwTrack('consult_booked', {
+      funnel_name: 'find_your_therapist',
+      matched_therapist: evt.data.therapist || who
+    }, 'Schedule', {
+      content_name: 'Find Your Therapist consult'
+    }, { eventID: wwEventId() });
+    trackStep('booked');
+  });
+
   // Fallback for the visitor whose submission the postMessage above never
   // reaches this page for: a blocked third-party frame, a GoHighLevel embed
   // change, anything. They must never be stuck on a form with no way off this
@@ -1047,7 +1069,7 @@
    * visit, so going Back and forward again does not invent extra progress.
    */
   var stepsSeen = {};
-  var STEP_INDEX = { landing:0, q1:1, q2:2, q3:3, q4:4, q5:5, result:6, capture:7, book:8, thankyou:9 };
+  var STEP_INDEX = { landing:0, q1:1, q2:2, q3:3, q4:4, q5:5, result:6, capture:7, book:8, thankyou:9, booked:10 };
   function trackStep(id){
     if(stepsSeen[id]) return;
     if(!(id in STEP_INDEX)) return;
@@ -1371,6 +1393,14 @@
     // there is no submission for the strict listener above to guard against
     // firing twice — set the guard directly so a stray message can't re-fire it.
     captureSubmitted = true;
+    // The GoHighLevel form was submitted to get here, so this is a lead too.
+    // Without this, a lead on the unframed path never reached GA4 or Meta.
+    wwTrack('generate_lead', {
+      funnel_name: 'find_your_therapist',
+      matched_therapist: (team[suggestedKey] || team.alicia).short
+    }, 'Lead', {
+      content_name: 'Find Your Therapist funnel'
+    }, { eventID: wwEventId() });
     return true;
   })();
 

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Your call is set</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600&family=Ibarra+Real+Nova:ital,wght@0,400&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;padding:0}
+  body{
+    min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center;
+    background:#FAF7F2; color:#2B2724; font-family:'Ibarra Real Nova',Georgia,serif;
+    -webkit-font-smoothing:antialiased; padding:24px; box-sizing:border-box;
+  }
+  h1{ font-family:'Playfair Display',Georgia,serif; font-weight:600; font-size:1.4rem; margin:0 0 10px; color:#4A2848; }
+  p{ margin:0 auto; max-width:34ch; font-size:1.05rem; line-height:1.55; color:#6B6560; }
+  .mark{ width:44px; height:44px; margin:0 auto 16px; border-radius:50%; background:#C9A84C; color:#2E1A2D; display:grid; place-items:center; font-size:22px; }
+</style>
+</head>
+<body>
+  <div>
+    <div class="mark" aria-hidden="true">&#10003;</div>
+    <h1>Your call is set</h1>
+    <p id="line">Your therapist will phone you at the time you picked. Your confirmation is on its way to your inbox, with a link if anything changes.</p>
+  </div>
+<script>
+  // GoHighLevel's booking widget redirects here after a consult is booked
+  // (calendar setting "Redirect to URL", one URL per calendar with
+  // ?therapist=Alicia or ?therapist=Kyla). This page replaces GoHighLevel's
+  // own thank-you text and tells the funnel page a call was booked, so the
+  // booking can be counted in GA4 and Meta. Without it the funnel could see
+  // leads but never a booked call.
+
+  var PARENT_ORIGIN = 'https://thewildwithintherapy.com';
+  var therapist = (new URLSearchParams(location.search).get('therapist') || '').replace(/[^A-Za-z]/g, '');
+  if (therapist === 'Alicia' || therapist === 'Kyla') {
+    document.getElementById('line').textContent = therapist + ' will phone you at the time you picked. Your confirmation is on its way to your inbox, with a link if anything changes.';
+  }
+
+  if (window.parent !== window) {
+    // Framed inside the funnel's booking widget: the normal path. The parent
+    // page fires the tracking, so this page loads no tags of its own and a
+    // booking is never counted twice.
+    window.parent.postMessage({ source: 'ww-funnel', type: 'booking-complete', therapist: therapist }, PARENT_ORIGIN);
+  } else {
+    // Not framed: GoHighLevel redirected the whole tab. No parent page is
+    // listening, so count the booking here, once, with the same event names
+    // the funnel page uses.
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-ZNHN4MEPZ8');
+    gtag('event', 'consult_booked', { funnel_name: 'find_your_therapist', matched_therapist: therapist });
+    var g = document.createElement('script'); g.async = true;
+    g.src = 'https://www.googletagmanager.com/gtag/js?id=G-ZNHN4MEPZ8';
+    document.head.appendChild(g);
+
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '2614392979029565');
+    fbq('track', 'Schedule', { content_name: 'Find Your Therapist consult' });
+  }
+</script>
+</body>
+</html>
