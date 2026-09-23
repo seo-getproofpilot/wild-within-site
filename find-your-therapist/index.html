@@ -252,8 +252,12 @@
 
   @media (max-width:560px){
     .card{ padding:26px 20px; border-radius:20px; min-height:auto; }
-    .brand-crown img{ height:88px; }
-    body.in-quiz .brand-crown img{ height:54px; }
+    /* Small header on phones so the first tap is on screen. */
+    .wrap{ padding-top:16px; }
+    .brand-crown{ margin-bottom:14px; }
+    .medallion, body.in-quiz .medallion{ padding:8px 16px; border-radius:18px; }
+    .brand-crown img, body.in-quiz .brand-crown img{ height:44px; }
+    .brand-tag{ margin-top:8px; font-size:10.5px; }
     .cta-row .btn{ width:100%; }
     .team-mini{ gap:10px; }
     .tm{ width:82px; }
@@ -292,12 +296,15 @@
         <p class="eyebrow">Find your therapist &middot; 60 seconds</p>
         <h1>The right therapist for the <span class="script">real you</span>.</h1>
         <p class="lede">A few soft questions to point you toward the right starting place, then a free consult with the Wild Within team. No pressure, no commitment.</p>
-        <div class="hero">
-          <img src="../assets/img/funnel-hero-alicia-office.jpg" alt="Alicia Wright, LCSW, in the Mesa, Arizona office where The Wild Within holds sessions" onerror="this.closest('.hero').remove()">
-        </div>
+        <!-- Begin sits above the photo on purpose. With the photo first, the
+             button landed below the fold on phones and 5 of 365 ad visitors
+             tapped it (9/18 to 9/23). -->
         <div class="center">
           <button class="btn btn-primary" onclick="start()">Begin</button>
           <p class="reassure">60 seconds &middot; no pressure, no commitment.</p>
+        </div>
+        <div class="hero" style="margin-top:24px">
+          <img src="../assets/img/funnel-hero-alicia-office.jpg" alt="Alicia Wright, LCSW, in the Mesa, Arizona office where The Wild Within holds sessions" onerror="this.closest('.hero').remove()">
         </div>
         <div class="trust">
           <span><i class="dot"></i><b>2 therapists</b> on the team</span>
@@ -431,17 +438,20 @@
           <div class="chips" id="result-chips"></div>
         </div>
 
-        <div class="team-strip">
-          <p class="team-strip-label">Your care team &middot; tap anyone to see their profile</p>
-          <div class="team-mini" id="team-mini"></div>
-        </div>
-
+        <!-- Continue sits right under the match card so phones reach it without
+             scrolling past the team strip. The supervision note stays above the
+             button so it is read before anyone moves on. -->
         <div class="disclaimer" id="intern-note" style="display:none">Kyla is a therapist in training, fully supervised by Alicia, which is why her rate is lower. Many clients love working with her. If you would rather see a fully licensed therapist, just say so on your consult and we will move you to Alicia.</div>
 
         <p class="lede" style="margin:16px 0 18px" id="result-next">Your next step is a free consult. A real conversation to feel whether this is right, with no pressure to book.</p>
         <div class="center">
           <button class="btn btn-primary" onclick="go('capture')">Continue</button>
           <p class="reassure">Free, and you can always reschedule.</p>
+        </div>
+
+        <div class="team-strip" style="margin-top:28px">
+          <p class="team-strip-label">Your care team &middot; tap anyone to see their profile</p>
+          <div class="team-mini" id="team-mini"></div>
         </div>
         <div class="nav"><button class="back" onclick="go('q5')">&larr; Back</button></div>
       </div>
@@ -462,7 +472,7 @@
       <div class="col">
         <p class="eyebrow">Almost there</p>
         <h2>Where should we <em>reach you?</em></h2>
-        <p class="lede" style="margin-bottom:18px">Reaching out is the brave part. The rest we figure out together. It is such a powerful step in the next chapter of your journey, and you are ready.</p>
+        <p class="lede" style="margin-bottom:18px">Reaching out is the brave part. The rest we figure out together.</p>
         <p class="reassure" style="text-align:left;margin:-4px 0 14px">Your consult is a phone call, so we need a number to reach you on. Your guide and your confirmation go to your email.</p>
         <div class="disclaimer">Please do not include sensitive health information here. This form is not HIPAA-secured. Detailed health information is collected through your secure client portal once you begin working together.</div>
 
