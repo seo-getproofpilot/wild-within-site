@@ -58,8 +58,8 @@
   .lead{ display:flex; flex-direction:column; gap:12px; padding:14px 24px 0; }
   .kicker{ display:flex; align-items:center; gap:8px; color:var(--gold-text); font-weight:600; font-size:15px; line-height:20px; margin:0; }
   .kicker svg{ width:15px; height:15px; flex:0 0 auto; }
-  .hl{ margin:0; font-family:var(--serif); font-weight:400; font-size:40px; line-height:44px; letter-spacing:-.02em; color:var(--ivory); }
-  .hl .l1, .hl .l2{ display:block; }
+  .hl{ margin:0; font-family:var(--serif); font-weight:400; font-size:40px; line-height:44px; letter-spacing:-.02em; color:var(--ivory); text-wrap:balance; }
+  .hl .l1, .hl .l2{ display:block; text-wrap:balance; }
   .hl .l2{ font-style:italic; color:var(--gold-text); }
   .hl.long{ font-size:34px; line-height:38px; }
   .sub{ margin:0; font-size:16px; line-height:23px; color:var(--ivory-78); }
@@ -103,16 +103,11 @@
   .guide{ border-top:1px solid var(--linen); margin-top:32px; padding-top:24px; display:flex; flex-direction:column; gap:12px; }
   .guide h3{ margin:0; font-family:var(--serif); font-weight:400; font-size:20px; line-height:26px; color:var(--night); }
   .guide p{ margin:0; color:var(--warm-gray); font-size:15px; line-height:22px; }
-  .guide form{ display:flex; align-items:center; gap:8px; }
-  .guide input{ flex:1 1 auto; min-width:0; height:48px; padding:0 14px; background:#fff; border:1px solid var(--field-2); border-radius:10px; font:400 16px/20px var(--sans); color:var(--ink); }
-  .guide input::placeholder{ color:var(--placeholder); }
-  .guide input:focus{ outline:none; border-color:var(--plum); box-shadow:0 0 0 3px rgba(74,40,72,.14); }
-  .guide button{ flex:0 0 auto; height:48px; padding:0 18px; background:transparent; border:1px solid var(--plum); border-radius:999px; color:var(--plum); font-weight:600; font-size:15px; line-height:20px; cursor:pointer; }
-  .guide button:hover{ background:var(--plum); color:var(--ivory); }
+  .guide .g-embed{ width:100%; height:240px; border:0; display:block; }
   .guide .msg{ font-size:14px; line-height:20px; color:var(--warm-gray); }
   .guide .msg.err{ color:#9B2C2C; }
   .guide .done{ display:none; }
-  .guide.sent form{ display:none; }
+  .guide.sent .g-embed{ display:none; }
   .guide.sent .done{ display:block; }
   .guide .done a{ color:var(--plum); font-weight:600; }
 
@@ -183,7 +178,13 @@
      card in Paper. The fields inside are GoHighLevel's own styling. */
   .frame{ background:var(--ivory-warm); border:1px solid var(--line); border-radius:18px; overflow:hidden; }
   .frame iframe{ display:block; width:100%; border:0; }
-  #form-frame iframe{ min-height:640px; }
+  /* No min-height here: form_embed.js sets this iframe's real height itself
+     once the (now shorter, Last Name and the health-info note removed)
+     form content loads, direct on the element's own style attribute. A
+     stylesheet min-height taller than that real height used to win anyway,
+     leaving a blank band under the form. The element's own inline
+     style="height:640px", set in the markup below, is the only floor now,
+     and only until that real height lands. */
   .formnote{ margin:0; color:var(--muted); font-size:13px; line-height:19px; }
   .got{ display:none; padding:16px 18px; gap:12px; align-items:center; }
   .got i{ width:26px; height:26px; border-radius:999px; background:var(--plum); display:grid; place-items:center; flex:0 0 auto; }
@@ -231,11 +232,16 @@
   .gcard .g-txt{ display:flex; flex-direction:column; gap:6px; }
   .gcard h3{ font-size:21px; line-height:26px; }
   .gcard .g-txt p{ font-size:14px; line-height:20px; }
-  .gcard form, .gcard .msg{ grid-column:1 / -1; }
+  /* The iframe is wrapped in a plain .g-frame div, not spanned directly:
+     Chromium mis-sizes a replaced element (iframe/img) that is a grid item
+     sitting straight under a display:contents ancestor (.g-body above),
+     collapsing it to the first column's 88px track instead of the full
+     1/-1 span. The wrapper div is a normal grid item, sized correctly, and
+     the iframe inside it just fills it at width:100% with no grid math. */
+  .gcard .g-frame, .gcard .msg{ grid-column:1 / -1; }
   .gcard .msg:empty{ display:none; }
   .gcard .msg{ margin-top:-8px; }
   .gcard.sent .done{ display:block; }
-  .gcard button{ padding:0 18px; }
   .book{ position:relative; width:88px; height:116px; background:var(--night); border-radius:2px 5px 5px 2px; box-shadow:0 10px 20px rgba(42,23,41,.26), 0 2px 4px rgba(42,23,41,.2); transform:rotate(-4deg); overflow:hidden; }
   .book::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:7px; background:linear-gradient(90deg, rgba(0,0,0,.35), rgba(0,0,0,0)); }
   .book::after{ content:""; position:absolute; left:12px; right:7px; top:7px; bottom:7px; border:1px solid rgba(201,168,76,.55); border-radius:2px; }
@@ -321,13 +327,31 @@
     .ty{ padding-bottom:96px; }
     .s-foot{ display:block; }
   }
-  /* Between tablet and full desktop the collage does not fit beside the
-     copy, so the phone trust row comes back instead. */
+  /* Between tablet and full desktop the full-size hero-copy (600px) plus the
+     full-size collage (520px) no longer fit side by side, so both scale down
+     instead of the collage simply disappearing and leaving its half of the
+     row empty: hero-copy to 400px (headline, buttons and type sized down to
+     match) and the collage to 55% (300x352), same composition, smaller. */
   @media (min-width:860px) and (max-width:1219px){
-    .hero{ padding-left:56px; padding-right:56px; }
+    .hero{ padding-left:40px; padding-right:40px; gap:24px; }
     .hdr{ padding-left:48px; padding-right:56px; }
-    .collage{ display:none; }
-    .trust{ display:flex; padding:24px 0 0; }
+    .hero-copy{ width:400px; }
+    .hl{ font-size:52px; line-height:56px; }
+    .hl.long{ font-size:44px; line-height:48px; }
+    .sub{ font-size:17px; line-height:25px; }
+    .choose{ width:100%; }
+    .grp{ min-height:68px; padding:0 12px 0 20px; }
+    .grp b{ font-size:17px; line-height:22px; }
+    .grp small{ font-size:13px; line-height:18px; }
+
+    .collage{ width:300px; height:352px; }
+    .collage .c-alicia{ left:77px; top:0; width:209px; height:258px; }
+    .collage .c-kyla{ left:0; top:170px; width:121px; height:144px; border-width:5px; }
+    .collage .cap b{ font-size:14px; line-height:18px; }
+    .collage .cap span{ font-size:12px; line-height:16px; }
+    .collage .cap-a{ left:134px; top:268px; width:160px; }
+    .collage .cap-k{ left:4px; top:323px; width:150px; }
+
     .s1-light{ padding:80px 56px; gap:56px; }
     .s1-photo{ width:380px; height:480px; }
     .quote-col{ width:auto; flex:1 1 auto; }
@@ -394,9 +418,8 @@
     .gcard .g-txt{ gap:10px; }
     .gcard h3{ font-size:26px; line-height:32px; letter-spacing:-.01em; }
     .gcard .g-txt p{ font-size:15px; line-height:22px; }
-    .gcard form{ padding-top:6px; }
+    .gcard .g-frame{ margin-top:6px; }
     .gcard .msg{ margin-top:0; }
-    .gcard button{ padding:0 20px; }
     .book{ width:132px; height:172px; flex:0 0 auto; border-radius:3px 6px 6px 3px; box-shadow:0 14px 28px rgba(42,23,41,.28), 0 2px 4px rgba(42,23,41,.2); }
     .book::before{ width:10px; }
     .book::after{ left:18px; right:10px; top:10px; bottom:10px; }
@@ -439,7 +462,7 @@
         <div class="hero-copy">
           <div class="lead">
             <p class="kicker"><svg style="color:#C9A84C" aria-hidden="true"><use href="#i-phone"/></svg>Free 30-minute consult, by phone</p>
-            <h1 class="hl" id="hl"><span class="l1">Holistic therapy for</span> <span class="l2">women and moms.</span></h1>
+            <h1 class="hl" id="hl"><span class="l1">Holistic therapy</span> <span class="l2">for women and moms.</span></h1>
             <p class="sub" id="sub"><span class="m">Two taps, then pick a time to talk.</span><span class="d">Two clicks, then pick a time to talk.</span></p>
           </div>
 
@@ -483,12 +506,16 @@
         <div class="guide" data-guide="landing">
           <h3>Not ready to book?</h3>
           <p>Get Alicia's Grounding Handbook by email. Five body-based practices you can use tonight.</p>
-          <form novalidate>
-            <label class="sr" for="g-email-1">Email</label>
-            <input id="g-email-1" type="email" name="email" placeholder="Email" autocomplete="email" inputmode="email" required>
-            <button type="submit">Send it</button>
-          </form>
-          <p class="msg" role="status" aria-live="polite"></p>
+          <iframe src="about:blank" class="g-embed" style="height:240px"
+            id="inline-Zazp8ryw0cXPK0xhZBSn-landing"
+            data-layout='{"id":"INLINE"}'
+            data-trigger-type="alwaysShow"
+            data-activation-type="alwaysActivated"
+            data-deactivation-type="neverDeactivate"
+            data-form-name="Grounding Handbook signup"
+            data-layout-iframe-id="inline-Zazp8ryw0cXPK0xhZBSn-landing"
+            data-form-id="Zazp8ryw0cXPK0xhZBSn"
+            title="Get the Grounding Handbook by email" loading="lazy"></iframe>
           <p class="msg done">Thank you. <a href="/grounding-guide" target="_blank" rel="noopener">Open the Grounding Handbook</a></p>
         </div>
       </div>
@@ -594,12 +621,18 @@
               <h3>Not ready to book?</h3>
               <p>Get Alicia's Grounding Handbook by email. Five body-based practices you can use tonight.</p>
             </div>
-            <form novalidate>
-              <label class="sr" for="g-email-3">Email</label>
-              <input id="g-email-3" type="email" name="email" placeholder="Email" autocomplete="email" inputmode="email" required>
-              <button type="submit">Send it</button>
-            </form>
-            <p class="msg" role="status" aria-live="polite"></p>
+            <div class="g-frame">
+              <iframe src="about:blank" class="g-embed" style="height:240px"
+                id="inline-Zazp8ryw0cXPK0xhZBSn-capture"
+                data-layout='{"id":"INLINE"}'
+                data-trigger-type="alwaysShow"
+                data-activation-type="alwaysActivated"
+                data-deactivation-type="neverDeactivate"
+                data-form-name="Grounding Handbook signup"
+                data-layout-iframe-id="inline-Zazp8ryw0cXPK0xhZBSn-capture"
+                data-form-id="Zazp8ryw0cXPK0xhZBSn"
+                title="Get the Grounding Handbook by email" loading="lazy"></iframe>
+            </div>
             <p class="msg done">Thank you. <a href="/grounding-guide" target="_blank" rel="noopener">Open the Grounding Handbook</a></p>
           </div>
         </div>
@@ -734,12 +767,17 @@
    * Only the headline and subline swap. Unknown or missing utm_content shows
    * the default. ad04's ad is Alicia's own hand-on-heart photo, so her
    * phone thumbnail swaps to that photo. */
+  /* l1/l2 text is hand-wrapped, not just split for color: each is its own
+     line (.hl .l1, .l2{display:block}) and a   (non-breaking space)
+     between two words means "never let a line break fall between these",
+     which is how a couple of these stop a single word landing alone on its
+     own line at some width. Checked at 390/930/1100/1280/1440 2026-10-02. */
   var HEADLINES = {
-    'default':               { l1:'Holistic therapy for', l2:'women and moms.', m:'Two taps, then pick a time to talk.', d:'Two clicks, then pick a time to talk.' },
+    'default':               { l1:'Holistic therapy', l2:'for women and moms.', m:'Two taps, then pick a time to talk.', d:'Two clicks, then pick a time to talk.' },
     'ad01_get_matched':      { l1:'Get matched with', l2:'your therapist.', m:'Two taps, then pick a time to talk.', d:'Two clicks, then pick a time to talk.' },
-    'ad02_motherhood':       { l1:'Support for the parts of motherhood', l2:'nobody talks about.', m:'Individual therapy in Mesa. Two taps to start.', d:'Individual therapy in Mesa. Two clicks to start.', long:true },
+    'ad02_motherhood':       { l1:'Support for the parts of motherhood', l2:'nobody talks about.', m:'Individual therapy in Mesa. Two taps to start.', d:'Individual therapy in Mesa. Two clicks to start.', long:true },
     'ad03_your_terms':       { l1:'Therapy the way', l2:'you want it.', m:'Mesa or telehealth. Two taps to start.', d:'Mesa or telehealth. Two clicks to start.' },
-    'ad04_back_to_yourself': { l1:'Therapy for finding', l2:'your way back to yourself.', m:'Come as you are. Two taps to start.', d:'Come as you are. Two clicks to start.', long:true, aliciaPhoto:true }
+    'ad04_back_to_yourself': { l1:'Therapy for finding', l2:'your way back to yourself.', m:'Come as you are. Two taps to start.', d:'Come as you are. Two clicks to start.', long:true, aliciaPhoto:true }
   };
   function applyHeadline(){
     var key = new URLSearchParams(location.search).get('utm_content') || leadSource.utm_content || '';
@@ -987,14 +1025,19 @@
   });
 
   /* The booking widget reports its own height (["highlevel.setHeight",
-   * {height}]) but form_embed.js does not apply it to a calendar iframe added
-   * after load, which left the widget clipped at 700px. Apply it here. */
+   * {height}]) but form_embed.js only applies that to the iframe it scanned
+   * the DOM for at script-load time -- the capture form above, present in
+   * the markup from page load, gets it for free (see the CSS note on
+   * #form-frame iframe); the calendar iframe, built by JS after that scan,
+   * does not and was left clipped at 700px. Apply it here. evt.source is
+   * checked (not just "the one #cal-frame iframe") because the guide forms'
+   * iframes send this same message and would otherwise be matched too. */
   window.addEventListener('message', function(evt){
     if(evt.origin !== 'https://api.leadconnectorhq.com') return;
     var d = evt.data;
     if(!Array.isArray(d) || d[0] !== 'highlevel.setHeight' || !d[1] || !(+d[1].height > 0)) return;
     var f = document.querySelector('#cal-frame iframe');
-    if(f) f.style.height = Math.min(Math.max(+d[1].height + 8, 480), 2400) + 'px';
+    if(f && f.contentWindow === evt.source) f.style.height = Math.min(Math.max(+d[1].height + 8, 480), 2400) + 'px';
   });
 
   /* Booked call, posted up by call-booked.html inside the calendar widget. */
@@ -1116,31 +1159,66 @@
   })();
 
   /* ---------- Grounding Handbook ("Not ready to book?") ----------
-   * Fires GA4 guide_signup and Meta GuideSignup (custom, no params). Never
-   * Lead. GUIDE_ENDPOINT is where the address goes to be emailed the guide.
-   * The site has no email-only guide path today: the only delivery is the
-   * GoHighLevel workflow "Grounding guide delivery", triggered by the funnel
-   * form, which also tags a funnel lead and notifies Alicia. Until an
-   * email-only GoHighLevel form and workflow exist, the address is not sent
-   * anywhere and the thank-you opens the handbook on screen instead. */
-  var GUIDE_ENDPOINT = null;
+   * Each .guide card embeds GoHighLevel form Zazp8ryw0cXPK0xhZBSn directly,
+   * not our own input: that form has Cloudflare spam protection which would
+   * reject a POST fired from our own JS. Its workflow "Grounding Handbook
+   * only (guide signup) DRAFT" emails the handbook; it tags no funnel lead
+   * and does not notify Alicia, unlike the booking form above.
+   *
+   * Submission detection mirrors booked.html / call-booked.html above: on
+   * submit, GoHighLevel's own "On Submit" redirect sends the iframe to
+   * /find-your-therapist/guide-sent.html, which posts
+   * {source:'ww-funnel', type:'guide-complete'} up to this page. evt.source
+   * is matched against each card's own iframe so the card that was actually
+   * submitted is the one that flips to its done state -- two copies of the
+   * same form are on this page at once.
+   *
+   * Fires GA4 guide_signup and Meta GuideSignup (custom, no params) exactly
+   * once per visit, total, across both cards. Never Lead: a guide signup is
+   * not a funnel lead. */
+  var GUIDE_FORM_ID   = 'Zazp8ryw0cXPK0xhZBSn';
+  var GUIDE_FORM_BASE = 'https://api.leadconnectorhq.com/widget/form/' + GUIDE_FORM_ID;
   var guideCounted = false;
-  function guideSubmit(box, email){
-    var msg = box.querySelector('.msg');
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){
-      msg.textContent = 'Please check that email address.'; msg.classList.add('err'); return;
+
+  /* Lazy-load: each iframe starts at src="about:blank" (same placeholder
+   * pattern as #inline-8s2oSCET1k8mR8jokO2D above) and only gets its real
+   * src, plus form_embed.js, once its card is about to scroll into view. */
+  (function(){
+    var frames = document.querySelectorAll('.guide .g-embed');
+    function activate(f){
+      if(f.getAttribute('src') !== 'about:blank') return;
+      f.setAttribute('src', GUIDE_FORM_BASE + '?source=funnel_guide');
+      loadGhlEmbed();
     }
-    msg.textContent = ''; msg.classList.remove('err');
+    if(!('IntersectionObserver' in window)){
+      frames.forEach(activate);
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(!entry.isIntersecting) return;
+        activate(entry.target);
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '200px 0px' });
+    frames.forEach(function(f){ io.observe(f); });
+  })();
+
+  window.addEventListener('message', function(evt){
+    var trustedOrigin = evt.origin === location.origin || evt.origin === 'https://thewildwithintherapy.com';
+    if(!trustedOrigin) return;
+    if(!evt.data || evt.data.source !== 'ww-funnel' || evt.data.type !== 'guide-complete') return;
+    var box = null;
+    document.querySelectorAll('.guide').forEach(function(b){
+      var f = b.querySelector('.g-embed');
+      if(f && f.contentWindow === evt.source) box = b;
+    });
+    if(box) box.classList.add('sent');
     if(!guideCounted){
       guideCounted = true;
       wwTrack('guide_signup', { funnel_name: FUNNEL, utm_content: adTag() }, 'GuideSignup', {}, { custom: true });
     }
-    if(GUIDE_ENDPOINT){
-      try { fetch(GUIDE_ENDPOINT, { method:'POST', mode:'no-cors', headers:{ 'Content-Type':'text/plain' },
-        body: JSON.stringify({ email: email, source: 'funnel_guide', utm_content: leadSource.utm_content }) }); } catch(e){}
-    }
-    box.classList.add('sent');
-  }
+  });
 
   /* ---------- Wiring ---------- */
   document.querySelectorAll('.grp').forEach(function(b){
@@ -1161,12 +1239,6 @@
     try { c.scrollIntoView({ behavior:'smooth', block:'start' }); } catch(e){ c.scrollIntoView(); }
   });
   document.getElementById('skip').addEventListener('click', skipBooking);
-  document.querySelectorAll('.guide').forEach(function(box){
-    box.querySelector('form').addEventListener('submit', function(e){
-      e.preventDefault();
-      guideSubmit(box, box.querySelector('input').value.trim());
-    });
-  });
 
   /* ---------- Unframed fallback ----------
    * booked.html forwards to ?step=book when GoHighLevel redirects the whole

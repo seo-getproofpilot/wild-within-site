@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Handbook on its way</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600&family=Ibarra+Real+Nova:ital,wght@0,400&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;padding:0}
+  body{
+    min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center;
+    background:#FAF7F2; color:#2B2724; font-family:'Ibarra Real Nova',Georgia,serif;
+    -webkit-font-smoothing:antialiased; padding:24px; box-sizing:border-box;
+  }
+  h1{ font-family:'Playfair Display',Georgia,serif; font-weight:600; font-size:1.4rem; margin:0 0 10px; color:#4A2848; }
+  p{ margin:0 auto; max-width:34ch; font-size:1.05rem; line-height:1.55; color:#6B6560; }
+  .mark{ width:44px; height:44px; margin:0 auto 16px; border-radius:50%; background:#C9A84C; color:#2E1A2D; display:grid; place-items:center; font-size:22px; }
+</style>
+</head>
+<body>
+  <div>
+    <div class="mark" aria-hidden="true">&#10003;</div>
+    <h1>On its way</h1>
+    <p>Check your inbox for The Grounding Handbook.</p>
+  </div>
+<script>
+  // This page loads INSIDE the "Not ready to book?" Grounding Handbook
+  // form's iframe (GoHighLevel form Zazp8ryw0cXPK0xhZBSn), on both copies of
+  // that card in /find-your-therapist-v2/, once GoHighLevel's own "On
+  // Submit" action redirects it here -- same pattern as booked.html and
+  // call-booked.html above it in this folder. Its only job is telling the
+  // parent funnel page a guide signup happened, so index.html's own
+  // 'ww-funnel' / 'guide-complete' listener can flip that one card to its
+  // done state and fire GuideSignup exactly once.
+  //
+  // Unlike booked.html's "One moment" layover, the message above is also
+  // the FINAL state here, not a hop to another step: there is nothing past a
+  // guide signup to forward anyone to, framed or not, so the same copy
+  // covers a direct, unframed hit on this URL too.
+
+  var PARENT_ORIGIN = 'https://thewildwithintherapy.com';
+  if (window.parent !== window) {
+    window.parent.postMessage({ source: 'ww-funnel', type: 'guide-complete' }, PARENT_ORIGIN);
+  }
+</script>
+</body>
+</html>
