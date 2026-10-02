@@ -2,522 +2,588 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Wild Within | Find Your Therapist</title>
-<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Holistic Therapy for Women &amp; Moms in Mesa, AZ | The Wild Within</title>
+<meta name="description" content="Holistic therapy with Alicia Wright, LCSW, and Kyla Gordon in Mesa, AZ and by telehealth across Arizona. Sessions $85 to $185, out of network. Free 30-minute consult by phone.">
+<!-- PREVIEW of the v4 conversion funnel (Paper file 01M3YHP9757SJT0C0K03GV0GSJ,
+     page "Wild Within Funnel v4 conversion (2026-10-02)"). Not linked from
+     anywhere, not in the sitemap, never indexed. The live ad destination is
+     still /find-your-therapist/. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#2A1729">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32-v2.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon-v2.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Ibarra+Real+Nova:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.leadconnectorhq.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
+  /* Every value below comes from the Paper artboards (get_jsx), not from
+     screenshots. Night = the dark plum ground of Step 1. */
   :root{
-    /* Base warm neutrals */
-    --ivory:#FAF7F2; --ivory-warm:#FDFBF8; --linen:#EDE6DA; --milky:#F0EBE3; --opal:#E8E2D8; --sand:#D4C5AD;
-    /* Amethyst / plum */
-    --plum:#4A2848; --plum-deep:#2E1A2D; --plum-muted:#6B3560; --amethyst:#5B3A6B; --amethyst-light:#7B5EA7;
-    /* Gold — the single guidance accent */
-    --gold:#C9A84C; --gold-deep:#A68B3C; --gold-soft:#E2CF9F; --gold-glow:rgba(201,168,76,0.30);
-    /* Mossy agate + blush */
-    --sage:#8A9A7B; --sage-muted:#9DAD8E; --sage-deep:#5F6E52; --blush:#E8D5CC; --rose-dust:#C9A99A;
-    /* Ink / text */
-    --ink:#2B2724; --warm-gray:#524C46; --muted:#6B6560; --line:#EDE6DA;
-    /* Validation — terracotta, warm enough to belong in this palette */
-    --alert:#B5674F; --alert-deep:#8C4835; --alert-soft:#FBF1ED; --alert-glow:rgba(181,103,79,0.22);
-    /* Fonts */
-    --display:'Playfair Display',Georgia,serif;
-    --serif:'Ibarra Real Nova',Georgia,serif;
-    --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
-    --script:'Great Vibes',cursive;
-    --radius:20px; --radius-card:24px;
-    --shadow-card:0 2px 6px rgba(46,26,45,.10), 0 30px 70px -24px rgba(46,26,45,.55);
-    --shadow-soft:0 1px 3px rgba(46,26,45,.06), 0 10px 28px -12px rgba(46,26,45,.22);
+    --night:#2A1729; --plum:#4A2848; --ivory:#FAF7F2; --ivory-warm:#FDFBF8;
+    --gold:#C9A84C; --gold-text:#D9BC6A; --gold-cream:#F3E6C2; --gold-label:#8A6F2C;
+    --ink:#2B2724; --warm-gray:#524C46; --muted:#6B5B4F; --placeholder:#8A8078;
+    --line:#E6DDCD; --linen:#EDE6DA; --field:#DDD2BF; --field-2:#D8CDBE;
+    --sel:#F3EAF0; --dash:#CDBFA8; --track:#E3D9C8;
+    --ivory-78:rgba(250,247,242,.78); --ivory-72:rgba(250,247,242,.72);
+    --serif:'Playfair Display',Georgia,serif;
+    --sans:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
-  body{
-    font-family:var(--sans); color:var(--ink); min-height:100vh; line-height:1.6;
-    background:#2E1A2D; -webkit-font-smoothing:antialiased;
+  body{ font-family:var(--sans); color:var(--ink); background:var(--ivory); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; overflow-wrap:anywhere; }
+  body.dark{ background:var(--night); }
+  img{ display:block; max-width:100%; }
+  button{ font-family:inherit; }
+  a{ color:inherit; }
+  .sr{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+
+  /* ---------- Header: logo left, call pill right ---------- */
+  .hdr{ display:flex; align-items:center; justify-content:space-between; height:60px; padding:4px 24px 0 20px; }
+  .hdr .logo{ width:84px; height:52px; object-fit:contain; }
+  .hdr .logo-plum{ display:none; }
+  body:not(.dark) .hdr .logo-ivory{ display:none; }
+  body:not(.dark) .hdr .logo-plum{ display:block; }
+  .pill{ display:inline-flex; align-items:center; gap:8px; padding:10px 16px 10px 14px; border:1px solid rgba(201,168,76,.55); border-radius:999px; text-decoration:none; color:var(--gold-cream); font-weight:600; font-size:15px; line-height:18px; white-space:nowrap; }
+  .pill svg{ width:15px; height:15px; flex:0 0 auto; }
+  body:not(.dark) .pill{ display:none; color:var(--plum); border-color:var(--plum); }
+
+  .screen{ display:none; }
+  .screen.active{ display:block; animation:rise .4s cubic-bezier(.22,1,.36,1) both; }
+  @keyframes rise{ from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
+
+  /* ================= STEP 1 ================= */
+  .s1-top{ background:var(--night); }
+  .lead{ display:flex; flex-direction:column; gap:12px; padding:14px 24px 0; }
+  .kicker{ display:flex; align-items:center; gap:8px; color:var(--gold-text); font-weight:600; font-size:15px; line-height:20px; margin:0; }
+  .kicker svg{ width:15px; height:15px; flex:0 0 auto; }
+  .hl{ margin:0; font-family:var(--serif); font-weight:400; font-size:40px; line-height:44px; letter-spacing:-.02em; color:var(--ivory); text-wrap:balance; }
+  .hl .l1, .hl .l2{ display:block; text-wrap:balance; }
+  .hl .l2{ font-style:italic; color:var(--gold-text); }
+  .hl.long{ font-size:34px; line-height:38px; }
+  .sub{ margin:0; font-size:16px; line-height:23px; color:var(--ivory-78); }
+  .sub .d{ display:none; }
+
+  .trust{ display:flex; align-items:center; gap:14px; padding:18px 24px 0; }
+  .thumbs{ display:flex; gap:6px; flex:0 0 auto; }
+  .thumbs img{ width:50px; height:62px; object-fit:cover; border-radius:2px; }
+  .thumbs .t-alicia{ object-position:50% 30%; }
+  .thumbs .t-kyla{ object-position:50% 25%; }
+  .trust-txt{ display:flex; flex-direction:column; gap:2px; }
+  .trust-txt b{ color:var(--ivory); font-weight:600; font-size:14px; line-height:19px; }
+  .trust-txt span{ color:var(--ivory-78); font-size:13px; line-height:18px; }
+
+  .choose{ display:flex; flex-direction:column; gap:12px; padding:20px 24px 44px; }
+  .q-row{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
+  .q-row h2{ margin:0; font-family:var(--serif); font-weight:400; font-size:22px; line-height:28px; letter-spacing:-.01em; color:var(--ivory); }
+  .stepno{ color:var(--gold-text); font-weight:600; font-size:13px; line-height:18px; white-space:nowrap; }
+  .groups{ display:flex; flex-direction:column; gap:8px; }
+  .grp{ appearance:none; border:0; cursor:pointer; width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:60px; padding:0 12px 0 20px; background:var(--ivory); border-radius:14px; text-align:left; transition:transform .15s, box-shadow .15s; }
+  .grp:hover{ box-shadow:0 0 0 3px rgba(201,168,76,.45); }
+  .grp:active{ transform:scale(.99); }
+  .grp:focus-visible{ outline:3px solid var(--gold); outline-offset:2px; }
+  .grp .g-txt{ display:flex; flex-direction:column; gap:1px; }
+  .grp b{ color:var(--night); font-weight:600; font-size:17px; line-height:22px; }
+  .grp small{ color:var(--muted); font-size:13px; line-height:18px; }
+  .arrow{ flex:0 0 auto; width:38px; height:38px; border-radius:999px; background:var(--plum); display:grid; place-items:center; }
+  .arrow svg{ width:15px; height:15px; }
+  .price{ margin:0; padding-top:4px; color:var(--ivory-78); font-size:14px; line-height:20px; }
+  .price .d{ display:none; }
+
+  .collage{ display:none; }
+
+  .s1-light{ background:var(--ivory); padding-bottom:48px; }
+  .s1-photo{ width:100%; height:260px; object-fit:cover; object-position:50% 18%; }
+  .quote-col{ padding:0 24px; }
+  .quote{ margin:0; padding-top:32px; font-family:var(--serif); font-style:italic; font-weight:400; font-size:26px; line-height:34px; letter-spacing:-.01em; color:var(--plum); }
+  .quote-by{ margin:14px 0 0; color:var(--muted); font-weight:600; font-size:13px; line-height:18px; letter-spacing:.04em; }
+
+  /* ---------- "Not ready to book?" guide box (Step 1 and Step 3) ---------- */
+  .guide{ border-top:1px solid var(--linen); margin-top:32px; padding-top:24px; display:flex; flex-direction:column; gap:12px; }
+  .guide h3{ margin:0; font-family:var(--serif); font-weight:400; font-size:20px; line-height:26px; color:var(--night); }
+  .guide p{ margin:0; color:var(--warm-gray); font-size:15px; line-height:22px; }
+  .guide .g-embed{ width:100%; height:240px; border:0; display:block; }
+  .guide .msg{ font-size:14px; line-height:20px; color:var(--warm-gray); }
+  .guide .msg.err{ color:#9B2C2C; }
+  .guide .done{ display:none; }
+  .guide.sent .g-embed{ display:none; }
+  .guide.sent .done{ display:block; }
+  .guide .done a{ color:var(--plum); font-weight:600; }
+
+  .foot{ background:var(--night); padding:28px 24px 112px; display:flex; flex-direction:column; gap:6px; }
+  .foot .fn{ margin:0; font-family:var(--serif); font-size:15px; line-height:20px; color:var(--ivory); }
+  .foot .fl{ display:flex; flex-direction:column; gap:2px; color:var(--ivory-78); font-size:13px; line-height:20px; }
+  .foot a{ text-decoration:none; }
+  .foot .sep{ display:none; }
+
+  /* ---------- Sticky bar (phones). Step 1: slides in once the three
+     choices scroll off. Steps 2 and 3: Call only, always there. ---------- */
+  .bar{ position:fixed; left:0; right:0; bottom:0; z-index:30; display:flex; align-items:flex-start; gap:10px; padding:12px 16px calc(20px + env(safe-area-inset-bottom)); border-top:1px solid; transform:translateY(110%); transition:transform .3s ease; }
+  .bar.show{ transform:none; }
+  .bar.dark{ background:rgba(42,23,41,.95); border-color:rgba(201,168,76,.25); }
+  .bar.light{ background:rgba(250,247,242,.95); border-color:var(--line); }
+  .b-call{ flex:0 0 108px; height:52px; display:inline-flex; align-items:center; justify-content:center; gap:8px; border-radius:999px; border:1px solid; text-decoration:none; font-weight:600; font-size:16px; line-height:20px; }
+  .bar.dark .b-call{ color:var(--ivory); border-color:rgba(250,247,242,.45); }
+  .bar.light .b-call{ color:var(--plum); border-color:var(--plum); flex:1 1 auto; }
+  .b-call svg{ width:16px; height:16px; }
+  .b-go{ flex:1 1 auto; height:52px; display:flex; align-items:center; justify-content:space-between; padding:0 6px 0 20px; border:0; border-radius:999px; background:var(--gold); color:var(--night); font-weight:600; font-size:16px; line-height:20px; cursor:pointer; }
+  .b-go i{ width:40px; height:40px; border-radius:999px; background:var(--night); display:grid; place-items:center; }
+  .b-go svg{ width:15px; height:15px; }
+  .bar.light .b-go{ display:none; }
+
+  /* ================= STEPS 2 and 3 (light) ================= */
+  .wrap{ padding:0 24px; }
+  .prog{ display:flex; flex-direction:column; gap:10px; padding-top:18px; }
+  .prog-row{ display:flex; align-items:center; justify-content:space-between; }
+  .back{ appearance:none; background:none; border:0; padding:6px 6px 6px 0; margin:-6px 0; display:inline-flex; align-items:center; gap:6px; color:var(--warm-gray); font-size:14px; line-height:20px; cursor:pointer; }
+  .back svg{ width:14px; height:14px; }
+  .prog .stepno{ color:var(--gold-label); }
+  .ticks{ display:flex; gap:6px; }
+  .ticks i{ flex:1 1 0; height:3px; border-radius:999px; background:var(--track); }
+  .ticks i.on{ background:var(--plum); }
+
+  .s-head{ display:flex; flex-direction:column; gap:10px; padding-top:24px; }
+  .s-head h2{ margin:0; font-family:var(--serif); font-weight:400; font-size:32px; line-height:37px; letter-spacing:-.02em; color:var(--night); }
+  .s-head p{ margin:0; color:var(--warm-gray); font-size:15px; line-height:22px; }
+
+  .chosen{ align-self:flex-start; display:inline-flex; align-items:center; gap:10px; height:36px; padding:0 4px 0 14px; margin-top:20px; background:var(--linen); border-radius:999px; color:var(--night); font-weight:600; font-size:14px; line-height:18px; }
+  .chosen button{ height:28px; padding:0 12px; border:0; border-radius:999px; background:var(--ivory); color:var(--plum); font-weight:600; font-size:13px; line-height:16px; cursor:pointer; }
+  .opts{ display:flex; flex-direction:column; gap:8px; padding:14px 0 120px; }
+  .opt{ appearance:none; cursor:pointer; width:100%; display:flex; align-items:center; gap:12px; min-height:60px; padding:10px 16px 10px 18px; background:#fff; border:1px solid var(--line); border-radius:14px; text-align:left; color:var(--ink); transition:border-color .15s, background .15s; }
+  .opt:hover{ border-color:var(--plum); }
+  .opt:focus-visible{ outline:3px solid var(--gold); outline-offset:2px; }
+  .opt .o-txt{ flex:1 1 auto; display:flex; flex-direction:column; gap:2px; }
+  .opt b{ font-weight:600; font-size:17px; line-height:22px; }
+  .opt small{ color:var(--muted); font-size:14px; line-height:19px; }
+  .opt .chev{ width:18px; height:18px; flex:0 0 auto; }
+  .opt .tick{ display:none; width:26px; height:26px; border-radius:999px; background:var(--plum); place-items:center; flex:0 0 auto; }
+  .opt .tick svg{ width:13px; height:13px; }
+  .opt.sel{ background:var(--sel); border:1.5px solid var(--plum); padding:9.5px 15.5px 9.5px 17.5px; }
+  .opt.sel .chev{ display:none; }
+  .opt.sel .tick{ display:grid; }
+  .opt.unsure{ background:transparent; border:1px dashed var(--dash); min-height:56px; justify-content:space-between; padding:0 18px; }
+  .opt.unsure b{ color:var(--plum); font-size:16px; line-height:20px; }
+  .opt.unsure small{ font-size:14px; line-height:18px; }
+  .opt.unsure.sel{ border-style:solid; }
+
+  /* Step 3 */
+  .s3{ display:flex; flex-direction:column; gap:18px; padding-top:22px; }
+  .s3 h2{ margin:0; font-family:var(--serif); font-weight:400; font-size:34px; line-height:38px; letter-spacing:-.02em; color:var(--night); }
+  .match{ display:flex; align-items:center; gap:12px; margin-top:-6px; }
+  .match img{ width:56px; height:66px; object-fit:cover; object-position:50% 25%; border-radius:2px; flex:0 0 auto; }
+  .match b{ display:block; color:var(--ink); font-weight:600; font-size:15px; line-height:20px; }
+  .match span{ display:block; color:var(--warm-gray); font-size:13px; line-height:18px; margin-top:2px; }
+  /* Frame around both GoHighLevel embeds, same treatment as the calendar
+     card in Paper. The fields inside are GoHighLevel's own styling. */
+  .frame{ background:var(--ivory-warm); border:1px solid var(--line); border-radius:18px; overflow:hidden; }
+  .frame iframe{ display:block; width:100%; border:0; }
+  /* No min-height here: form_embed.js sets this iframe's real height itself
+     once the (now shorter, Last Name and the health-info note removed)
+     form content loads, direct on the element's own style attribute. A
+     stylesheet min-height taller than that real height used to win anyway,
+     leaving a blank band under the form. The element's own inline
+     style="height:640px", set in the markup below, is the only floor now,
+     and only until that real height lands. */
+  .formnote{ margin:0; color:var(--muted); font-size:13px; line-height:19px; }
+  .got{ display:none; padding:16px 18px; gap:12px; align-items:center; }
+  .got i{ width:26px; height:26px; border-radius:999px; background:var(--plum); display:grid; place-items:center; flex:0 0 auto; }
+  .got i svg{ width:13px; height:13px; }
+  .got b{ display:block; font-weight:600; font-size:15px; line-height:20px; color:var(--ink); }
+  .got span{ display:block; font-size:13px; line-height:18px; color:var(--warm-gray); }
+  .submitted #form-frame{ display:none; }
+  .submitted .formnote{ display:none; }
+  .submitted .got{ display:flex; }
+
+  .s3-time{ display:flex; flex-direction:column; gap:14px; padding-top:32px; }
+  .s3-time h3{ margin:0; font-family:var(--serif); font-weight:400; font-size:22px; line-height:28px; letter-spacing:-.01em; color:var(--night); }
+  /* Locked calendar preview (Paper "Locked preview"). It sits inside
+     #cal-frame, so renderCalendar() swaps it for the real GoHighLevel
+     calendar exactly as it swapped the old empty box. The tiles carry the
+     next five weekdays; the time pills are deliberately blank skeletons,
+     because no real availability is known until the calendar loads. */
+  .cal-lock{ position:relative; display:flex; flex-direction:column; gap:14px; padding:18px; overflow:hidden; }
+  .cl-top{ display:flex; align-items:center; justify-content:space-between; }
+  .cl-top b{ font-weight:600; font-size:14px; line-height:18px; color:var(--placeholder); }
+  .cl-top span{ display:flex; gap:14px; color:var(--dash); }
+  .cl-top svg{ width:16px; height:16px; }
+  .cl-days{ display:flex; gap:6px; }
+  .cl-days span{ flex:1 1 0; height:64px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; background:#fff; border:1px solid var(--line); border-radius:12px; color:#A89B8C; font-weight:600; }
+  .cl-days small{ font-size:11px; line-height:14px; letter-spacing:.06em; }
+  .cl-days b{ font-size:20px; line-height:24px; font-weight:600; }
+  .cl-times{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .cl-times span{ height:48px; display:grid; place-items:center; background:#fff; border:1px solid var(--line); border-radius:999px; }
+  .cl-times span::after{ content:""; width:var(--w,60px); height:10px; border-radius:999px; background:var(--linen); }
+  .cl-times span:nth-child(n+5){ display:none; }
+  .cl-veil{ position:absolute; left:0; right:0; bottom:0; height:126px; background:linear-gradient(180deg, rgba(253,251,248,.35) 0%, rgba(253,251,248,.8) 100%); }
+  .cl-chip{ position:absolute; left:0; right:0; bottom:47px; margin:0; display:flex; justify-content:center; }
+  .cl-chip span{ display:flex; align-items:center; gap:8px; padding:11px 16px 11px 14px; background:var(--night); border-radius:999px; box-shadow:0 10px 30px rgba(42,23,41,.22); color:var(--ivory); font-weight:600; font-size:14px; line-height:18px; white-space:nowrap; }
+  .cl-chip svg{ width:15px; height:15px; color:var(--gold); flex:0 0 auto; }
+  .cl-chip .d{ display:none; }
+  #cal-frame iframe{ height:820px; }
+  .cal-note{ margin:0; color:var(--muted); font-size:12.5px; line-height:18px; }
+  .skip{ align-self:flex-start; background:none; border:0; padding:0; color:var(--plum); text-decoration:underline; text-underline-offset:3px; font-size:14px; line-height:20px; cursor:pointer; }
+  /* "Not ready to book?" on Step 3: a linen card with the Grounding
+     Handbook drawn in CSS (Paper "Handbook cover (drawn)"), clearly second
+     to booking. Phones: cover + text on one row, email row under them. */
+  .s3-gwrap{ padding:40px 0 120px; }
+  .gcard{ border:0; margin:0; padding:24px 20px 22px; background:var(--linen); border-radius:18px; display:grid; grid-template-columns:88px 1fr; column-gap:18px; row-gap:18px; align-items:center; }
+  .gcard .g-body{ display:contents; }
+  .gcard .g-txt{ display:flex; flex-direction:column; gap:6px; }
+  .gcard h3{ font-size:21px; line-height:26px; }
+  .gcard .g-txt p{ font-size:14px; line-height:20px; }
+  /* The iframe is wrapped in a plain .g-frame div, not spanned directly:
+     Chromium mis-sizes a replaced element (iframe/img) that is a grid item
+     sitting straight under a display:contents ancestor (.g-body above),
+     collapsing it to the first column's 88px track instead of the full
+     1/-1 span. The wrapper div is a normal grid item, sized correctly, and
+     the iframe inside it just fills it at width:100% with no grid math. */
+  .gcard .g-frame, .gcard .msg{ grid-column:1 / -1; }
+  .gcard .msg:empty{ display:none; }
+  .gcard .msg{ margin-top:-8px; }
+  .gcard.sent .done{ display:block; }
+  .book{ position:relative; width:88px; height:116px; background:var(--night); border-radius:2px 5px 5px 2px; box-shadow:0 10px 20px rgba(42,23,41,.26), 0 2px 4px rgba(42,23,41,.2); transform:rotate(-4deg); overflow:hidden; }
+  .book::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:7px; background:linear-gradient(90deg, rgba(0,0,0,.35), rgba(0,0,0,0)); }
+  .book::after{ content:""; position:absolute; left:12px; right:7px; top:7px; bottom:7px; border:1px solid rgba(201,168,76,.55); border-radius:2px; }
+  .book .b-the{ position:absolute; left:19px; top:20px; color:var(--gold-text); font-weight:600; font-size:6px; line-height:8px; letter-spacing:.18em; }
+  .book .b-t{ position:absolute; left:19px; top:32px; font-family:var(--serif); font-style:italic; font-size:12.5px; line-height:14px; color:var(--ivory); white-space:nowrap; }
+  .book .b-t span{ display:block; }
+  .book .b-by{ position:absolute; left:19px; bottom:15px; font-size:6px; line-height:8px; color:rgba(250,247,242,.7); white-space:nowrap; }
+
+  /* Matched-therapist panel: desktop only (from 1100px). */
+  .mpanel{ display:none; }
+  .s3-sub{ display:none; }
+
+  /* Thank you (chose not to book) */
+  .ty{ padding-top:28px; padding-bottom:120px; display:flex; flex-direction:column; gap:12px; }
+  .ty h2{ margin:0; font-family:var(--serif); font-weight:400; font-size:32px; line-height:37px; letter-spacing:-.02em; color:var(--night); }
+  .ty h2 em{ color:var(--plum); }
+  .ty p{ margin:0; color:var(--warm-gray); font-size:15px; line-height:22px; }
+  .ty ol{ margin:6px 0 0; padding:16px 18px 16px 36px; background:var(--ivory-warm); border:1px solid var(--line); border-radius:14px; color:var(--warm-gray); font-size:15px; line-height:22px; }
+  .ty li + li{ margin-top:6px; }
+
+  .s-foot{ display:none; }
+
+  /* ================= DESKTOP ================= */
+  @media (min-width:860px){
+    .bar{ display:none; }
+    .hdr{ max-width:1440px; margin:0 auto; height:104px; padding:28px 120px 0 112px; }
+    .hdr .logo{ width:110px; height:68px; }
+    .pill{ gap:10px; padding:12px 20px 12px 18px; font-size:16px; line-height:20px; }
+    .pill svg{ width:16px; height:16px; }
+    body:not(.dark) .pill{ display:inline-flex; }
+
+    .hero{ max-width:1440px; margin:0 auto; display:flex; justify-content:space-between; align-items:flex-start; padding:64px 120px 96px; }
+    .hero-copy{ width:600px; flex:0 0 auto; padding-top:8px; }
+    .lead{ padding:0; gap:0; }
+    .kicker{ gap:10px; font-size:17px; line-height:22px; }
+    .kicker svg{ width:17px; height:17px; }
+    .hl{ padding-top:22px; font-size:76px; line-height:80px; letter-spacing:-.025em; }
+    .hl.long{ font-size:64px; line-height:68px; }
+    .sub{ padding-top:16px; font-size:19px; line-height:28px; }
+    .sub .m{ display:none; } .sub .d{ display:inline; }
+    .trust{ display:none; }
+    .choose{ padding:40px 0 0; width:560px; gap:0; }
+    .q-row h2{ font-size:28px; line-height:34px; }
+    .stepno{ font-size:14px; }
+    .groups{ gap:10px; padding-top:16px; }
+    .grp{ min-height:76px; padding:0 14px 0 26px; }
+    .grp b{ font-size:19px; line-height:24px; }
+    .grp small{ font-size:15px; line-height:20px; }
+    .grp .g-txt{ gap:2px; }
+    .arrow{ width:46px; height:46px; }
+    .arrow svg{ width:17px; height:17px; }
+    .price{ padding-top:18px; font-size:16px; line-height:24px; }
+    .price .d{ display:inline; }
+
+    .collage{ display:block; position:relative; width:520px; height:640px; flex:0 0 auto; }
+    .collage .c-alicia{ position:absolute; left:140px; top:0; width:380px; height:470px; object-fit:cover; object-position:50% 30%; border-radius:2px; }
+    .collage .c-kyla{ position:absolute; left:0; top:310px; width:220px; height:262px; object-fit:cover; object-position:50% 25%; border:8px solid var(--night); border-radius:2px; }
+    .collage .cap{ position:absolute; display:flex; flex-direction:column; gap:3px; }
+    .collage .cap b{ font-family:var(--serif); font-weight:400; font-size:19px; line-height:24px; color:var(--ivory); }
+    .collage .cap span{ font-size:14px; line-height:20px; color:var(--ivory-72); }
+    .collage .cap-a{ left:244px; top:488px; width:276px; }
+    .collage .cap-k{ left:8px; top:588px; width:270px; }
+
+    .s1-light{ padding:120px; display:flex; align-items:center; justify-content:center; gap:96px; }
+    .s1-photo{ width:500px; height:620px; flex:0 0 auto; object-position:45% 40%; border-radius:2px; }
+    .quote-col{ width:604px; flex:0 0 auto; padding:0; }
+    .quote{ padding-top:0; font-size:40px; line-height:50px; letter-spacing:-.015em; }
+    .quote-by{ margin-top:18px; font-size:14px; line-height:20px; }
+    .quote-col .guide{ width:520px; margin-top:48px; padding-top:32px; }
+    .quote-col .guide h3{ font-size:26px; line-height:32px; }
+
+    .foot{ max-width:none; flex-direction:row; justify-content:space-between; align-items:flex-end; padding:40px 120px 48px; }
+    .foot .fn{ font-size:17px; line-height:22px; }
+    .foot .fl{ font-size:14px; line-height:20px; flex-direction:row; flex-wrap:wrap; gap:0; }
+    .foot .fl .sep{ display:inline; white-space:pre; }
+    .foot .fl .lic{ display:none; }
+    .foot .lic-d{ display:block !important; color:var(--ivory-78); font-size:14px; line-height:20px; }
+    .foot-a{ display:flex; flex-direction:column; gap:6px; }
+
+    .wrap{ max-width:608px; margin:0 auto; padding:24px 24px 0; }
+    .opts{ padding-bottom:96px; }
+    .s3-guide{ padding-bottom:96px; }
+    .ty{ padding-bottom:96px; }
+    .s-foot{ display:block; }
   }
-  /* Atmospheric botanical stage */
-  body::before{
-    content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
-    background:
-      linear-gradient(180deg, rgba(46,26,45,.72), rgba(46,26,45,.86) 55%, rgba(30,14,26,.94)),
-      url('../assets/img/dark-floral-purple.jpg') center/cover no-repeat;
+  /* Between tablet and full desktop the full-size hero-copy (600px) plus the
+     full-size collage (520px) no longer fit side by side, so both scale down
+     instead of the collage simply disappearing and leaving its half of the
+     row empty: hero-copy to 400px (headline, buttons and type sized down to
+     match) and the collage to 55% (300x352), same composition, smaller. */
+  @media (min-width:860px) and (max-width:1219px){
+    .hero{ padding-left:40px; padding-right:40px; gap:24px; }
+    .hdr{ padding-left:48px; padding-right:56px; }
+    .hero-copy{ width:400px; }
+    .hl{ font-size:52px; line-height:56px; }
+    .hl.long{ font-size:44px; line-height:48px; }
+    .sub{ font-size:17px; line-height:25px; }
+    .choose{ width:100%; }
+    .grp{ min-height:68px; padding:0 12px 0 20px; }
+    .grp b{ font-size:17px; line-height:22px; }
+    .grp small{ font-size:13px; line-height:18px; }
+
+    .collage{ width:300px; height:352px; }
+    .collage .c-alicia{ left:77px; top:0; width:209px; height:258px; }
+    .collage .c-kyla{ left:0; top:170px; width:121px; height:144px; border-width:5px; }
+    .collage .cap b{ font-size:14px; line-height:18px; }
+    .collage .cap span{ font-size:12px; line-height:16px; }
+    .collage .cap-a{ left:134px; top:268px; width:160px; }
+    .collage .cap-k{ left:4px; top:323px; width:150px; }
+
+    .s1-light{ padding:80px 56px; gap:56px; }
+    .s1-photo{ width:380px; height:480px; }
+    .quote-col{ width:auto; flex:1 1 auto; }
+    .quote-col .guide{ width:auto; }
+    .foot{ padding-left:56px; padding-right:56px; }
   }
-  body::after{
-    content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
-    background:
-      radial-gradient(120vw 80vh at 50% 40%, rgba(201,168,76,.12), transparent 45%),
-      radial-gradient(140vw 120vh at 50% 50%, transparent 40%, rgba(20,9,18,.55) 100%);
+  /* ============ STEP 3, DESKTOP TWO-COLUMN (Paper "Desktop 1440 Step 3") ============
+     Left: the matched therapist, sticky. Right: form, calendar, guide card.
+     Below 1100px the single 608px column above stays, with the small match row. */
+  @media (min-width:1100px){
+    .s3-grid{ max-width:1440px; margin:0 auto; display:flex; align-items:flex-start; gap:96px; padding:40px 120px 112px; }
+    .s3-grid > .wrap{ flex:1 1 0; min-width:0; max-width:none; margin:0; padding:0; }
+    .mpanel{ display:flex; flex-direction:column; position:sticky; top:24px; width:456px; flex:0 0 auto; background:var(--night); border-radius:20px; overflow:hidden; }
+    .mp-photo{ position:relative; height:360px; }
+    .mp-photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 22%; }
+    .mp-photo::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:220px; background:linear-gradient(180deg, rgba(42,23,41,0) 0%, rgba(42,23,41,.72) 55%, #2A1729 100%); }
+    .mp-name{ position:absolute; z-index:1; left:36px; right:36px; bottom:20px; display:flex; flex-direction:column; gap:6px; }
+    .mp-name small{ color:var(--gold-text); font-weight:600; font-size:15px; line-height:20px; }
+    .mp-name b{ font-family:var(--serif); font-weight:400; font-size:38px; line-height:42px; letter-spacing:-.02em; color:var(--ivory); }
+    .mp-name span{ font-size:15px; line-height:21px; color:rgba(250,247,242,.82); }
+    .mp-steps{ display:flex; flex-direction:column; gap:18px; padding:28px 36px 0; }
+    .mp-steps h3{ margin:0; font-family:var(--serif); font-weight:400; font-size:21px; line-height:26px; color:var(--ivory); }
+    .mp-steps ol{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:18px; }
+    .mp-steps li{ display:flex; gap:16px; align-items:flex-start; }
+    .mp-steps li > i{ width:28px; flex:0 0 auto; font-family:var(--serif); font-style:italic; font-size:26px; line-height:28px; color:var(--gold-text); }
+    .mp-steps li div{ display:flex; flex-direction:column; gap:2px; padding-top:2px; }
+    .mp-steps li b{ font-weight:600; font-size:16px; line-height:22px; color:var(--ivory); }
+    .mp-steps li span{ font-size:14px; line-height:20px; color:var(--ivory-72); }
+    .mp-foot{ display:flex; flex-direction:column; gap:20px; padding:28px 36px 36px; }
+    .mp-foot::before{ content:""; height:1px; background:rgba(201,168,76,.28); }
+    .mp-foot p{ margin:0; font-size:14px; line-height:21px; color:var(--ivory-78); }
+    .mp-foot .mp-call{ color:var(--ivory-72); line-height:20px; }
+    .mp-foot a{ color:var(--gold-cream); font-weight:600; text-decoration:underline; text-decoration-color:rgba(201,168,76,.7); text-underline-offset:3px; }
+    .mp-foot a:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; border-radius:2px; }
+
+    .s3-grid .match{ display:none; }
+    .s3-grid .s3{ gap:0; padding-top:36px; }
+    .s3-grid .s3 h2{ font-size:52px; line-height:56px; letter-spacing:-.025em; }
+    .s3-sub{ display:block; margin:10px 0 0; font-size:17px; line-height:25px; color:var(--warm-gray); }
+    .submitted .s3-sub{ display:none; }
+    .s3-grid #form-frame, .s3-grid .got{ margin-top:32px; }
+    .s3-grid .formnote{ margin-top:14px; }
+    .s3-grid .s3-time{ padding-top:56px; gap:16px; }
+    .s3-grid .s3-time h3{ font-size:30px; line-height:36px; letter-spacing:-.015em; }
+    .s3-grid .cal-note{ font-size:13px; line-height:18px; }
+
+    .cal-lock{ gap:18px; padding:24px; }
+    .cl-top b{ font-size:15px; line-height:20px; }
+    .cl-days{ gap:10px; }
+    .cl-days span{ height:72px; }
+    .cl-days small{ font-size:12px; line-height:16px; }
+    .cl-days b{ font-size:22px; line-height:26px; }
+    .cl-times{ grid-template-columns:1fr 1fr 1fr; }
+    .cl-times span:nth-child(n+5){ display:grid; }
+    .cl-veil{ height:132px; }
+    .cl-chip{ bottom:55px; }
+    .cl-chip span{ gap:10px; padding:12px 20px 12px 16px; font-size:15px; line-height:20px; }
+    .cl-chip svg{ width:16px; height:16px; }
+    .cl-chip .m{ display:none; } .cl-chip .d{ display:inline; }
+
+    .s3-gwrap{ padding:64px 0 0; }
+    .gcard{ display:flex; flex-direction:row; align-items:center; gap:36px; padding:36px 36px 36px 40px; border-radius:20px; }
+    .gcard .g-body{ display:flex; flex:1 1 0; min-width:0; flex-direction:column; gap:10px; }
+    .gcard .g-txt{ gap:10px; }
+    .gcard h3{ font-size:26px; line-height:32px; letter-spacing:-.01em; }
+    .gcard .g-txt p{ font-size:15px; line-height:22px; }
+    .gcard .g-frame{ margin-top:6px; }
+    .gcard .msg{ margin-top:0; }
+    .book{ width:132px; height:172px; flex:0 0 auto; border-radius:3px 6px 6px 3px; box-shadow:0 14px 28px rgba(42,23,41,.28), 0 2px 4px rgba(42,23,41,.2); }
+    .book::before{ width:10px; }
+    .book::after{ left:18px; right:10px; top:10px; bottom:10px; }
+    .book .b-the{ left:28px; top:30px; font-size:8px; line-height:10px; }
+    .book .b-t{ left:28px; top:46px; font-size:18px; line-height:20px; }
+    .book .b-by{ left:28px; bottom:22px; font-size:8.5px; line-height:11px; }
   }
-
-  /* Therapy / coaching switch on the landing screen */
-  .toggle{ display:flex; justify-content:center; width:max-content; margin:0 auto 20px; background:rgba(253,251,248,.10); border:1px solid rgba(226,207,159,.35); border-radius:999px; padding:4px; backdrop-filter:blur(6px); }
-  .toggle a{ text-decoration:none; font-family:var(--sans); font-size:12.5px; font-weight:600; color:var(--gold-soft); padding:9px 16px; border-radius:999px; transition:.2s; white-space:nowrap; }
-  .toggle a.on{ background:var(--ivory-warm); color:var(--plum-deep); box-shadow:var(--shadow-soft); }
-  body.in-quiz .toggle{ display:none; }
-
-  .wrap{ position:relative; z-index:2; max-width:560px; margin:0 auto; padding:28px 20px 84px; }
-
-  /* Crowned logo */
-  .brand-crown{ text-align:center; margin:0 0 22px; }
-  .medallion{ display:inline-block; background:var(--ivory-warm); border-radius:28px; padding:20px 30px; box-shadow:var(--shadow-soft); transition:padding .4s ease; }
-  .brand-crown img{ height:72px; width:auto; display:block; transition:height .4s ease; }
-  .brand-tag{ margin-top:13px; font-family:var(--sans); font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--gold-soft); }
-  body.in-quiz .medallion{ padding:11px 20px; }
-  body.in-quiz .brand-crown img{ height:58px; }
-  body.in-quiz .brand-tag{ display:none; }
-
-  /* Progress (above the card, on the dark stage) */
-  .progress-wrap{ text-align:center; margin:2px auto 18px; max-width:440px; }
-  .progress-wrap.hidden{ display:none; }
-  .step-counter{ font-family:var(--sans); font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-soft); margin-bottom:8px; }
-  .progress{ height:6px; background:rgba(255,255,255,.14); border-radius:999px; overflow:hidden; }
-  .progress > i{ display:block; height:100%; width:0; background:linear-gradient(90deg,var(--gold),var(--gold-deep)); box-shadow:0 0 12px var(--gold-glow); transition:width .5s cubic-bezier(.4,0,.2,1); border-radius:999px; }
-  .encourage{ margin-top:9px; font-family:var(--serif); font-style:italic; font-size:14px; color:var(--gold-soft); opacity:.9; }
-
-  /* The glowing focal card */
-  .card{
-    background:
-      radial-gradient(130% 150px at 50% 0, rgba(255,255,255,.65), transparent 72%),
-      linear-gradient(180deg, var(--ivory-warm), var(--ivory));
-    border:1px solid rgba(226,207,159,.55); border-radius:var(--radius-card);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.9), var(--shadow-card); padding:44px 40px; position:relative; overflow:hidden;
-    min-height:520px; display:flex; flex-direction:column; justify-content:center;
-  }
-  .card::before{ content:""; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--plum),var(--gold),var(--sage)); z-index:2; }
-  /* Ghosted phoenix line-mark — brand DNA in the corner, barely there */
-  .card::after{ content:""; position:absolute; right:-42px; bottom:-48px; width:250px; height:250px;
-    background:url('../assets/img/logo-phoenix.png') center/contain no-repeat; opacity:.05; transform:rotate(6deg); pointer-events:none; z-index:0; }
-  .screen{ position:relative; z-index:1; }
-  .col{ max-width:440px; margin:0 auto; }
-  .col-wide{ max-width:520px; margin:0 auto; }
-
-  .screen{ display:none; animation:rise .5s cubic-bezier(.22,1,.36,1) both; }
-  .screen.active{ display:block; }
-  @keyframes rise{ from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none} }
-
-  .eyebrow{ font-family:var(--sans); font-size:12px; font-weight:600; letter-spacing:.24em; text-transform:uppercase; color:var(--gold-deep); margin:0 0 14px; }
-  h1{ font-family:var(--display); font-weight:600; font-size:clamp(32px,5.4vw,46px); line-height:1.1; color:var(--plum-deep); margin:0 0 16px; }
-  h2{ font-family:var(--display); font-weight:600; font-size:clamp(26px,4.4vw,34px); line-height:1.15; color:var(--plum-deep); margin:0 0 12px; }
-  h1 .script{ font-family:var(--script); font-weight:400; color:var(--gold-deep); font-size:1.28em; line-height:.9; }
-  h2 em, h1 em{ font-style:italic; color:var(--plum-muted); }
-  .lede{ font-family:var(--sans); font-size:17.5px; font-weight:400; line-height:1.65; color:var(--warm-gray); max-width:46ch; margin:0 0 24px; }
-
-  .hero{ border-radius:180px 180px 24px 24px; overflow:hidden; margin:8px 0 24px; aspect-ratio:16/10; background:linear-gradient(120deg,var(--plum),var(--sage)); box-shadow:0 30px 60px -30px rgba(46,26,45,.5); }
-  .hero img{ width:100%; height:100%; object-fit:cover; display:block; }
-
-  .center{ text-align:center; }
-  .reassure{ font-family:var(--sans); font-size:13.5px; color:var(--warm-gray); text-align:center; margin-top:12px; }
-
-  .btn{ appearance:none; cursor:pointer; font-family:var(--sans); border-radius:50px; border:1.5px solid transparent; transition:all .35s; font-weight:600; }
-  .btn-primary{ background:var(--plum); color:var(--ivory-warm); border-color:var(--plum); padding:15px 34px; font-size:13px; letter-spacing:.1em; text-transform:uppercase; }
-  .btn-primary:hover{ background:var(--gold); border-color:var(--gold); color:var(--plum-deep); transform:translateY(-2px); box-shadow:0 14px 30px rgba(74,40,64,.35); }
-  .btn-gold{ background:var(--gold); color:var(--plum-deep); border-color:var(--gold); padding:15px 34px; font-size:13px; letter-spacing:.1em; text-transform:uppercase; }
-  .btn-gold:hover{ background:var(--gold-deep); border-color:var(--gold-deep); transform:translateY(-2px); box-shadow:0 14px 30px rgba(74,40,64,.3); }
-  .btn-ghost{ background:transparent; color:var(--plum); border-color:var(--line); padding:13px 24px; font-size:13px; letter-spacing:.06em; }
-  .btn-ghost:hover{ border-color:var(--plum); background:#FBF5EC; }
-
-  .trust{ display:flex; flex-wrap:wrap; gap:10px 22px; justify-content:center; margin:22px 0 2px; }
-  .trust span{ font-size:13px; color:var(--muted); display:flex; align-items:center; gap:7px; }
-  .trust b{ color:var(--plum); font-weight:600; }
-  .dot{ width:6px; height:6px; border-radius:50%; background:var(--gold); }
-
-  /* Questions */
-  .q{ font-family:var(--display); font-weight:600; font-size:clamp(27px,4.6vw,38px); line-height:1.16; color:var(--plum-deep); margin:0 0 8px; }
-  .q em{ font-style:italic; color:var(--plum-muted); }
-  .q-sub{ font-family:var(--sans); font-size:16.5px; font-weight:400; color:var(--warm-gray); margin:0 0 26px; max-width:44ch; line-height:1.55; }
-  .options{ display:grid; gap:12px; }
-  .opt{
-    display:flex; align-items:center; gap:14px; width:100%; text-align:left;
-    background:var(--ivory-warm); border:2px solid var(--line); border-radius:16px; padding:19px 22px;
-    cursor:pointer; font-family:var(--sans); color:var(--ink); transition:border-color .18s, background .18s, transform .18s, box-shadow .18s;
-  }
-  .opt:hover{ border-color:var(--gold-soft); background:#FFFDF7; transform:translateY(-1px); }
-  .opt.sel{ border-color:var(--gold); background:rgba(201,168,76,.08); box-shadow:0 0 0 4px var(--gold-glow); }
-  .opt-txt{ display:flex; flex-direction:column; }
-  .opt-txt b{ font-weight:600; font-size:17.5px; color:var(--ink); }
-  .opt-txt small{ font-size:14px; color:var(--warm-gray); margin-top:3px; }
-  .opt .mk{ margin-left:auto; width:24px; height:24px; border-radius:50%; border:2px solid var(--gold-soft); flex:0 0 auto; display:grid; place-items:center; color:transparent; font-size:13px; transition:.18s; }
-  .opt.sel .mk{ background:var(--gold); border-color:var(--gold); color:var(--plum-deep); }
-
-  .nav{ display:flex; align-items:center; justify-content:space-between; margin-top:24px; }
-  .back{ background:none; border:none; color:var(--muted); font-family:var(--sans); font-size:14px; cursor:pointer; padding:8px 4px; }
-  .back:hover{ color:var(--plum); }
-
-  .field{ margin:0 0 14px; }
-  .field label{ display:block; font-family:var(--sans); font-size:12.5px; font-weight:600; letter-spacing:.04em; color:var(--plum); margin:0 0 6px; }
-  .field input,.field textarea{ width:100%; font-family:var(--sans); font-size:16px; color:var(--ink); background:var(--ivory-warm); border:1.5px solid var(--line); border-radius:12px; padding:14px 15px; }
-  .field input:focus,.field textarea:focus{ outline:none; border-color:var(--gold); box-shadow:0 0 0 4px var(--gold-glow); }
-  /* Validation. Warm terracotta rather than a browser red, so a missed field
-     reads as a gentle nudge on a therapy funnel, not an error state. */
-  .field.invalid input,.field.invalid textarea{ border-color:var(--alert); background:var(--alert-soft); }
-  .field.invalid input:focus,.field.invalid textarea:focus{ border-color:var(--alert); box-shadow:0 0 0 4px var(--alert-glow); }
-  .form-error{ font-family:var(--sans); font-size:14px; line-height:1.5; color:var(--alert-deep); background:var(--alert-soft); border:1px solid var(--alert); border-radius:12px; padding:12px 14px; margin:0 0 14px; display:none; }
-  .form-error.show{ display:block; animation:rise .4s ease both; }
-  .disclaimer{ font-family:var(--sans); font-size:12.5px; color:var(--muted); background:var(--milky); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin:6px 0 18px; line-height:1.5; }
-
-  /* Result / match */
-  .result-card{ background:linear-gradient(160deg, #FBF3EA, var(--ivory-warm)); border:1px solid var(--gold-soft); border-radius:20px; padding:24px; margin:4px 0 18px; box-shadow:var(--shadow-soft); position:relative; }
-  .result-card::before{ content:""; position:absolute; top:0; left:24px; right:24px; height:2px; background:linear-gradient(90deg,var(--gold),transparent); }
-  .who{ display:flex; align-items:center; gap:14px; margin-bottom:12px; }
-  .avatar{ width:100px; height:100px; border-radius:50%; overflow:hidden; border:2px solid var(--gold-soft); box-shadow:var(--shadow-soft); background:var(--plum); color:#F5E9D6; display:grid; place-items:center; font-family:var(--display); font-size:38px; flex:0 0 auto; }
-  .avatar img{ width:100%; height:100%; object-fit:cover; }
-  .who-name{ font-family:var(--display); font-weight:600; font-size:18px; color:var(--plum-deep); }
-  .who-role{ font-size:14px; color:var(--warm-gray); margin-top:2px; }
-  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 2px; }
-  .chip{ font-size:12.5px; color:var(--plum); background:rgba(201,168,76,.10); border:1px solid var(--gold-soft); border-radius:999px; padding:6px 14px; opacity:0; animation:rise .45s ease both; }
-
-  /* Team strip */
-  .team-strip{ margin:18px 0 6px; }
-  .team-strip-label{ font-family:var(--sans); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-align:center; margin:0 0 12px; }
-  .team-mini{ display:flex; justify-content:center; gap:20px; }
-  .tm{ text-align:center; width:96px; opacity:.6; transition:.25s; cursor:pointer; }
-  .tm:hover{ opacity:.9; }
-  .match-tag{ display:inline-block; font-family:var(--sans); font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; border-radius:999px; padding:4px 12px; margin-bottom:12px; color:var(--muted); background:var(--milky); border:1px solid var(--line); }
-  .match-tag.on{ color:var(--gold-deep); background:rgba(201,168,76,.12); border-color:var(--gold-soft); }
-  .pa-row{ display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 2px; }
-  .pa{ font-family:var(--sans); font-size:12.5px; font-weight:500; border-radius:999px; padding:6px 13px; border:1px solid var(--line); background:var(--ivory-warm); color:var(--warm-gray); }
-  .pa-price{ color:var(--plum); border-color:var(--gold-soft); }
-  .pa-avail.open{ color:var(--sage-deep); background:rgba(138,154,123,.14); border-color:var(--sage-muted); font-weight:600; }
-  .mini-meta{ font-family:var(--sans); font-size:12px; color:var(--warm-gray); line-height:1.4; margin-top:4px; }
-  .mini-rec{ display:inline-block; margin-top:5px; font-size:9px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--gold-deep); background:rgba(201,168,76,.14); border:1px solid var(--gold-soft); border-radius:999px; padding:2px 7px; }
-  .next-steps{ margin-top:16px; text-align:left; display:none; background:var(--milky); border:1px solid var(--line); border-radius:14px; padding:18px 20px; }
-  .next-steps.show{ display:block; animation:rise .4s ease both; }
-  .next-steps h4{ font-family:var(--display); font-weight:600; font-size:15px; color:var(--plum-deep); margin:0 0 10px; }
-  .next-steps .step{ display:flex; gap:11px; align-items:flex-start; margin:8px 0; font-family:var(--sans); font-size:14px; color:var(--warm-gray); line-height:1.45; }
-  .next-steps .step b{ color:var(--gold-deep); font-weight:700; flex:0 0 auto; }
-  .cal-btn{ display:inline-block; margin-top:12px; text-decoration:none; }
-  .tm.on{ opacity:1; }
-  .tm .av{ width:52px; height:52px; border-radius:50%; margin:0 auto 7px; overflow:hidden; border:2px solid var(--line); background:var(--plum); color:#F5E9D6; display:grid; place-items:center; font-family:var(--display); font-size:20px; }
-  .tm.on .av{ border-color:var(--gold); box-shadow:0 0 0 4px var(--gold-glow); }
-  .tm .av img{ width:100%; height:100%; object-fit:cover; }
-  .tm .nm{ font-family:var(--sans); font-size:12px; color:var(--warm-gray); line-height:1.3; }
-  .tm.on .nm{ color:var(--plum-deep); font-weight:600; }
-
-  /* Trust sub-card */
-  .trust-card{ background:var(--ivory-warm); border:1px solid var(--gold-soft); border-radius:16px; padding:20px 22px; margin-top:18px; }
-  .trust-card h4{ font-family:var(--display); font-weight:600; font-size:16px; color:var(--plum-deep); margin:0 0 12px; }
-  .trust-card .row{ display:flex; gap:11px; align-items:flex-start; margin:9px 0; font-family:var(--sans); font-size:14.5px; color:var(--warm-gray); line-height:1.45; }
-  .trust-card .row i{ color:var(--gold); font-style:normal; font-weight:700; flex:0 0 auto; }
-
-  /* Scheduling */
-  /* The booking widget is a GoHighLevel iframe, so nothing inside it can be
-     styled from here. The frame gets the same card treatment as the rest of
-     the funnel and the widget's own theme handles the interior. */
-  .book-widget{ background:#fff; border:1px solid var(--line); border-radius:16px; overflow:hidden; }
-  .book-widget iframe{ display:block; }
-  .divider{ display:flex; align-items:center; gap:12px; color:var(--muted); font-size:13px; margin:20px 0; }
-  .divider::before,.divider::after{ content:""; height:1px; background:var(--line); flex:1; }
-  .guide{ display:flex; gap:14px; align-items:center; background:var(--milky); border:1px dashed var(--gold-soft); border-radius:14px; padding:14px 16px; margin-top:18px; }
-  .guide .ic{ font-size:26px; }
-  .confirm{ background:rgba(138,154,123,.14); border:1px solid var(--sage-muted); color:var(--sage-deep); border-radius:12px; padding:14px 16px; margin-top:14px; font-size:14.5px; display:none; }
-  .confirm.show{ display:block; animation:rise .4s ease both; }
-
-  .cta-row{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:10px; }
-
-  /* Footer legitimacy on dark stage */
-  .stage-foot{ text-align:center; margin-top:22px; font-family:var(--sans); font-size:11px; letter-spacing:.06em; color:var(--gold-soft); opacity:.75; }
-  .foot{ text-align:center; color:var(--muted); font-size:12px; margin-top:22px; line-height:1.6; }
-  .foot a{ color:var(--plum); text-decoration:none; }
-
-  /* ── Polish pass: photo rails, team on landing, craft, micro-interactions ── */
-  h2 .script{ font-family:var(--script); font-weight:400; color:var(--gold-deep); font-size:1.5em; line-height:.85; }
-
-  /* Meet the team on the landing screen */
-  .team-preview{ margin:24px 0 2px; }
-  .team-preview-label{ font-family:var(--serif); font-style:italic; font-size:14.5px; color:var(--muted); text-align:center; margin:0 0 14px; }
-  .team-preview-row{ display:flex; justify-content:center; gap:24px; }
-  .team-preview figure{ margin:0; text-align:center; width:84px; }
-  .tp-av{ width:68px; height:68px; border-radius:50%; object-fit:cover; margin:0 auto; display:block; border:2px solid var(--gold-soft); box-shadow:var(--shadow-soft); }
-  .tp-mono{ display:grid; place-items:center; background:var(--plum); color:#F5E9D6; font-family:var(--display); font-size:27px; }
-  .team-preview figcaption b{ display:block; font-family:var(--display); font-weight:600; font-size:13.5px; color:var(--plum-deep); margin-top:9px; }
-  .team-preview figcaption span{ font-size:11px; letter-spacing:.05em; color:var(--muted); }
-
-  /* Honest credential pills + founder note */
-  .creds{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:18px 0 0; }
-  .cred{ font-family:var(--sans); font-size:11.5px; font-weight:500; letter-spacing:.04em; color:var(--plum); background:rgba(201,168,76,.08); border:1px solid var(--gold-soft); border-radius:999px; padding:5px 13px; }
-  .founder-note{ margin:22px 0 0; padding:18px 22px; background:var(--milky); border:1px solid var(--line); border-left:3px solid var(--gold); border-radius:14px; text-align:left; }
-  .founder-note p{ font-family:var(--serif); font-style:italic; font-size:15.5px; line-height:1.6; color:var(--warm-gray); margin:0; }
-  .founder-note .sig{ display:block; margin-top:6px; font-family:var(--script); font-size:27px; color:var(--gold-deep); line-height:1; }
-  .sig-line{ margin-top:10px; font-family:var(--script); font-size:26px; color:var(--gold-deep); line-height:1; }
-
-  /* Micro-interactions */
-  .screen[data-screen="result"].active .avatar{ animation:avatarPop .7s cubic-bezier(.22,1,.36,1) both; }
-  @keyframes avatarPop{ 0%{transform:scale(.86); opacity:.35} 60%{transform:scale(1.05)} 100%{transform:scale(1); opacity:1} }
-  .opt.sel .mk{ animation:mkPop .3s cubic-bezier(.34,1.56,.64,1) both; }
-  @keyframes mkPop{ 0%{transform:scale(0)} 100%{transform:scale(1)} }
-  .hero img{ animation:kenburns 22s ease-in-out infinite alternate; }
-  @keyframes kenburns{ from{transform:scale(1)} to{transform:scale(1.06)} }
-
-  /* Question 1 on the landing screen */
-  .first-q{ margin:22px 0 4px; }
-  .first-q .q{ font-size:clamp(22px,3.6vw,28px); }
-  .first-q .q-sub{ margin-bottom:16px; }
-  .first-q .options{ gap:10px; }
-  .first-q .opt{ padding:15px 18px; }
-  .first-q .opt-txt b{ font-size:16.5px; }
-
-  /* Finding-your-match ring */
-  .matching-ring{ width:54px; height:54px; margin:0 auto 22px; border-radius:50%; border:3px solid var(--gold-soft); border-top-color:var(--plum); animation:spin 1s linear infinite; }
-  @keyframes spin{ to{ transform:rotate(360deg); } }
-
-  @media (max-width:560px){
-    .card{ padding:26px 20px; border-radius:20px; min-height:auto; }
-    .first-q{ margin-top:16px; }
-    .first-q .q-sub{ display:none; }
-    .first-q .q{ margin-bottom:14px; }
-    h1{ font-size:30px; margin-bottom:10px; }
-    .eyebrow{ letter-spacing:.14em; margin-bottom:10px; }
-    [data-screen="landing"] .lede{ font-size:16px; margin-bottom:0; }
-    /* Small header on phones so the first tap is on screen. */
-    .wrap{ padding-top:16px; }
-    .brand-crown{ margin-bottom:14px; }
-    .medallion, body.in-quiz .medallion{ padding:8px 16px; border-radius:18px; }
-    .brand-crown img, body.in-quiz .brand-crown img{ height:44px; }
-    .brand-tag{ margin-top:8px; font-size:10.5px; }
-    .cta-row .btn{ width:100%; }
-    .team-mini{ gap:10px; }
-    .tm{ width:82px; }
-    .team-preview-row{ gap:14px; }
-    .team-preview figure{ width:74px; }
-  }
-  @media (prefers-reduced-motion: reduce){
-    .screen,.chip{ animation:none; opacity:1; }
-    .opt:hover,.btn-primary:hover,.btn-gold:hover{ transform:none; }
-    .hero img,.opt.sel .mk,.screen[data-screen="result"].active .avatar{ animation:none; }
-    .matching-ring{ animation-duration:3s; }
-  }
+  .foot .lic-d{ display:none; }
+  @media (prefers-reduced-motion: reduce){ .screen.active{ animation:none; } .bar{ transition:none; } }
 </style>
 </head>
-<body>
-<div class="wrap">
+<body class="dark">
 
-  <div class="brand-crown">
-    <span class="medallion">
-      <img width="900" height="563" src="../assets/img/logo-mark-plum-v2.png" alt="The Wild Within"
-           onerror="this.src='../assets/img/logo-wild-within-plum.png'">
-    </span>
-    <div class="brand-tag">Holistic Therapy &amp; Coaching &middot; Mesa, AZ</div>
-  </div>
+<!-- Phone icon reused everywhere -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.18 2 2 0 0 1 4.08 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.1 9.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10.5" width="16" height="10.5" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
 
-  <div id="progress-wrap" class="progress-wrap hidden">
-    <div class="step-counter" id="step-counter">Step 1 of 5</div>
-    <div class="progress"><i id="bar"></i></div>
-    <div class="encourage" id="encourage"></div>
-  </div>
+<header class="hdr">
+  <img class="logo logo-ivory" width="900" height="563" src="../assets/img/logo-mark-ivory-v2.png" alt="The Wild Within Counseling and Holistic Therapy, Mesa, Arizona">
+  <img class="logo logo-plum" width="900" height="563" src="../assets/img/logo-mark-plum-v2.png" alt="The Wild Within Counseling and Holistic Therapy, Mesa, Arizona" loading="lazy">
+  <a class="pill" href="tel:+14807712181" data-call="header"><svg style="color:#C9A84C" aria-hidden="true"><use href="#i-phone"/></svg>(480) 771-2181</a>
+</header>
 
-  <div class="card">
+<main>
 
-    <!-- LANDING -->
-    <section class="screen active" data-screen="landing">
-      <div class="col-wide">
-        <p class="eyebrow">Find your therapist &middot; 60 seconds</p>
-        <h1>The right therapist for the <span class="script">real you</span>.</h1>
-        <p class="lede">Five soft questions, then a free consult with Alicia or Kyla. No pressure, no commitment.</p>
-        <!-- Question 1 lives on the landing screen, so the first tap is an
-             answer, not a Begin button. With a Begin button, 5 of 365 ad
-             visitors started (9/18 to 9/23). BetterHelp, Talkspace and
-             SonderMind all open on their first question. pick() sends a
-             landing answer straight to q2 and still fires the q1 step. -->
-        <div class="first-q">
-          <p class="q">To begin, what are you hoping for <em>more of?</em></p>
-          <p class="q-sub">There is no wrong answer. Pick what feels closest.</p>
-          <div class="options">
-            <button class="opt" onclick="pick('goal','Calm, grounded, regulated',this)"><span class="opt-txt"><b>Calm, grounded, regulated</b></span><span class="mk">&#10003;</span></button>
-            <button class="opt" onclick="pick('goal','Connection and intimacy',this)"><span class="opt-txt"><b>Connection and intimacy</b></span><span class="mk">&#10003;</span></button>
-            <button class="opt" onclick="pick('goal','Healthier home life',this)"><span class="opt-txt"><b>Healthier home life</b></span><span class="mk">&#10003;</span></button>
-            <button class="opt" onclick="pick('goal','Healthier relationship with sex',this)"><span class="opt-txt"><b>Healthier relationship with sex</b></span><span class="mk">&#10003;</span></button>
-            <button class="opt" onclick="pick('goal','Clarity and direction',this)"><span class="opt-txt"><b>Clarity and direction</b></span><span class="mk">&#10003;</span></button>
-            <button class="opt" onclick="pick('goal','Healing after something hard',this)"><span class="opt-txt"><b>Healing after something hard</b></span><span class="mk">&#10003;</span></button>
-            <button class="opt" onclick="pick('goal','I am not sure yet',this)"><span class="opt-txt"><b>I am not sure yet</b></span><span class="mk">&#10003;</span></button>
+  <!-- ===================== STEP 1 =====================
+       The lead line, headline and subline swap on utm_content (see
+       HEADLINES below). Everything else is identical for every ad, so each
+       ad keeps one continuous test record. Copy describes the practice,
+       never the reader (Meta's mental-health rule). -->
+  <section class="screen active" data-screen="landing">
+    <div class="s1-top">
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="lead">
+            <p class="kicker"><svg style="color:#C9A84C" aria-hidden="true"><use href="#i-phone"/></svg>Free 30-minute consult, by phone</p>
+            <h1 class="hl" id="hl"><span class="l1">Holistic therapy</span> <span class="l2">for women and moms.</span></h1>
+            <p class="sub" id="sub"><span class="m">Two taps, then pick a time to talk.</span><span class="d">Two clicks, then pick a time to talk.</span></p>
           </div>
-        </div>
-        <div class="hero" style="margin-top:24px">
-          <img src="../assets/img/funnel-hero-alicia-office.jpg" alt="Alicia Wright, LCSW, in the Mesa, Arizona office where The Wild Within holds sessions" onerror="this.closest('.hero').remove()">
-        </div>
-        <div class="trust">
-          <span><i class="dot"></i><b>2 therapists</b> on the team</span>
-          <span><i class="dot"></i>In person in Mesa</span>
-          <span><i class="dot"></i>Telehealth across Arizona</span>
-        </div>
 
-        <div class="team-preview">
-          <p class="team-preview-label">Meet the people you might work with</p>
-          <div class="team-preview-row">
-            <figure>
-              <img class="tp-av" src="../assets/img/alicia-headshot.jpg" alt="Alicia Wright, LCSW" onerror="tpFallback(this,'A')">
-              <figcaption><b>Alicia</b><span>LCSW &middot; Founder</span></figcaption>
-            </figure>
-            <figure>
-              <img class="tp-av" src="../assets/img/kyla-avatar.jpg" alt="Kyla Gordon, therapist at The Wild Within" onerror="tpFallback(this,'K')">
-              <figcaption><b>Kyla</b><span>Therapist</span></figcaption>
-            </figure>
-          </div>
-        </div>
-
-        <div class="creds">
-          <span class="cred">LCSW</span>
-          <span class="cred">Licensed in Arizona</span>
-          <span class="cred">Trauma-informed</span>
-        </div>
-
-        <p style="text-align:center;font-family:var(--serif);font-style:italic;color:var(--muted);font-size:14px;margin:16px 0 0">Warm, trauma-informed care in Mesa since 2023.</p>
-
-        <div class="founder-note">
-          <p>You do not need the right words yet. You only need to be willing to begin, and we will find the rest together.</p>
-          <span class="sig">Alicia</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Q1 -->
-    <section class="screen" data-screen="q1">
-      <div class="col">
-        <p class="q">What are you hoping for <em>more of?</em></p>
-        <p class="q-sub">There is no wrong answer. Pick what feels closest.</p>
-        <div class="options">
-          <button class="opt" onclick="pick('goal','Calm, grounded, regulated',this)"><span class="opt-txt"><b>Calm, grounded, regulated</b></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('goal','Connection and intimacy',this)"><span class="opt-txt"><b>Connection and intimacy</b></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('goal','Healthier home life',this)"><span class="opt-txt"><b>Healthier home life</b></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('goal','Healthier relationship with sex',this)"><span class="opt-txt"><b>Healthier relationship with sex</b></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('goal','Clarity and direction',this)"><span class="opt-txt"><b>Clarity and direction</b></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('goal','Healing after something hard',this)"><span class="opt-txt"><b>Healing after something hard</b></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('goal','I am not sure yet',this)"><span class="opt-txt"><b>I am not sure yet</b></span><span class="mk">&#10003;</span></button>
-        </div>
-        <div class="nav"><button class="back" onclick="go('landing')">&larr; Back</button></div>
-      </div>
-    </section>
-
-    <!-- Q2 -->
-    <section class="screen" data-screen="q2">
-      <div class="col">
-        <p class="q">What would you like to <em>work on?</em></p>
-        <p class="q-sub">This helps us match you to the right person across the practice.</p>
-        <div class="options">
-          <button class="opt" onclick="pick('area','Relationship with myself (individual therapy)',this)"><span class="opt-txt"><b>Relationship with myself</b><small>individual therapy</small></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('area','My marriage/partnership (couples)',this)"><span class="opt-txt"><b>My marriage/partnership</b><small>couples work</small></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('area','Parenting and family',this)"><span class="opt-txt"><b>Parenting and family</b><small>raising kids &amp; family dynamics</small></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('area','Teens and pre-teens',this)"><span class="opt-txt"><b>My teen or pre-teen</b><small>therapy for young people</small></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('area','Postpartum and new parenthood',this)"><span class="opt-txt"><b>Postpartum and new parenthood</b><small>perinatal support</small></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('area','Growth and coaching',this)"><span class="opt-txt"><b>Personal growth</b><small>coaching</small></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('area','Deeper holistic work',this)"><span class="opt-txt"><b>Deeper, holistic work</b><small>somatic &amp; ketamine-assisted</small></span><span class="mk">&#10003;</span></button>
-        </div>
-        <div class="nav"><button class="back" onclick="go('q1')">&larr; Back</button></div>
-      </div>
-    </section>
-
-    <!-- Q3 -->
-    <section class="screen" data-screen="q3">
-      <div class="col">
-        <p class="q">How would you like to <em>meet?</em></p>
-        <p class="q-sub">The team sees clients in Mesa and across Arizona by telehealth.</p>
-        <div class="options">
-          <button class="opt" onclick="pick('mode','In person in Mesa',this)"><span class="opt-txt"><b>In person in Mesa</b></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('mode','Telehealth',this)"><span class="opt-txt"><b>Telehealth</b><small>anywhere in Arizona</small></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('mode','Either works',this)"><span class="opt-txt"><b>Either works for me</b></span><span class="mk">&#10003;</span></button>
-        </div>
-        <div class="nav"><button class="back" onclick="go('q2')">&larr; Back</button></div>
-      </div>
-    </section>
-
-    <!-- Q4 -->
-    <section class="screen" data-screen="q4">
-      <div class="col">
-        <p class="q">How soon do you want to <em>begin?</em></p>
-        <p class="q-sub">No pressure either way. This helps us hold the right time for you.</p>
-        <div class="options">
-          <button class="opt" onclick="pick('timing','This week',this)"><span class="opt-txt"><b>This week, I am ready</b></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('timing','This month',this)"><span class="opt-txt"><b>Sometime this month</b></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('timing','Exploring',this)"><span class="opt-txt"><b>Exploring for now</b></span><span class="mk">&#10003;</span></button>
-        </div>
-        <div class="nav"><button class="back" onclick="go('q3')">&larr; Back</button></div>
-      </div>
-    </section>
-
-    <!-- Q5 -->
-    <section class="screen" data-screen="q5">
-      <div class="col">
-        <p class="q">What feels right to <em>start?</em></p>
-        <p class="q-sub">Sessions range from $85 to $185 depending on the therapist. The consult is always free.</p>
-        <div class="options">
-          <button class="opt" onclick="pick('fit','Most accessible option',this)"><span class="opt-txt"><b>The most accessible option</b></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('fit','A balance',this)"><span class="opt-txt"><b>A balance of value and experience</b></span><span class="mk">&#10003;</span></button>
-          <button class="opt" onclick="pick('fit','The right fit, whatever it costs',this)"><span class="opt-txt"><b>The right fit matters most to me</b></span><span class="mk">&#10003;</span></button>
-        </div>
-        <div class="nav"><button class="back" onclick="go('q4')">&larr; Back</button></div>
-      </div>
-    </section>
-
-    <!-- MATCHING: a 1.5 second beat between question 5 and the result.
-         Not a tracked step. -->
-    <section class="screen" data-screen="matching">
-      <div class="col center" style="padding:48px 0">
-        <div class="matching-ring" aria-hidden="true"></div>
-        <p class="q">Finding your <em>match&hellip;</em></p>
-        <p class="q-sub" style="margin:0 auto">Reading your answers alongside Alicia and Kyla's focus areas.</p>
-      </div>
-    </section>
-
-    <!-- RESULT -->
-    <section class="screen" data-screen="result">
-      <div class="col">
-        <p class="eyebrow">Your fit</p>
-        <h2 id="result-head">We found your <em>best pick.</em></h2>
-        <div class="result-card">
-          <div class="match-tag on" id="match-tag"></div>
-          <div class="who">
-            <div class="avatar" id="result-avatar"></div>
-            <div>
-              <div class="who-name" id="result-name"></div>
-              <div class="who-role" id="result-role"></div>
+          <div class="trust">
+            <div class="thumbs">
+              <img class="t-alicia" id="thumb-alicia" width="600" height="800" src="../assets/img/alicia-headshot-600.jpg" alt="Alicia Wright, LCSW, founder of The Wild Within in Mesa, Arizona" fetchpriority="high">
+              <img class="t-kyla" width="715" height="894" src="../assets/img/kyla-headshot.jpg" alt="Kyla Gordon, therapist intern at The Wild Within, supervised by Alicia Wright">
+            </div>
+            <div class="trust-txt">
+              <b>Alicia Wright, LCSW</b>
+              <span>Kyla Gordon, therapist intern supervised by Alicia</span>
+              <span>In person in Mesa or telehealth anywhere in Arizona</span>
             </div>
           </div>
-          <p id="result-copy" style="margin:0;color:var(--warm-gray);font-size:15.5px"></p>
-          <div class="pa-row" id="result-pa"></div>
-          <div class="chips" id="result-chips"></div>
+
+          <div class="choose" id="choices">
+            <div class="q-row"><h2>Who is the consult for?</h2><span class="stepno">Step 1 of 3</span></div>
+            <div class="groups">
+              <button class="grp" type="button" data-group="me"><span class="g-txt"><b>For me</b><small>Therapy, new motherhood, healing, coaching</small></span><span class="arrow" style="color:#F3E6C2"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+              <button class="grp" type="button" data-group="family"><span class="g-txt"><b>For my family</b><small>Parenting, or my teen or pre-teen</small></span><span class="arrow" style="color:#F3E6C2"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+              <button class="grp" type="button" data-group="us"><span class="g-txt"><b>For us</b><small>Marriage, partnership, intimacy</small></span><span class="arrow" style="color:#F3E6C2"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+            </div>
+            <p class="price">After the free call, sessions are $85 to $185. Out of network: superbills, HSA and FSA work.<span class="d"> In person in Mesa or telehealth anywhere in Arizona.</span></p>
+          </div>
         </div>
 
-        <!-- Continue sits right under the match card so phones reach it without
-             scrolling past the team strip. The supervision note stays above the
-             button so it is read before anyone moves on. -->
-        <div class="disclaimer" id="intern-note" style="display:none">Kyla is a therapist in training, fully supervised by Alicia, which is why her rate is lower. Many clients love working with her. If you would rather see a fully licensed therapist, just say so on your consult and we will move you to Alicia.</div>
-
-        <p class="lede" style="margin:16px 0 18px" id="result-next">Your next step is a free consult. A real conversation to feel whether this is right, with no pressure to book.</p>
-        <div class="center">
-          <button class="btn btn-primary" onclick="go('capture')">Continue</button>
-          <p class="reassure">Free, and you can always reschedule.</p>
+        <div class="collage" aria-hidden="false">
+          <img class="c-alicia" id="collage-alicia" width="1200" height="1500" src="../assets/img/alicia-welcome-portrait.jpg" alt="Alicia Wright, LCSW, founder of The Wild Within" loading="lazy">
+          <div class="cap cap-a"><b>Alicia Wright, LCSW</b><span>Founder</span></div>
+          <img class="c-kyla" width="715" height="894" src="../assets/img/kyla-headshot.jpg" alt="Kyla Gordon, therapist intern supervised by Alicia Wright" loading="lazy">
+          <div class="cap cap-k"><b>Kyla Gordon</b><span>Therapist intern, supervised by Alicia</span></div>
         </div>
-
-        <div class="team-strip" style="margin-top:28px">
-          <p class="team-strip-label">Your care team &middot; tap anyone to see their profile</p>
-          <div class="team-mini" id="team-mini"></div>
-        </div>
-        <div class="nav"><button class="back" onclick="go('q5')">&larr; Back</button></div>
       </div>
-    </section>
+    </div>
 
-    <!-- CAPTURE
-         The form itself is GoHighLevel's now: an inline embed of form
-         8s2oSCET1k8mR8jokO2D, prefilled with the quiz answers by
-         renderCaptureForm() (see the script below) every time this screen is
-         entered, so nobody answers the same question twice. It collects
-         name/email/phone/note and screens bots with its own Cloudflare
-         Turnstile, which is why the custom fields, the honeypot, and the
-         reCAPTCHA mint that used to guard the Apps Script POST are all gone.
-         The lead lands in GoHighLevel directly; this page has nothing left to
-         send anywhere.
-    -->
-    <section class="screen" data-screen="capture">
-      <div class="col">
-        <p class="eyebrow">Almost there</p>
-        <h2>Where should we <em>reach you?</em></h2>
-        <p class="lede" style="margin-bottom:18px">Reaching out is the brave part. The rest we figure out together.</p>
-        <p class="reassure" style="text-align:left;margin:-4px 0 14px">Your consult is a phone call, so we need a number to reach you on. Your guide and your confirmation go to your email.</p>
-        <div class="disclaimer">Please do not include sensitive health information here. This form is not HIPAA-secured. Detailed health information is collected through your secure client portal once you begin working together.</div>
+    <div class="s1-light">
+      <img class="s1-photo" width="728" height="911" src="../assets/img/alicia-session-portrait.jpg" alt="Alicia Wright, LCSW, in her Mesa therapy office with a clipboard" loading="lazy">
+      <div class="quote-col">
+        <p class="quote">&ldquo;I&rsquo;m human and I get it. I&rsquo;ve walked the journey of healing and transformation.&rdquo;</p>
+        <p class="quote-by">Alicia Wright, MA, MSW, LCSW, in her Mesa office</p>
+        <div class="guide" data-guide="landing">
+          <h3>Not ready to book?</h3>
+          <p>Get Alicia's Grounding Handbook by email. Five body-based practices you can use tonight.</p>
+          <iframe src="about:blank" class="g-embed" style="height:240px"
+            id="inline-Zazp8ryw0cXPK0xhZBSn-landing"
+            data-layout='{"id":"INLINE"}'
+            data-trigger-type="alwaysShow"
+            data-activation-type="alwaysActivated"
+            data-deactivation-type="neverDeactivate"
+            data-form-name="Grounding Handbook signup"
+            data-layout-iframe-id="inline-Zazp8ryw0cXPK0xhZBSn-landing"
+            data-form-id="Zazp8ryw0cXPK0xhZBSn"
+            title="Get the Grounding Handbook by email" loading="lazy"></iframe>
+          <p class="msg done">Thank you. <a href="/grounding-guide" target="_blank" rel="noopener">Open the Grounding Handbook</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="book-widget" id="ghl-capture-widget" style="min-height:600px;margin-top:14px;background:var(--ivory-warm)">
-          <iframe src="" style="width:100%;height:100%;border:none;border-radius:4px"
+  <!-- ===================== STEP 2 =====================
+       Only the tapped group's options, plus "I'm not sure yet". A tap
+       advances straight to Step 3 (no Continue). -->
+  <section class="screen" data-screen="question">
+    <div class="wrap">
+      <div class="prog">
+        <div class="prog-row"><button class="back" type="button" data-go="landing"><svg aria-hidden="true"><use href="#i-back"/></svg>Back</button><span class="stepno">Step 2 of 3</span></div>
+        <div class="ticks"><i class="on"></i><i class="on"></i><i></i></div>
+      </div>
+      <div class="s-head">
+        <h2>What would you like support with?</h2>
+        <p>One tap. It tells us whether Alicia or Kyla takes your free call.</p>
+      </div>
+      <div class="chosen"><span id="chosen-label">For me</span><button type="button" data-go="landing">Change</button></div>
+      <div class="opts" id="opts"></div>
+    </div>
+  </section>
+
+  <!-- ===================== STEP 3 =====================
+       Two parts on one screen. Part 1 is GoHighLevel form 8s2oSCET1k8mR8jokO2D
+       (same form as the live funnel, so its workflow still tags the lead,
+       notifies Alicia and sends the Grounding guide). On submit GoHighLevel
+       redirects to /find-your-therapist/booked.html, which hands the lead back
+       here by postMessage or, unframed, via ?step=book. Part 2, the matched
+       therapist's GoHighLevel calendar, appears below only after that. -->
+  <section class="screen" data-screen="capture">
+   <div class="s3-grid">
+    <!-- Desktop only (1100px and up): the matched therapist, sticky beside
+         the form. renderMatch() fills it for Alicia or Kyla. -->
+    <aside class="mpanel" aria-label="Your free call">
+      <div class="mp-photo">
+        <img id="mp-img" width="715" height="894" src="../assets/img/kyla-headshot.jpg" alt="Kyla Gordon, therapist intern supervised by Alicia Wright" loading="lazy">
+        <div class="mp-name"><small>Your free call is with</small><b id="mp-name">Kyla Gordon</b><span id="mp-cred">Therapist intern supervised by Alicia Wright, LCSW</span></div>
+      </div>
+      <div class="mp-steps">
+        <h3>What happens on the free call</h3>
+        <ol>
+          <li><i aria-hidden="true">1</i><div><b>You pick a time</b><span>Any open slot that suits you.</span></div></li>
+          <li><i aria-hidden="true">2</i><div><b id="mp-calls">Kyla calls you</b><span>Thirty minutes by phone, Arizona time.</span></div></li>
+          <li><i aria-hidden="true">3</i><div><b>You decide together</b><span>Whether to keep going is up to you. No obligation.</span></div></li>
+        </ol>
+      </div>
+      <div class="mp-foot">
+        <p>After the free call, sessions are $85 to $185. Out of network: superbills, HSA and FSA work.</p>
+        <p class="mp-call">Rather talk first? Call <a href="tel:+14807712181" data-call="step3_panel">(480) 771-2181</a></p>
+      </div>
+    </aside>
+
+    <div class="wrap" id="s3">
+      <div class="prog">
+        <div class="prog-row"><button class="back" type="button" data-go="question" id="s3-back"><svg aria-hidden="true"><use href="#i-back"/></svg>Back</button><span class="stepno">Step 3 of 3</span></div>
+        <div class="ticks"><i class="on"></i><i class="on"></i><i class="on"></i></div>
+      </div>
+      <div class="s3">
+        <h2>Save your spot.</h2>
+        <p class="s3-sub" id="s3-sub">Your name and number first. Then Kyla's open times appear below.</p>
+        <div class="match">
+          <img id="m-img" width="715" height="894" src="../assets/img/kyla-headshot.jpg" alt="">
+          <div><b id="m-name">Your free call is with Kyla Gordon</b><span id="m-line">Therapist intern supervised by Alicia Wright, LCSW. Mesa office or telehealth anywhere in Arizona.</span></div>
+        </div>
+        <div class="frame" id="form-frame">
+          <iframe src="about:blank" style="height:640px"
             id="inline-8s2oSCET1k8mR8jokO2D"
             data-layout='{"id":"INLINE"}'
             data-trigger-type="alwaysShow"
@@ -526,174 +592,140 @@
             data-form-name="Wild Within Funnel"
             data-layout-iframe-id="inline-8s2oSCET1k8mR8jokO2D"
             data-form-id="8s2oSCET1k8mR8jokO2D"
-            title="Wild Within Funnel"></iframe>
+            title="Your name, phone and email for the free consult"></iframe>
         </div>
-
-        <!-- Fallback only. go('book') normally fires itself the moment the
-             postMessage handler below recognizes a submission from the frame
-             above; this button appears well after arriving in case that
-             message never comes, so nobody is stranded on a form with no way
-             off the screen. It is deliberately a ghost button with a
-             different label: the form's own submit reads "Continue to
-             booking", and two identical primary buttons on one screen would
-             invite the visitor to skip the form entirely, which loses the
-             lead. -->
-        <div class="center" id="capture-continue-wrap" style="display:none;margin-top:16px">
-          <button class="btn btn-ghost" onclick="go('book')">I already submitted, take me to booking</button>
-          <p class="reassure">Only if the form above already thanked you and nothing happened.</p>
-        </div>
-
-        <div class="trust-card">
-          <h4>Why clients start here</h4>
-          <div class="row"><i>&#10003;</i>A real conversation, free, with no pressure to book.</div>
-          <div class="row"><i>&#10003;</i><span id="trust-consult">You meet the therapist matched to you, directly.</span></div>
-          <div class="row"><i>&#10003;</i>In person in Mesa or telehealth anywhere in Arizona.</div>
-          <div class="row"><i>&#10003;</i>Warm, trauma-informed, and human.</div>
-        </div>
-        <div class="nav"><button class="back" onclick="go('result')">&larr; Back</button></div>
+        <div class="frame got"><i style="color:#FAF7F2"><svg aria-hidden="true"><use href="#i-check"/></svg></i><div><b id="got-head">Thank you. Your details are in.</b><span id="got-line">Now pick a time below.</span></div></div>
+        <p class="formnote" id="formnote">Kyla calls you at this number. Leave health details out of this form; they belong in your secure client portal later.</p>
       </div>
-    </section>
 
-    <!-- BOOK
-         The last step, and the only one that is not ours. The widget is the
-         matched therapist's GoHighLevel calendar: it reads live availability,
-         writes the appointment, and emails the confirmation itself. That is
-         the whole reason it is here rather than a row of buttons. The old
-         buttons were a request that this page announced as a booking, and the
-         Apps Script behind them failed five different ways while the screen
-         still read "Your consult is set."
-
-         Availability is NOT this file's business any more. Change a callback
-         window on the calendar in GoHighLevel and this page follows.
-    -->
-    <section class="screen" data-screen="book">
-      <div class="col">
-        <p class="eyebrow">Last step</p>
-        <h2 id="book-head">Pick a time with <em>your therapist.</em></h2>
-        <p class="lede" style="margin-bottom:18px" id="book-lede">A free 30 minute call, shown in your own time zone.</p>
-
-        <div class="book-widget" id="book-widget"></div>
-
-        <p class="reassure" style="text-align:left;margin:14px 0 4px">Consults fill from a small number of callback times each week, so the list is short on purpose. Nothing here is a commitment: it is a conversation, and you decide from there.</p>
-
-        <div class="center">
-          <button class="btn btn-ghost" onclick="skipBooking()">I would rather you reach out to me</button>
-          <p class="reassure">Your answers are already with the practice either way, and your grounding guide is on its way to your inbox.</p>
-        </div>
-        <div class="nav"><button class="back" onclick="go('capture')">&larr; Back</button></div>
-      </div>
-    </section>
-
-    <!-- THANK YOU -->
-    <section class="screen" data-screen="thankyou">
-      <div class="col">
-        <p class="eyebrow">You are in good hands</p>
-        <h2 id="ty-head">We have your <em>answers.</em></h2>
-        <p class="lede" style="margin-bottom:14px" id="ty-line">Your match has been sent to the practice. You will hear from us within one business day.</p>
-
-        <!--
-          Booking left this screen for good on 2026-09-02. It happens on the
-          book screen, inside GoHighLevel's widget, which confirms it there.
-          So the only person who ever reaches this screen is one who chose not
-          to pick a time, and every line on it says "we will reach out". No
-          copy here may say booked, held, set, or confirmed.
-        -->
-        <div class="confirm show" id="booked"></div>
-        <div class="next-steps show" id="next-steps">
-          <h4>What happens next</h4>
-          <div class="step"><b>1.</b>Your grounding guide is on its way to your inbox.</div>
-          <div class="step" id="step-follow"><b>2.</b>Your therapist reaches out within one business day to find a time.</div>
-          <div class="step"><b>3.</b>You have a free 30 minute consult, and you decide from there.</div>
-        </div>
-
-        <div class="guide">
-          <div class="ic">&#128220;</div>
-          <div>
-            <div style="font-weight:600;color:var(--plum-deep)">Your free grounding guide is on its way.</div>
-            <div style="font-size:13.5px;color:var(--muted)">A short nervous-system reset you can use tonight. Check your inbox in a few minutes.</div>
+      <div class="s3-time" id="s3-time">
+        <h3 id="cal-head">Pick a time with Kyla</h3>
+        <div class="frame" id="cal-frame">
+          <div class="cal-lock" id="cal-wait">
+            <div class="cl-top" aria-hidden="true"><b id="cl-month"></b><span><svg><use href="#i-back"/></svg><svg><use href="#i-chev"/></svg></span></div>
+            <div class="cl-days" id="cl-days" aria-hidden="true"></div>
+            <div class="cl-times" aria-hidden="true"><span style="--w:64px"></span><span style="--w:72px"></span><span style="--w:60px"></span><span style="--w:70px"></span><span style="--w:62px"></span><span style="--w:68px"></span></div>
+            <div class="cl-veil" aria-hidden="true"></div>
+            <p class="cl-chip"><span><svg aria-hidden="true"><use href="#i-lock"/></svg><em class="m" style="font-style:normal">Times open once your details are in</em><em class="d" id="cl-chip-d" style="font-style:normal">Kyla's times open once your details are in</em></span></p>
           </div>
         </div>
+        <p class="cal-note">Free 30-minute phone call, Arizona time.</p>
+        <button class="skip" type="button" id="skip" style="display:none">I'd rather you reach out to me</button>
+      </div>
 
-        <div class="foot">
-          The Wild Within Counseling and Holistic Therapy &middot; Alicia Wright, MA, MSW, LCSW<br>
-          Licensed in Arizona &middot; In person in Mesa, telehealth across Arizona
+      <div class="s3-gwrap">
+        <div class="guide gcard" data-guide="capture">
+          <div class="book" aria-hidden="true"><span class="b-the">THE</span><span class="b-t"><span>Grounding</span><span>Handbook</span></span><span class="b-by">Alicia Wright, LCSW</span></div>
+          <div class="g-body">
+            <div class="g-txt">
+              <h3>Not ready to book?</h3>
+              <p>Get Alicia's Grounding Handbook by email. Five body-based practices you can use tonight.</p>
+            </div>
+            <div class="g-frame">
+              <iframe src="about:blank" class="g-embed" style="height:240px"
+                id="inline-Zazp8ryw0cXPK0xhZBSn-capture"
+                data-layout='{"id":"INLINE"}'
+                data-trigger-type="alwaysShow"
+                data-activation-type="alwaysActivated"
+                data-deactivation-type="neverDeactivate"
+                data-form-name="Grounding Handbook signup"
+                data-layout-iframe-id="inline-Zazp8ryw0cXPK0xhZBSn-capture"
+                data-form-id="Zazp8ryw0cXPK0xhZBSn"
+                title="Get the Grounding Handbook by email" loading="lazy"></iframe>
+            </div>
+            <p class="msg done">Thank you. <a href="/grounding-guide" target="_blank" rel="noopener">Open the Grounding Handbook</a></p>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+   </div>
+  </section>
 
+  <!-- ===================== THANK YOU (chose not to book) =====================
+       Only reached by someone who skipped the calendar, so nothing here may
+       say booked, set or confirmed. -->
+  <section class="screen" data-screen="thankyou">
+    <div class="wrap">
+      <div class="ty">
+        <h2 id="ty-head">We have your details, <em>thank you.</em></h2>
+        <p>The practice has your request. You'll hear from us within one business day.</p>
+        <ol>
+          <li>Your Grounding Handbook is on its way to your inbox.</li>
+          <li id="ty-follow">Your therapist reaches out within one business day to find a time.</li>
+          <li>You have a free 30-minute consult, and you decide from there.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot-a">
+    <p class="fn">The Wild Within Counseling and Holistic Therapy</p>
+    <div class="fl">
+      <span>2160 E Brown Rd, Suite 3, Mesa, AZ 85213</span><span class="sep"> &middot; </span>
+      <a href="tel:+14807712181" data-call="footer">(480) 771-2181</a>
+      <span class="lic">Alicia Wright, MA, MSW, LCSW. Therapy for people located in Arizona.</span>
+    </div>
   </div>
+  <span class="lic-d">Alicia Wright, MA, MSW, LCSW. Therapy for people located in Arizona.</span>
+</footer>
 
-  <div class="stage-foot">The Wild Within &middot; Alicia Wright, LCSW &middot; Licensed in Arizona</div>
+<div class="bar dark" id="bar" aria-hidden="true">
+  <a class="b-call" href="tel:+14807712181" data-call="sticky" tabindex="-1"><svg aria-hidden="true"><use href="#i-phone"/></svg>Call</a>
+  <button class="b-go" type="button" id="bar-go" tabindex="-1">Book my free consult<i style="color:#C9A84C"><svg aria-hidden="true"><use href="#i-arrow"/></svg></i></button>
 </div>
 
-<!-- reCAPTCHA v3 is gone from this page. It existed only to mint a token for
-     the Apps Script POST the old capture form fired. The GoHighLevel form
-     embedded on the capture screen now has its own Cloudflare Turnstile, so
-     nothing on this page needs to solve a captcha of its own any more. -->
-
 <!-- ===================== MEASUREMENT =====================
-     Both IDs are PUBLIC by design, same as the reCAPTCHA site key above. The
-     Meta CAPI access token is NOT here and must never be: it belongs in Apps
-     Script Properties on the funnel backend.
+     Same IDs and event names as /find-your-therapist/: GA4 G-ZNHN4MEPZ8
+     (funnel_step, generate_lead, consult_booked, phone_call_click,
+     funnel_booking_skipped, guide_signup) and Meta dataset 2614392979029565
+     (PageView, ViewContent, FunnelStep, QuizCapture, Lead and Schedule with
+     eventID, Contact, GuideSignup).
+     Events carry the step and utm_content only. The group or option picked,
+     and the therapist it routes to, never go to Meta or GA4: that is health
+     information about a person. It goes only to the practice's own CRM.
 
-     Each ID is independently gated: an ID still reading PASTE_ loads nothing and
-     fires nothing, so the page is never half-instrumented in a way that reports
-     partial data as if it were whole.
-
-     GA4 is live on G-ZNHN4MEPZ8, the same property as the main site, so funnel
-     sessions land in the same reports rather than a second island of data.
-
-     The Meta pixel is live on dataset 2614392979029565, "The Wild Within
-     Website", created 2026-09-15 and connected to ad account
-     1598015498381981. Never send quiz answers to Meta as event parameters.
-     They describe a named person's health and that violates Meta's Business
-     Tools Terms. Event name and content_name only.
--->
+     ?ww_qa=1 loads neither tag. gtag/fbq become local recorders that push to
+     window.__wwEvents, so the page can be walked end to end on the live URL
+     without sending test events into the ad account. -->
 <script>
-  window.WW_GA4_ID        = "G-ZNHN4MEPZ8";              // same GA4 property as the main site
-  window.WW_META_PIXEL_ID = "2614392979029565";          // The Wild Within Website, created 2026-09-15
+  window.WW_GA4_ID        = "G-ZNHN4MEPZ8";
+  window.WW_META_PIXEL_ID = "2614392979029565";
+  window.WW_QA = /[?&]ww_qa=1\b/.test(location.search);
 
   (function () {
-    function set(v){ return v && v.indexOf('PASTE_') !== 0; }
-
-    // ---- GA4 ----
-    if (set(window.WW_GA4_ID)) {
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function(){ window.dataLayer.push(arguments); };
-      gtag('js', new Date());
-      // Page path is not part of this config, so moving the page does not
-      // touch GA4.
-      gtag('config', window.WW_GA4_ID);
-      var g = document.createElement('script');
-      g.async = true;
-      g.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(window.WW_GA4_ID);
-      document.head.appendChild(g);
-    }
-
-    // ---- Meta Pixel ----
-    if (set(window.WW_META_PIXEL_ID)) {
-      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
-      (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', window.WW_META_PIXEL_ID);
+    if (window.WW_QA) {
+      window.__wwEvents = [];
+      window.gtag = function(){ window.__wwEvents.push(['gtag'].concat([].slice.call(arguments))); };
+      window.fbq  = function(){ window.__wwEvents.push(['fbq'].concat([].slice.call(arguments))); };
       fbq('track', 'PageView');
-      // Someone opening the funnel has shown intent beyond a site visit. This
-      // is the top of the audience Meta optimises toward.
       fbq('track', 'ViewContent', { content_name: 'Find Your Therapist funnel' });
+      return;
     }
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ window.dataLayer.push(arguments); };
+    gtag('js', new Date());
+    gtag('config', window.WW_GA4_ID);
+    var g = document.createElement('script');
+    g.async = true;
+    g.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(window.WW_GA4_ID);
+    document.head.appendChild(g);
+
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+    (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', window.WW_META_PIXEL_ID);
+    fbq('track', 'PageView');
+    fbq('track', 'ViewContent', { content_name: 'Find Your Therapist funnel' });
   })();
 
-  /* One call site for both platforms, so a future event can never end up in
-   * GA4 and missing from Meta. Safe to call before either script loads and
-   * safe to call when neither is configured.
-   */
-  /* metaOpts.custom marks an event name Meta does not define itself, which has
-   * to go through trackCustom rather than track. Meta silently drops a made-up
-   * name sent via track, so the step events would look fine in the console and
-   * never arrive. eventID is passed through either way for Lead dedup.
-   */
+  /* One call site for both platforms. metaOpts.custom sends a non-standard
+   * name through trackCustom (track drops unknown names silently). eventID
+   * passes through for Lead/Schedule dedup with the server-side copy. */
   function wwTrack(ga4Event, params, metaEvent, metaParams, metaOpts){
     try { if (typeof gtag === 'function' && ga4Event) gtag('event', ga4Event, params || {}); } catch(e){}
     try {
@@ -705,245 +737,310 @@
       }
     } catch(e){}
   }
-
-  /* One ID per conversion, sent to the browser pixel AND to the Conversions
-   * API call the Apps Script backend makes. Meta collapses the pair into a
-   * single Lead. Skip it and every converted visitor whose pixel loaded gets
-   * counted twice, which halves the reported cost per lead.
-   */
   function wwEventId(){
     try { if (window.crypto && crypto.randomUUID) return crypto.randomUUID(); } catch(e){}
     return 'ww-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
   }
-
-  /* Meta's own browser cookie. Passing it to CAPI is the single biggest
-   * match-quality lift available without collecting more personal data. */
-  function wwFbp(){
-    var m = document.cookie.match(/(?:^|;\s*)_fbp=([^;]+)/);
-    return m ? decodeURIComponent(m[1]) : '';
-  }
 </script>
-<noscript><!-- Meta noscript pixel is deliberately omitted: the funnel is a
-  five-step JS quiz, so a no-JS visitor can never reach a conversion and the
-  extra image request would only inflate PageView against zero possible Leads.
---></noscript>
 <script>
-  var answers = {};
-  var order = ['q1','q2','q3','q4','q5'];
+  var FUNNEL = 'find_your_therapist';   // unchanged, so GA4 reporting stays one series
 
-  function tpFallback(img, letter){
-    var s = document.createElement('span');
-    s.className = 'tp-av tp-mono';
-    s.textContent = letter;
-    img.replaceWith(s);
+  /* ---------- Lead source, stored once per session ---------- */
+  var SOURCE_KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+  var leadSource = (function(){
+    var saved = {};
+    try { saved = JSON.parse(sessionStorage.getItem('ww_src') || '{}'); } catch(e){ saved = {}; }
+    var qs = new URLSearchParams(window.location.search);
+    var out = {}; var sawFresh = false;
+    SOURCE_KEYS.forEach(function(k){ var v = qs.get(k) || ''; if(v) sawFresh = true; out[k] = v || saved[k] || ''; });
+    out.click_id = qs.get('fbclid') || qs.get('gclid') || saved.click_id || '';
+    if(qs.get('fbclid') || qs.get('gclid')) sawFresh = true;
+    out.referrer = sawFresh ? (document.referrer || '') : (saved.referrer || document.referrer || '');
+    out.landing_page = saved.landing_page || window.location.href;
+    try { sessionStorage.setItem('ww_src', JSON.stringify(out)); } catch(e){}
+    return out;
+  })();
+  // The only ad context any event carries.
+  function adTag(){ return leadSource.utm_content || '(none)'; }
+
+  /* ---------- Message-matched headline (Paper "Headline variants") ----------
+   * Only the headline and subline swap. Unknown or missing utm_content shows
+   * the default. ad04's ad is Alicia's own hand-on-heart photo, so her
+   * phone thumbnail swaps to that photo. */
+  /* l1/l2 text is hand-wrapped, not just split for color: each is its own
+     line (.hl .l1, .l2{display:block}) and a   (non-breaking space)
+     between two words means "never let a line break fall between these",
+     which is how a couple of these stop a single word landing alone on its
+     own line at some width. Checked at 390/930/1100/1280/1440 2026-10-02. */
+  var HEADLINES = {
+    'default':               { l1:'Holistic therapy', l2:'for women and moms.', m:'Two taps, then pick a time to talk.', d:'Two clicks, then pick a time to talk.' },
+    'ad01_get_matched':      { l1:'Get matched with', l2:'your therapist.', m:'Two taps, then pick a time to talk.', d:'Two clicks, then pick a time to talk.' },
+    'ad02_motherhood':       { l1:'Support for the parts of motherhood', l2:'nobody talks about.', m:'Individual therapy in Mesa. Two taps to start.', d:'Individual therapy in Mesa. Two clicks to start.', long:true },
+    'ad03_your_terms':       { l1:'Therapy the way', l2:'you want it.', m:'Mesa or telehealth. Two taps to start.', d:'Mesa or telehealth. Two clicks to start.' },
+    'ad04_back_to_yourself': { l1:'Therapy for finding', l2:'your way back to yourself.', m:'Come as you are. Two taps to start.', d:'Come as you are. Two clicks to start.', long:true, aliciaPhoto:true }
+  };
+  function applyHeadline(){
+    var key = new URLSearchParams(location.search).get('utm_content') || leadSource.utm_content || '';
+    var h = HEADLINES[key] || HEADLINES['default'];
+    var hl = document.getElementById('hl');
+    hl.querySelector('.l1').textContent = h.l1;
+    hl.querySelector('.l2').textContent = h.l2;
+    hl.classList.toggle('long', !!h.long);
+    var sub = document.getElementById('sub');
+    sub.querySelector('.m').textContent = h.m;
+    sub.querySelector('.d').textContent = h.d;
+    if (h.aliciaPhoto) {
+      var t = document.getElementById('thumb-alicia');
+      t.src = '../assets/img/alicia-hand-on-heart.jpg'; t.width = 749; t.height = 826;
+      t.style.objectPosition = '50% 12%';
+      t.alt = 'Alicia Wright, LCSW, with a hand on her heart';
+      // Phone thumbnail only, as drawn in Paper. The desktop portrait keeps
+      // the welcome portrait: the hand-on-heart photo is the same session
+      // (chair, outfit, room) as the office photo below it.
+    }
+    return key in HEADLINES ? key : 'default';
   }
-  var encourage = ['A few soft questions to begin.','You are doing beautifully.','Halfway there.','Almost done.','Last one, promise.'];
+  window.__wwHeadline = applyHeadline();
+
+  /* ---------- Groups, options and routing ----------
+   * Routing is the v2 ROUTES map (itself collapsed from the live quiz's
+   * matchTherapist(), commit 32397ac):
+   *   couples, parenting, coaching, trauma / ketamine, intimacy -> Alicia
+   *   individual, postpartum / new motherhood, teens           -> Kyla
+   *   "I'm not sure yet"                                        -> Kyla, the old default,
+   * except under "For us": every option there is couples work, which Kyla
+   * cannot take, so not sure routes to Alicia (the live quiz's aliciaOnly rule
+   * on the couples area). */
+  var GROUPS = {
+    me: { label:'For me', options:[
+      { v:'Individual therapy',         b:'Therapy for me', s:'One-on-one, life transitions', to:'kyla' },
+      { v:'Motherhood and postpartum',  b:'Pregnancy, postpartum or new motherhood', to:'kyla' },
+      { v:'Trauma and deeper healing',  b:'Trauma and deeper healing', s:'Somatic and ketamine-assisted work', to:'alicia' },
+      { v:'Coaching and growth',        b:'Coaching and personal growth', to:'alicia' }
+    ], unsure:'kyla' },
+    family: { label:'For my family', options:[
+      { v:'Parenting and family',       b:'Parenting and family life', to:'alicia' },
+      { v:'Teens and pre-teens',        b:'My teen or pre-teen', to:'kyla' }
+    ], unsure:'kyla' },
+    us: { label:'For us', options:[
+      { v:'Couples and partnership',    b:'My marriage or partnership', s:'Couples work', to:'alicia' },
+      { v:'Intimacy and sexual health', b:'Intimacy and sexuality', to:'alicia' }
+    ], unsure:'alicia' }
+  };
+  function routeTherapist(groupKey, value){
+    var g = GROUPS[groupKey];
+    if(!g) return 'kyla';
+    if(value === 'Not sure yet') return g.unsure;
+    for(var i=0;i<g.options.length;i++){ if(g.options[i].v === value) return g.options[i].to; }
+    return 'kyla';
+  }
+
+  var group = '';          // step-1 tap
+  var answer = '';         // step-2 tap
+  var suggestedKey = 'kyla';
 
   var team = {
-    alicia:{ name:'Alicia Wright, LCSW', role:'Founder & Lead Therapist', img:'../assets/img/alicia-headshot.jpg', mono:'A', short:'Alicia', tag:'Founder', price:'$165–185', avail:'Next opening in about 2 weeks', availShort:'~2 wk wait', bio:'Founder of The Wild Within with 15+ years of experience. Alicia holds space for trauma, deep healing, couples, parenting and family work, coaching, and holistic and ketamine-assisted work, warm and human, never clinical.' },
-    kyla:{ name:'Kyla Gordon', role:'Therapist, supervised by Alicia', img:'../assets/img/kyla-avatar.jpg', mono:'K', short:'Kyla', tag:'Teens, postpartum & individual therapy', price:'$85–110', avail:'Open this week', availShort:'Open this week', bio:'An Arizona native focused on individual therapy, teens and pre-teens, postpartum and perinatal mental health, and life transitions. Trauma-informed and solution-focused, fully supported under Alicia\'s clinical supervision.' }
+    alicia:{ name:'Alicia Wright', short:'Alicia', img:'../assets/img/alicia-headshot-600.jpg', w:600, h:800,
+             line:'LCSW and founder. Mesa office or telehealth anywhere in Arizona.',
+             cred:'LCSW and founder of The Wild Within', panel:'../assets/img/alicia-welcome-portrait.jpg', pw:1200, ph:1500, pos:'50% 30%' },
+    kyla:  { name:'Kyla Gordon', short:'Kyla', img:'../assets/img/kyla-headshot.jpg', w:715, h:894,
+             line:'Therapist intern supervised by Alicia Wright, LCSW. Mesa office or telehealth anywhere in Arizona.',
+             cred:'Therapist intern supervised by Alicia Wright, LCSW', panel:'../assets/img/kyla-headshot.jpg', pw:715, ph:894, pos:'50% 22%' }
   };
-  var suggestedKey = 'alicia';
 
-  /**
-   * The booking calendars, one per therapist, in GoHighLevel.
-   *
-   * Availability lives in GoHighLevel now and not in this file. The six
-   * callback windows Alicia and Kyla confirmed on 2026-08-18 are configured on
-   * the calendars themselves, as 30 minute slots with a 12 hour minimum
-   * notice. That is why the old CONSULT_WINDOWS array is gone: it was a second
-   * copy of the truth, hand-synced with a third copy in the Apps Script, and
-   * it had already drifted to six bookable slots a week against the twelve
-   * that were agreed.
-   *
-   * The widget shows real remaining availability, takes the booking itself,
-   * and sends its own confirmation email, so this page never has to claim a
-   * booking it cannot see.
-   */
-  var GHL_CALENDARS = {
-    alicia: 'EeKSRGW3RiiNtV6iYSLW',
-    kyla:   'HdKli23GkD95m7iL2ZA8'
-  };
-  var GHL_WIDGET_BASE = 'https://api.leadconnectorhq.com/widget/booking/';
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 
-  /**
-   * Splits "First Last" the way the GoHighLevel booking form expects. Anything
-   * after the first word is the last name, so two-part and hyphenated
-   * surnames survive intact.
-   */
-  function splitName(full){
-    var parts = (full || '').trim().split(/\s+/);
-    return { first: parts.shift() || '', last: parts.join(' ') };
+  function renderOptions(){
+    var g = GROUPS[group] || GROUPS.me;
+    document.getElementById('chosen-label').textContent = g.label;
+    var html = g.options.map(function(o){
+      return '<button class="opt" type="button" data-v="' + esc(o.v) + '"><span class="o-txt"><b>' + esc(o.b) + '</b>'
+        + (o.s ? '<small>' + esc(o.s) + '</small>' : '') + '</span>'
+        + '<svg class="chev" style="color:#4A2848" aria-hidden="true"><use href="#i-chev"/></svg>'
+        + '<span class="tick" style="color:#FAF7F2"><svg aria-hidden="true"><use href="#i-check"/></svg></span></button>';
+    }).join('');
+    html += '<button class="opt unsure" type="button" data-v="Not sure yet"><b>I\'m not sure yet</b><small>We\'ll help on the call</small></button>';
+    document.getElementById('opts').innerHTML = html;
   }
 
-  /**
-   * Hands the widget a phone number in the shape it parses most reliably.
-   * A plain US ten digit number, however it was punctuated, becomes +1XXXXXXXXXX.
-   * Anything else is passed through untouched rather than mangled, because a
-   * number this does not recognise is far more likely to be a real one typed
-   * unusually than a mistake worth correcting.
-   */
+  /* ---------- GoHighLevel ---------- */
+  var GHL_CALENDARS = { alicia:'EeKSRGW3RiiNtV6iYSLW', kyla:'HdKli23GkD95m7iL2ZA8' };
+  var GHL_WIDGET_BASE = 'https://api.leadconnectorhq.com/widget/booking/';
+  var GHL_FORM_ID   = '8s2oSCET1k8mR8jokO2D';
+  var GHL_FORM_BASE = 'https://api.leadconnectorhq.com/widget/form/' + GHL_FORM_ID;
+
   function e164(phone){
     var d = (phone || '').replace(/\D/g, '');
     if (d.length === 10) return '+1' + d;
     if (d.length === 11 && d.charAt(0) === '1') return '+' + d;
     return phone || '';
   }
-
-  /**
-   * The lead-capture form now lives entirely in GoHighLevel: an inline embed
-   * of form 8s2oSCET1k8mR8jokO2D. It collects name/email/phone/note itself
-   * and screens bots with its own Cloudflare Turnstile, which is why the
-   * custom fields, the honeypot, and the reCAPTCHA mint that used to guard
-   * the Apps Script POST are gone (see submitLead's old home, deleted below).
-   * This funnel's only remaining job on this screen is handing the form the
-   * quiz answers as URL params before it loads.
-   */
-  var GHL_FORM_ID   = '8s2oSCET1k8mR8jokO2D';
-  var GHL_FORM_BASE = 'https://api.leadconnectorhq.com/widget/form/' + GHL_FORM_ID;
-
-  /**
-   * Appends key=value to a prefill query only when there is something to
-   * send. Skipping empty answers avoids handing GoHighLevel a blank value it
-   * would otherwise render into the field. And exactly like the booking
-   * widget's email prefill above, the widget double-decodes the query string
-   * so a "+" would arrive as a space: nothing in the quiz answers contains
-   * one today, but if that ever changes the safe move is to drop the param
-   * rather than send it wrong.
-   */
+  // The widget double-decodes its query string, so a "+" would arrive as a
+  // space. Drop any value containing one rather than send it wrong.
   function ghlParam(list, key, rawValue){
     if(!rawValue) return;
     if(String(rawValue).indexOf('+') !== -1) return;
     list.push(key + '=' + encodeURIComponent(rawValue));
   }
-
-  /**
-   * Builds the capture form's src fresh every time the capture screen is
-   * entered (see show()), so an answer changed after going Back is always the
-   * one that rides along, never a stale one from an earlier pass through.
-   */
-  function buildGhlFormUrl(){
-    var t = team[suggestedKey] || team.alicia;
+  // withAnswer=false is the Step 2 preload: same form, ad context only.
+  function buildGhlFormUrl(withAnswer){
     var params = [];
-    ghlParam(params, 'hoping_for',         answers.goal);
-    ghlParam(params, 'wants_to_work_on',   answers.area);
-    ghlParam(params, 'session_preference', answers.mode);
-    ghlParam(params, 'timing',             answers.timing);
-    ghlParam(params, 'what_matters_most',  answers.fit);
-    ghlParam(params, 'matched_therapist',  t.short);
-    ghlParam(params, 'ad_source',          leadSource.utm_source);
-    ghlParam(params, 'ad_campaign',        leadSource.utm_campaign);
-    ghlParam(params, 'ad_content',         leadSource.utm_content);
-    ghlParam(params, 'landing_page',       leadSource.landing_page);
-    ghlParam(params, 'click_id',           leadSource.click_id);
+    if (withAnswer) {
+      // To the practice's CRM only, so Alicia sees what they picked.
+      ghlParam(params, 'wants_to_work_on',  (GROUPS[group] ? GROUPS[group].label + ': ' : '') + answer);
+      ghlParam(params, 'matched_therapist', team[suggestedKey].short);
+    }
+    ghlParam(params, 'ad_source',    leadSource.utm_source);
+    ghlParam(params, 'ad_campaign',  leadSource.utm_campaign);
+    ghlParam(params, 'ad_content',   leadSource.utm_content);
+    ghlParam(params, 'landing_page', leadSource.landing_page);
+    ghlParam(params, 'click_id',     leadSource.click_id);
     return GHL_FORM_BASE + (params.length ? '?' + params.join('&') : '');
   }
-
-  function renderCaptureForm(){
-    var frame = document.getElementById('inline-8s2oSCET1k8mR8jokO2D');
-    if(frame) frame.src = buildGhlFormUrl();
-    // Re-hide the fallback button on every fresh visit to this screen, so a
-    // Back-and-forward doesn't leave it showing from a previous attempt.
-    var wrap = document.getElementById('capture-continue-wrap');
-    if(wrap) wrap.style.display = 'none';
-
-    // Same lazy loader the booking widget uses below, guarded by the same id
-    // so whichever screen a visitor reaches first is the one that fetches it.
-    if(!document.getElementById('ghl-embed-js')){
-      var s = document.createElement('script');
-      s.id = 'ghl-embed-js';
-      s.src = 'https://link.msgsndr.com/js/form_embed.js';
-      document.body.appendChild(s);
-    }
+  function loadGhlEmbed(){
+    if(document.getElementById('ghl-embed-js')) return;
+    var s = document.createElement('script');
+    s.id = 'ghl-embed-js';
+    s.src = 'https://link.msgsndr.com/js/form_embed.js';
+    document.body.appendChild(s);
+  }
+  function setFormSrc(url){
+    var f = document.getElementById('inline-' + GHL_FORM_ID);
+    if(f && f.getAttribute('src') !== url){ f.setAttribute('src', url); window.__wwFormSrc = url; }
+  }
+  /* Build note 1: start the form loading while Step 2 is on screen, so the
+   * form's scripts, styles, fonts and bot check are already warm when Step 3
+   * opens in Instagram's in-app browser. The tap then swaps in the final URL
+   * carrying the answer, which reloads from a warm cache.
+   * The preload MUST be the bare form URL. With any prefilled value GoHighLevel
+   * saves "form progress", and the reload then greets every first-time
+   * visitor with a "Submission in progress: Start over / Continue" dialog
+   * (reproduced in a fresh profile 2026-10-02). */
+  function preloadForm(){
+    setFormSrc(GHL_FORM_BASE);
+    loadGhlEmbed();
   }
 
-  /**
-   * Moving off the capture screen used to be a button click this page
-   * controlled directly. Now the form is GoHighLevel's, so the signal that
-   * someone actually submitted it has to come from inside the iframe. That
-   * signal is booked.html (see /find-your-therapist/booked.html): GoHighLevel's own
-   * "On Submit" action redirects the iframe to that page with the lead's
-   * details as query params, and booked.html hands them up to this page via
-   * postMessage. GoHighLevel does not publish a message contract for the
-   * embed itself, which is why the old loose listener is kept below, logging
-   * only, behind WW_FUNNEL_DEBUG.
-   */
-  var WW_FUNNEL_DEBUG = window.WW_FUNNEL_DEBUG || /[?&]ww_debug=1\b/.test(location.search);
-  var captureSubmitted = false;
+  function renderMatch(){
+    var t = team[suggestedKey];
+    var img = document.getElementById('m-img');
+    img.src = t.img; img.width = t.w; img.height = t.h; img.alt = t.name;
+    img.style.objectPosition = suggestedKey === 'alicia' ? '50% 22%' : '50% 25%';
+    document.getElementById('m-name').textContent = 'Your free call is with ' + t.name;
+    document.getElementById('m-line').textContent = t.line;
+    document.getElementById('formnote').textContent = t.short + ' calls you at this number. Leave health details out of this form; they belong in your secure client portal later.';
+    document.getElementById('cal-head').textContent = 'Pick a time with ' + t.short;
+    // Desktop panel and locked calendar preview.
+    var mp = document.getElementById('mp-img');
+    if (mp.getAttribute('src') !== t.panel) { mp.src = t.panel; mp.width = t.pw; mp.height = t.ph; }
+    mp.style.objectPosition = t.pos;
+    mp.alt = t.name + ', ' + t.cred;
+    document.getElementById('mp-name').textContent = t.name;
+    document.getElementById('mp-cred').textContent = t.cred;
+    document.getElementById('mp-calls').textContent = t.short + ' calls you';
+    document.getElementById('s3-sub').textContent = 'Your name and number first. Then ' + t.short + "'s open times appear below.";
+    var chip = document.getElementById('cl-chip-d');
+    if (chip) chip.textContent = t.short + "'s times open once your details are in";
+    fillPreviewDays();
+  }
 
-  /* Populated by the strict postMessage listener below, or by the step=book
-   * URL params read on page load for the unframed fallback (see the bottom
-   * of this script). renderBooking() and fillThankYou() read from here now
-   * instead of from f-name/f-phone/f-email page inputs — those fields no
-   * longer exist, the name/email/phone are typed into the GoHighLevel form
-   * now, not into this page. */
+  /* The locked preview shows the next five weekdays, so it reads as a real
+   * week. Times stay blank until the real calendar replaces it. */
+  function fillPreviewDays(){
+    var box = document.getElementById('cl-days');
+    if (!box || box.childNodes.length) return;
+    var d = new Date(); var out = []; var first = null;
+    while (out.length < 5) {
+      d.setDate(d.getDate() + 1);
+      var wd = d.getDay(); if (wd === 0 || wd === 6) continue;
+      if (!first) first = new Date(d);
+      out.push('<span><small>' + ['SUN','MON','TUE','WED','THU','FRI','SAT'][wd] + '</small><b>' + d.getDate() + '</b></span>');
+    }
+    box.innerHTML = out.join('');
+    try { document.getElementById('cl-month').textContent = first.toLocaleString('en-US', { month:'long', year:'numeric' }); } catch(e){}
+  }
+
+  var captureSubmitted = false;
   var leadDetails = { first:'', last:'', email:'', phone:'' };
 
-  function isGhlMessageOrigin(origin){
-    try {
-      var host = new URL(origin).hostname;
-      return /(^|\.)leadconnectorhq\.com$/.test(host) || /(^|\.)msgsndr\.com$/.test(host);
-    } catch(e){ return false; }
+  function fireLead(){
+    // One Lead per contact per session, even if ?step=book is reloaded.
+    var key = 'ww_lead_' + (leadDetails.email || leadDetails.phone || 'x');
+    try { if (sessionStorage.getItem(key)) return; sessionStorage.setItem(key, '1'); } catch(e){}
+    wwTrack('generate_lead', { funnel_name: FUNNEL, utm_content: adTag() },
+            'Lead', { content_name: 'Find Your Therapist funnel' }, { eventID: wwEventId() });
   }
 
-  function looksLikeGhlSubmit(data){
-    try { return JSON.stringify(data).toLowerCase().indexOf('submit') !== -1; }
-    catch(e){ return false; }
+  /* Part 2 of Step 3: the matched therapist's calendar, prefilled from the
+   * form handoff, under the confirmed form on the same screen. */
+  function renderCalendar(){
+    var t = team[suggestedKey];
+    var calId = GHL_CALENDARS[suggestedKey];
+    var q = [
+      'first_name=' + encodeURIComponent(leadDetails.first),
+      'last_name='  + encodeURIComponent(leadDetails.last),
+      'phone='      + encodeURIComponent(e164(leadDetails.phone))
+    ];
+    // A "+" in an email cannot survive the widget's double decode, so that
+    // address is not prefilled and they type it once.
+    if (leadDetails.email && leadDetails.email.indexOf('+') === -1) q.push('email=' + encodeURIComponent(leadDetails.email));
+    // The iframe id has to begin with the calendar id or the resizer never
+    // finds the frame.
+    var frameId = calId + '_' + Date.now();
+    document.getElementById('cal-frame').innerHTML = '<iframe id="' + frameId + '" src="' + GHL_WIDGET_BASE + calId + '?' + q.join('&')
+      + '" title="Book a free consult with ' + t.short + '" scrolling="no"></iframe>';
+    loadGhlEmbed();
   }
 
-  /* DEBUG ONLY, no navigation. This used to be the entire trigger: any
-   * message from a leadconnectorhq.com or msgsndr.com frame whose payload
-   * mentioned "submit" anywhere was read as a submission — loose enough that
-   * the booking widget's own resize/availability messages on those same
-   * domains could have matched it too. Kept here so ?ww_debug=1 can still
-   * show what GoHighLevel itself posts, for whenever that needs checking. */
-  window.addEventListener('message', function(evt){
-    if(!WW_FUNNEL_DEBUG) return;
-    if(!isGhlMessageOrigin(evt.origin)) return;
-    console.log('[funnel] message from', evt.origin, evt.data, looksLikeGhlSubmit(evt.data) ? '(looks like submit)' : '');
-  });
+  function markSubmitted(){
+    captureSubmitted = true;
+    var t = team[suggestedKey];
+    var s3 = document.getElementById('s3');
+    s3.classList.add('submitted');
+    var name = (leadDetails.first || '').replace(/[<>&"]/g, '');
+    document.getElementById('got-head').textContent = name ? 'Thank you, ' + name + '. Your details are in.' : 'Thank you. Your details are in.';
+    document.getElementById('got-line').textContent = t.short + ' calls you at the time you pick below.';
+    document.getElementById('s3-back').style.visibility = 'hidden';
+    document.getElementById('skip').style.display = '';
+    renderCalendar();
+    trackStep('book');
+  }
 
-  /* The real handoff. booked.html loads inside the GoHighLevel iframe after
-   * GoHighLevel's "On Submit" redirect, strips any {{contact.*}} merge token
-   * GoHighLevel failed to substitute (UNVERIFIED whether it substitutes them
-   * at all — see booked.html), and posts this exact shape up to us. Both the
-   * origin and the message shape are checked, so nothing else running on
-   * GoHighLevel's domains can trigger navigation the way the old heuristic
-   * above could have.
-   */
+  /* Lead handoff from booked.html (inside the form iframe). Origin and shape
+   * are both checked, and only while Step 3 is showing. */
   window.addEventListener('message', function(evt){
     var trustedOrigin = evt.origin === location.origin || evt.origin === 'https://thewildwithintherapy.com';
     if(!trustedOrigin) return;
     if(!evt.data || evt.data.source !== 'ww-funnel' || evt.data.type !== 'capture-complete') return;
     if(captureSubmitted) return;
-    // The book screen's own calendar widget lives on GoHighLevel domains too
-    // and posts its own messages (resize, availability, and so on). Only
-    // acting on the handoff while the visitor is actually still on the
-    // capture screen keeps a stray message from being misread as a second lead.
-    var current = document.querySelector('.screen.active');
-    if(!current || current.getAttribute('data-screen') !== 'capture') return;
-    captureSubmitted = true;
+    if(currentScreen !== 'capture') return;
     var lead = evt.data.lead || {};
     leadDetails.first = lead.first || '';
     leadDetails.last  = lead.last  || '';
     leadDetails.email = lead.email || '';
     leadDetails.phone = lead.phone || '';
-    wwTrack('generate_lead', {
-      funnel_name: 'find_your_therapist',
-      matched_therapist: (team[suggestedKey] || team.alicia).short,
-      timing: answers.timing || '',
-      mode: answers.mode || ''
-    }, 'Lead', {
-      content_name: 'Find Your Therapist funnel'
-    }, { eventID: wwEventId() });
-    show('book');
+    fireLead();
+    markSubmitted();
+    try { document.getElementById('s3-time').scrollIntoView({ behavior:'smooth', block:'start' }); } catch(e){}
   });
 
-  /* A booked call. call-booked.html loads inside the booking widget once
-   * GoHighLevel's "Redirect to URL" fires after a consult is booked, and
-   * posts this up. It is the only signal this page gets that a time was
-   * actually picked. The visitor stays on the book screen, where the widget
-   * now shows call-booked.html's confirmation. */
+  /* The booking widget reports its own height (["highlevel.setHeight",
+   * {height}]) but form_embed.js only applies that to the iframe it scanned
+   * the DOM for at script-load time -- the capture form above, present in
+   * the markup from page load, gets it for free (see the CSS note on
+   * #form-frame iframe); the calendar iframe, built by JS after that scan,
+   * does not and was left clipped at 700px. Apply it here. evt.source is
+   * checked (not just "the one #cal-frame iframe") because the guide forms'
+   * iframes send this same message and would otherwise be matched too. */
+  window.addEventListener('message', function(evt){
+    if(evt.origin !== 'https://api.leadconnectorhq.com') return;
+    var d = evt.data;
+    if(!Array.isArray(d) || d[0] !== 'highlevel.setHeight' || !d[1] || !(+d[1].height > 0)) return;
+    var f = document.querySelector('#cal-frame iframe');
+    if(f && f.contentWindow === evt.source) f.style.height = Math.min(Math.max(+d[1].height + 8, 480), 2400) + 'px';
+  });
+
+  /* Booked call, posted up by call-booked.html inside the calendar widget. */
   var bookingCounted = false;
   window.addEventListener('message', function(evt){
     var trustedOrigin = evt.origin === location.origin || evt.origin === 'https://thewildwithintherapy.com';
@@ -951,467 +1048,222 @@
     if(!evt.data || evt.data.source !== 'ww-funnel' || evt.data.type !== 'booking-complete') return;
     if(bookingCounted) return;
     bookingCounted = true;
-    var who = (team[suggestedKey] || team.alicia).short;
-    wwTrack('consult_booked', {
-      funnel_name: 'find_your_therapist',
-      matched_therapist: evt.data.therapist || who
-    }, 'Schedule', {
-      content_name: 'Find Your Therapist consult'
-    }, { eventID: wwEventId() });
+    wwTrack('consult_booked', { funnel_name: FUNNEL, utm_content: adTag() },
+            'Schedule', { content_name: 'Find Your Therapist consult' }, { eventID: wwEventId() });
     trackStep('booked');
   });
 
-  // Fallback for the visitor whose submission the postMessage above never
-  // reaches this page for: a blocked third-party frame, a GoHighLevel embed
-  // change, anything. They must never be stuck on a form with no way off this
-  // screen, so a manual way forward appears a few seconds after arriving.
-  var CAPTURE_FALLBACK_DELAY_MS = 45000;
-  function armCaptureFallback(){
-    setTimeout(function(){
-      if(captureSubmitted) return;
-      var current = document.querySelector('.screen.active');
-      if(!current || current.getAttribute('data-screen') !== 'capture') return;
-      var wrap = document.getElementById('capture-continue-wrap');
-      if(wrap) wrap.style.display = '';
-    }, CAPTURE_FALLBACK_DELAY_MS);
-  }
-
-  /**
-   * Builds the matched therapist's booking widget on the book screen,
-   * prefilled from what they just typed.
-   *
-   * Prefill is not a nicety. GoHighLevel marks first name, last name, phone
-   * and email required on its own form, so without it someone who just filled
-   * our capture screen fills a near-identical one again, one step from
-   * converting.
-   *
-   * Rebuilt every time the screen is entered, because going Back and changing
-   * an answer can change the match, and the previous therapist's calendar must
-   * never be the one left on screen.
-   */
-  function renderBooking(){
-    var host = document.getElementById('book-widget');
-    if(!host) return;
-    var t = team[suggestedKey] || team.alicia;
-    var calId = GHL_CALENDARS[suggestedKey] || GHL_CALENDARS.alicia;
-
-    var head = document.getElementById('book-head');
-    if(head) head.innerHTML = 'Pick a time with <em>' + t.short + '.</em>';
-    var lede = document.getElementById('book-lede');
-    if(lede) lede.textContent = 'A free 30 minute call, shown in your own time zone. '
-      + t.short + ' phones you at the time you pick, and your confirmation lands '
-      + 'in your inbox the moment you choose it.';
-
-    var q = [
-      'first_name=' + encodeURIComponent(leadDetails.first),
-      'last_name='  + encodeURIComponent(leadDetails.last),
-      'phone='      + encodeURIComponent(e164(leadDetails.phone))
-    ];
-
-    // GoHighLevel's widget decodes the query string twice, so a "+" in an
-    // address arrives as a space: "you%2Btherapy@gmail.com" prefills as
-    // "you therapy@gmail.com". Verified against the live widget 2026-09-02;
-    // double-encoding it as %252B is worse, it prefills the literal "%2B".
-    // A silently wrong address means the confirmation never arrives, so an
-    // address we cannot pass intact is not passed at all and they type it
-    // once. Every other address prefills normally.
-    var email = leadDetails.email;
-    if (email.indexOf('+') === -1) {
-      q.push('email=' + encodeURIComponent(email));
-    }
-    q = q.join('&');
-
-    // The iframe id has to begin with the calendar id or LeadConnector's
-    // resizer never finds the frame and the widget renders inside a stub box.
-    var frameId = calId + '_' + Date.now();
-    host.innerHTML = '<iframe id="' + frameId + '" src="' + GHL_WIDGET_BASE + calId + '?' + q
-      + '" title="Book a free consult with ' + t.short + '"'
-      // height, not min-height. LeadConnector's resizer writes an exact
-      // height onto this element once the widget measures itself, and a
-      // min-height taller than that leaves a dead band under the calendar.
-      + ' scrolling="no" style="width:100%;height:700px;border:none"></iframe>';
-
-    // Loaded once, lazily. It resizes the frame and forwards this page's query
-    // string into the widget, which is how utm_* and fbclid reach the booking.
-    if(!document.getElementById('ghl-embed-js')){
-      var s = document.createElement('script');
-      s.id = 'ghl-embed-js';
-      s.src = 'https://link.msgsndr.com/js/form_embed.js';
-      document.body.appendChild(s);
-    }
-  }
-
-  /**
-   * For someone who would rather be called than pick a time. The lead POST
-   * already fired on the capture screen, so there is nothing to submit here:
-   * this only moves them to the callback wording.
-   */
   function skipBooking(){
-    wwTrack('funnel_booking_skipped', { funnel_name: 'find_your_therapist' });
+    wwTrack('funnel_booking_skipped', { funnel_name: FUNNEL, utm_content: adTag() });
+    var t = team[suggestedKey];
+    var name = (leadDetails.first || '').replace(/[<>&"]/g, '');
+    document.getElementById('ty-head').innerHTML = 'We have your details, <em>' + (name ? name + '.' : 'thank you.') + '</em>';
+    document.getElementById('ty-follow').textContent = t.short + ' reaches out within one business day to find a time.';
     show('thankyou');
   }
 
-  function show(id){
+  /* ---------- Screens and step tracking ---------- */
+  var currentScreen = 'landing';
+  function show(id, opts){
+    opts = opts || {};
     document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
     var el = document.querySelector('[data-screen="'+id+'"]');
     if(el) el.classList.add('active');
-    document.body.classList.toggle('in-quiz', id !== 'landing');
-    if(id==='capture'){ captureSubmitted = false; renderCaptureForm(); armCaptureFallback(); }
-    if(id==='book'){ renderBooking(); }
-    if(id==='thankyou'){ fillThankYou(); }
-    window.scrollTo({top:0,behavior:'smooth'});
-    updateProgress(id);
-    trackStep(id);
+    currentScreen = id;
+    document.body.classList.toggle('dark', id === 'landing');
+    setBar();
+    if(id === 'question'){ renderOptions(); preloadForm(); }
+    if(id === 'capture'){ renderMatch(); }
+    if(!opts.noScroll){ try { window.scrollTo(0, 0); } catch(e){} }
+    if(!opts.noHistory){ try { history.pushState({ ww: id }, ''); } catch(e){} }
+    if(!opts.noTrack) trackStep(id);
   }
+  // The in-app browser's back button walks the steps instead of leaving.
+  window.addEventListener('popstate', function(e){
+    var id = e.state && e.state.ww;
+    if(!id) id = 'landing';
+    if(id === 'capture' && !answer && !captureSubmitted) id = group ? 'question' : 'landing';
+    if(id === 'question' && !group) id = 'landing';
+    show(id, { noHistory:true });
+  });
 
-  /* Step events are the entire point of running a funnel: without them you can
-   * see leads but not where the other people left. Fired once per step per
-   * visit, so going Back and forward again does not invent extra progress.
-   */
+  /* Step names capture / book / thankyou / booked keep their live names AND
+   * numbers, so reporting continues across the rebuild. Step 1 is landing (0),
+   * Step 2 is question (1), the Step 3 form screen is capture (7), the
+   * calendar opening after the form is book (8). Fired once per step per
+   * visit. step_name, step_number and utm_content only. */
   var stepsSeen = {};
-  var STEP_INDEX = { landing:0, q1:1, q2:2, q3:3, q4:4, q5:5, result:6, capture:7, book:8, thankyou:9, booked:10 };
+  var STEP_INDEX = { landing:0, question:1, capture:7, book:8, thankyou:9, booked:10 };
   function trackStep(id){
     if(stepsSeen[id]) return;
     if(!(id in STEP_INDEX)) return;
     stepsSeen[id] = true;
-    var stepParams = {
-      funnel_name: 'find_your_therapist',
-      step_name: id,
-      step_number: STEP_INDEX[id]
-    };
-    /* The same step goes to Meta as a custom event. Without it the pixel sees a
-     * landing and then nothing until Lead, so every visitor who quits mid-quiz
-     * is invisible in Events Manager. Build custom conversions off step_number
-     * to read the dropoff per screen.
-     */
+    var stepParams = { funnel_name: FUNNEL, step_name: id, step_number: STEP_INDEX[id], utm_content: adTag() };
     wwTrack('funnel_step', stepParams, 'FunnelStep', stepParams, { custom: true });
-    /* Meta files this pixel under health "core setup", which strips every
-     * custom parameter, so FunnelStep arrives with no step_number and all
-     * eleven steps look identical. Event names survive, so the contact form
-     * screen gets its own name that Meta can optimise on. Meta only: GA4
-     * already reads step_name from funnel_step.
-     */
+    // Meta strips custom params on this health-category dataset, so the
+    // form screen gets its own event NAME to optimise on. Meta only, once.
     if (id === 'capture') wwTrack(null, null, 'QuizCapture', {}, { custom: true });
   }
-  function showMatching(){
-    document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
-    document.querySelector('[data-screen="matching"]').classList.add('active');
-    document.getElementById('progress-wrap').classList.add('hidden');
-    window.scrollTo({top:0,behavior:'smooth'});
-    setTimeout(buildResult, 1500);
-  }
-  function go(id){ show(id); }
-  function start(){ show('q1'); }
 
-  function updateProgress(id){
-    var w = document.getElementById('progress-wrap');
-    var idx = order.indexOf(id);
-    if(idx === -1){ w.classList.add('hidden'); return; }
-    w.classList.remove('hidden');
-    document.getElementById('bar').style.width = ((idx+1)/order.length*100)+'%';
-    document.getElementById('step-counter').textContent = 'Step '+(idx+1)+' of '+order.length;
-    document.getElementById('encourage').textContent = encourage[idx] || '';
+  function callClick(where){
+    // A tap on the phone number is a contact. Placement only.
+    wwTrack('phone_call_click', { funnel_name: FUNNEL, link_location: where, utm_content: adTag() },
+            'Contact', { content_name: 'Find Your Therapist funnel' });
   }
 
-  function pick(key,val,btn){
-    answers[key] = val;
-    var group = btn.parentNode;
-    group.querySelectorAll('.opt').forEach(function(o){ o.classList.remove('sel'); });
-    btn.classList.add('sel');
-    var here = btn.closest('.screen').getAttribute('data-screen');
-    // A landing answer IS question 1: mirror the pick onto the q1 screen (so
-    // Back from q2 shows it chosen), record the q1 step, and move to q2.
-    if(here === 'landing'){
-      var twin = [].filter.call(document.querySelectorAll('[data-screen="q1"] .opt'), function(o){ return o.getAttribute('onclick') === btn.getAttribute('onclick'); })[0];
-      if(twin){ twin.parentNode.querySelectorAll('.opt').forEach(function(o){ o.classList.remove('sel'); }); twin.classList.add('sel'); }
-      trackStep('q1');
-      setTimeout(function(){ show('q2'); }, 300);
-      return;
-    }
-    var next = order[order.indexOf(here)+1];
-    // A short "finding your match" beat before the result, so the match
-    // reads as considered rather than instant.
-    setTimeout(function(){ next ? show(next) : showMatching(); }, 300);
+  function pickGroup(key){
+    if(!GROUPS[key]) return;
+    if(group !== key){ answer = ''; }
+    group = key;
+    show('question');
+  }
+  var advancing = false;
+  function pickOption(val, btn){
+    if(advancing) return;
+    advancing = true;
+    answer = val;
+    suggestedKey = routeTherapist(group, val);
+    try { sessionStorage.setItem('ww_match', suggestedKey); } catch(e){}
+    document.querySelectorAll('#opts .opt').forEach(function(o){ o.classList.remove('sel'); });
+    if(btn) btn.classList.add('sel');
+    setFormSrc(buildGhlFormUrl(true));
+    loadGhlEmbed();
+    // Auto-advance: a short beat so the tick registers, then Step 3.
+    setTimeout(function(){ advancing = false; show('capture'); }, 220);
   }
 
-  function matchTherapist(){
-    var area = answers.area || '';
-    var goal = answers.goal || '';
-    var fit  = answers.fit || '';
-    // Intimacy and sexual health is Alicia's lane regardless of what else was picked.
-    // CONFIRMED by Alicia in writing 2026-08-18: "Healthier relationship with sex - me. Yes."
-    if(goal === 'Healthier relationship with sex') return 'alicia';
-    // Kyla is supervised and cannot take couples, parenting, coaching, or ketamine-assisted
-    // work. These always go to Alicia, and this check runs FIRST so nothing downstream
-    // (including the budget answer) can route someone to a therapist who cannot serve them.
-    var aliciaOnly = ['My marriage/partnership (couples)','Parenting and family','Growth and coaching','Deeper holistic work'];
-    if(aliciaOnly.indexOf(area) !== -1) return 'alicia';
-    // Teens and pre-teens are Kyla's. SETTLED by Marcos 2026-08-19, and it was never Alicia's
-    // call to make. The whole point of the funnel is filling Kyla's caseload, so route to her
-    // anywhere her scope allows. The aliciaOnly check above already caught what she cannot take.
-    if(area === 'Teens and pre-teens') return 'kyla';
-    // Postpartum and perinatal support is Kyla's specialty.
-    if(area === 'Postpartum and new parenthood') return 'kyla';
-    // Individual work is Kyla's, unless they are coming in for trauma or deep healing.
-    if(area === 'Relationship with myself (individual therapy)'){
-      return goal === 'Healing after something hard' ? 'alicia' : 'kyla';
-    }
-    // Budget-led answers lean to the most accessible fit that is still in scope.
-    if(fit === 'Most accessible option') return 'kyla';
-    return 'kyla';
+  /* ---------- Sticky bar ----------
+   * Phones only (CSS hides it from 860px). Step 1: dark Call + Book, shown
+   * only once the three choices have scrolled off the top, so the first
+   * screen has one kind of action; the header call pill covers that screen.
+   * Steps 2 and 3: light, Call only (Step 2 auto-advances, Step 3's two
+   * GoHighLevel parts carry their own buttons). */
+  var choicesGone = false;
+  function setBar(){
+    var bar = document.getElementById('bar');
+    var on = currentScreen === 'landing' ? choicesGone : true;
+    bar.classList.toggle('dark', currentScreen === 'landing');
+    bar.classList.toggle('light', currentScreen !== 'landing');
+    bar.classList.toggle('show', on);
+    bar.setAttribute('aria-hidden', on ? 'false' : 'true');
+    bar.querySelectorAll('a,button').forEach(function(b){ b.tabIndex = on ? 0 : -1; });
   }
-
-  function avatarHTML(t){
-    if(t.img){ return '<img src="'+t.img+'" alt="'+t.name+'" onerror="this.parentNode.textContent=\''+t.mono+'\'">'; }
-    return t.mono;
-  }
-
-  function buildResult(){
-    suggestedKey = matchTherapist();
-    var area = answers.area || '';
-    var mode = answers.mode || 'Either works';
-
-    var areaText = {
-      'Relationship with myself (individual therapy)':'one-on-one therapy',
-      'My marriage/partnership (couples)':'couples work',
-      'Parenting and family':'parenting support',
-      'Teens and pre-teens':'therapy for your teen',
-      'Postpartum and new parenthood':'postpartum support',
-      'Growth and coaching':'coaching for growth',
-      'Deeper holistic work':'holistic, somatic work'
-    }[area] || 'the work that fits you';
-
-    var modeText = mode === 'In person in Mesa' ? 'in person in Mesa'
-                 : mode === 'Telehealth' ? 'by telehealth across Arizona'
-                 : 'in person or by telehealth';
-
-    document.getElementById('result-head').innerHTML = 'You and <span class="script">' + team[suggestedKey].short + '</span> look like a <em>good match.</em>';
-
-    var chips = [];
-    chips.push(areaText.replace(/^./,function(c){return c.toUpperCase();}));
-    chips.push(modeText.replace(/^./,function(c){return c.toUpperCase();}));
-    chips.push('Free consult');
-    document.getElementById('result-chips').innerHTML = chips.map(function(c,i){
-      return '<span class="chip" style="animation-delay:'+(i*70)+'ms">'+c+'</span>';
-    }).join('');
-
-    // Name the matched therapist on both the result and contact screens. Alicia no longer
-    // meets everyone first, so a Kyla match books straight with Kyla.
-    var matched = team[suggestedKey];
-    document.getElementById('result-next').textContent =
-      'Your next step is a free consult with ' + matched.short +
-      '. A real conversation to feel whether this is right, with no pressure to book.';
-    document.getElementById('trust-consult').textContent =
-      'You meet ' + matched.short + ' directly, the person matched to you.';
-
-    renderTeamMini();
-    viewTherapist(suggestedKey);
-    show('result');
-  }
-
-  function renderTeamMini(){
-    var mini = ['alicia','kyla'].map(function(k){
-      var m = team[k];
-      return '<div class="tm" id="tm-'+k+'" onclick="viewTherapist(\''+k+'\')">'+
-             '<div class="av">'+avatarHTML(m)+'</div>'+
-             '<div class="nm">'+m.short+'</div>'+
-             '<div class="mini-meta">'+m.availShort+'<br>'+m.price+'</div>'+
-             (k===suggestedKey?'<div class="mini-rec">Recommended</div>':'')+'</div>';
-    }).join('');
-    document.getElementById('team-mini').innerHTML = mini;
-  }
-
-  function viewTherapist(key){
-    var t = team[key];
-    document.getElementById('result-avatar').innerHTML = avatarHTML(t);
-    document.getElementById('result-name').textContent = t.name;
-    document.getElementById('result-role').textContent = t.role;
-    document.getElementById('result-pa').innerHTML =
-      '<span class="pa pa-price">'+t.price+' / session</span>'+
-      '<span class="pa pa-avail'+(t.availShort==='Open this week'?' open':'')+'">'+t.avail+'</span>';
-    var tag = document.getElementById('match-tag');
-    if(key === suggestedKey){
-      tag.textContent = 'Recommended for you';
-      tag.className = 'match-tag on';
-      document.getElementById('result-copy').textContent =
-        'From your answers, ' + t.short + ' looks like your best fit across the team. ' + t.bio;
-    } else {
-      tag.textContent = 'Also on your team';
-      tag.className = 'match-tag';
-      document.getElementById('result-copy').textContent =
-        t.bio + ' You are welcome to start with ' + t.short + ' too, just mention it on your consult.';
-    }
-    // Kyla is supervised, so say so plainly whenever her profile is the one on screen.
-    // Disclosure sits here instead of as a sixth quiz step, so nobody drops off before the match.
-    var note = document.getElementById('intern-note');
-    if(note) note.style.display = (key === 'kyla') ? 'block' : 'none';
-    ['alicia','kyla'].forEach(function(k){
-      var el = document.getElementById('tm-'+k);
-      if(el) el.classList.toggle('on', k===key);
-    });
-  }
-
-  /**
-   * The thank-you screen is now only ever reached by someone who did NOT book
-   * a time. A booking finishes inside the GoHighLevel widget on the book
-   * screen and that widget shows its own confirmation, so this copy only ever
-   * has to promise a callback.
-   *
-   * What used to live here announced "Your consult is set. The calendar
-   * invite is on its way to your inbox" off the back of which button was
-   * tapped, while the POST went out mode:'no-cors' and this page could not
-   * read one thing the backend did. Five separate backend failures all
-   * printed "set". The rule that replaced it: no copy on this page may assert
-   * an outcome this page cannot observe.
-   */
-  function fillThankYou(){
-    // leadDetails.first comes from booked.html's postMessage handoff (or the
-    // step=book URL fallback below), not from a page field: name is typed
-    // inside the GoHighLevel form now, not into anything this page can read
-    // directly. It is '' whenever that handoff never happened, and the
-    // headline below already has a generic fallback for that case.
-    var name = leadDetails.first;
-    var t = team[suggestedKey] || team.alicia;
-    var head = document.getElementById('ty-head');
-    var line = document.getElementById('ty-line');
-    var box  = document.getElementById('booked');
-    var follow = document.getElementById('step-follow');
-
-    if (head) head.innerHTML = 'We have your answers'
-      + (name ? ', <em>' + name + '.</em>' : ', <em>thank you.</em>');
-    if (line) line.textContent = 'Your match has been sent to the practice. You will hear from us within one business day.';
-    if (box) box.innerHTML = '';
-    if (follow) follow.innerHTML = '<b>2.</b>' + t.short
-      + ' reaches out within one business day to find a time.';
-  }
-
-  function restart(){
-    answers = {};
-    document.querySelectorAll('.opt.sel').forEach(function(o){o.classList.remove('sel');});
-    // Drop the previous booking iframe. Leaving it mounted means the next
-    // person through the funnel starts on the last person's prefilled form.
-    var bw = document.getElementById('book-widget');
-    if(bw) bw.innerHTML = '';
-    var bk = document.getElementById('booked');
-    if(bk) bk.classList.remove('show');
-    leadSent = false;
-    var sb = document.getElementById('send-btn');
-    if(sb) sb.disabled = false;
-    clearInlineError();
-    show('landing');
-  }
-
-  /* ===================== LEAD CAPTURE =====================
-   * The Apps Script POST (FUNNEL_ENDPOINT) and the reCAPTCHA token mint that
-   * fed it are gone. The GoHighLevel form embedded on the capture screen
-   * (see renderCaptureForm()/buildGhlFormUrl() above) is the entire capture
-   * path now. leadSource below still matters: it feeds the form's
-   * ad_source/ad_campaign/ad_content/landing_page/click_id params.
-   */
-
-  /* Where the lead came from.
-   * Read once on load and stashed, because a visitor who lands from an ad and
-   * then reloads or comes back through history would otherwise lose the tags
-   * and show up as direct traffic. Without these we are paying Meta with no
-   * way to prove which ad produced a paying client, which is the whole ROI
-   * loop Alicia is being asked to fund.
-   */
-  var SOURCE_KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
-  var leadSource = (function(){
-    var saved = {};
-    try { saved = JSON.parse(sessionStorage.getItem('ww_src') || '{}'); } catch(e){ saved = {}; }
-    var qs = new URLSearchParams(window.location.search);
-    var out = {};
-    var sawFresh = false;
-    SOURCE_KEYS.forEach(function(k){
-      var v = qs.get(k) || '';
-      if(v) sawFresh = true;
-      out[k] = v || saved[k] || '';
-    });
-    // Meta sends fbclid, Google sends gclid. Either one proves it was a paid
-    // click even when the utm tags got stripped somewhere along the way.
-    out.click_id = qs.get('fbclid') || qs.get('gclid') || saved.click_id || '';
-    if(qs.get('fbclid') || qs.get('gclid')) sawFresh = true;
-    // Only overwrite the stored referrer on a genuinely new arrival, so an
-    // internal reload does not rewrite the original source as this page.
-    out.referrer = sawFresh ? (document.referrer || '') : (saved.referrer || document.referrer || '');
-    out.landing_page = saved.landing_page || window.location.href;
-    try { sessionStorage.setItem('ww_src', JSON.stringify(out)); } catch(e){}
-    return out;
+  (function(){
+    var target = document.getElementById('choices');
+    if(!('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function(entries){
+      var e = entries[0];
+      choicesGone = !e.isIntersecting && e.boundingClientRect.bottom < 0;
+      setBar();
+    }).observe(target);
   })();
 
-  var leadSent = false;
+  /* ---------- Grounding Handbook ("Not ready to book?") ----------
+   * Each .guide card embeds GoHighLevel form Zazp8ryw0cXPK0xhZBSn directly,
+   * not our own input: that form has Cloudflare spam protection which would
+   * reject a POST fired from our own JS. Its workflow "Grounding Handbook
+   * only (guide signup) DRAFT" emails the handbook; it tags no funnel lead
+   * and does not notify Alicia, unlike the booking form above.
+   *
+   * Submission detection mirrors booked.html / call-booked.html above: on
+   * submit, GoHighLevel's own "On Submit" redirect sends the iframe to
+   * /find-your-therapist/guide-sent.html, which posts
+   * {source:'ww-funnel', type:'guide-complete'} up to this page. evt.source
+   * is matched against each card's own iframe so the card that was actually
+   * submitted is the one that flips to its done state -- two copies of the
+   * same form are on this page at once.
+   *
+   * Fires GA4 guide_signup and Meta GuideSignup (custom, no params) exactly
+   * once per visit, total, across both cards. Never Lead: a guide signup is
+   * not a funnel lead. */
+  var GUIDE_FORM_ID   = 'Zazp8ryw0cXPK0xhZBSn';
+  var GUIDE_FORM_BASE = 'https://api.leadconnectorhq.com/widget/form/' + GUIDE_FORM_ID;
+  var guideCounted = false;
 
-  /* ---------- Contact validation ----------
-   * On 2026-08-13 a real person finished all five steps and submitted with no
-   * name, email or phone. The button disabled on click, so she saw the
-   * thank-you screen and is still waiting for a call that cannot happen.
-   * Nothing here is cosmetic: this is the only thing standing between a
-   * completed quiz and an unreachable row in the sheet.
-   */
-  function val(id){ var el = document.getElementById(id); return ((el && el.value) || '').trim(); }
+  /* Lazy-load: each iframe starts at src="about:blank" (same placeholder
+   * pattern as #inline-8s2oSCET1k8mR8jokO2D above) and only gets its real
+   * src, plus form_embed.js, once its card is about to scroll into view. */
+  (function(){
+    var frames = document.querySelectorAll('.guide .g-embed');
+    function activate(f){
+      if(f.getAttribute('src') !== 'about:blank') return;
+      f.setAttribute('src', GUIDE_FORM_BASE + '?source=funnel_guide');
+      loadGhlEmbed();
+    }
+    if(!('IntersectionObserver' in window)){
+      frames.forEach(activate);
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(!entry.isIntersecting) return;
+        activate(entry.target);
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '200px 0px' });
+    frames.forEach(function(f){ io.observe(f); });
+  })();
 
-  function markInvalid(wrapIds){
-    ['fw-name','fw-email','fw-phone'].forEach(function(w){
-      var el = document.getElementById(w);
-      if(el) el.classList.toggle('invalid', wrapIds.indexOf(w) !== -1);
+  window.addEventListener('message', function(evt){
+    var trustedOrigin = evt.origin === location.origin || evt.origin === 'https://thewildwithintherapy.com';
+    if(!trustedOrigin) return;
+    if(!evt.data || evt.data.source !== 'ww-funnel' || evt.data.type !== 'guide-complete') return;
+    var box = null;
+    document.querySelectorAll('.guide').forEach(function(b){
+      var f = b.querySelector('.g-embed');
+      if(f && f.contentWindow === evt.source) box = b;
     });
-  }
+    if(box) box.classList.add('sent');
+    if(!guideCounted){
+      guideCounted = true;
+      wwTrack('guide_signup', { funnel_name: FUNNEL, utm_content: adTag() }, 'GuideSignup', {}, { custom: true });
+    }
+  });
 
-  function clearInlineError(){
-    var box = document.getElementById('f-error');
-    if(box){ box.textContent = ''; box.classList.remove('show'); }
-    markInvalid([]);
-  }
+  /* ---------- Wiring ---------- */
+  document.querySelectorAll('.grp').forEach(function(b){
+    b.addEventListener('click', function(){ pickGroup(b.getAttribute('data-group')); });
+  });
+  document.getElementById('opts').addEventListener('click', function(e){
+    var b = e.target.closest('.opt'); if(!b) return;
+    pickOption(b.getAttribute('data-v'), b);
+  });
+  document.querySelectorAll('[data-go]').forEach(function(b){
+    b.addEventListener('click', function(){ show(b.getAttribute('data-go')); });
+  });
+  document.querySelectorAll('[data-call]').forEach(function(a){
+    a.addEventListener('click', function(){ callClick(a.getAttribute('data-call')); });
+  });
+  document.getElementById('bar-go').addEventListener('click', function(){
+    var c = document.getElementById('choices');
+    try { c.scrollIntoView({ behavior:'smooth', block:'start' }); } catch(e){ c.scrollIntoView(); }
+  });
+  document.getElementById('skip').addEventListener('click', skipBooking);
 
-  /* submitLead() used to live here: validate the custom fields, mint a
-   * reCAPTCHA token, and POST to FUNNEL_ENDPOINT. All of it existed only to
-   * feed the Apps Script backend, which this page no longer talks to. The
-   * GoHighLevel form embedded on the capture screen collects the lead
-   * directly, and the postMessage handler near renderCaptureForm() (above,
-   * next to buildGhlFormUrl()) is what moves the visitor on to the book
-   * screen once that form is submitted.
-   */
-
-  /* Fallback path: this page only lands here directly, at ?step=book, when
-   * booked.html was NOT framed — the GoHighLevel embed broke, or someone
-   * hit booked.html's URL on its own, so GoHighLevel's redirect happened at
-   * the top level instead of inside our iframe. There is no parent page for
-   * booked.html to postMessage to in that case, so it forwards the visitor
-   * here instead, carrying the same lead fields as plain query params. Skip
-   * straight to the booking screen with those prefilled rather than making
-   * the visitor repeat the GoHighLevel form (or the whole quiz, which never
-   * ran for them either).
-   */
-  var bookedFallback = (function bootFromBookedFallback(){
+  /* ---------- Unframed fallback ----------
+   * booked.html forwards to ?step=book when GoHighLevel redirects the whole
+   * tab (the usual case, seen 2026-09-23). That is a lead, so it fires
+   * generate_lead/Lead, then opens Step 3 with the form done and the
+   * calendar showing. */
+  (function(){
     var qs = new URLSearchParams(window.location.search);
-    if(qs.get('step') !== 'book') return false;
+    if(qs.get('step') !== 'book'){
+      try { history.replaceState({ ww:'landing' }, ''); } catch(e){}
+      trackStep('landing');
+      return;
+    }
     leadDetails.first = qs.get('first_name') || '';
     leadDetails.last  = qs.get('last_name')  || '';
     leadDetails.email = qs.get('email') || '';
     leadDetails.phone = qs.get('phone') || '';
-    // booked.html forwards GoHighLevel's matched_therapist contact field as
-    // "Alicia" or "Kyla"; team's own keys are lowercase. Anything else
-    // (missing, unrecognised, still a {{merge}} token) leaves suggestedKey
-    // on its default so the booking screen never renders with no therapist.
-    var therapistParam = (qs.get('therapist') || '').toLowerCase();
-    if(therapistParam === 'alicia' || therapistParam === 'kyla') suggestedKey = therapistParam;
-    // This visitor never went through the capture screen's postMessage, so
-    // there is no submission for the strict listener above to guard against
-    // firing twice — set the guard directly so a stray message can't re-fire it.
-    captureSubmitted = true;
-    // The GoHighLevel form was submitted to get here, so this is a lead too.
-    // Without this, a lead on the unframed path never reached GA4 or Meta.
-    wwTrack('generate_lead', {
-      funnel_name: 'find_your_therapist',
-      matched_therapist: (team[suggestedKey] || team.alicia).short
-    }, 'Lead', {
-      content_name: 'Find Your Therapist funnel'
-    }, { eventID: wwEventId() });
-    return true;
+    var tp = (qs.get('therapist') || '').toLowerCase();
+    var saved = ''; try { saved = sessionStorage.getItem('ww_match') || ''; } catch(e){}
+    suggestedKey = (tp === 'alicia' || tp === 'kyla') ? tp : (saved === 'alicia' || saved === 'kyla' ? saved : 'kyla');
+    fireLead();
+    show('capture', { noTrack:true, noHistory:true });
+    try { history.replaceState({ ww:'capture' }, ''); } catch(e){}
+    markSubmitted();
   })();
-
-  show(bookedFallback ? 'book' : 'landing');
 </script>
 </body>
 </html>
