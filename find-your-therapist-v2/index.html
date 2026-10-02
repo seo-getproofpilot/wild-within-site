@@ -580,7 +580,7 @@
   /* ---------- Message-matched headline (Paper "Headline variants") ----------
    * Only the headline and subline swap. Unknown or missing utm_content shows
    * the default. ad04's ad is Alicia's own hand-on-heart photo, so her
-   * thumbnail (and the desktop portrait) swap to that photo. */
+   * phone thumbnail swaps to that photo. */
   var HEADLINES = {
     'default':               { l1:'Holistic therapy for', l2:'women and moms.', m:'Two taps, then pick a time to talk.', d:'Two clicks, then pick a time to talk.' },
     'ad01_get_matched':      { l1:'Get matched with', l2:'your therapist.', m:'Two taps, then pick a time to talk.', d:'Two clicks, then pick a time to talk.' },
@@ -603,10 +603,9 @@
       t.src = '../assets/img/alicia-hand-on-heart.jpg'; t.width = 749; t.height = 826;
       t.style.objectPosition = '50% 12%';
       t.alt = 'Alicia Wright, LCSW, with a hand on her heart';
-      var c = document.getElementById('collage-alicia');
-      c.src = '../assets/img/alicia-hand-on-heart.jpg'; c.width = 749; c.height = 826;
-      c.style.objectPosition = '50% 12%';
-      c.alt = 'Alicia Wright, LCSW, with a hand on her heart';
+      // Phone thumbnail only, as drawn in Paper. The desktop portrait keeps
+      // the welcome portrait: the hand-on-heart photo is the same session
+      // (chair, outfit, room) as the office photo below it.
     }
     return key in HEADLINES ? key : 'default';
   }
