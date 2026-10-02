@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holistic Therapy for Women &amp; Moms in Mesa, AZ | The Wild Within</title>
+<meta name="description" content="Holistic therapy for women and moms with Alicia Wright, LCSW, and Kyla Gordon in Mesa, AZ and by telehealth across Arizona. Sessions $85 to $185, out-of-network. Free 30-minute consultation.">
+<!-- PREVIEW of the three-step funnel rebuild (2026-10-02). Not linked from
+     anywhere, not in the sitemap, and never indexed. The live ad destination
+     is still /find-your-therapist/. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#2E1A2D">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32-v2.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon-v2.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Ibarra+Real+Nova:ital,wght@0,400;1,400&family=Inter:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<!-- The two first-screen photos load early so the trust screen is not a
+     blank box on a phone connection. -->
+<link rel="preload" as="image" href="../assets/img/alicia-headshot-600.jpg">
+<link rel="preload" as="image" href="../assets/img/kyla-headshot.jpg">
+<style>
+  :root{
+    --ivory:#FAF7F2; --ivory-warm:#FDFBF8; --linen:#EDE6DA; --milky:#F0EBE3;
+    --plum:#4A2848; --plum-deep:#2E1A2D; --plum-muted:#6B3560;
+    --gold:#C9A84C; --gold-deep:#A68B3C; --gold-soft:#E2CF9F; --gold-glow:rgba(201,168,76,0.28);
+    --sage:#8A9A7B; --sage-deep:#5F6E52; --sage-muted:#9DAD8E;
+    --ink:#2B2724; --warm-gray:#524C46; --muted:#6B6560; --line:#E6DED0;
+    --display:'Playfair Display',Georgia,serif;
+    --serif:'Ibarra Real Nova',Georgia,serif;
+    --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --script:'Great Vibes',cursive;
+    --shadow-soft:0 1px 3px rgba(46,26,45,.06), 0 10px 28px -12px rgba(46,26,45,.22);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{ font-family:var(--sans); color:var(--ink); background:var(--ivory); line-height:1.6; -webkit-font-smoothing:antialiased; }
+  img{ max-width:100%; display:block; }
+  a{ color:var(--plum); }
+
+  /* ---------- Header: logo left, tap-to-call right. On every screen. ---------- */
+  .topbar{ position:sticky; top:0; z-index:20; background:var(--plum-deep); border-bottom:1px solid rgba(226,207,159,.25); }
+  .topbar-in{ max-width:1080px; margin:0 auto; height:58px; padding:0 16px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .topbar img{ height:40px; width:auto; }
+  .call{ display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:var(--plum-deep); background:var(--gold); border-radius:999px; padding:9px 15px; font-weight:600; font-size:14px; white-space:nowrap; }
+  .call svg{ width:16px; height:16px; flex:0 0 auto; }
+  .call:hover{ background:var(--gold-soft); }
+
+  main{ max-width:1080px; margin:0 auto; }
+  .screen{ display:none; }
+  .screen.active{ display:block; animation:rise .45s cubic-bezier(.22,1,.36,1) both; }
+  @keyframes rise{ from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:none} }
+
+  .pad{ padding:18px 16px 0; }
+  .eyebrow{ font-size:11.5px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-deep); margin:0 0 8px; }
+  h1{ font-family:var(--display); font-weight:600; font-size:clamp(29px,7.6vw,46px); line-height:1.12; color:var(--plum-deep); margin:0 0 10px; }
+  h1 em, h2 em{ font-style:italic; color:var(--plum-muted); }
+  h2{ font-family:var(--display); font-weight:600; font-size:clamp(25px,6.4vw,34px); line-height:1.16; color:var(--plum-deep); margin:0 0 10px; }
+  h3{ font-family:var(--display); font-weight:600; font-size:19px; line-height:1.25; color:var(--plum-deep); margin:0 0 6px; }
+  .lede{ font-size:16px; color:var(--warm-gray); margin:0 0 14px; max-width:52ch; }
+
+  /* ---------- Step 1: the trust screen ---------- */
+  .pair{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:0 0 12px; }
+  .pair figure{ margin:0; }
+  .pair .ph{ border-radius:120px 120px 14px 14px; overflow:hidden; aspect-ratio:4/3; background:var(--linen); box-shadow:var(--shadow-soft); }
+  .pair .ph img{ width:100%; height:100%; object-fit:cover; object-position:50% 22%; }
+  .pair figcaption{ margin-top:6px; font-size:13px; line-height:1.35; color:var(--warm-gray); }
+  .pair figcaption b{ display:block; font-family:var(--display); font-weight:600; font-size:14.5px; color:var(--plum-deep); }
+
+  .price{ background:var(--ivory-warm); border:1px solid var(--gold-soft); border-left:4px solid var(--gold); border-radius:12px; padding:10px 14px; margin:0 0 12px; font-size:14.5px; line-height:1.45; color:var(--warm-gray); }
+  .price b{ color:var(--plum-deep); font-size:15.5px; }
+
+  .btn{ appearance:none; cursor:pointer; display:block; width:100%; text-align:center; text-decoration:none; font-family:var(--sans); font-weight:600; font-size:16px; line-height:1.25; border-radius:999px; border:2px solid transparent; padding:16px 20px; transition:background .2s, transform .2s, box-shadow .2s; }
+  .btn-primary{ background:var(--plum); color:var(--ivory-warm); border-color:var(--plum); box-shadow:0 10px 24px -10px rgba(74,40,72,.6); }
+  .btn-primary:hover{ background:var(--plum-deep); transform:translateY(-1px); }
+  .btn-ghost{ background:transparent; color:var(--plum); border-color:var(--line); font-size:14.5px; padding:13px 18px; }
+  .btn-ghost:hover{ border-color:var(--plum); }
+  .under{ text-align:center; font-size:13.5px; color:var(--muted); margin:8px 0 0; }
+
+  /* Below the first screen */
+  .block{ padding:30px 16px 0; }
+  .note{ background:var(--milky); border-left:3px solid var(--gold); border-radius:14px; padding:18px 20px; }
+  .note p{ font-family:var(--serif); font-style:italic; font-size:17px; line-height:1.6; color:var(--warm-gray); margin:0; }
+  .note .sig{ display:block; margin-top:6px; font-family:var(--script); font-size:30px; color:var(--gold-deep); line-height:1; }
+  .work{ list-style:none; padding:0; margin:12px 0 0; display:grid; gap:8px; }
+  .work li{ background:var(--ivory-warm); border:1px solid var(--line); border-radius:12px; padding:11px 14px; font-size:15px; color:var(--ink); display:flex; gap:10px; align-items:flex-start; }
+  .work li::before{ content:""; width:7px; height:7px; border-radius:50%; background:var(--gold); margin-top:8px; flex:0 0 auto; }
+  .small{ font-size:14px; color:var(--muted); margin:12px 0 0; }
+  .people{ display:grid; gap:14px; margin-top:12px; }
+  .person{ display:flex; gap:14px; align-items:flex-start; background:var(--ivory-warm); border:1px solid var(--line); border-radius:16px; padding:14px; }
+  .person img{ width:76px; height:76px; border-radius:50%; object-fit:cover; object-position:50% 22%; border:2px solid var(--gold-soft); flex:0 0 auto; }
+  .person p{ margin:0; font-size:14.5px; color:var(--warm-gray); }
+  .role{ font-size:12.5px; font-weight:600; letter-spacing:.04em; color:var(--gold-deep); margin:0 0 6px !important; }
+  .steps{ list-style:none; counter-reset:s; padding:0; margin:12px 0 0; display:grid; gap:10px; }
+  .steps li{ counter-increment:s; display:flex; gap:12px; font-size:15px; color:var(--warm-gray); }
+  .steps li::before{ content:counter(s); flex:0 0 30px; height:30px; border-radius:50%; background:var(--plum); color:var(--ivory-warm); font-family:var(--display); font-weight:600; display:grid; place-items:center; font-size:15px; }
+  .steps b{ color:var(--plum-deep); }
+  .facts{ margin:12px 0 0; display:grid; gap:10px; }
+  .facts div{ border-top:1px solid var(--line); padding-top:10px; font-size:15px; color:var(--warm-gray); }
+  .facts dt{ font-weight:600; color:var(--plum-deep); font-size:14px; }
+  .facts dd{ margin:2px 0 0; }
+  .cta-again{ padding:28px 16px 0; }
+  footer{ margin:34px 0 0; padding:22px 16px 90px; background:var(--plum-deep); color:var(--gold-soft); font-size:13px; line-height:1.6; text-align:center; }
+  footer a{ color:var(--gold-soft); }
+
+  /* Sticky CTA on phones, shown only once the first CTA has scrolled away. */
+  .sticky-cta{ position:fixed; left:0; right:0; bottom:0; z-index:15; padding:10px 16px calc(10px + env(safe-area-inset-bottom)); background:rgba(250,247,242,.96); border-top:1px solid var(--line); transform:translateY(110%); transition:transform .3s ease; }
+  .sticky-cta.show{ transform:none; }
+  .sticky-cta .btn{ padding:14px 18px; font-size:15px; }
+
+  /* ---------- Step 2 and 3 ---------- */
+  .progress{ padding:16px 16px 0; }
+  .progress small{ display:block; font-size:11.5px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-deep); margin-bottom:6px; }
+  .bar{ height:5px; background:var(--linen); border-radius:999px; overflow:hidden; }
+  .bar i{ display:block; height:100%; background:linear-gradient(90deg,var(--gold),var(--gold-deep)); border-radius:999px; transition:width .4s ease; }
+  .options{ display:grid; gap:9px; margin-top:6px; }
+  .opt{ display:flex; align-items:center; gap:12px; width:100%; text-align:left; background:var(--ivory-warm); border:2px solid var(--line); border-radius:14px; padding:13px 15px; cursor:pointer; font-family:var(--sans); color:var(--ink); transition:border-color .15s, background .15s; }
+  .opt:hover{ border-color:var(--gold-soft); }
+  .opt.sel{ border-color:var(--gold); background:rgba(201,168,76,.09); box-shadow:0 0 0 4px var(--gold-glow); }
+  .opt span{ display:flex; flex-direction:column; }
+  .opt b{ font-weight:600; font-size:16px; }
+  .opt small{ font-size:13px; color:var(--muted); margin-top:1px; }
+  .opt::after{ content:"\203A"; margin-left:auto; font-size:24px; color:var(--gold-deep); line-height:1; }
+  .back{ background:none; border:none; color:var(--muted); font-family:var(--sans); font-size:14px; cursor:pointer; padding:14px 0 0; }
+  .back:hover{ color:var(--plum); }
+
+  .match{ display:flex; gap:14px; align-items:center; background:linear-gradient(160deg,#FBF3EA,var(--ivory-warm)); border:1px solid var(--gold-soft); border-radius:16px; padding:14px; margin:4px 0 12px; }
+  .match img{ width:72px; height:72px; border-radius:50%; object-fit:cover; object-position:50% 22%; border:2px solid var(--gold-soft); flex:0 0 auto; }
+  .match b{ display:block; font-family:var(--display); font-weight:600; font-size:17px; color:var(--plum-deep); }
+  .match span{ font-size:13.5px; color:var(--warm-gray); }
+  .disclaimer{ font-size:13px; color:var(--muted); background:var(--milky); border:1px solid var(--line); border-radius:12px; padding:11px 13px; margin:0 0 12px; line-height:1.5; }
+  .book-widget{ background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+  .book-widget iframe{ display:block; }
+  .confirm-steps{ background:var(--milky); border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin-top:12px; }
+  .confirm-steps p{ margin:6px 0; font-size:14.5px; color:var(--warm-gray); }
+  .confirm-steps b{ color:var(--gold-deep); }
+
+  /* ---------- Wider screens: photo pair beside the copy ---------- */
+  @media (min-width:860px){
+    .pad{ padding:44px 32px 0; }
+    .hero{ display:grid; grid-template-columns:1.1fr .9fr; gap:44px; align-items:center; }
+    .hero .pair{ order:2; margin:0; }
+    .hero .copy{ order:1; }
+    .btn{ width:auto; display:inline-block; padding:16px 34px; }
+    .under{ text-align:left; }
+    .block, .cta-again, .progress{ padding-left:32px; padding-right:32px; }
+    .narrow{ max-width:640px; }
+    .sticky-cta{ display:none; }
+    .people{ grid-template-columns:1fr 1fr; }
+    .work{ grid-template-columns:1fr 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce){ .screen.active{ animation:none; } .btn-primary:hover{ transform:none; } }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <img width="900" height="563" src="../assets/img/logo-mark-ivory-v2.png" alt="The Wild Within Counseling and Holistic Therapy, Mesa, Arizona">
+    <a class="call" href="tel:+14807712181" onclick="callClick('header')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.1 9.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      (480) 771-2181
+    </a>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===================== STEP 1: TRUST SCREEN =====================
+       Phone, headline, price line and CTA all sit inside the first 390x844
+       screen. Copy describes the practice, never the reader (Meta's
+       mental-health rule): who it serves, who you would talk to, what it
+       costs. -->
+  <section class="screen active" data-screen="landing">
+    <div class="pad">
+      <div class="hero">
+        <div class="copy">
+          <p class="eyebrow">Mesa, Arizona &middot; in person or telehealth</p>
+          <h1>Holistic therapy for women and moms in <em>Mesa, Arizona.</em></h1>
+          <p class="lede">A small, warm practice led by Alicia Wright, LCSW, a therapist and a mom.</p>
+        </div>
+        <div class="pair">
+          <figure>
+            <div class="ph"><img width="600" height="800" src="../assets/img/alicia-headshot-600.jpg" alt="Alicia Wright, LCSW, founder of The Wild Within in Mesa, Arizona" fetchpriority="high"></div>
+            <figcaption><b>Alicia Wright</b>LCSW, founder</figcaption>
+          </figure>
+          <figure>
+            <div class="ph"><img width="715" height="894" src="../assets/img/kyla-headshot.jpg" alt="Kyla Gordon, therapist intern at The Wild Within, supervised by Alicia Wright"></div>
+            <figcaption><b>Kyla Gordon</b>Therapist intern, supervised by Alicia</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="narrow">
+        <p class="price"><b>Sessions are $85 to $185.</b> We're out-of-network, so we don't bill insurance. You get superbills to send in for possible reimbursement, and HSA and FSA cards work.</p>
+        <button class="btn btn-primary" id="cta-main" onclick="startBooking('hero')">Book a free 30-minute consultation</button>
+        <p class="under">One quick question, then you pick a time to talk.</p>
+      </div>
+    </div>
+
+    <div class="block narrow">
+      <div class="note">
+        <p>I'm human and I get it. I've walked the journey of healing and transformation. My goal is to see people. The totality of who they are. With compassion and grace, and to help them heal and transform.</p>
+        <span class="sig">Alicia</span>
+      </div>
+    </div>
+
+    <div class="block narrow">
+      <h2>The work that happens <em>here</em></h2>
+      <ul class="work">
+        <li>Motherhood, parenting and family life</li>
+        <li>Pregnancy, postpartum and new parenthood</li>
+        <li>Relationships, marriage and intimacy</li>
+        <li>Trauma, and somatic work with the body as well as the mind</li>
+        <li>Ketamine-assisted psychotherapy</li>
+        <li>Teens and pre-teens</li>
+        <li>Life transitions, and the seasons in between</li>
+        <li>Holistic work that honors mind, body and spirit</li>
+      </ul>
+      <p class="small">The practice sees individuals, couples, teens and families. This page speaks to women and moms because so many of the people who reach out are.</p>
+    </div>
+
+    <div class="block narrow">
+      <h2>Who you'll <em>talk to</em></h2>
+      <div class="people">
+        <div class="person">
+          <img width="600" height="800" src="../assets/img/alicia-headshot-600.jpg" alt="Alicia Wright, MA, MSW, LCSW" loading="lazy">
+          <div>
+            <h3>Alicia Wright</h3>
+            <p class="role">MA, MSW, LCSW &middot; Founder</p>
+            <p>Alicia works with trauma, couples, parenting, intimacy and the deeper holistic work, including ketamine-assisted psychotherapy. She is also a Kundalini dance teacher and a tantric embodiment facilitator, and she honors the spiritual side of healing as much as the clinical.</p>
+          </div>
+        </div>
+        <div class="person">
+          <img width="715" height="894" src="../assets/img/kyla-headshot.jpg" alt="Kyla Gordon, MSW candidate and therapist intern" loading="lazy">
+          <div>
+            <h3>Kyla Gordon</h3>
+            <p class="role">MSW candidate &middot; therapist intern, supervised by Alicia</p>
+            <p>Kyla's focus is perinatal mental health, parenthood, identity through life transitions, and teens. She sees clients at a lower rate, fully supported under Alicia's clinical supervision.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block narrow">
+      <h2>How it <em>works</em></h2>
+      <ol class="steps">
+        <li><span><b>Answer one question.</b> It tells us whether Alicia or Kyla is the right first call for you.</span></li>
+        <li><span><b>Pick a time.</b> The consultation is a free 30-minute phone call, shown in your own time zone.</span></li>
+        <li><span><b>Talk it through.</b> If it feels right, you begin in Mesa or by telehealth anywhere in Arizona. If it doesn't, that's okay too.</span></li>
+      </ol>
+    </div>
+
+    <div class="block narrow">
+      <h2>Good to <em>know</em></h2>
+      <dl class="facts">
+        <div><dt>What sessions cost</dt><dd>$85 to $185 a session. Rates follow the therapist's experience and training, with Kyla at the lower end. Ketamine-assisted psychotherapy and coaching are priced separately.</dd></div>
+        <div><dt>Insurance</dt><dd>We're out-of-network. You receive superbills, detailed receipts you can submit to your insurance for possible reimbursement if your plan covers out-of-network care.</dd></div>
+        <div><dt>Paying</dt><dd>Credit, debit, HSA and FSA cards, and Zelle.</dd></div>
+        <div><dt>Where</dt><dd>2160 E Brown Rd, Suite 3, Mesa, AZ 85213, or telehealth anywhere in Arizona. Therapy is for people located in Arizona.</dd></div>
+      </dl>
+    </div>
+
+    <div class="cta-again narrow">
+      <button class="btn btn-primary" onclick="startBooking('bottom')">Book a free 30-minute consultation</button>
+      <p class="under">Or call <a href="tel:+14807712181" onclick="callClick('bottom')">(480) 771-2181</a>.</p>
+    </div>
+  </section>
+
+  <!-- ===================== STEP 2: ONE ROUTING QUESTION =====================
+       The old five questions collapsed to the one that decided the match.
+       Each value maps to Alicia or Kyla in routeTherapist() below, which keeps
+       the old matchTherapist() rules: Kyla never gets couples, parenting,
+       coaching, ketamine/deeper holistic work, intimacy and sexual health, or
+       trauma-led healing. -->
+  <section class="screen" data-screen="question">
+    <div class="progress"><small>Step 2 of 3</small><div class="bar"><i style="width:66%"></i></div></div>
+    <div class="pad narrow">
+      <h2>What would you like <em>support with?</em></h2>
+      <p class="lede">Pick the closest one. It helps us point you to Alicia or Kyla for your first call.</p>
+      <div class="options">
+        <button class="opt" onclick="pick('Individual therapy',this)"><span><b>Therapy for me</b><small>one-on-one, life transitions, coming back to myself</small></span></button>
+        <button class="opt" onclick="pick('Motherhood and postpartum',this)"><span><b>Pregnancy, postpartum or new motherhood</b></span></button>
+        <button class="opt" onclick="pick('Parenting and family',this)"><span><b>Parenting and family life</b></span></button>
+        <button class="opt" onclick="pick('Teens and pre-teens',this)"><span><b>My teen or pre-teen</b></span></button>
+        <button class="opt" onclick="pick('Couples and partnership',this)"><span><b>My marriage or partnership</b><small>couples work</small></span></button>
+        <button class="opt" onclick="pick('Intimacy and sexual health',this)"><span><b>Intimacy and sexuality</b></span></button>
+        <button class="opt" onclick="pick('Trauma and deeper healing',this)"><span><b>Trauma and deeper healing</b><small>somatic and ketamine-assisted work</small></span></button>
+        <button class="opt" onclick="pick('Coaching and growth',this)"><span><b>Coaching and personal growth</b></span></button>
+        <button class="opt" onclick="pick('Not sure yet',this)"><span><b>I'm not sure yet</b></span></button>
+      </div>
+      <button class="back" onclick="go('landing')">&larr; Back</button>
+    </div>
+  </section>
+
+  <!-- ===================== STEP 3a: CONTACT FORM (capture) =====================
+       GoHighLevel form 8s2oSCET1k8mR8jokO2D, unchanged. renderCaptureForm()
+       sets its src with the routing answer, the match and the ad source. Its
+       own Cloudflare Turnstile screens bots. On submit, GoHighLevel redirects
+       to /find-your-therapist/booked.html, which hands the lead back here by
+       postMessage (or, unframed, to ?step=book). -->
+  <section class="screen" data-screen="capture">
+    <div class="progress"><small>Step 3 of 3</small><div class="bar"><i style="width:100%"></i></div></div>
+    <div class="pad narrow">
+      <h2 id="cap-head">Your free consultation</h2>
+      <div class="match">
+        <img id="match-img" src="../assets/img/alicia-headshot-600.jpg" width="600" height="800" alt="">
+        <div><b id="match-name"></b><span id="match-line"></span></div>
+      </div>
+      <div class="disclaimer" id="intern-note" style="display:none">Kyla's rate is lower because she is still training, with Alicia supervising her work. If you'd rather see a fully licensed therapist, say so on your call and we'll connect you with Alicia.</div>
+      <p class="lede" style="margin-bottom:10px">The consultation is a phone call, so we need your number. Your confirmation goes to your email.</p>
+      <div class="disclaimer">Please leave health details out of this form, since it isn't HIPAA-secured. Those belong in your secure client portal once you begin.</div>
+
+      <div class="book-widget" id="ghl-capture-widget" style="min-height:600px;background:var(--ivory-warm)">
+        <iframe src="" style="width:100%;height:100%;border:none;border-radius:4px"
+          id="inline-8s2oSCET1k8mR8jokO2D"
+          data-layout='{"id":"INLINE"}'
+          data-trigger-type="alwaysShow"
+          data-activation-type="alwaysActivated"
+          data-deactivation-type="neverDeactivate"
+          data-form-name="Wild Within Funnel"
+          data-layout-iframe-id="inline-8s2oSCET1k8mR8jokO2D"
+          data-form-id="8s2oSCET1k8mR8jokO2D"
+          title="Contact details for your free consultation"></iframe>
+      </div>
+
+      <!-- Fallback only, shown 45s in if the submit handoff never arrives. -->
+      <div id="capture-continue-wrap" style="display:none;margin-top:14px">
+        <button class="btn btn-ghost" onclick="go('book')">I already submitted, take me to booking</button>
+        <p class="under">Only if the form above already thanked you and nothing happened.</p>
+      </div>
+      <button class="back" onclick="go('question')">&larr; Back</button>
+    </div>
+  </section>
+
+  <!-- ===================== STEP 3b: CALENDAR (book) =====================
+       The matched therapist's GoHighLevel calendar. It owns availability,
+       the booking, the confirmation and reminders. -->
+  <section class="screen" data-screen="book">
+    <div class="progress"><small>Step 3 of 3 &middot; last part</small><div class="bar"><i style="width:100%"></i></div></div>
+    <div class="pad narrow">
+      <h2 id="book-head">Pick a time with <em>your therapist.</em></h2>
+      <p class="lede" id="book-lede">A free 30-minute call, shown in your own time zone.</p>
+      <div class="book-widget" id="book-widget"></div>
+      <p class="small">Consultations come from a small number of call times each week, so the list is short on purpose. Nothing here is a commitment.</p>
+      <div style="margin-top:14px">
+        <button class="btn btn-ghost" onclick="skipBooking()">I'd rather you reach out to me</button>
+        <p class="under">Your details are already with the practice either way.</p>
+      </div>
+      <button class="back" onclick="go('capture')">&larr; Back</button>
+    </div>
+  </section>
+
+  <!-- ===================== THANK YOU (chose not to book) =====================
+       Only reached by someone who skipped the calendar, so nothing here may
+       say booked, set or confirmed. -->
+  <section class="screen" data-screen="thankyou">
+    <div class="pad narrow">
+      <p class="eyebrow">You're in good hands</p>
+      <h2 id="ty-head">We have your <em>details.</em></h2>
+      <p class="lede">The practice has your request. You'll hear from us within one business day.</p>
+      <div class="confirm-steps">
+        <p><b>1.</b> Your grounding guide is on its way to your inbox.</p>
+        <p id="step-follow"><b>2.</b> Your therapist reaches out within one business day to find a time.</p>
+        <p><b>3.</b> You have a free 30-minute consultation, and you decide from there.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="sticky-cta" id="sticky-cta" aria-hidden="true">
+  <button class="btn btn-primary" tabindex="-1" onclick="startBooking('sticky')">Book a free 30-minute consultation</button>
+</div>
+
+<footer>
+  <strong>The Wild Within Counseling and Holistic Therapy</strong><br>
+  2160 E Brown Rd, Suite 3, Mesa, AZ 85213 &middot; <a href="tel:+14807712181" onclick="callClick('footer')">(480) 771-2181</a><br>
+  Alicia Wright, MA, MSW, LCSW &middot; Therapy licensed in Arizona &middot; In person in Mesa, telehealth across Arizona
+</footer>
+
+<!-- ===================== MEASUREMENT =====================
+     Same IDs, same event names and same dedup as /find-your-therapist/:
+     GA4 G-ZNHN4MEPZ8 (funnel_step, generate_lead, consult_booked,
+     funnel_booking_skipped) and Meta dataset 2614392979029565 (PageView,
+     ViewContent, FunnelStep, QuizCapture, Lead and Schedule with eventID).
+     Never send the routing answer to Meta: it describes a named person's
+     health. Event name and content_name only.
+
+     ?ww_qa=1 loads neither tag. gtag/fbq become local recorders that push to
+     window.__wwEvents, so the page can be walked end to end on the live URL
+     without sending test events into the ad account. -->
+<script>
+  window.WW_GA4_ID        = "G-ZNHN4MEPZ8";
+  window.WW_META_PIXEL_ID = "2614392979029565";
+  window.WW_QA = /[?&]ww_qa=1\b/.test(location.search);
+
+  (function () {
+    if (window.WW_QA) {
+      window.__wwEvents = [];
+      window.gtag = function(){ window.__wwEvents.push(['gtag'].concat([].slice.call(arguments))); };
+      window.fbq  = function(){ window.__wwEvents.push(['fbq'].concat([].slice.call(arguments))); };
+      fbq('track', 'PageView');
+      fbq('track', 'ViewContent', { content_name: 'Find Your Therapist funnel' });
+      return;
+    }
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ window.dataLayer.push(arguments); };
+    gtag('js', new Date());
+    gtag('config', window.WW_GA4_ID);
+    var g = document.createElement('script');
+    g.async = true;
+    g.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(window.WW_GA4_ID);
+    document.head.appendChild(g);
+
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+    (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', window.WW_META_PIXEL_ID);
+    fbq('track', 'PageView');
+    fbq('track', 'ViewContent', { content_name: 'Find Your Therapist funnel' });
+  })();
+
+  /* One call site for both platforms. metaOpts.custom sends a non-standard
+   * name through trackCustom (track drops unknown names silently). eventID
+   * passes through for Lead/Schedule dedup with the server-side copy. */
+  function wwTrack(ga4Event, params, metaEvent, metaParams, metaOpts){
+    try { if (typeof gtag === 'function' && ga4Event) gtag('event', ga4Event, params || {}); } catch(e){}
+    try {
+      if (typeof fbq === 'function' && metaEvent) {
+        var o = metaOpts || {};
+        var pass = {};
+        if (o.eventID) pass.eventID = o.eventID;
+        fbq(o.custom ? 'trackCustom' : 'track', metaEvent, metaParams || {}, pass);
+      }
+    } catch(e){}
+  }
+  function wwEventId(){
+    try { if (window.crypto && crypto.randomUUID) return crypto.randomUUID(); } catch(e){}
+    return 'ww-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
+  }
+</script>
+<script>
+  var FUNNEL = 'find_your_therapist';   // unchanged, so GA4 reporting stays one series
+  var answer = '';                       // the step-2 routing answer
+  var suggestedKey = 'alicia';
+
+  var team = {
+    alicia:{ name:'Alicia Wright, LCSW', short:'Alicia', img:'../assets/img/alicia-headshot-600.jpg', w:600, h:800,
+             line:'LCSW, founder. Alicia will be the one who calls you.' },
+    kyla:  { name:'Kyla Gordon', short:'Kyla', img:'../assets/img/kyla-headshot.jpg', w:715, h:894,
+             line:'Therapist intern, supervised by Alicia. She will be the one who calls you.' }
+  };
+
+  /* Routing, collapsed from the five-question matchTherapist() (live funnel,
+   * commit 32397ac). Same outcomes per area:
+   *   couples, parenting, coaching, deeper holistic / ketamine  -> Alicia (Kyla cannot take them)
+   *   intimacy and sexual health                                 -> Alicia (Alicia, in writing, 2026-08-18)
+   *   individual + healing after something hard                  -> Alicia (now its own option)
+   *   individual, teens, postpartum / perinatal                  -> Kyla
+   *   not sure yet, or anything unrecognised                     -> Kyla (the old default)
+   * Check with: node ~/wild-within-funnel-tools/route-sweep.js style logic,
+   * or the QA harness in this commit's report. */
+  var ROUTES = {
+    'Individual therapy':          'kyla',
+    'Motherhood and postpartum':   'kyla',
+    'Teens and pre-teens':         'kyla',
+    'Not sure yet':                'kyla',
+    'Parenting and family':        'alicia',
+    'Couples and partnership':     'alicia',
+    'Intimacy and sexual health':  'alicia',
+    'Trauma and deeper healing':   'alicia',
+    'Coaching and growth':         'alicia'
+  };
+  function routeTherapist(a){ return ROUTES[a] || 'kyla'; }
+
+  /* ---------- GoHighLevel ---------- */
+  var GHL_CALENDARS = { alicia:'EeKSRGW3RiiNtV6iYSLW', kyla:'HdKli23GkD95m7iL2ZA8' };
+  var GHL_WIDGET_BASE = 'https://api.leadconnectorhq.com/widget/booking/';
+  var GHL_FORM_ID   = '8s2oSCET1k8mR8jokO2D';
+  var GHL_FORM_BASE = 'https://api.leadconnectorhq.com/widget/form/' + GHL_FORM_ID;
+
+  function e164(phone){
+    var d = (phone || '').replace(/\D/g, '');
+    if (d.length === 10) return '+1' + d;
+    if (d.length === 11 && d.charAt(0) === '1') return '+' + d;
+    return phone || '';
+  }
+  // The widget double-decodes its query string, so a "+" would arrive as a
+  // space. Drop any value containing one rather than send it wrong.
+  function ghlParam(list, key, rawValue){
+    if(!rawValue) return;
+    if(String(rawValue).indexOf('+') !== -1) return;
+    list.push(key + '=' + encodeURIComponent(rawValue));
+  }
+  function buildGhlFormUrl(){
+    var t = team[suggestedKey] || team.alicia;
+    var params = [];
+    // wants_to_work_on carries the routing answer. The four fields the old
+    // quiz also filled (hoping_for, session_preference, timing,
+    // what_matters_most) are simply left empty now.
+    ghlParam(params, 'wants_to_work_on',  answer);
+    ghlParam(params, 'matched_therapist', t.short);
+    ghlParam(params, 'ad_source',         leadSource.utm_source);
+    ghlParam(params, 'ad_campaign',       leadSource.utm_campaign);
+    ghlParam(params, 'ad_content',        leadSource.utm_content);
+    ghlParam(params, 'landing_page',      leadSource.landing_page);
+    ghlParam(params, 'click_id',          leadSource.click_id);
+    return GHL_FORM_BASE + (params.length ? '?' + params.join('&') : '');
+  }
+  function loadGhlEmbed(){
+    if(document.getElementById('ghl-embed-js')) return;
+    var s = document.createElement('script');
+    s.id = 'ghl-embed-js';
+    s.src = 'https://link.msgsndr.com/js/form_embed.js';
+    document.body.appendChild(s);
+  }
+  function renderCaptureForm(){
+    var frame = document.getElementById('inline-8s2oSCET1k8mR8jokO2D');
+    if(frame) frame.src = buildGhlFormUrl();
+    var wrap = document.getElementById('capture-continue-wrap');
+    if(wrap) wrap.style.display = 'none';
+    loadGhlEmbed();
+  }
+  function renderMatch(){
+    var t = team[suggestedKey] || team.alicia;
+    document.getElementById('cap-head').innerHTML = 'Your free consultation with <em>' + t.short + '.</em>';
+    var img = document.getElementById('match-img');
+    img.src = t.img; img.width = t.w; img.height = t.h; img.alt = t.name;
+    document.getElementById('match-name').textContent = t.name;
+    document.getElementById('match-line').textContent = t.line;
+    document.getElementById('intern-note').style.display = suggestedKey === 'kyla' ? 'block' : 'none';
+  }
+
+  var captureSubmitted = false;
+  var leadDetails = { first:'', last:'', email:'', phone:'' };
+
+  /* Lead handoff from booked.html (inside the form iframe). Origin and shape
+   * are both checked, and only while the capture screen is showing. */
+  window.addEventListener('message', function(evt){
+    var trustedOrigin = evt.origin === location.origin || evt.origin === 'https://thewildwithintherapy.com';
+    if(!trustedOrigin) return;
+    if(!evt.data || evt.data.source !== 'ww-funnel' || evt.data.type !== 'capture-complete') return;
+    if(captureSubmitted) return;
+    var current = document.querySelector('.screen.active');
+    if(!current || current.getAttribute('data-screen') !== 'capture') return;
+    captureSubmitted = true;
+    var lead = evt.data.lead || {};
+    leadDetails.first = lead.first || '';
+    leadDetails.last  = lead.last  || '';
+    leadDetails.email = lead.email || '';
+    leadDetails.phone = lead.phone || '';
+    wwTrack('generate_lead', {
+      funnel_name: FUNNEL,
+      matched_therapist: (team[suggestedKey] || team.alicia).short
+    }, 'Lead', { content_name: 'Find Your Therapist funnel' }, { eventID: wwEventId() });
+    show('book');
+  });
+
+  /* Booked call, posted up by call-booked.html inside the calendar widget. */
+  var bookingCounted = false;
+  window.addEventListener('message', function(evt){
+    var trustedOrigin = evt.origin === location.origin || evt.origin === 'https://thewildwithintherapy.com';
+    if(!trustedOrigin) return;
+    if(!evt.data || evt.data.source !== 'ww-funnel' || evt.data.type !== 'booking-complete') return;
+    if(bookingCounted) return;
+    bookingCounted = true;
+    wwTrack('consult_booked', {
+      funnel_name: FUNNEL,
+      matched_therapist: evt.data.therapist || (team[suggestedKey] || team.alicia).short
+    }, 'Schedule', { content_name: 'Find Your Therapist consult' }, { eventID: wwEventId() });
+    trackStep('booked');
+  });
+
+  var CAPTURE_FALLBACK_DELAY_MS = 45000;
+  function armCaptureFallback(){
+    setTimeout(function(){
+      if(captureSubmitted) return;
+      var current = document.querySelector('.screen.active');
+      if(!current || current.getAttribute('data-screen') !== 'capture') return;
+      var wrap = document.getElementById('capture-continue-wrap');
+      if(wrap) wrap.style.display = '';
+    }, CAPTURE_FALLBACK_DELAY_MS);
+  }
+
+  /* The matched therapist's calendar, prefilled from the form handoff.
+   * Rebuilt on every entry so a changed answer never leaves the wrong
+   * therapist's calendar on screen. */
+  function renderBooking(){
+    var host = document.getElementById('book-widget');
+    if(!host) return;
+    var t = team[suggestedKey] || team.alicia;
+    var calId = GHL_CALENDARS[suggestedKey] || GHL_CALENDARS.alicia;
+    document.getElementById('book-head').innerHTML = 'Pick a time with <em>' + t.short + '.</em>';
+    document.getElementById('book-lede').textContent = 'A free 30-minute call, shown in your own time zone. '
+      + t.short + ' phones you at the time you pick, and your confirmation lands in your inbox.';
+    var q = [
+      'first_name=' + encodeURIComponent(leadDetails.first),
+      'last_name='  + encodeURIComponent(leadDetails.last),
+      'phone='      + encodeURIComponent(e164(leadDetails.phone))
+    ];
+    // A "+" in an email cannot survive the widget's double decode, so that
+    // address is not prefilled and they type it once.
+    if (leadDetails.email.indexOf('+') === -1) q.push('email=' + encodeURIComponent(leadDetails.email));
+    // The iframe id has to begin with the calendar id or the resizer never
+    // finds the frame.
+    var frameId = calId + '_' + Date.now();
+    host.innerHTML = '<iframe id="' + frameId + '" src="' + GHL_WIDGET_BASE + calId + '?' + q.join('&')
+      + '" title="Book a free consultation with ' + t.short + '"'
+      + ' scrolling="no" style="width:100%;height:700px;border:none"></iframe>';
+    loadGhlEmbed();
+  }
+
+  function skipBooking(){
+    wwTrack('funnel_booking_skipped', { funnel_name: FUNNEL });
+    show('thankyou');
+  }
+  function fillThankYou(){
+    var t = team[suggestedKey] || team.alicia;
+    var name = leadDetails.first;
+    document.getElementById('ty-head').innerHTML = 'We have your details' + (name ? ', <em>' + name.replace(/[<>&"]/g,'') + '.</em>' : ', <em>thank you.</em>');
+    document.getElementById('step-follow').innerHTML = '<b>2.</b> ' + t.short + ' reaches out within one business day to find a time.';
+  }
+
+  /* ---------- Screens and step tracking ---------- */
+  function show(id){
+    document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+    var el = document.querySelector('[data-screen="'+id+'"]');
+    if(el) el.classList.add('active');
+    document.body.classList.toggle('in-funnel', id !== 'landing');
+    if(id !== 'landing') setSticky(false);
+    if(id === 'capture'){ captureSubmitted = false; renderMatch(); renderCaptureForm(); armCaptureFallback(); }
+    if(id === 'book'){ renderBooking(); }
+    if(id === 'thankyou'){ fillThankYou(); }
+    try { window.scrollTo({ top:0, behavior:'smooth' }); } catch(e){ window.scrollTo(0,0); }
+    trackStep(id);
+  }
+  function go(id){ show(id); }
+
+  /* Step names capture / book / thankyou / booked keep their old names AND
+   * old numbers, so reporting on them continues across the rebuild. The old
+   * q1-q5 and result steps are gone; 'question' (step 2 of 3) takes number 1,
+   * the slot the old first answer held. Fired once per step per visit. */
+  var stepsSeen = {};
+  var STEP_INDEX = { landing:0, question:1, capture:7, book:8, thankyou:9, booked:10 };
+  function trackStep(id){
+    if(stepsSeen[id]) return;
+    if(!(id in STEP_INDEX)) return;
+    stepsSeen[id] = true;
+    var stepParams = { funnel_name: FUNNEL, step_name: id, step_number: STEP_INDEX[id] };
+    wwTrack('funnel_step', stepParams, 'FunnelStep', stepParams, { custom: true });
+    // Meta strips custom params on this health-category dataset, so the
+    // contact-form screen gets its own event NAME to optimise on. Meta only.
+    if (id === 'capture') wwTrack(null, null, 'QuizCapture', {}, { custom: true });
+  }
+
+  function startBooking(where){ show('question'); }
+  function callClick(where){
+    // A tap on the phone number is a lead too. Name and placement only.
+    wwTrack('phone_call_click', { funnel_name: FUNNEL, link_location: where }, 'Contact', { content_name: 'Find Your Therapist funnel' });
+  }
+  function pick(val, btn){
+    answer = val;
+    btn.parentNode.querySelectorAll('.opt').forEach(function(o){ o.classList.remove('sel'); });
+    btn.classList.add('sel');
+    suggestedKey = routeTherapist(val);
+    setTimeout(function(){ show('capture'); }, 250);
+  }
+
+  /* Sticky CTA: visible on the trust screen only after the main CTA has
+   * scrolled off, so it never doubles up with it on the first screen. */
+  function setSticky(on){
+    var s = document.getElementById('sticky-cta');
+    if(!s) return;
+    s.classList.toggle('show', !!on);
+    s.setAttribute('aria-hidden', on ? 'false' : 'true');
+    var b = s.querySelector('button'); if(b) b.tabIndex = on ? 0 : -1;
+  }
+  (function(){
+    var main = document.getElementById('cta-main');
+    if(!main || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function(entries){
+      var e = entries[0];
+      var onLanding = document.querySelector('[data-screen="landing"]').classList.contains('active');
+      setSticky(onLanding && !e.isIntersecting && e.boundingClientRect.top < 0);
+    }).observe(main);
+  })();
+
+  /* ---------- Lead source, stored once per session ---------- */
+  var SOURCE_KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+  var leadSource = (function(){
+    var saved = {};
+    try { saved = JSON.parse(sessionStorage.getItem('ww_src') || '{}'); } catch(e){ saved = {}; }
+    var qs = new URLSearchParams(window.location.search);
+    var out = {}; var sawFresh = false;
+    SOURCE_KEYS.forEach(function(k){ var v = qs.get(k) || ''; if(v) sawFresh = true; out[k] = v || saved[k] || ''; });
+    out.click_id = qs.get('fbclid') || qs.get('gclid') || saved.click_id || '';
+    if(qs.get('fbclid') || qs.get('gclid')) sawFresh = true;
+    out.referrer = sawFresh ? (document.referrer || '') : (saved.referrer || document.referrer || '');
+    out.landing_page = saved.landing_page || window.location.href;
+    try { sessionStorage.setItem('ww_src', JSON.stringify(out)); } catch(e){}
+    return out;
+  })();
+
+  /* Unframed fallback: booked.html forwards to ?step=book when GoHighLevel
+   * redirects the whole tab (the usual case, seen 2026-09-23). That is a
+   * lead, so it fires generate_lead/Lead here, then opens the calendar. */
+  var bookedFallback = (function(){
+    var qs = new URLSearchParams(window.location.search);
+    if(qs.get('step') !== 'book') return false;
+    leadDetails.first = qs.get('first_name') || '';
+    leadDetails.last  = qs.get('last_name')  || '';
+    leadDetails.email = qs.get('email') || '';
+    leadDetails.phone = qs.get('phone') || '';
+    var tp = (qs.get('therapist') || '').toLowerCase();
+    if(tp === 'alicia' || tp === 'kyla') suggestedKey = tp;
+    captureSubmitted = true;
+    wwTrack('generate_lead', {
+      funnel_name: FUNNEL,
+      matched_therapist: (team[suggestedKey] || team.alicia).short
+    }, 'Lead', { content_name: 'Find Your Therapist funnel' }, { eventID: wwEventId() });
+    return true;
+  })();
+
+  show(bookedFallback ? 'book' : 'landing');
+</script>
+</body>
+</html>
