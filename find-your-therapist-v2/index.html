@@ -196,12 +196,57 @@
 
   .s3-time{ display:flex; flex-direction:column; gap:14px; padding-top:32px; }
   .s3-time h3{ margin:0; font-family:var(--serif); font-weight:400; font-size:22px; line-height:28px; letter-spacing:-.01em; color:var(--night); }
-  .cal-wait{ padding:28px 18px; text-align:center; color:var(--muted); font-size:14px; line-height:20px; }
-  .cal-wait svg{ width:22px; height:22px; margin:0 auto 8px; display:block; }
+  /* Locked calendar preview (Paper "Locked preview"). It sits inside
+     #cal-frame, so renderCalendar() swaps it for the real GoHighLevel
+     calendar exactly as it swapped the old empty box. The tiles carry the
+     next five weekdays; the time pills are deliberately blank skeletons,
+     because no real availability is known until the calendar loads. */
+  .cal-lock{ position:relative; display:flex; flex-direction:column; gap:14px; padding:18px; overflow:hidden; }
+  .cl-top{ display:flex; align-items:center; justify-content:space-between; }
+  .cl-top b{ font-weight:600; font-size:14px; line-height:18px; color:var(--placeholder); }
+  .cl-top span{ display:flex; gap:14px; color:var(--dash); }
+  .cl-top svg{ width:16px; height:16px; }
+  .cl-days{ display:flex; gap:6px; }
+  .cl-days span{ flex:1 1 0; height:64px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; background:#fff; border:1px solid var(--line); border-radius:12px; color:#A89B8C; font-weight:600; }
+  .cl-days small{ font-size:11px; line-height:14px; letter-spacing:.06em; }
+  .cl-days b{ font-size:20px; line-height:24px; font-weight:600; }
+  .cl-times{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .cl-times span{ height:48px; display:grid; place-items:center; background:#fff; border:1px solid var(--line); border-radius:999px; }
+  .cl-times span::after{ content:""; width:var(--w,60px); height:10px; border-radius:999px; background:var(--linen); }
+  .cl-times span:nth-child(n+5){ display:none; }
+  .cl-veil{ position:absolute; left:0; right:0; bottom:0; height:126px; background:linear-gradient(180deg, rgba(253,251,248,.35) 0%, rgba(253,251,248,.8) 100%); }
+  .cl-chip{ position:absolute; left:0; right:0; bottom:47px; margin:0; display:flex; justify-content:center; }
+  .cl-chip span{ display:flex; align-items:center; gap:8px; padding:11px 16px 11px 14px; background:var(--night); border-radius:999px; box-shadow:0 10px 30px rgba(42,23,41,.22); color:var(--ivory); font-weight:600; font-size:14px; line-height:18px; white-space:nowrap; }
+  .cl-chip svg{ width:15px; height:15px; color:var(--gold); flex:0 0 auto; }
+  .cl-chip .d{ display:none; }
   #cal-frame iframe{ height:820px; }
   .cal-note{ margin:0; color:var(--muted); font-size:12.5px; line-height:18px; }
   .skip{ align-self:flex-start; background:none; border:0; padding:0; color:var(--plum); text-decoration:underline; text-underline-offset:3px; font-size:14px; line-height:20px; cursor:pointer; }
-  .s3-guide{ margin-top:36px; padding-bottom:120px; }
+  /* "Not ready to book?" on Step 3: a linen card with the Grounding
+     Handbook drawn in CSS (Paper "Handbook cover (drawn)"), clearly second
+     to booking. Phones: cover + text on one row, email row under them. */
+  .s3-gwrap{ padding:40px 0 120px; }
+  .gcard{ border:0; margin:0; padding:24px 20px 22px; background:var(--linen); border-radius:18px; display:grid; grid-template-columns:88px 1fr; column-gap:18px; row-gap:18px; align-items:center; }
+  .gcard .g-body{ display:contents; }
+  .gcard .g-txt{ display:flex; flex-direction:column; gap:6px; }
+  .gcard h3{ font-size:21px; line-height:26px; }
+  .gcard .g-txt p{ font-size:14px; line-height:20px; }
+  .gcard form, .gcard .msg{ grid-column:1 / -1; }
+  .gcard .msg:empty{ display:none; }
+  .gcard .msg{ margin-top:-8px; }
+  .gcard.sent .done{ display:block; }
+  .gcard button{ padding:0 18px; }
+  .book{ position:relative; width:88px; height:116px; background:var(--night); border-radius:2px 5px 5px 2px; box-shadow:0 10px 20px rgba(42,23,41,.26), 0 2px 4px rgba(42,23,41,.2); transform:rotate(-4deg); overflow:hidden; }
+  .book::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:7px; background:linear-gradient(90deg, rgba(0,0,0,.35), rgba(0,0,0,0)); }
+  .book::after{ content:""; position:absolute; left:12px; right:7px; top:7px; bottom:7px; border:1px solid rgba(201,168,76,.55); border-radius:2px; }
+  .book .b-the{ position:absolute; left:19px; top:20px; color:var(--gold-text); font-weight:600; font-size:6px; line-height:8px; letter-spacing:.18em; }
+  .book .b-t{ position:absolute; left:19px; top:32px; font-family:var(--serif); font-style:italic; font-size:12.5px; line-height:14px; color:var(--ivory); white-space:nowrap; }
+  .book .b-t span{ display:block; }
+  .book .b-by{ position:absolute; left:19px; bottom:15px; font-size:6px; line-height:8px; color:rgba(250,247,242,.7); white-space:nowrap; }
+
+  /* Matched-therapist panel: desktop only (from 1100px). */
+  .mpanel{ display:none; }
+  .s3-sub{ display:none; }
 
   /* Thank you (chose not to book) */
   .ty{ padding-top:28px; padding-bottom:120px; display:flex; flex-direction:column; gap:12px; }
@@ -289,6 +334,76 @@
     .quote-col .guide{ width:auto; }
     .foot{ padding-left:56px; padding-right:56px; }
   }
+  /* ============ STEP 3, DESKTOP TWO-COLUMN (Paper "Desktop 1440 Step 3") ============
+     Left: the matched therapist, sticky. Right: form, calendar, guide card.
+     Below 1100px the single 608px column above stays, with the small match row. */
+  @media (min-width:1100px){
+    .s3-grid{ max-width:1440px; margin:0 auto; display:flex; align-items:flex-start; gap:96px; padding:40px 120px 112px; }
+    .s3-grid > .wrap{ flex:1 1 0; min-width:0; max-width:none; margin:0; padding:0; }
+    .mpanel{ display:flex; flex-direction:column; position:sticky; top:24px; width:456px; flex:0 0 auto; background:var(--night); border-radius:20px; overflow:hidden; }
+    .mp-photo{ position:relative; height:360px; }
+    .mp-photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 22%; }
+    .mp-photo::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:220px; background:linear-gradient(180deg, rgba(42,23,41,0) 0%, rgba(42,23,41,.72) 55%, #2A1729 100%); }
+    .mp-name{ position:absolute; z-index:1; left:36px; right:36px; bottom:20px; display:flex; flex-direction:column; gap:6px; }
+    .mp-name small{ color:var(--gold-text); font-weight:600; font-size:15px; line-height:20px; }
+    .mp-name b{ font-family:var(--serif); font-weight:400; font-size:38px; line-height:42px; letter-spacing:-.02em; color:var(--ivory); }
+    .mp-name span{ font-size:15px; line-height:21px; color:rgba(250,247,242,.82); }
+    .mp-steps{ display:flex; flex-direction:column; gap:18px; padding:28px 36px 0; }
+    .mp-steps h3{ margin:0; font-family:var(--serif); font-weight:400; font-size:21px; line-height:26px; color:var(--ivory); }
+    .mp-steps ol{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:18px; }
+    .mp-steps li{ display:flex; gap:16px; align-items:flex-start; }
+    .mp-steps li > i{ width:28px; flex:0 0 auto; font-family:var(--serif); font-style:italic; font-size:26px; line-height:28px; color:var(--gold-text); }
+    .mp-steps li div{ display:flex; flex-direction:column; gap:2px; padding-top:2px; }
+    .mp-steps li b{ font-weight:600; font-size:16px; line-height:22px; color:var(--ivory); }
+    .mp-steps li span{ font-size:14px; line-height:20px; color:var(--ivory-72); }
+    .mp-foot{ display:flex; flex-direction:column; gap:20px; padding:28px 36px 36px; }
+    .mp-foot::before{ content:""; height:1px; background:rgba(201,168,76,.28); }
+    .mp-foot p{ margin:0; font-size:14px; line-height:21px; color:var(--ivory-78); }
+    .mp-foot .mp-call{ color:var(--ivory-72); line-height:20px; }
+    .mp-foot a{ color:var(--gold-cream); font-weight:600; text-decoration:underline; text-decoration-color:rgba(201,168,76,.7); text-underline-offset:3px; }
+    .mp-foot a:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; border-radius:2px; }
+
+    .s3-grid .match{ display:none; }
+    .s3-grid .s3{ gap:0; padding-top:36px; }
+    .s3-grid .s3 h2{ font-size:52px; line-height:56px; letter-spacing:-.025em; }
+    .s3-sub{ display:block; margin:10px 0 0; font-size:17px; line-height:25px; color:var(--warm-gray); }
+    .submitted .s3-sub{ display:none; }
+    .s3-grid #form-frame, .s3-grid .got{ margin-top:32px; }
+    .s3-grid .formnote{ margin-top:14px; }
+    .s3-grid .s3-time{ padding-top:56px; gap:16px; }
+    .s3-grid .s3-time h3{ font-size:30px; line-height:36px; letter-spacing:-.015em; }
+    .s3-grid .cal-note{ font-size:13px; line-height:18px; }
+
+    .cal-lock{ gap:18px; padding:24px; }
+    .cl-top b{ font-size:15px; line-height:20px; }
+    .cl-days{ gap:10px; }
+    .cl-days span{ height:72px; }
+    .cl-days small{ font-size:12px; line-height:16px; }
+    .cl-days b{ font-size:22px; line-height:26px; }
+    .cl-times{ grid-template-columns:1fr 1fr 1fr; }
+    .cl-times span:nth-child(n+5){ display:grid; }
+    .cl-veil{ height:132px; }
+    .cl-chip{ bottom:55px; }
+    .cl-chip span{ gap:10px; padding:12px 20px 12px 16px; font-size:15px; line-height:20px; }
+    .cl-chip svg{ width:16px; height:16px; }
+    .cl-chip .m{ display:none; } .cl-chip .d{ display:inline; }
+
+    .s3-gwrap{ padding:64px 0 0; }
+    .gcard{ display:flex; flex-direction:row; align-items:center; gap:36px; padding:36px 36px 36px 40px; border-radius:20px; }
+    .gcard .g-body{ display:flex; flex:1 1 0; min-width:0; flex-direction:column; gap:10px; }
+    .gcard .g-txt{ gap:10px; }
+    .gcard h3{ font-size:26px; line-height:32px; letter-spacing:-.01em; }
+    .gcard .g-txt p{ font-size:15px; line-height:22px; }
+    .gcard form{ padding-top:6px; }
+    .gcard .msg{ margin-top:0; }
+    .gcard button{ padding:0 20px; }
+    .book{ width:132px; height:172px; flex:0 0 auto; border-radius:3px 6px 6px 3px; box-shadow:0 14px 28px rgba(42,23,41,.28), 0 2px 4px rgba(42,23,41,.2); }
+    .book::before{ width:10px; }
+    .book::after{ left:18px; right:10px; top:10px; bottom:10px; }
+    .book .b-the{ left:28px; top:30px; font-size:8px; line-height:10px; }
+    .book .b-t{ left:28px; top:46px; font-size:18px; line-height:20px; }
+    .book .b-by{ left:28px; bottom:22px; font-size:8.5px; line-height:11px; }
+  }
   .foot .lic-d{ display:none; }
   @media (prefers-reduced-motion: reduce){ .screen.active{ animation:none; } .bar{ transition:none; } }
 </style>
@@ -301,6 +416,7 @@
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10.5" width="16" height="10.5" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
@@ -405,6 +521,28 @@
        here by postMessage or, unframed, via ?step=book. Part 2, the matched
        therapist's GoHighLevel calendar, appears below only after that. -->
   <section class="screen" data-screen="capture">
+   <div class="s3-grid">
+    <!-- Desktop only (1100px and up): the matched therapist, sticky beside
+         the form. renderMatch() fills it for Alicia or Kyla. -->
+    <aside class="mpanel" aria-label="Your free call">
+      <div class="mp-photo">
+        <img id="mp-img" width="715" height="894" src="../assets/img/kyla-headshot.jpg" alt="Kyla Gordon, therapist intern supervised by Alicia Wright" loading="lazy">
+        <div class="mp-name"><small>Your free call is with</small><b id="mp-name">Kyla Gordon</b><span id="mp-cred">Therapist intern supervised by Alicia Wright, LCSW</span></div>
+      </div>
+      <div class="mp-steps">
+        <h3>What happens on the free call</h3>
+        <ol>
+          <li><i aria-hidden="true">1</i><div><b>You pick a time</b><span>Any open slot that suits you.</span></div></li>
+          <li><i aria-hidden="true">2</i><div><b id="mp-calls">Kyla calls you</b><span>Thirty minutes by phone, Arizona time.</span></div></li>
+          <li><i aria-hidden="true">3</i><div><b>You decide together</b><span>Whether to keep going is up to you. No obligation.</span></div></li>
+        </ol>
+      </div>
+      <div class="mp-foot">
+        <p>After the free call, sessions are $85 to $185. Out of network: superbills, HSA and FSA work.</p>
+        <p class="mp-call">Rather talk first? Call <a href="tel:+14807712181" data-call="step3_panel">(480) 771-2181</a></p>
+      </div>
+    </aside>
+
     <div class="wrap" id="s3">
       <div class="prog">
         <div class="prog-row"><button class="back" type="button" data-go="question" id="s3-back"><svg aria-hidden="true"><use href="#i-back"/></svg>Back</button><span class="stepno">Step 3 of 3</span></div>
@@ -412,6 +550,7 @@
       </div>
       <div class="s3">
         <h2>Save your spot.</h2>
+        <p class="s3-sub" id="s3-sub">Your name and number first. Then Kyla's open times appear below.</p>
         <div class="match">
           <img id="m-img" width="715" height="894" src="../assets/img/kyla-headshot.jpg" alt="">
           <div><b id="m-name">Your free call is with Kyla Gordon</b><span id="m-line">Therapist intern supervised by Alicia Wright, LCSW. Mesa office or telehealth anywhere in Arizona.</span></div>
@@ -435,24 +574,38 @@
       <div class="s3-time" id="s3-time">
         <h3 id="cal-head">Pick a time with Kyla</h3>
         <div class="frame" id="cal-frame">
-          <div class="cal-wait" id="cal-wait"><svg style="color:#B9A88A" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 9.5h17M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Times show here as soon as your details are in.</div>
+          <div class="cal-lock" id="cal-wait">
+            <div class="cl-top" aria-hidden="true"><b id="cl-month"></b><span><svg><use href="#i-back"/></svg><svg><use href="#i-chev"/></svg></span></div>
+            <div class="cl-days" id="cl-days" aria-hidden="true"></div>
+            <div class="cl-times" aria-hidden="true"><span style="--w:64px"></span><span style="--w:72px"></span><span style="--w:60px"></span><span style="--w:70px"></span><span style="--w:62px"></span><span style="--w:68px"></span></div>
+            <div class="cl-veil" aria-hidden="true"></div>
+            <p class="cl-chip"><span><svg aria-hidden="true"><use href="#i-lock"/></svg><em class="m" style="font-style:normal">Times open once your details are in</em><em class="d" id="cl-chip-d" style="font-style:normal">Kyla's times open once your details are in</em></span></p>
+          </div>
         </div>
         <p class="cal-note">Free 30-minute phone call, Arizona time.</p>
         <button class="skip" type="button" id="skip" style="display:none">I'd rather you reach out to me</button>
       </div>
 
-      <div class="guide s3-guide" data-guide="capture">
-        <h3>Not ready to book?</h3>
-        <p>Get Alicia's Grounding Handbook by email. Five body-based practices you can use tonight.</p>
-        <form novalidate>
-          <label class="sr" for="g-email-3">Email</label>
-          <input id="g-email-3" type="email" name="email" placeholder="Email" autocomplete="email" inputmode="email" required>
-          <button type="submit">Send it</button>
-        </form>
-        <p class="msg" role="status" aria-live="polite"></p>
-        <p class="msg done">Thank you. <a href="/grounding-guide" target="_blank" rel="noopener">Open the Grounding Handbook</a></p>
+      <div class="s3-gwrap">
+        <div class="guide gcard" data-guide="capture">
+          <div class="book" aria-hidden="true"><span class="b-the">THE</span><span class="b-t"><span>Grounding</span><span>Handbook</span></span><span class="b-by">Alicia Wright, LCSW</span></div>
+          <div class="g-body">
+            <div class="g-txt">
+              <h3>Not ready to book?</h3>
+              <p>Get Alicia's Grounding Handbook by email. Five body-based practices you can use tonight.</p>
+            </div>
+            <form novalidate>
+              <label class="sr" for="g-email-3">Email</label>
+              <input id="g-email-3" type="email" name="email" placeholder="Email" autocomplete="email" inputmode="email" required>
+              <button type="submit">Send it</button>
+            </form>
+            <p class="msg" role="status" aria-live="polite"></p>
+            <p class="msg done">Thank you. <a href="/grounding-guide" target="_blank" rel="noopener">Open the Grounding Handbook</a></p>
+          </div>
+        </div>
       </div>
     </div>
+   </div>
   </section>
 
   <!-- ===================== THANK YOU (chose not to book) =====================
@@ -650,9 +803,11 @@
 
   var team = {
     alicia:{ name:'Alicia Wright', short:'Alicia', img:'../assets/img/alicia-headshot-600.jpg', w:600, h:800,
-             line:'LCSW and founder. Mesa office or telehealth anywhere in Arizona.' },
+             line:'LCSW and founder. Mesa office or telehealth anywhere in Arizona.',
+             cred:'LCSW and founder of The Wild Within', panel:'../assets/img/alicia-welcome-portrait.jpg', pw:1200, ph:1500, pos:'50% 30%' },
     kyla:  { name:'Kyla Gordon', short:'Kyla', img:'../assets/img/kyla-headshot.jpg', w:715, h:894,
-             line:'Therapist intern supervised by Alicia Wright, LCSW. Mesa office or telehealth anywhere in Arizona.' }
+             line:'Therapist intern supervised by Alicia Wright, LCSW. Mesa office or telehealth anywhere in Arizona.',
+             cred:'Therapist intern supervised by Alicia Wright, LCSW', panel:'../assets/img/kyla-headshot.jpg', pw:715, ph:894, pos:'50% 22%' }
   };
 
   function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
@@ -737,6 +892,34 @@
     document.getElementById('m-line').textContent = t.line;
     document.getElementById('formnote').textContent = t.short + ' calls you at this number. Leave health details out of this form; they belong in your secure client portal later.';
     document.getElementById('cal-head').textContent = 'Pick a time with ' + t.short;
+    // Desktop panel and locked calendar preview.
+    var mp = document.getElementById('mp-img');
+    if (mp.getAttribute('src') !== t.panel) { mp.src = t.panel; mp.width = t.pw; mp.height = t.ph; }
+    mp.style.objectPosition = t.pos;
+    mp.alt = t.name + ', ' + t.cred;
+    document.getElementById('mp-name').textContent = t.name;
+    document.getElementById('mp-cred').textContent = t.cred;
+    document.getElementById('mp-calls').textContent = t.short + ' calls you';
+    document.getElementById('s3-sub').textContent = 'Your name and number first. Then ' + t.short + "'s open times appear below.";
+    var chip = document.getElementById('cl-chip-d');
+    if (chip) chip.textContent = t.short + "'s times open once your details are in";
+    fillPreviewDays();
+  }
+
+  /* The locked preview shows the next five weekdays, so it reads as a real
+   * week. Times stay blank until the real calendar replaces it. */
+  function fillPreviewDays(){
+    var box = document.getElementById('cl-days');
+    if (!box || box.childNodes.length) return;
+    var d = new Date(); var out = []; var first = null;
+    while (out.length < 5) {
+      d.setDate(d.getDate() + 1);
+      var wd = d.getDay(); if (wd === 0 || wd === 6) continue;
+      if (!first) first = new Date(d);
+      out.push('<span><small>' + ['SUN','MON','TUE','WED','THU','FRI','SAT'][wd] + '</small><b>' + d.getDate() + '</b></span>');
+    }
+    box.innerHTML = out.join('');
+    try { document.getElementById('cl-month').textContent = first.toLocaleString('en-US', { month:'long', year:'numeric' }); } catch(e){}
   }
 
   var captureSubmitted = false;
