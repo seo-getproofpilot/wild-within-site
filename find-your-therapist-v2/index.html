@@ -198,7 +198,7 @@
   .s3-time h3{ margin:0; font-family:var(--serif); font-weight:400; font-size:22px; line-height:28px; letter-spacing:-.01em; color:var(--night); }
   .cal-wait{ padding:28px 18px; text-align:center; color:var(--muted); font-size:14px; line-height:20px; }
   .cal-wait svg{ width:22px; height:22px; margin:0 auto 8px; display:block; }
-  #cal-frame iframe{ height:700px; }
+  #cal-frame iframe{ height:820px; }
   .cal-note{ margin:0; color:var(--muted); font-size:12.5px; line-height:18px; }
   .skip{ align-self:flex-start; background:none; border:0; padding:0; color:var(--plum); text-decoration:underline; text-underline-offset:3px; font-size:14px; line-height:20px; cursor:pointer; }
   .s3-guide{ margin-top:36px; padding-bottom:120px; }
@@ -719,9 +719,13 @@
   /* Build note 1: start the form loading while Step 2 is on screen, so the
    * form's scripts, styles, fonts and bot check are already warm when Step 3
    * opens in Instagram's in-app browser. The tap then swaps in the final URL
-   * carrying the answer, which reloads from a warm cache. */
+   * carrying the answer, which reloads from a warm cache.
+   * The preload MUST be the bare form URL. With any prefilled value GoHighLevel
+   * saves "form progress", and the reload then greets every first-time
+   * visitor with a "Submission in progress: Start over / Continue" dialog
+   * (reproduced in a fresh profile 2026-10-02). */
   function preloadForm(){
-    setFormSrc(buildGhlFormUrl(false));
+    setFormSrc(GHL_FORM_BASE);
     loadGhlEmbed();
   }
 
@@ -798,6 +802,17 @@
     fireLead();
     markSubmitted();
     try { document.getElementById('s3-time').scrollIntoView({ behavior:'smooth', block:'start' }); } catch(e){}
+  });
+
+  /* The booking widget reports its own height (["highlevel.setHeight",
+   * {height}]) but form_embed.js does not apply it to a calendar iframe added
+   * after load, which left the widget clipped at 700px. Apply it here. */
+  window.addEventListener('message', function(evt){
+    if(evt.origin !== 'https://api.leadconnectorhq.com') return;
+    var d = evt.data;
+    if(!Array.isArray(d) || d[0] !== 'highlevel.setHeight' || !d[1] || !(+d[1].height > 0)) return;
+    var f = document.querySelector('#cal-frame iframe');
+    if(f) f.style.height = Math.min(Math.max(+d[1].height + 8, 480), 2400) + 'px';
   });
 
   /* Booked call, posted up by call-booked.html inside the calendar widget. */
