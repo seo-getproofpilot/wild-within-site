@@ -1085,6 +1085,13 @@
      * to read the dropoff per screen.
      */
     wwTrack('funnel_step', stepParams, 'FunnelStep', stepParams, { custom: true });
+    /* Meta files this pixel under health "core setup", which strips every
+     * custom parameter, so FunnelStep arrives with no step_number and all
+     * eleven steps look identical. Event names survive, so the contact form
+     * screen gets its own name that Meta can optimise on. Meta only: GA4
+     * already reads step_name from funnel_step.
+     */
+    if (id === 'capture') wwTrack(null, null, 'QuizCapture', {}, { custom: true });
   }
   function showMatching(){
     document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
