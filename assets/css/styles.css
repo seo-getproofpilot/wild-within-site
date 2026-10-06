@@ -3811,3 +3811,17 @@ body::after {
   );
 }
 .page-header--photo { background-position: center 28%; }
+
+/* FAQ band: .full-bleed (block, line-height 0, padding 0 !important) was
+   overriding .faq-band, so the text sat top-left and the eyebrow got clipped. */
+section.full-bleed.faq-band {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: normal;
+  padding: 5rem 1.5rem !important;
+}
+section.full-bleed.faq-band .faq-band-content { margin: 0 auto; }
+@media (max-width: 720px) {
+  section.full-bleed.faq-band { padding: 3.5rem 1.25rem !important; }
+}
