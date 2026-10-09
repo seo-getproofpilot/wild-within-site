@@ -165,6 +165,202 @@
 <meta name="twitter:title" content="Holistic Therapist in Tempe, AZ | The Wild Within" />
 <meta name="twitter:description" content="A holistic therapist for Tempe adults, couples, and families. Somatic therapy and couples counseling with Alicia Wright, LCSW, in Mesa or by telehealth." />
 <meta name="twitter:image" content="https://thewildwithintherapy.com/assets/img/og-alicia-office.jpg" />
+<style>
+/* Tempe page layout, designed in Paper 2026-10-09 (file "Wild Within: Tempe Location Page"). Scoped to .tp- classes so no other page changes. */
+.tp{--ink:#2B2228;--plum-d:#2E1A2D;--plum:#4A2848;--berry:#6B3560;--gold:#C9A84C;--gold-d:#A68B3C;--gold-l:#E8CF8A;--ivory:#FAF7F2;--warm:#F5F0E8;--line:#DCCFBC;--muted:#6B5B4F;--cream:#EDE6DA}
+.tp *{box-sizing:border-box}
+:where(.tp) section{padding:0}
+.tp-wrap{max-width:1440px;margin:0 auto;padding:0 96px}
+.tp-eb{font-family:Inter,sans-serif;font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--berry);margin:0}
+.tp-eb--gold{color:var(--gold)}.tp-eb--lgold{color:var(--gold-l)}
+.tp h2.tp-h2{font-family:'Playfair Display',serif;font-weight:400;font-size:40px;line-height:48px;letter-spacing:-.01em;color:var(--plum-d);margin:0}
+.tp-light h2.tp-h2{color:var(--ivory)}
+.tp p.tp-body{font-family:Inter,sans-serif;font-size:16px;line-height:27px;color:var(--ink);margin:0}
+.tp-light p.tp-body{color:var(--cream)}
+.tp a.tp-link{font-family:Inter,sans-serif;font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);text-decoration:none}
+.tp a.tp-link:hover{text-decoration:underline}
+.tp-btn{display:inline-flex;justify-content:center;align-items:center;background:var(--gold);color:var(--plum-d);font-family:Inter,sans-serif;font-size:14px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:18px 30px;border-radius:999px;text-decoration:none;transition:background .2s}
+.tp-btn:hover{background:var(--gold-l)}
+.tp-phone{font-family:Inter,sans-serif;font-size:16px;font-weight:500;color:var(--ivory);text-decoration:none}
+/* hero */
+.tp-hero{position:relative;min-height:680px;display:flex;align-items:center;background:var(--plum-d);overflow:hidden}
+.tp-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%}
+.tp-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(46,26,45,.94) 0%,rgba(46,26,45,.82) 42%,rgba(46,26,45,.25) 75%,rgba(46,26,45,.1) 100%)}
+.tp-hero-text{position:relative;z-index:1;max-width:600px;display:flex;flex-direction:column;gap:24px}
+.tp-hero h1{font-family:'Playfair Display',serif;font-weight:400;font-size:60px;line-height:68px;letter-spacing:-.015em;color:var(--ivory);margin:0}
+.tp-hero h1 em{color:var(--gold)}
+.tp-hero p.tp-lede{font-family:'Ibarra Real Nova',serif;font-size:20px;line-height:32px;color:var(--cream);margin:0}
+.tp-actions{display:flex;gap:24px;align-items:center;flex-wrap:wrap;padding-top:8px}
+/* facts */
+.tp-facts{background:var(--warm);border-bottom:1px solid #E8E2D8}
+.tp-facts dl{display:grid;grid-template-columns:repeat(4,1fr);margin:0}
+.tp-facts dl>div{padding:28px 0 28px 40px;border-right:1px solid #E0D6C6}
+.tp-facts dl>div:first-child{padding-left:0}.tp-facts dl>div:last-child{border-right:0}
+.tp-facts dt{font-family:Inter,sans-serif;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-d);margin-bottom:6px}
+.tp-facts dd{font-family:'Playfair Display',serif;font-size:20px;color:var(--plum-d);margin:0}
+/* intro + therapists */
+.tp-intro{background:var(--ivory);padding:112px 0}
+.tp-intro-top{display:grid;grid-template-columns:520px 1fr;gap:96px;margin-bottom:56px}
+.tp-intro-top>div:first-child{display:flex;flex-direction:column;gap:20px}
+.tp-intro-copy{padding-top:36px;display:flex;flex-direction:column;gap:18px}
+.tp-intro-copy p{font-family:'Ibarra Real Nova',serif;font-size:20px;line-height:33px;color:var(--ink);margin:0}
+.tp-intro-copy p+p{color:var(--muted)}
+.tp-team{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.tp-person{display:flex;gap:32px;background:#FDFBF8;border:1px solid #E8E2D8;border-radius:4px;padding:32px}
+.tp-person img{width:200px;height:250px;object-fit:cover;object-position:center 22%;border-radius:2px;flex-shrink:0}
+.tp-person>div{display:flex;flex-direction:column;gap:12px}
+.tp-person .tp-eb{color:var(--gold-d);letter-spacing:.16em}
+.tp-person h3{font-family:'Playfair Display',serif;font-weight:400;font-size:28px;line-height:34px;color:var(--plum-d);margin:0}
+.tp-person p.tp-body{font-size:15px;line-height:25px}
+/* getting here */
+.tp-here{display:grid;grid-template-columns:560px 1fr;background:var(--warm)}
+.tp-here>img{width:100%;height:100%;object-fit:cover;object-position:40% center;min-height:100%}
+.tp-here-text{padding:96px 96px 96px 80px;display:flex;flex-direction:column;gap:22px;max-width:880px}
+.tp-times{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.tp-times li{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line);font-family:Inter,sans-serif;font-size:16px;color:var(--ink)}
+.tp-times li span{font-family:'Playfair Display',serif;font-size:22px;color:var(--plum)}
+.tp-here a{color:var(--berry)}
+/* who */
+.tp-who{background:var(--ivory);padding:112px 0}
+.tp-who .tp-wrap{display:grid;grid-template-columns:1fr 480px;gap:80px;align-items:start}
+.tp-who-main{display:flex;flex-direction:column;gap:28px}
+.tp-list{list-style:none;margin:0;padding:0;counter-reset:tp}
+.tp-list li{counter-increment:tp;display:flex;gap:16px;align-items:baseline;padding:13px 0;border-bottom:1px solid #E8E2D8;font-family:Inter,sans-serif;font-size:16px;line-height:25px;color:var(--ink)}
+.tp-list li::before{content:counter(tp,decimal-leading-zero);font-family:'Playfair Display',serif;font-size:14px;color:var(--gold);width:24px;flex-shrink:0}
+.tp-asu{background:var(--plum-d);padding:48px 44px;border-radius:4px;margin-top:44px;display:flex;flex-direction:column;gap:20px}
+.tp-asu h3{font-family:'Playfair Display',serif;font-weight:400;font-size:32px;line-height:40px;color:var(--ivory);margin:0}
+/* services */
+.tp-svc{background:var(--plum-d);padding:104px 0}
+.tp-head-row{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:56px}
+.tp-head-row>div{display:flex;flex-direction:column;gap:18px;max-width:720px}
+.tp-svc-grid{display:grid;grid-template-columns:repeat(3,1fr);column-gap:56px;row-gap:48px}
+.tp-svc-grid article{border-top:1px solid rgba(201,168,76,.45);padding-top:22px;display:flex;flex-direction:column;gap:12px}
+.tp-svc-grid h3{font-family:'Playfair Display',serif;font-weight:400;font-size:24px;line-height:30px;margin:0}
+.tp-svc-grid h3 a{color:var(--gold-l);text-decoration:none}
+.tp-svc-grid h3 a:hover{text-decoration:underline}
+.tp-svc-grid p{font-family:Inter,sans-serif;font-size:15px;line-height:25px;color:#E2D9CC;margin:0}
+/* cost */
+.tp-cost{background:var(--ivory);padding:112px 0}
+.tp-cost .tp-wrap{display:grid;grid-template-columns:1fr 500px;gap:96px;align-items:center}
+.tp-cost-text{display:flex;flex-direction:column;gap:22px}
+.tp-prices{border-top:1px solid var(--line)}
+.tp-price{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:26px 0;border-bottom:1px solid var(--line)}
+.tp-price b{display:block;font-family:'Playfair Display',serif;font-weight:400;font-size:22px;color:var(--plum-d)}
+.tp-price small{display:block;font-family:Inter,sans-serif;font-size:14px;color:var(--muted);margin-top:4px}
+.tp-amt{display:flex;align-items:baseline;gap:10px;font-family:'Playfair Display',serif;font-size:48px;line-height:1;color:var(--plum);white-space:nowrap}
+.tp-amt i{font-style:normal;font-family:Inter,sans-serif;font-size:13px;font-weight:600;letter-spacing:.14em;color:var(--muted)}
+.tp-note{font-family:Inter,sans-serif;font-size:14px;line-height:22px;color:var(--muted);margin:18px 0 0}
+/* steps */
+.tp-steps{background:var(--plum);padding:104px 0}
+.tp-steps .tp-head-row>p{font-family:'Ibarra Real Nova',serif;font-size:20px;color:var(--cream);margin:0}
+.tp-steps ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);column-gap:56px}
+.tp-steps li{display:flex;flex-direction:column;gap:14px}
+.tp-steps li>span{font-family:'Playfair Display',serif;font-size:56px;line-height:56px;color:var(--gold)}
+.tp-steps h3{font-family:'Playfair Display',serif;font-weight:400;font-size:24px;color:var(--ivory);margin:0}
+.tp-steps p{font-family:Inter,sans-serif;font-size:16px;line-height:26px;color:var(--cream);margin:0}
+/* testimonial */
+.tp-quote{position:relative;min-height:560px;display:flex;align-items:center;background:var(--plum-d);overflow:hidden}
+.tp-quote>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right 45%}
+.tp-quote::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(46,26,45,.95) 0%,rgba(46,26,45,.85) 40%,rgba(46,26,45,.2) 72%,rgba(46,26,45,0) 100%)}
+.tp-quote figure{position:relative;z-index:1;max-width:560px;margin:0;display:flex;flex-direction:column;gap:22px}
+.tp-quote blockquote{font-family:'Playfair Display',serif;font-style:italic;font-size:26px;line-height:40px;color:var(--ivory);margin:0;padding:0;border:0}
+.tp-quote figcaption{font-family:Inter,sans-serif;font-size:14px;letter-spacing:.06em;color:var(--cream)}
+/* faq */
+.tp-faq{background:var(--warm);padding:112px 0}
+.tp-faq .tp-wrap{display:grid;grid-template-columns:400px 1fr;gap:96px}
+.tp-faq-side{display:flex;flex-direction:column;gap:18px}
+.tp-faq-side a{color:var(--berry)}
+.tp-faq-list{border-top:1px solid #E0D6C6}
+.tp-faq-list details{border-bottom:1px solid #E0D6C6}
+.tp-faq-list summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:22px 0;font-family:'Playfair Display',serif;font-size:20px;line-height:28px;color:var(--plum-d)}
+.tp-faq-list summary::-webkit-details-marker{display:none}
+.tp-faq-list summary::after{content:'+';font-family:Inter,sans-serif;font-size:22px;color:var(--gold-d);flex-shrink:0;transition:transform .2s}
+.tp-faq-list details[open] summary::after{transform:rotate(45deg)}
+.tp-faq-list details p{font-family:Inter,sans-serif;font-size:16px;line-height:27px;color:var(--ink);margin:0;padding:0 40px 24px 0}
+/* explore */
+.tp-more{background:var(--ivory);padding:104px 0}
+.tp-more-head{display:flex;flex-direction:column;gap:18px;margin-bottom:48px}
+.tp-more-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.tp-more-grid article{display:flex;flex-direction:column;gap:14px}
+.tp-more-grid img{width:100%;height:240px;object-fit:cover;border-radius:2px}
+.tp-more-grid h3{font-family:'Playfair Display',serif;font-weight:400;font-size:24px;color:var(--plum-d);margin:6px 0 0}
+.tp-more-grid p{font-family:Inter,sans-serif;font-size:15px;line-height:24px;color:var(--ink);margin:0}
+.tp-more-grid a{font-family:Inter,sans-serif;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--berry);text-decoration:none}
+/* final cta */
+.tp-cta{background:var(--plum-d);padding:88px 0}
+.tp-cta .tp-wrap{display:flex;justify-content:space-between;align-items:center;gap:48px}
+.tp-cta-text{max-width:640px;display:flex;flex-direction:column;gap:14px}
+.tp-cta h2.tp-h2{font-size:44px;line-height:52px;color:var(--ivory)}
+.tp-cta p{font-family:'Ibarra Real Nova',serif;font-size:20px;line-height:31px;color:var(--cream);margin:0}
+.tp-cta-act{display:flex;flex-direction:column;align-items:flex-end;gap:16px}
+/* tablet */
+@media (max-width:1180px){
+ .tp-wrap{padding:0 48px}
+ .tp-intro-top{grid-template-columns:1fr;gap:0}.tp-intro-copy{padding-top:24px}
+ .tp-team{grid-template-columns:1fr}
+ .tp-here{grid-template-columns:42% 1fr}.tp-here-text{padding:72px 48px}
+ .tp-who .tp-wrap{grid-template-columns:1fr 400px;gap:48px}
+ .tp-cost .tp-wrap,.tp-faq .tp-wrap{grid-template-columns:1fr;gap:48px}
+}
+/* phone */
+@media (max-width:760px){
+ .tp-wrap{padding:0 20px}
+ .tp-eb{font-size:11px}
+ .tp h2.tp-h2{font-size:28px;line-height:35px}
+ .tp-hero{display:block;min-height:0}
+ .tp-hero-img{position:static;height:300px;object-position:82% 45%}
+ .tp-hero::after{display:none}
+ .tp-hero .tp-wrap{padding:32px 20px 40px}
+ .tp-hero-text{gap:18px}
+ .tp-hero h1{font-size:36px;line-height:42px}
+ .tp-hero p.tp-lede{font-size:18px;line-height:28px}
+ .tp-actions{flex-direction:column;align-items:stretch;gap:14px}.tp-actions .tp-phone{text-align:center;font-size:15px}
+ .tp-facts dl{grid-template-columns:1fr 1fr}
+ .tp-facts dl>div{padding:16px 12px 16px 0;border-right:0}
+ .tp-facts dt{font-size:11px;letter-spacing:.14em}.tp-facts dd{font-size:17px;line-height:23px}
+ .tp-intro{padding:56px 0}.tp-intro-top{margin-bottom:28px}
+ .tp-intro-top>div:first-child{gap:16px}
+ .tp-intro-copy{padding-top:16px}.tp-intro-copy p{font-size:18px;line-height:29px}
+ .tp-team{gap:14px}
+ .tp-person{gap:16px;padding:16px;align-items:flex-start}
+ .tp-person img{width:104px;height:132px}
+ .tp-person>div{gap:6px}.tp-person .tp-eb{font-size:11px;letter-spacing:.12em}
+ .tp-person h3{font-size:21px;line-height:26px}
+ .tp-here{display:block}
+ .tp-here>img{height:300px;object-position:center 30%}
+ .tp-here-text{padding:40px 20px 52px;gap:16px}
+ .tp-times li{font-size:15px;padding:12px 0}.tp-times li span{font-size:19px}
+ .tp-who{padding:56px 0}.tp-who .tp-wrap{display:block}.tp-who-main{gap:16px}
+ .tp-list li{font-size:16px;line-height:24px;padding:12px 0;gap:12px}
+ .tp-asu{margin-top:32px;padding:32px 24px;gap:14px}.tp-asu h3{font-size:26px;line-height:32px}
+ .tp-svc,.tp-steps,.tp-more{padding:56px 0}
+ .tp-head-row{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:24px}
+ .tp-svc-grid{grid-template-columns:1fr;row-gap:0}
+ .tp-svc-grid article{padding:20px 0;gap:8px}.tp-svc-grid h3{font-size:21px}
+ .tp-cost{padding:56px 0}.tp-cost .tp-wrap{gap:24px}.tp-cost-text{gap:16px}
+ .tp-price{padding:20px 0}.tp-price b{font-size:19px}.tp-amt{font-size:36px}.tp-amt i{font-size:11px}
+ .tp-steps ol{grid-template-columns:1fr}
+ .tp-steps li{display:grid;grid-template-columns:48px 1fr;column-gap:16px;row-gap:6px;padding:20px 0;border-top:1px solid rgba(232,207,138,.3)}
+ .tp-steps li>span{font-size:34px;line-height:36px;grid-row:span 2}
+ .tp-steps h3{font-size:20px}.tp-steps p{font-size:15px;line-height:24px}
+ .tp-quote{display:block;min-height:0}
+ .tp-quote>img{position:static;height:340px;object-position:100% 45%}
+ .tp-quote::after{display:none}
+ .tp-quote .tp-wrap{padding:36px 20px 48px}
+ .tp-quote figure{gap:16px}.tp-quote blockquote{font-size:21px;line-height:32px}
+ .tp-faq{padding:56px 0}.tp-faq .tp-wrap{gap:16px}
+ .tp-faq-list summary{font-size:17px;line-height:24px;padding:16px 0;gap:16px}
+ .tp-faq-list details p{padding:0 0 18px;font-size:15px;line-height:25px}
+ .tp-more-grid{grid-template-columns:1fr;gap:0;border-top:1px solid #E8E2D8}
+ .tp-more-head{gap:16px;margin-bottom:16px}
+ .tp-more-grid article{display:grid;grid-template-columns:96px 1fr;column-gap:14px;row-gap:4px;padding:14px 0;border-bottom:1px solid #E8E2D8;align-items:start}
+ .tp-more-grid img{height:96px;grid-row:span 3}
+ .tp-more-grid h3{font-size:19px;margin:0}.tp-more-grid p{font-size:14px;line-height:21px}.tp-more-grid a{font-size:12px}
+ .tp-cta{padding:52px 0 120px}.tp-cta .tp-wrap{flex-direction:column;align-items:stretch;gap:24px}
+ .tp-cta h2.tp-h2{font-size:32px;line-height:38px}.tp-cta p{font-size:18px;line-height:28px}
+ .tp-cta-act{align-items:stretch}.tp-cta-act .tp-phone{text-align:center;font-size:15px}
+}
+</style>
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to content</a>
@@ -209,273 +405,181 @@
 
 <main id="main">
 
-<!-- Hero. stock-kap-room.jpg is a real photo of Alicia in session despite the stock- prefix, and at 1600px it is wide enough for this slot without upscaling. -->
-<section class="page-header page-header--photo" style="background-image: url('assets/img/stock-kap-room.jpg')">
-  <div class="wrap">
-    <p class="eyebrow">Holistic Therapist &middot; Tempe, AZ</p>
-    <h1>A holistic therapist for Tempe who listens to your body <em>too.</em></h1>
-    <p>Somatic, parts-work, and EMDR-informed therapy for adults, couples, and families, with Alicia Wright, LCSW, and her supervised intern Kyla Gordon. By secure telehealth anywhere in Arizona, or in person at the Mesa office, about 20 to 25 minutes from most of Tempe.</p>
-  </div>
-</section>
+<!-- Tempe page body, built from the approved Paper design (2026-10-09). Hero photo stock-kap-room.jpg is a real photo of Alicia in session. -->
+<div class="tp">
 
-<!-- Quick value strip -->
-<section class="value-strip reveal">
-  <div class="value-strip-grid">
-    <div class="value-item">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-      <div><span class="value-label">Sessions</span><span class="value-detail">$85 to $185 &middot; 50 min</span></div>
-    </div>
-    <div class="value-item">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-      <div><span class="value-label">Insurance</span><span class="value-detail">Out-of-network &middot; Superbills</span></div>
-    </div>
-    <div class="value-item">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      <div><span class="value-label">From Tempe</span><span class="value-detail">Telehealth or the 202 east</span></div>
-    </div>
-    <div class="value-item">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      <div><span class="value-label">Start With</span><span class="value-detail">Free 30-Min Call</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- 2-col intro: the two therapists, Alicia and Kyla, and how each works. Kyla facts from about.html (her own bio): trauma-informed, solution-focused. -->
-<section class="section bg-cream reveal">
-  <div class="wrap">
-    <div class="intro-grid">
-      <div class="intro-lead">
-        <p class="intro-eyebrow">For Tempe</p>
-        <h2>Holistic therapy for Tempe, with Alicia or <em>Kyla.</em></h2>
-        <p>The Wild Within is a holistic therapy practice in Mesa, about 20 minutes from Tempe, with two therapists: Alicia Wright, LCSW, and Kyla Gordon, a supervised therapist intern. Sessions are $85 to $185, in person or by telehealth anywhere in Arizona, and it starts with a free 30-minute phone call. That call is where we figure out which of them fits.</p>
-        <p style="margin-top:1rem;"><strong>Alicia Wright, LCSW,</strong> founded the practice. When something comes up as you talk, a tight throat or a held breath, she slows down and gets curious about it with you. That's <a href="/somatic-therapy">somatic therapy</a>, and it runs through her sessions. She's also a certified tantra practitioner and kundalini dance teacher, and she brings that into the room too.</p>
-        <p style="margin-top:1rem;"><strong>Kyla Gordon</strong> is a therapist intern finishing her Master of Social Work, seeing clients under Alicia's clinical supervision for $85 a session. Her approach is trauma-informed and solution-focused, and she works with new parenthood, life transitions, identity, and teens.</p>
-      </div>
-      <div class="intro-features">
-        <p class="intro-eyebrow">How They Work</p>
-        <ul class="intro-list">
-          <li><strong>Somatic work.</strong> With Alicia. Noticing breath, tension, and sensation as they happen, with no touch involved</li>
-          <li><strong>Parts work and EMDR.</strong> With Alicia. For old patterns and for memories your body still reacts to</li>
-          <li><strong>Solution-focused therapy.</strong> With Kyla. Practical steps through a big change, for $85 a session</li>
-          <li><strong>Talk therapy.</strong> With either. A real conversation, start to finish, in plain words</li>
-        </ul>
+<section class="tp-hero">
+  <img class="tp-hero-img" width="1600" height="1066" src="assets/img/stock-kap-room.jpg" alt="Alicia Wright, LCSW, sitting beside a client during a somatic therapy session in her Mesa, Arizona office" fetchpriority="high" />
+  <div class="tp-wrap" style="width:100%;">
+    <div class="tp-hero-text">
+      <p class="tp-eb tp-eb--gold">Holistic Therapist &middot; Tempe, AZ</p>
+      <h1>A holistic therapist for Tempe who listens to your body <em>too.</em></h1>
+      <p class="tp-lede">Somatic, parts work, and EMDR-informed therapy for adults, couples, and families with Alicia Wright, LCSW, and supervised intern Kyla Gordon. Telehealth anywhere in Arizona, or 20 minutes east in Mesa.</p>
+      <div class="tp-actions">
+        <a href="/contact" class="tp-btn">Book a free 30-minute call</a>
+        <a href="tel:+14807712181" class="tp-phone">or call (480) 771-2181</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Getting here from Tempe. Drive times from Google Maps, Thu 2026-10-08 around 4:30pm Arizona time: Town Lake 17 min, Mill & University 23, ASU Memorial Union 26, Kiwanis Park 22, Rural & Elliot 22 to 25. -->
-<section class="section bg-warm reveal">
-  <div class="wrap content-split">
-    <div class="content-split-image reveal-left">
-      <img width="1059" height="661" src="assets/img/funnel-hero-alicia-office.jpg" alt="Alicia Wright, LCSW, seated with a notebook in her sunlit Mesa, Arizona therapy office" loading="lazy" />
+<section class="tp-facts" aria-label="Quick facts">
+  <div class="tp-wrap">
+    <dl>
+      <div><dt>Sessions</dt><dd>$85 to $185 &middot; 50 min</dd></div>
+      <div><dt>First step</dt><dd>Free 30-minute phone call</dd></div>
+      <div><dt>Where</dt><dd>Telehealth or Mesa office</dd></div>
+      <div><dt>Insurance</dt><dd>Out of network &middot; Superbills</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- Intro and the two therapists. Kyla facts from about.html (her own bio). Kyla is never described as licensed. -->
+<section class="tp-intro">
+  <div class="tp-wrap">
+    <div class="tp-intro-top">
+      <div>
+        <p class="tp-eb">For Tempe</p>
+        <h2 class="tp-h2">Holistic therapy for Tempe, with Alicia or Kyla.</h2>
+      </div>
+      <div class="tp-intro-copy">
+        <p>The Wild Within is a holistic therapy practice in Mesa, about 20 minutes from Tempe, with two therapists: Alicia Wright, LCSW, and Kyla Gordon, a supervised therapist intern. Sessions are $85 to $185, in person or by telehealth anywhere in Arizona, and it starts with a free 30-minute phone call.</p>
+        <p>That call is where we figure out which of them fits.</p>
+      </div>
     </div>
-    <div class="content-split-text reveal-right">
-      <h2>Getting here from Tempe</h2>
-      <p>The office is at 2160 E Brown Rd, Suite 3 in Mesa, about a quarter mile east of Gilbert Road. From ASU, Downtown Tempe, or Tempe Town Lake, take the Loop 202 east to the Gilbert Road exit and head south to Brown. Plan on 17 to 26 minutes on a weekday afternoon, depending on where you start.</p>
-      <p>From south Tempe, around Kiwanis Park or down by Rural and Elliot, the US 60 east to Gilbert Road and then north takes about the same time. No car? The light rail runs from campus and Downtown Tempe to its last stop at Gilbert Road and Main Street, about two miles south of the office.</p>
-      <p>Plenty of people never make the drive at all. Secure telehealth works anywhere in Arizona, so a session can happen from your apartment, a private office, or anywhere you can close a door. Same therapist, same work. Therapy is licensed in Arizona only, and coaching is available nationwide.</p>
-      <p>Closer to the south or east side of the valley? See <a href="/holistic-therapist-chandler">holistic therapy for Chandler</a> or <a href="/holistic-therapist-gilbert">holistic therapy for Gilbert</a>.</p>
+    <div class="tp-team">
+      <article class="tp-person">
+        <img width="1200" height="1500" src="assets/img/alicia-welcome-portrait.jpg" alt="Alicia Wright, LCSW, founder of The Wild Within, in her Mesa, Arizona therapy office" loading="lazy" />
+        <div>
+          <p class="tp-eb">Founder &middot; Up to $185</p>
+          <h3>Alicia Wright, LCSW</h3>
+          <p class="tp-body">When something comes up as you talk, a tight throat or a held breath, she slows down and gets curious about it with you. That's <a href="/somatic-therapy">somatic therapy</a>, plus parts work, EMDR, couples, and KAP. She's also a certified tantra practitioner and kundalini dance teacher.</p>
+        </div>
+      </article>
+      <article class="tp-person">
+        <img width="715" height="894" src="assets/img/kyla-headshot.jpg" alt="Kyla Gordon, therapist intern at The Wild Within in Mesa, Arizona" loading="lazy" />
+        <div>
+          <p class="tp-eb">Therapist Intern &middot; $85</p>
+          <h3>Kyla Gordon</h3>
+          <p class="tp-body">Finishing her Master of Social Work and seeing clients under Alicia's clinical supervision for $85 a session. Trauma-informed and solution-focused, with practical steps through new parenthood, life transitions, identity, and the teen years. ASU psychology grad.</p>
+        </div>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- Full-bleed image break. Real photo, 1600px wide; fine for an in-page band per the repo README, never a share image. -->
-<section class="full-bleed reveal">
-  <img width="1600" height="1066" src="assets/img/alicia-therapy-session-orange.jpg" alt="Alicia Wright, LCSW, in session with a client in her warmly lit Mesa, Arizona therapy office" loading="lazy" />
-</section>
-
-<!-- Who it's for -->
-<section class="section bg-warm reveal">
-  <div class="wrap">
-    <div class="section-header">
-      <div class="section-tag"><div class="section-tag-line"></div>Who It's For<div class="section-tag-line"></div></div>
-      <h2 class="section-title">Therapy for Tempe adults, couples, and <em>families.</em></h2>
-    </div>
-    <ul class="signal-list">
-      <li>Adults dealing with anxiety, burnout, or past trauma.</li>
-      <li>Couples, married or not, who keep having the same fight.</li>
-      <li>Parents and new parents who are running on empty.</li>
-      <li>People who've tried talk therapy and want something that includes the body.</li>
-      <li>ASU students and anyone going through a big change. Kyla works with identity and life transitions.</li>
-      <li>People who want the spiritual side of healing with a licensed therapist.</li>
-      <li>Teens and pre-teens, with Alicia or with Kyla under Alicia's supervision.</li>
+<!-- Getting here. Drive times from Google Maps, Thu 2026-10-08 around 4:30pm Arizona time. -->
+<section class="tp-here">
+  <img width="879" height="911" src="assets/img/alicia-office-hero.jpg" alt="Alicia Wright, LCSW, seated with a clipboard in her sunlit Mesa, Arizona therapy office" loading="lazy" />
+  <div class="tp-here-text">
+    <p class="tp-eb">2160 E Brown Rd, Suite 3, Mesa</p>
+    <h2 class="tp-h2">Getting here from Tempe</h2>
+    <p class="tp-body">Take the Loop 202 east to Gilbert Road and head south to Brown. From south Tempe, the US 60 east to Gilbert Road and north takes about the same time. Weekday afternoon drive times:</p>
+    <ul class="tp-times">
+      <li>Tempe Town Lake <span>17 min</span></li>
+      <li>Kiwanis Park <span>22 min</span></li>
+      <li>Rural &amp; Elliot <span>22 to 25 min</span></li>
+      <li>Mill &amp; University <span>23 min</span></li>
+      <li>ASU Memorial Union <span>26 min</span></li>
     </ul>
-    <div style="max-width:720px; margin:3rem auto 0;">
+    <p class="tp-body">No car? The light rail runs from campus to Gilbert Road and Main, two miles south of the office. Or skip the drive: secure telehealth works anywhere in Arizona, same therapist, same work. Closer to the south or east side? See <a href="/holistic-therapist-chandler">holistic therapy for Chandler</a> or <a href="/holistic-therapist-gilbert">holistic therapy for Gilbert</a>.</p>
+  </div>
+</section>
+
+<section class="tp-who">
+  <div class="tp-wrap">
+    <div class="tp-who-main">
+      <p class="tp-eb">Who It's For</p>
+      <h2 class="tp-h2">Therapy for Tempe adults, couples, and families.</h2>
+      <ul class="tp-list">
+        <li>Adults dealing with anxiety, burnout, or past trauma</li>
+        <li>Couples, married or not, who keep having the same fight</li>
+        <li>Parents and new parents running on empty</li>
+        <li>People who've tried talk therapy and want something that includes the body</li>
+        <li>People who want the spiritual side of healing with a licensed therapist</li>
+        <li>Teens and pre-teens, with Alicia or with Kyla under Alicia's supervision</li>
+      </ul>
+    </div>
+    <aside class="tp-asu tp-light">
+      <p class="tp-eb tp-eb--gold">For ASU Students</p>
       <h3>Therapy for ASU students in Tempe</h3>
-      <p>Kyla Gordon sees clients for $85 a session under Alicia's clinical supervision, and she did her own psychology degree at ASU. She works with identity, life transitions, and the stress of a big change. Sessions are by video from your apartment, or in person in Mesa, about 26 minutes from the Memorial Union by the Loop 202. Therapy happens while you're in Arizona, so if you head home for the summer, bring it up on the free call and we'll plan around it.</p>
-    </div>
-    <p class="signal-list-feature">If you're not sure where you fit, the first conversation is free and that's what it's <em>for.</em></p>
+      <p class="tp-body">Kyla Gordon sees clients for $85 a session under Alicia's clinical supervision, and she did her own psychology degree at ASU. She works with identity, life transitions, and the stress of a big change.</p>
+      <p class="tp-body">Sessions are by video from your apartment, or in person in Mesa, 26 minutes from the Memorial Union. Heading home for the summer? Bring it up on the free call and we'll plan around it, since therapy happens while you're in Arizona.</p>
+      <a class="tp-link" href="/contact">Book a free call with Kyla &rarr;</a>
+    </aside>
   </div>
 </section>
 
-<!-- What Tempe clients come in for -->
-<section class="section bg-plum-deep reveal">
-  <div class="wrap">
-    <div class="section-header">
-      <div class="section-tag section-tag--light"><div class="section-tag-line"></div>What We Work With<div class="section-tag-line"></div></div>
-      <h2 class="section-title section-title--light">Therapy for anxiety, trauma, and relationships in <em style="color:var(--gold);">Tempe.</em></h2>
-      <p class="section-subtitle section-subtitle--light">Each has its own page, or you can <a href="/services">see every service</a>.</p>
+<section class="tp-svc tp-light">
+  <div class="tp-wrap">
+    <div class="tp-head-row">
+      <div><p class="tp-eb tp-eb--gold">What We Work With</p><h2 class="tp-h2">Therapy for anxiety, trauma, and relationships in Tempe.</h2></div>
+      <a class="tp-link" href="/services">See every service &rarr;</a>
     </div>
-    <div class="editorial-grid editorial-grid--dark">
-      <article class="editorial-card editorial-card--dark">
-        <h3><a href="/somatic-therapy">Somatic therapy</a></h3>
-        <p>For what talking has explained but hasn't settled. The work happens through your own attention, guided by conversation.</p>
-      </article>
-      <article class="editorial-card editorial-card--dark">
-        <h3><a href="/anxiety-therapy-mesa">Anxiety</a></h3>
-        <p>The 3 a.m. thinking and the chest that won't unclench, worked with through the nervous system as well as the thoughts.</p>
-      </article>
-      <article class="editorial-card editorial-card--dark">
-        <h3><a href="/individual-therapy">Trauma and old patterns</a></h3>
-        <p>One-on-one work for what happened, and for the habits you built to get through it.</p>
-      </article>
-      <article class="editorial-card editorial-card--dark">
-        <h3><a href="/couples-counseling">Couples and marriage counseling</a></h3>
-        <p>Trust, distance, and the argument that keeps coming back. Joint sessions for Tempe couples, in the Mesa office or online, with some individual work when it helps.</p>
-      </article>
-      <article class="editorial-card editorial-card--dark">
-        <h3><a href="/ketamine-assisted-therapy">Ketamine-assisted therapy</a></h3>
-        <p>Psychotherapy with the medicine, with preparation before and integration after, led by a certified KAP provider.</p>
-      </article>
-      <article class="editorial-card editorial-card--dark">
-        <h3><a href="/faq">Teens and pre-teens</a></h3>
-        <p>Anxiety, identity, friendships, and growing up online. Alicia and Kyla both see younger clients.</p>
-      </article>
+    <div class="tp-svc-grid">
+      <article><h3><a href="/somatic-therapy">Somatic therapy</a></h3><p>For what talking has explained but hasn't settled. The work happens through your own attention, guided by conversation.</p></article>
+      <article><h3><a href="/anxiety-therapy-mesa">Anxiety</a></h3><p>The 3 a.m. thinking and the chest that won't unclench, worked with through the nervous system as well as the thoughts.</p></article>
+      <article><h3><a href="/individual-therapy">Trauma and old patterns</a></h3><p>One-on-one work for what happened, and for the habits you built to get through it.</p></article>
+      <article><h3><a href="/couples-counseling">Couples and marriage counseling</a></h3><p>Trust, distance, and the argument that keeps coming back. Joint sessions for Tempe couples, in the Mesa office or online.</p></article>
+      <article><h3><a href="/ketamine-assisted-therapy">Ketamine-assisted therapy</a></h3><p>Psychotherapy with the medicine, with preparation before and integration after, led by a certified KAP provider.</p></article>
+      <article><h3><a href="/faq">Teens and pre-teens</a></h3><p>Anxiety, identity, friendships, and growing up online. Alicia and Kyla both see younger clients.</p></article>
     </div>
   </div>
 </section>
 
-<!-- Who you would work with. Bios are the shared location-template component, kept identical to Chandler and Gilbert. -->
-<section class="section bg-cream reveal">
-  <div class="wrap">
-    <div class="section-header">
-      <div class="section-tag"><div class="section-tag-line"></div>Who You'd Work With<div class="section-tag-line"></div></div>
-      <h2 class="section-title">Meet your <em>therapists.</em></h2>
-      <p class="section-subtitle">Alicia leads the practice and supervises Kyla's clinical work. The rate depends on which of them you see.</p>
+<section class="tp-cost">
+  <div class="tp-wrap">
+    <div class="tp-cost-text">
+      <p class="tp-eb">Cost</p>
+      <h2 class="tp-h2">What therapy costs, and why we don't bill insurance</h2>
+      <p class="tp-body">Before insurance pays for a session, it needs a mental health diagnosis on your record, and then it decides how many sessions that diagnosis gets. A lot of what people bring here doesn't fit that shape: a job that's grinding you down, a marriage that's gone quiet, grief, or wanting to understand yourself at a deeper level than symptoms.</p>
+      <p class="tp-body">Being out of network keeps those decisions in the room. We provide superbills you can submit to a PPO for possible reimbursement, and HSA and FSA cards are accepted.</p>
     </div>
-    <div class="team-grid" style="max-width:900px; margin:0 auto;">
-      <article class="team-card">
-        <div class="team-photo">
-          <img width="1200" height="1500" src="assets/img/alicia-welcome-portrait.jpg" alt="Alicia Wright, LCSW, founder of The Wild Within, in her Mesa, Arizona therapy office" loading="lazy" />
-        </div>
-        <h3>Alicia Wright, LCSW</h3>
-        <p class="team-role">Founder &amp; Lead Therapist</p>
-        <p>Licensed clinical social worker, EMDR trained, certified ketamine-assisted psychotherapy provider, certified tantra practitioner, and kundalini dance teacher. She holds a Master of Social Work plus an MA in Human Services focused on crisis response and trauma. Her deepest work lives in trauma, embodiment, couples, and KAP.</p>
-      </article>
-      <article class="team-card">
-        <div class="team-photo">
-          <img width="715" height="894" src="assets/img/kyla-headshot.jpg" alt="Kyla Gordon, therapist intern at The Wild Within in Mesa, Arizona" loading="lazy" />
-        </div>
-        <h3>Kyla Gordon</h3>
-        <p class="team-role">Therapist Intern &middot; MSW Candidate</p>
-        <p>Arizona native, psychology degree from ASU, finishing her Master of Social Work at Capella. Several years with children and adults in substance use and crisis response settings. She works with perinatal mental health, parenthood, identity through life transitions, and teens, at a lower rate and under Alicia's clinical supervision.</p>
-      </article>
-    </div>
-    <p class="team-pricing-note">Sessions range from $85 to $185 depending on therapist experience and training. <a href="/faq">See full pricing &rarr;</a></p>
-  </div>
-</section>
-
-<!-- Why cash-pay -->
-<section class="section bg-warm reveal">
-  <div class="wrap content-split reverse">
-    <div class="content-split-image reveal-right">
-      <img width="1062" height="1170" src="assets/img/soul-on-fire-frame.jpg" alt="Framed print reading &quot;Find what sets your soul on fire&quot; in Alicia Wright's Mesa, Arizona therapy office" loading="lazy" />
-    </div>
-    <div class="content-split-text reveal-left">
-      <h2>What therapy costs, and why we don't bill insurance</h2>
-      <p>Before insurance pays for a session, it needs a mental health diagnosis on your record, and then it decides how many sessions that diagnosis gets. A lot of what people bring here doesn't fit that shape. A job that's grinding you down, a marriage that's gone quiet, grief, or wanting to understand yourself at a deeper level than symptoms.</p>
-      <p>Being out-of-network keeps those decisions in the room. You aren't given a diagnosis for billing purposes, and nobody outside the session sets the pace. We provide superbills you can submit to a PPO for possible reimbursement, and HSA and FSA cards are accepted.</p>
-      <p>Sessions run $85 to $185. Sessions with Kyla are $85, with Alicia supervising her clinical work, and sessions with Alicia run up to $185.</p>
-    </div>
-  </div>
-</section>
-
-<section class="inline-cta">
-  <h3>Start with a free call.</h3>
-  <p>No intake forms and no commitment. Tell us what's going on, hear how we work, and decide from there.</p>
-  <a href="/contact" class="btn-primary">
-    <span>Schedule Free Consultation</span>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-  </a>
-</section>
-
-<!-- How It Works -->
-<section class="process reveal">
-  <div style="max-width:1000px; margin:0 auto;">
-    <div class="section-header">
-      <div class="section-tag" style="justify-content:center;"><div class="section-tag-line" style="background:var(--gold-muted);"></div>How It Works<div class="section-tag-line" style="background:var(--gold-muted);"></div></div>
-      <h2 class="section-title" style="color:var(--ivory);">How to get started.</h2>
-      <p class="section-subtitle" style="color:var(--warm-gray-light);">You can stop at any step.</p>
-    </div>
-    <div class="process-steps stagger">
-      <div class="process-step">
-        <div class="process-step-num">01</div>
-        <h4>A free 30-minute call</h4>
-        <p>A phone call. You share what's bringing you in, we explain how we work, and you get a feel for whether it fits. If it doesn't, we'll help you find someone who does.</p>
+    <div>
+      <div class="tp-prices">
+        <div class="tp-price"><div><b>Kyla Gordon</b><small>Therapist intern, supervised by Alicia</small></div><span class="tp-amt">$85</span></div>
+        <div class="tp-price"><div><b>Alicia Wright, LCSW</b><small>Founder and lead therapist</small></div><span class="tp-amt"><i>UP TO</i>$185</span></div>
       </div>
-      <div class="process-step">
-        <div class="process-step-num">02</div>
-        <h4>Pick in person or online</h4>
-        <p>Telehealth from wherever you are in Arizona, or the Mesa office on E Brown Rd. Switching between the two from week to week is fine.</p>
-      </div>
-      <div class="process-step">
-        <div class="process-step-num">03</div>
-        <h4>Do the work</h4>
-        <p>Weekly, every other week, or longer intensive sessions. Grounding and regulation come first, and the deeper work follows at the pace you set.</p>
-      </div>
+      <p class="tp-note">Sessions are 50 minutes, weekly, every other week, or longer intensives. The first call is free.</p>
     </div>
   </div>
 </section>
 
-<!-- Details -->
-<section class="section bg-cream reveal">
-  <div class="wrap">
-    <div class="section-header">
-      <div class="section-tag"><div class="section-tag-line"></div>The Details<div class="section-tag-line"></div></div>
-      <h2 class="section-title">What to know before you <em>book.</em></h2>
+<section class="tp-steps tp-light">
+  <div class="tp-wrap">
+    <div class="tp-head-row">
+      <div><p class="tp-eb tp-eb--lgold">How It Works</p><h2 class="tp-h2">How to get started.</h2></div>
+      <p>You can stop at any step.</p>
     </div>
-    <div class="detail-grid">
-      <article class="detail-card">
-        <p class="detail-eyebrow">Investment</p>
-        <h3 class="detail-title">$85 to $185 <span class="detail-unit">per session</span></h3>
-        <p class="detail-body">The rate depends on which therapist you see. Out-of-network with superbills for possible PPO reimbursement. HSA and FSA accepted.</p>
-      </article>
-      <article class="detail-card">
-        <p class="detail-eyebrow">Where</p>
-        <h3 class="detail-title">Telehealth <span class="detail-unit">or Mesa office</span></h3>
-        <p class="detail-body">Secure video anywhere in Arizona, or 2160 E Brown Rd, Suite 3 in Mesa, off the Loop 202 at Gilbert Road.</p>
-      </article>
-      <article class="detail-card">
-        <p class="detail-eyebrow">Length</p>
-        <h3 class="detail-title">50 minutes <span class="detail-unit">or longer</span></h3>
-        <p class="detail-body">Weekly, every other week, or intensive sessions. Wear something comfortable.</p>
-      </article>
-    </div>
+    <ol>
+      <li><span>01</span><h3>A free 30-minute call</h3><p>A phone call. You share what's bringing you in, we explain how we work, and you get a feel for whether it fits. If it doesn't, we'll help you find someone who does.</p></li>
+      <li><span>02</span><h3>Pick in person or online</h3><p>Telehealth from wherever you are in Arizona, or the Mesa office on E Brown Rd. Switching between the two from week to week is fine.</p></li>
+      <li><span>03</span><h3>Do the work</h3><p>Weekly, every other week, or longer intensive sessions. Grounding and regulation come first, and the deeper work follows at the pace you set.</p></li>
+    </ol>
   </div>
 </section>
 
-<!-- Testimonial. The one real client story on the site, same as the other location pages. -->
-<section class="testimonial-section reveal">
-  <div style="max-width:800px; margin:0 auto;">
-    <div class="section-header">
-      <div class="section-tag"><div class="section-tag-line"></div>What Clients Say<div class="section-tag-line"></div></div>
-    </div>
-    <div class="testimonial-card active" style="display:block;">
-      <div class="testimonial-quote-mark"></div>
-      <blockquote>She taught me coping skills, gave me guided steps to consider making in my life, and hope for the future. I can now regulate my emotions versus numbing my feelings, and I have joy again, and a life that I embrace in the present moment while dreaming of an even better future.</blockquote>
-      <div class="testimonial-author">Colleen<span>Client Story &middot; East Valley, AZ</span></div>
-    </div>
+<!-- Testimonial. The one real client story on the site, quoted in full. -->
+<section class="tp-quote">
+  <img width="1600" height="1066" src="assets/img/alicia-therapy-session-orange.jpg" alt="Alicia Wright, LCSW, in session with a client in her warmly lit Mesa, Arizona therapy office" loading="lazy" />
+  <div class="tp-wrap" style="width:100%;">
+    <figure>
+      <p class="tp-eb tp-eb--lgold">What Clients Say</p>
+      <blockquote>&ldquo;She taught me coping skills, gave me guided steps to consider making in my life, and hope for the future. I can now regulate my emotions versus numbing my feelings, and I have joy again, and a life that I embrace in the present moment while dreaming of an even better future.&rdquo;</blockquote>
+      <figcaption>Colleen &middot; Client story, East Valley, AZ</figcaption>
+    </figure>
   </div>
 </section>
 
 <!-- FAQ. Every answer here is duplicated word for word in the FAQPage JSON-LD in the head. Change both. -->
-<section class="section bg-warm reveal">
-  <div class="wrap prose faq">
-    <div class="section-header" style="margin-bottom:2rem;">
-      <div class="section-tag"><div class="section-tag-line"></div>Common Questions<div class="section-tag-line"></div></div>
-      <h2 class="section-title">FAQ</h2>
+<section class="tp-faq">
+  <div class="tp-wrap">
+    <div class="tp-faq-side">
+      <p class="tp-eb">Common Questions</p>
+      <h2 class="tp-h2">FAQ</h2>
+      <p class="tp-body" style="color:var(--muted);">Something else on your mind? Ask it on the free call, or call <a href="tel:+14807712181">(480) 771-2181</a>.</p>
     </div>
+    <div class="tp-faq-list">
     <details><summary>Do you have an office in Tempe, AZ?</summary><p>No. The office is in Mesa at 2160 E Brown Rd, Suite 3, about 20 to 25 minutes from most of Tempe by the Loop 202 or the US 60. Secure telehealth is available anywhere in Arizona.</p></details>
     <details><summary>Is holistic therapy the same as energy healing?</summary><p>They are two different offerings here, and both are real parts of the practice. Therapy is licensed clinical work with Alicia, LCSW, using somatic work, parts work, EMDR, and talk therapy. Chakra healing is offered as its own session, and it is wellness work, not therapy.</p></details>
     <details><summary>Is there an affordable therapist near ASU in Tempe?</summary><p>Kyla Gordon sees clients for $85 a session under Alicia Wright's clinical supervision. She is a therapist intern finishing her Master of Social Work, with a psychology degree from ASU. Sessions are by secure video anywhere in Arizona or in person at the Mesa office, about 26 minutes from campus, and the first step is a free 30-minute phone consult.</p></details>
@@ -486,56 +590,35 @@
     <details><summary>Will insurance pay for holistic or somatic therapy?</summary><p>We are out-of-network, so we do not bill insurance directly. We provide superbills you can submit to a PPO for possible out-of-network reimbursement, and HSA and FSA cards are accepted. Sessions range from $85 to $185 depending on which therapist you see.</p></details>
     <details><summary>Do you see teens and pre-teens from Tempe?</summary><p>Yes. Both Alicia and Kyla work with pre-teens and teens. Kyla sees clients at a lower rate under Alicia's clinical supervision, which makes this an accessible place to start.</p></details>
     <details><summary>Are you taking new clients?</summary><p>Yes. Start with a free 30-minute consult by phone to see whether it is a fit before you book anything.</p></details>
-  </div>
-</section>
-
-<!-- Related -->
-<section class="section bg-cream reveal">
-  <div class="wrap">
-    <div class="section-header">
-      <div class="section-tag"><div class="section-tag-line"></div>Explore More<div class="section-tag-line"></div></div>
-      <h2 class="section-title">Other ways we can <em>work together.</em></h2>
-    </div>
-    <div class="services-grid">
-      <article class="service-card service-card--photo">
-        <div class="service-photo"><img width="749" height="340" src="assets/img/card-somatic-hand-heart.jpg" alt="Alicia Wright, LCSW, with a hand on her heart during a somatic practice in Mesa, Arizona" loading="lazy" /></div>
-        <div class="service-body">
-          <h3>Somatic Therapy</h3>
-          <p>Body-based therapy for what words alone haven't reached.</p>
-          <a class="service-link" href="/somatic-therapy">More on somatic therapy <span aria-hidden="true">&rarr;</span></a>
-        </div>
-      </article>
-      <article class="service-card service-card--photo">
-        <div class="service-photo"><img width="1081" height="491" src="assets/img/service-workshops.jpg" alt="Hands cradling a warm ceremonial drink during a group at The Wild Within in Mesa, Arizona" loading="lazy" /></div>
-        <div class="service-body">
-          <h3>Workshops &amp; Groups</h3>
-          <p>Circles and workshops for doing this work alongside other people.</p>
-          <a class="service-link" href="/workshops">See workshops and groups <span aria-hidden="true">&rarr;</span></a>
-        </div>
-      </article>
-      <article class="service-card service-card--photo">
-        <div class="service-photo"><img width="1083" height="492" src="assets/img/service-parenting.jpg" alt="Children&#39;s artwork covering the office wall at The Wild Within in Mesa, Arizona" loading="lazy" /></div>
-        <div class="service-body">
-          <h3>Parenting Support</h3>
-          <p>Support for the parent, from a mom who has been there.</p>
-          <a class="service-link" href="/parenting-support">More on parenting support <span aria-hidden="true">&rarr;</span></a>
-        </div>
-      </article>
     </div>
   </div>
 </section>
 
-<section class="cta-section">
-  <div class="cta-content reveal">
-    <div class="section-tag" style="justify-content:center;"><div class="section-tag-line"></div>Tempe, AZ<div class="section-tag-line"></div></div>
-    <h2>Reach <span class="accent-script">out.</span></h2>
-    <p>The first conversation is free. No commitment and no script. It's a chance to see if we're the right fit.</p>
-    <div class="cta-actions">
-      <a href="/contact" class="btn-primary"><span>Book a Free Consultation</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      <a href="tel:+14807712181" class="cta-phone"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>(480) 771-2181</a>
+<section class="tp-more">
+  <div class="tp-wrap">
+    <div class="tp-more-head"><p class="tp-eb">Explore More</p><h2 class="tp-h2">Other ways we can work together.</h2></div>
+    <div class="tp-more-grid">
+      <article><img width="660" height="826" src="assets/img/alicia-grounding-hand-heart.jpg" alt="Alicia Wright, LCSW, with a hand on her heart during a grounding practice in Mesa, Arizona" loading="lazy" /><h3>Somatic Therapy</h3><p>Body-based therapy for what words alone haven't reached.</p><a href="/somatic-therapy">More on somatic therapy &rarr;</a></article>
+      <article><img width="1081" height="491" src="assets/img/service-workshops.jpg" alt="Hands cradling a warm ceremonial drink during a group at The Wild Within in Mesa, Arizona" loading="lazy" /><h3>Workshops &amp; Groups</h3><p>Circles and workshops for doing this work alongside other people.</p><a href="/workshops">See workshops and groups &rarr;</a></article>
+      <article><img width="1083" height="492" src="assets/img/service-parenting.jpg" alt="Children&#39;s artwork covering the office wall at The Wild Within in Mesa, Arizona" loading="lazy" /><h3>Parenting Support</h3><p>Support for the parent, from a mom who has been there.</p><a href="/parenting-support">More on parenting support &rarr;</a></article>
     </div>
   </div>
 </section>
+
+<section class="tp-cta">
+  <div class="tp-wrap">
+    <div class="tp-cta-text">
+      <h2 class="tp-h2">Reach out.</h2>
+      <p>The first conversation is free, 30 minutes by phone. No commitment and no script. It's a chance to see if we're the right fit.</p>
+    </div>
+    <div class="tp-cta-act">
+      <a href="/contact" class="tp-btn">Book a free consultation</a>
+      <a href="tel:+14807712181" class="tp-phone">or call (480) 771-2181</a>
+    </div>
+  </div>
+</section>
+
+</div>
 
 </main>
 
