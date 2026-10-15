@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>One moment</title>
+<style>
+  html,body{margin:0;padding:0;background:#FDFBF8}
+  body{min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;color:#4A2848}
+  .spinner{width:26px;height:26px;border-radius:50%;border:3px solid #E8E2D8;border-top-color:#C9A84C;animation:s .9s linear infinite}
+  @keyframes s{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+  <div class="spinner" aria-label="One moment"></div>
+<script>
+  // GoHighLevel form baAKt4GhwhM34kn1AN7M redirects its iframe here on submit
+  // (On Submit: redirect to this page with {{contact.first_name}} and
+  // {{contact.phone}}). This page only hands the name back to /free-consult/,
+  // which shows the thank-you state and counts the lead. It loads no tags of
+  // its own, so a lead is never counted twice.
+  var PARENT_ORIGIN = 'https://thewildwithintherapy.com';
+  function clean(v){ return (!v || v.indexOf('{{') !== -1) ? '' : v; }
+  // Read the phone straight off the raw query string: GoHighLevel does not
+  // encode the "+" in +1480..., and URLSearchParams would turn it into a space.
+  function raw(name){
+    var parts = location.search.replace(/^\?/, '').split('&');
+    for (var i = 0; i < parts.length; i++){
+      var eq = parts[i].indexOf('=');
+      if (eq !== -1 && parts[i].slice(0, eq) === name) {
+        try { return decodeURIComponent(parts[i].slice(eq + 1)); } catch(e){ return parts[i].slice(eq + 1); }
+      }
+    }
+    return '';
+  }
+  var lead = {
+    first: clean(new URLSearchParams(location.search).get('first_name')),
+    phone: clean(raw('phone'))
+  };
+  if (window.parent !== window) {
+    window.parent.postMessage({ source: 'ww-kyla', type: 'capture-complete', lead: lead }, PARENT_ORIGIN);
+  } else {
+    location.replace('/free-consult/?sent=1&first_name=' + encodeURIComponent(lead.first));
+  }
+</script>
+</body>
+</html>
