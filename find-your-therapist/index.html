@@ -695,19 +695,50 @@
   window.WW_META_PIXEL_ID = "2614392979029565";
   window.WW_QA = /[?&]ww_qa=1\b/.test(location.search);
 
+  /* ?step=book is the booking step reopened after GoHighLevel redirected the
+   * whole tab (booked.html). It is the same visit, not a new page, so it does
+   * not count another PageView, ViewContent or GA4 page_view. The lead's
+   * details travel in sessionStorage. If any arrive in the URL anyway (an
+   * old cached booked.html), move them to sessionStorage and strip them from
+   * the address bar here, before either tag loads, so no tag ever records
+   * them in dl, rl or the page URL. */
+  window.WW_BOOK_RELOAD = (function () {
+    var qs = new URLSearchParams(location.search);
+    if (qs.get('step') !== 'book') return false;
+    var keys = ['first_name', 'last_name', 'email', 'phone', 'therapist'];
+    var found = keys.filter(function(k){ return qs.has(k); });
+    if (found.length) {
+      try {
+        if (!sessionStorage.getItem('ww_book_lead')) {
+          sessionStorage.setItem('ww_book_lead', JSON.stringify({
+            first: qs.get('first_name') || '', last: qs.get('last_name') || '',
+            email: qs.get('email') || '', phone: qs.get('phone') || '',
+            therapist: qs.get('therapist') || ''
+          }));
+        }
+      } catch(e){}
+      keys.forEach(function(k){ qs.delete(k); });
+      try { history.replaceState(history.state, '', location.pathname + '?' + qs.toString() + location.hash); } catch(e){}
+    }
+    return true;
+  })();
+
   (function () {
     if (window.WW_QA) {
       window.__wwEvents = [];
       window.gtag = function(){ window.__wwEvents.push(['gtag'].concat([].slice.call(arguments))); };
       window.fbq  = function(){ window.__wwEvents.push(['fbq'].concat([].slice.call(arguments))); };
-      fbq('track', 'PageView');
-      fbq('track', 'ViewContent', { content_name: 'Find Your Therapist funnel' });
+      if (!window.WW_BOOK_RELOAD) {
+        fbq('track', 'PageView');
+        fbq('track', 'ViewContent', { content_name: 'Find Your Therapist funnel' });
+      }
       return;
     }
     window.dataLayer = window.dataLayer || [];
     window.gtag = function(){ window.dataLayer.push(arguments); };
     gtag('js', new Date());
-    gtag('config', window.WW_GA4_ID);
+    if (window.WW_BOOK_RELOAD) gtag('config', window.WW_GA4_ID, { send_page_view: false });
+    else gtag('config', window.WW_GA4_ID);
     var g = document.createElement('script');
     g.async = true;
     g.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(window.WW_GA4_ID);
@@ -719,8 +750,10 @@
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
     (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', window.WW_META_PIXEL_ID);
-    fbq('track', 'PageView');
-    fbq('track', 'ViewContent', { content_name: 'Find Your Therapist funnel' });
+    if (!window.WW_BOOK_RELOAD) {
+      fbq('track', 'PageView');
+      fbq('track', 'ViewContent', { content_name: 'Find Your Therapist funnel' });
+    }
   })();
 
   /* One call site for both platforms. metaOpts.custom sends a non-standard
@@ -1249,7 +1282,8 @@
    * booked.html forwards to ?step=book when GoHighLevel redirects the whole
    * tab (the usual case, seen 2026-09-23). That is a lead, so it fires
    * generate_lead/Lead, then opens Step 3 with the form done and the
-   * calendar showing. */
+   * calendar showing. The lead's details come from sessionStorage, never the
+   * URL, and are cleared as soon as they are read. */
   (function(){
     var qs = new URLSearchParams(window.location.search);
     if(qs.get('step') !== 'book'){
@@ -1257,14 +1291,23 @@
       trackStep('landing');
       return;
     }
-    leadDetails.first = qs.get('first_name') || '';
-    leadDetails.last  = qs.get('last_name')  || '';
-    leadDetails.email = qs.get('email') || '';
-    leadDetails.phone = qs.get('phone') || '';
-    var tp = (qs.get('therapist') || '').toLowerCase();
+    var lead = {};
+    try { lead = JSON.parse(sessionStorage.getItem('ww_book_lead') || '{}') || {}; } catch(e){ lead = {}; }
+    try { sessionStorage.removeItem('ww_book_lead'); } catch(e){}
+    leadDetails.first = lead.first || '';
+    leadDetails.last  = lead.last  || '';
+    leadDetails.email = lead.email || '';
+    leadDetails.phone = lead.phone || '';
+    var tp = (lead.therapist || '').toLowerCase();
     var saved = ''; try { saved = sessionStorage.getItem('ww_match') || ''; } catch(e){}
     suggestedKey = (tp === 'alicia' || tp === 'kyla') ? tp : (saved === 'alicia' || saved === 'kyla' ? saved : 'kyla');
-    fireLead();
+    // A reload of ?step=book finds the details already cleared. The Lead for
+    // this session was counted on the first load, so it is not counted again
+    // (the same one-Lead-per-session rule fireLead keys on the contact).
+    var hadLead = !!(lead.first || lead.last || lead.email || lead.phone);
+    var alreadyCounted = false;
+    try { for (var i = 0; i < sessionStorage.length; i++) { if ((sessionStorage.key(i) || '').indexOf('ww_lead_') === 0) alreadyCounted = true; } } catch(e){}
+    if (hadLead || !alreadyCounted) fireLead();
     show('capture', { noTrack:true, noHistory:true });
     try { history.replaceState({ ww:'capture' }, ''); } catch(e){}
     markSubmitted();

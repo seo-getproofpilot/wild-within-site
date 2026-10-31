@@ -235,6 +235,24 @@
   window.WW_QA = /[?&]ww_qa=1\b/.test(location.search);
   var PAGE = 'kyla_free_consult';
 
+  /* ?sent=1 is this page reopened after GoHighLevel redirected the whole tab
+   * (thanks.html). Same visit, so no second PageView, ViewContent or GA4
+   * page_view. The first name travels in sessionStorage; if a name or phone
+   * arrives in the URL anyway (an old cached thanks.html), move it there and
+   * strip it here, before either tag loads. */
+  window.WW_SENT_RELOAD = (function () {
+    var qs = new URLSearchParams(location.search);
+    if (qs.get('sent') !== '1') return false;
+    if (qs.has('first_name') || qs.has('phone')) {
+      try {
+        if (!sessionStorage.getItem('ww_kyla_sent')) sessionStorage.setItem('ww_kyla_sent', JSON.stringify({ first: qs.get('first_name') || '' }));
+      } catch(e){}
+      qs.delete('first_name'); qs.delete('phone');
+      try { history.replaceState(history.state, '', location.pathname + '?' + qs.toString() + location.hash); } catch(e){}
+    }
+    return true;
+  })();
+
   (function () {
     if (window.WW_QA) {
       window.__wwEvents = [];
@@ -244,7 +262,8 @@
       window.dataLayer = window.dataLayer || [];
       window.gtag = function(){ window.dataLayer.push(arguments); };
       gtag('js', new Date());
-      gtag('config', window.WW_GA4_ID);
+      if (window.WW_SENT_RELOAD) gtag('config', window.WW_GA4_ID, { send_page_view: false });
+      else gtag('config', window.WW_GA4_ID);
       var g = document.createElement('script');
       g.async = true;
       g.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(window.WW_GA4_ID);
@@ -257,8 +276,10 @@
       (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
       fbq('init', window.WW_META_PIXEL_ID);
     }
-    fbq('track', 'PageView');
-    fbq('track', 'ViewContent', { content_name: 'Kyla free consult' });
+    if (!window.WW_SENT_RELOAD) {
+      fbq('track', 'PageView');
+      fbq('track', 'ViewContent', { content_name: 'Kyla free consult' });
+    }
   })();
 
   function wwTrack(ga4Event, params, metaEvent, metaParams, eventID){
@@ -365,8 +386,14 @@
   });
 
   // thanks.html opened as the whole tab (no parent page) sends people back
-  // here with ?sent=1, so the thank-you state still shows.
-  if (qs.get('sent') === '1') showThanks({ first: qs.get('first_name') || '', phone: '' });
+  // here with ?sent=1, so the thank-you state still shows. The first name
+  // comes from sessionStorage, never the URL, and is cleared once read.
+  if (qs.get('sent') === '1') {
+    var sent = {};
+    try { sent = JSON.parse(sessionStorage.getItem('ww_kyla_sent') || '{}') || {}; } catch(e){ sent = {}; }
+    try { sessionStorage.removeItem('ww_kyla_sent'); } catch(e){}
+    showThanks({ first: sent.first || '', phone: '' });
+  }
 
   /* ---------- Phone taps ---------- */
   document.addEventListener('click', function(e){
