@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
+<!-- GoHighLevel lands here with the lead's name and phone in the query
+     string. Send only the origin as the referrer, so /free-consult/'s tags
+     (Meta pixel rl, GA4 dr) never see this URL. -->
+<meta name="referrer" content="origin">
 <title>One moment</title>
 <style>
   html,body{margin:0;padding:0;background:#FDFBF8}
@@ -41,7 +45,11 @@
   if (window.parent !== window) {
     window.parent.postMessage({ source: 'ww-kyla', type: 'capture-complete', lead: lead }, PARENT_ORIGIN);
   } else {
-    location.replace('/free-consult/?sent=1&first_name=' + encodeURIComponent(lead.first));
+    // Whole-tab redirect: hand the first name over through sessionStorage, not
+    // the URL, so it never reaches GA4 or the Meta pixel.
+    try { sessionStorage.setItem('ww_kyla_sent', JSON.stringify({ first: lead.first })); } catch(e){}
+    try { history.replaceState(null, '', location.pathname); } catch(e){}
+    location.replace('/free-consult/?sent=1');
   }
 </script>
 </body>
