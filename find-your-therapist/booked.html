@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
+<!-- GoHighLevel lands here with the lead's name, email and phone in the query
+     string. Send only the origin as the referrer, so the next page's tags
+     (Meta pixel rl, GA4 dr) never see this URL. -->
+<meta name="referrer" content="origin">
 <title>One moment</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -95,19 +99,15 @@
   } else {
     // Not framed: either someone opened this URL directly, or the embed
     // broke and GoHighLevel did a top-level redirect instead of an
-    // iframe-internal one. Either way there is no parent page listening for
-    // a postMessage, so the visitor must not be stranded here. Send them
-    // straight to the booking step, carrying the same values forward as
-    // plain query params so index.html's own step=book fallback (bottom of
-    // its script) can pick them straight back up.
-    var params = [
-      'first_name=' + encodeURIComponent(lead.first),
-      'last_name='  + encodeURIComponent(lead.last),
-      'email='      + encodeURIComponent(lead.email),
-      'phone='      + encodeURIComponent(lead.phone),
-      'therapist='  + encodeURIComponent(lead.therapist)
-    ].join('&');
-    window.location.replace('/find-your-therapist/?step=book&' + params);
+    // iframe-internal one (the usual case, seen 2026-09-23). Either way there
+    // is no parent page listening for a postMessage, so the visitor must not
+    // be stranded here. Hand the lead to index.html through sessionStorage
+    // (same tab, same origin) and send them to the bare booking step. No
+    // personal data goes in the URL: GA4 and the Meta pixel record the page
+    // URL and the referrer, and that dataset is health-restricted.
+    try { sessionStorage.setItem('ww_book_lead', JSON.stringify(lead)); } catch (e) {}
+    try { history.replaceState(null, '', window.location.pathname); } catch (e) {}
+    window.location.replace('/find-your-therapist/?step=book');
   }
 </script>
 </body>
