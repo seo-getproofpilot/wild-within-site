@@ -193,6 +193,11 @@
   .got span{ display:block; font-size:13px; line-height:18px; color:var(--warm-gray); }
   .submitted #form-frame{ display:none; }
   .submitted .formnote{ display:none; }
+  /* Crisis line, same wording and links as the homepage footer. Stays visible after submit. */
+  .crisis{ margin:0; color:var(--muted); font-size:13px; line-height:19px; }
+  .crisis a{ color:inherit; font-weight:600; text-decoration:underline; text-underline-offset:2px; }
+  .foot .crisis-f{ margin:6px 0 0; color:var(--ivory-78); font-size:13px; line-height:20px; }
+  .foot .crisis-f a{ text-decoration:underline; text-underline-offset:2px; }
   .submitted .got{ display:flex; }
 
   .s3-time{ display:flex; flex-direction:column; gap:14px; padding-top:32px; }
@@ -394,6 +399,7 @@
     .submitted .s3-sub{ display:none; }
     .s3-grid #form-frame, .s3-grid .got{ margin-top:32px; }
     .s3-grid .formnote{ margin-top:14px; }
+    .s3-grid .crisis{ margin-top:10px; }
     .s3-grid .s3-time{ padding-top:56px; gap:16px; }
     .s3-grid .s3-time h3{ font-size:30px; line-height:36px; letter-spacing:-.015em; }
     .s3-grid .cal-note{ font-size:13px; line-height:18px; }
@@ -596,6 +602,7 @@
         </div>
         <div class="frame got"><i style="color:#FAF7F2"><svg aria-hidden="true"><use href="#i-check"/></svg></i><div><b id="got-head">Thank you. Your details are in.</b><span id="got-line">Now pick a time below.</span></div></div>
         <p class="formnote" id="formnote">Kyla calls you at this number. Leave health details out of this form; they belong in your secure client portal later.</p>
+        <p class="crisis">If you are in crisis, please reach out for immediate support: <a href="tel:988">988 Suicide &amp; Crisis Lifeline</a>, text <strong>HOME</strong> to <strong>741741</strong>, or <a href="tel:911">911</a>.</p>
       </div>
 
       <div class="s3-time" id="s3-time">
@@ -668,6 +675,7 @@
       <a href="tel:+14807712181" data-call="footer">(480) 771-2181</a>
       <span class="lic">Alicia Wright, MA, MSW, LCSW. Therapy for people located in Arizona.</span>
     </div>
+    <p class="crisis-f">In Crisis? <a href="tel:988">988 Suicide &amp; Crisis Lifeline</a> &middot; Text <strong>HOME</strong> to <strong>741741</strong> &middot; <a href="tel:911">911. Emergency</a></p>
   </div>
   <span class="lic-d">Alicia Wright, MA, MSW, LCSW. Therapy for people located in Arizona.</span>
 </footer>
